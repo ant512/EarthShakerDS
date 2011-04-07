@@ -10,6 +10,8 @@ class BlockBase {
 public:
 	BlockBase() {
 		_bitmap = new Bitmap(16, 16);
+		_isDestructable = false;
+		_canFall = false;
 	};
 
 	inline virtual ~BlockBase() {
@@ -20,8 +22,13 @@ public:
 		gfx->drawBitmap(x * _bitmap->getWidth(), y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
 	};
 
+	inline bool isDestructable() { return _isDestructable; }
+	inline bool canFall() { return _canFall; }
+
 protected:
 	Bitmap* _bitmap;
+	bool _isDestructable;
+	bool _canFall;
 };
 
 #endif
