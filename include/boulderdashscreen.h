@@ -7,22 +7,18 @@
 #include <superbitmap.h>
 #include <woopsifuncs.h>
 
-#include "levelbase.h"
-#include "blockbase.h"
+#include "game.h"
 
 using namespace WoopsiUI;
 
 class BoulderdashScreen : public AmigaScreen {
 public:
 	BoulderdashScreen();
-
 	~BoulderdashScreen();
 
 private:
-	LevelBase* _level;
+	Game* _game;
 	SuperBitmap* _superBitmap;
-
-	LevelBase* createLevel(u8* data, s32 width, s32 height);
 };
 
 #endif
