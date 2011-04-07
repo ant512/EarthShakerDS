@@ -2,25 +2,26 @@
 #define _BLOCK_BASE_H_
 
 #include <graphics.h>
-
-#include <mutablebitmapbase.h>
+#include <bitmap.h>
 
 using namespace WoopsiUI;
 
 class BlockBase {
 public:
-	BlockBase(BitmapBase* bitmap) {
-		_bitmap = bitmap;
+	BlockBase() {
+		_bitmap = new Bitmap(16, 16);
 	};
 
-	inline virtual ~BlockBase() {};
+	inline virtual ~BlockBase() {
+		delete _bitmap;
+	};
 
-	void render(s32 x, s32 y, Graphics* gfx) {
+	virtual void render(s32 x, s32 y, Graphics* gfx) {
 		gfx->drawBitmap(x * _bitmap->getWidth(), y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
 	};
 
-private:
-	BitmapBase* _bitmap;
+protected:
+	Bitmap* _bitmap;
 };
 
 #endif
