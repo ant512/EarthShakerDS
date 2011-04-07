@@ -21,6 +21,8 @@ public:
 private:
 	LevelBase* _level;
 	SuperBitmap* _superBitmap;
+
+	LevelBase* createLevel(u8* data, s32 width, s32 height);
 };
 
 #endif
