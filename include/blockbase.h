@@ -18,7 +18,7 @@ public:
 
 	virtual bool iterate(s32 x, s32 y, LevelBase* level);
 
-	bool tryToDrop(s32 x, s32 y, LevelBase* level);
+	bool drop(s32 x, s32 y, LevelBase* level);
 
 	bool isFalling() const;
 

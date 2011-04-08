@@ -24,7 +24,7 @@ bool BlockBase::isFalling() const {
 	return _isFalling;
 }
 
-bool BlockBase::tryToDrop(s32 x, s32 y, LevelBase* level) {
+bool BlockBase::drop(s32 x, s32 y, LevelBase* level) {
 
 	// Abort if we're already at the bottom of the grid
 	if (y == level->getHeight() - 1) {

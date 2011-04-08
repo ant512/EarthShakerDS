@@ -26,7 +26,7 @@ public:
 	~DiamondBlock() {};
 
 	virtual bool iterate(s32 x, s32 y, LevelBase* level) {
-		return tryToDrop(x, y, level);
+		return drop(x, y, level);
 	};
 };
 
