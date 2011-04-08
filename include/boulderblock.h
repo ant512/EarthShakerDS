@@ -14,7 +14,7 @@ class BoulderBlock : public BlockBase {
 public:
 	BoulderBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		Graphics* gfx = _bitmap->newGraphics();
-		gfx->drawFilledEllipse(7, 7, 7, 7, woopsiRGB(0, 0, 31));
+		gfx->drawFilledEllipse(7, 7, 7, 7, woopsiRGB(31, 0, 0));
 		delete gfx;
 	};
 
