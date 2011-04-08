@@ -79,10 +79,20 @@ bool BlockBase::drop(LevelBase* level) {
 
 bool BlockBase::pushLeft(LevelBase* level) {
 	if (_x == 0) return false;
-	return (level->getBlockAt(_x - 1, _y) == NULL);
+	if (level->getBlockAt(_x - 1, _y) == NULL) {
+		level->moveBlock(_x, _y, _x - 1, _y);
+		return true;
+	}
+
+	return false;
 }
 
 bool BlockBase::pushRight(LevelBase* level) {
 	if (_x == level->getWidth() - 1) return false;
-	return (level->getBlockAt(_x + 1, _y) == NULL);
+	if (level->getBlockAt(_x + 1, _y) == NULL) {
+		level->moveBlock(_x, _y, _x + 1, _y);
+		return true;
+	}
+
+	return false;
 }
