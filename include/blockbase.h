@@ -20,8 +20,11 @@ public:
 
 	bool tryToDrop(s32 x, s32 y, LevelBase* level);
 
+	bool isFalling() const;
+
 protected:
 	Bitmap* _bitmap;
+	bool _isFalling;
 };
 
 #endif

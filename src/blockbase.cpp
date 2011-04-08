@@ -4,6 +4,7 @@
 using namespace WoopsiUI;
 
 BlockBase::BlockBase() {
+	_isFalling = false;
 	_bitmap = new Bitmap(16, 16);
 }
 
@@ -19,15 +20,23 @@ bool BlockBase::iterate(s32 x, s32 y, LevelBase* level) {
 	return false;
 }
 
+bool BlockBase::isFalling() const {
+	return _isFalling;
+}
+
 bool BlockBase::tryToDrop(s32 x, s32 y, LevelBase* level) {
 
 	// Abort if we're already at the bottom of the grid
-	if (y == level->getHeight() - 1) return false;
+	if (y == level->getHeight() - 1) {
+		_isFalling = false;
+		return false;
+	}
 
 	BlockBase* bottom = level->getBlockAt(x, y + 1);
 
 	if (bottom == NULL) {
 		level->moveBlock(x, y, x, y + 1);
+		_isFalling = true;
 		return true;
 	}
 
@@ -37,6 +46,7 @@ bool BlockBase::tryToDrop(s32 x, s32 y, LevelBase* level) {
 
 		if ((left == NULL) && (bottomLeft == NULL)) {
 			level->moveBlock(x, y, x - 1, y + 1);
+			_isFalling = true;
 			return true;
 		}
 	}
@@ -47,9 +57,11 @@ bool BlockBase::tryToDrop(s32 x, s32 y, LevelBase* level) {
 
 		if ((right == NULL) && (bottomRight == NULL)) {
 			level->moveBlock(x, y, x + 1, y + 1);
+			_isFalling = true;
 			return true;
 		}
 	}
 
+	_isFalling = false;
 	return false;
 }
