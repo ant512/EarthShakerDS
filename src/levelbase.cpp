@@ -1,13 +1,15 @@
 #include <bitmap.h>
 
+#include "game.h"
 #include "mapitembase.h"
 #include "levelbase.h"
 
 using namespace WoopsiUI;
 
-LevelBase::LevelBase(s32 width, s32 height) {
+LevelBase::LevelBase(s32 width, s32 height, Game* game) {
 	_width = width;
 	_height = height;
+	_game = game;
 	_data = new MapItemBase*[width * height];
 }
 

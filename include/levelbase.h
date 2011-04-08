@@ -6,11 +6,12 @@
 using namespace WoopsiUI;
 
 class MapItemBase;
+class Game;
 
 class LevelBase {
 public:
 
-	LevelBase(s32 width, s32 height);
+	LevelBase(s32 width, s32 height, Game* game);
 
 	virtual ~LevelBase();
 
@@ -32,6 +33,7 @@ private:
 	s32 _width;
 	s32 _height;
 	MapItemBase** _data;
+	Game* _game;
 };
 
 #endif
