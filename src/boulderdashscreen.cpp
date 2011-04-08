@@ -16,6 +16,9 @@ BoulderdashScreen::BoulderdashScreen() : AmigaScreen("Boulderdash", true, true) 
 	addGadget(_superBitmap);
 
 	Graphics* gfx = _superBitmap->getGraphics();
+
+	while(_game->iterate());
+
 	_game->render(gfx);
 	delete gfx;
 }

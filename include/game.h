@@ -16,6 +16,8 @@ public:
 
 	void render(Graphics* gfx);
 
+	bool iterate();
+
 private:
 	LevelBase* _level;
 

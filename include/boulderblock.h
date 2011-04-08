@@ -11,14 +11,17 @@ using namespace WoopsiUI;
 class BoulderBlock : public BlockBase {
 public:
 	BoulderBlock() {
-		_canFall = true;
-		
 		Graphics* gfx = _bitmap->newGraphics();
 		gfx->drawFilledEllipse(7, 7, 7, 7, woopsiRGB(0, 0, 31));
 		delete gfx;
 	};
 
 	~BoulderBlock() {};
+
+	virtual bool iterate(s32 x, s32 y, LevelBase* level) {
+		return tryToDrop(x, y, level);
+	};
+
 };
 
 #endif

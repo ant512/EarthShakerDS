@@ -1,34 +1,27 @@
 #ifndef _BLOCK_BASE_H_
 #define _BLOCK_BASE_H_
 
-#include <graphics.h>
 #include <bitmap.h>
+#include <graphics.h>
 
 using namespace WoopsiUI;
 
+class LevelBase;
+
 class BlockBase {
 public:
-	BlockBase() {
-		_bitmap = new Bitmap(16, 16);
-		_isDestructable = false;
-		_canFall = false;
-	};
+	BlockBase();
 
-	inline virtual ~BlockBase() {
-		delete _bitmap;
-	};
+	virtual ~BlockBase();
 
-	virtual void render(s32 x, s32 y, Graphics* gfx) {
-		gfx->drawBitmap(x * _bitmap->getWidth(), y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
-	};
+	virtual void render(s32 x, s32 y, Graphics* gfx);
 
-	inline bool isDestructable() { return _isDestructable; }
-	inline bool canFall() { return _canFall; }
+	virtual bool iterate(s32 x, s32 y, LevelBase* level);
+
+	bool tryToDrop(s32 x, s32 y, LevelBase* level);
 
 protected:
 	Bitmap* _bitmap;
-	bool _isDestructable;
-	bool _canFall;
 };
 
 #endif

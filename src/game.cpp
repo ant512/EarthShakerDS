@@ -9,9 +9,9 @@ Game::Game() {
 
 	s32 levelWidth = 4;
 	s32 levelHeight = 4;
-	u8 levelData[16] = {2,1,1,1,
-					 	2,1,1,1,
-					 	2,1,3,1,
+	u8 levelData[16] = {2,1,1,2,
+					 	2,1,1,0,
+					 	2,1,3,0,
 					 	2,2,2,2};
 
 	_level = createLevel(levelData, levelWidth, levelHeight);
@@ -25,6 +25,10 @@ void Game::render(Graphics* gfx) {
 	_level->render(gfx);
 }
 
+bool Game::iterate() {
+	return _level->iterate();
+}
+
 LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
 
 	LevelBase* level = new LevelBase(width, height);
@@ -36,7 +40,7 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
 
 			switch (data[(y * width) + x]) {
 				case 0:
-					// Empty
+					block = NULL;
 					break;
 				case 1:
 					block = new SoilBlock();

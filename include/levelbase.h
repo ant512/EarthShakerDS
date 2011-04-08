@@ -3,9 +3,9 @@
 
 #include <graphics.h>
 
-#include "blockbase.h"
-
 using namespace WoopsiUI;
+
+class BlockBase;
 
 class LevelBase {
 public:
@@ -18,11 +18,15 @@ public:
 
 	inline s32 getHeight() const { return _height; };
 
-	inline BlockBase* getBlockAt(s32 x, s32 y) const { return _data[(y * _width) + x]; };
+	BlockBase* getBlockAt(s32 x, s32 y) const;
 
 	inline void setBlockAt(s32 x, s32 y, BlockBase* block) { _data[(y * _width) + x] = block; };
 
+	void moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY);
+
 	void render(Graphics* gfx);
+
+	bool iterate();
 
 private:
 	s32 _width;
