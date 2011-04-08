@@ -4,7 +4,9 @@
 
 using namespace WoopsiUI;
 
-BlockBase::BlockBase() {
+BlockBase::BlockBase(s32 x, s32 y) {
+	_x = x;
+	_y = y;
 	_isFalling = false;
 	_bitmap = new Bitmap(16, 16);
 }
@@ -13,11 +15,19 @@ BlockBase::~BlockBase() {
 	delete _bitmap;
 }
 
-void BlockBase::render(s32 x, s32 y, Graphics* gfx) {
-	gfx->drawBitmap(x * _bitmap->getWidth(), y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
+void BlockBase::setX(s32 x) {
+	_x = x;
 }
 
-bool BlockBase::iterate(s32 x, s32 y, LevelBase* level) {
+void BlockBase::setY(s32 y) {
+	_y = y;
+}
+
+void BlockBase::render(Graphics* gfx) {
+	gfx->drawBitmap(_x * _bitmap->getWidth(), _y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
+}
+
+bool BlockBase::iterate(LevelBase* level) {
 	return false;
 }
 
@@ -25,39 +35,39 @@ bool BlockBase::isFalling() const {
 	return _isFalling;
 }
 
-bool BlockBase::drop(s32 x, s32 y, LevelBase* level) {
+bool BlockBase::drop(LevelBase* level) {
 
 	// Abort if we're already at the bottom of the grid
-	if (y == level->getHeight() - 1) {
+	if (_y == level->getHeight() - 1) {
 		_isFalling = false;
 		return false;
 	}
 
-	BlockBase* bottom = level->getBlockAt(x, y + 1);
+	BlockBase* bottom = level->getBlockAt(_x, _y + 1);
 
 	if (bottom == NULL) {
-		level->moveBlock(x, y, x, y + 1);
+		level->moveBlock(_x, _y, _x, _y + 1);
 		_isFalling = true;
 		return true;
 	}
 
-	if (x > 0) {
-		BlockBase* left = level->getBlockAt(x - 1, y);
-		BlockBase* bottomLeft = level->getBlockAt(x - 1, y + 1);
+	if (_x > 0) {
+		BlockBase* left = level->getBlockAt(_x - 1, _y);
+		BlockBase* bottomLeft = level->getBlockAt(_x - 1, _y + 1);
 
 		if ((left == NULL) && (bottomLeft == NULL)) {
-			level->moveBlock(x, y, x - 1, y + 1);
+			level->moveBlock(_x, _y, _x - 1, _y + 1);
 			_isFalling = true;
 			return true;
 		}
 	}
 
-	if (x < level->getWidth() - 1) {
-		BlockBase* right = level->getBlockAt(x - 1, y);
-		BlockBase* bottomRight = level->getBlockAt(x, y + 1);
+	if (_x < level->getWidth() - 1) {
+		BlockBase* right = level->getBlockAt(_x - 1, _y);
+		BlockBase* bottomRight = level->getBlockAt(_x, _y + 1);
 
 		if ((right == NULL) && (bottomRight == NULL)) {
-			level->moveBlock(x, y, x + 1, y + 1);
+			level->moveBlock(_x, _y, _x + 1, _y + 1);
 			_isFalling = true;
 			return true;
 		}
@@ -67,12 +77,12 @@ bool BlockBase::drop(s32 x, s32 y, LevelBase* level) {
 	return false;
 }
 
-bool BlockBase::pushLeft(s32 x, s32 y, LevelBase* level) {
-	if (x == 0) return false;
-	return (level->getBlockAt(x - 1, y) == NULL);
+bool BlockBase::pushLeft(LevelBase* level) {
+	if (_x == 0) return false;
+	return (level->getBlockAt(_x - 1, _y) == NULL);
 }
 
-bool BlockBase::pushRight(s32 x, s32 y, LevelBase* level) {
-	if (x == level->getWidth() - 1) return false;
-	return (level->getBlockAt(x + 1, y) == NULL);
+bool BlockBase::pushRight(LevelBase* level) {
+	if (_x == level->getWidth() - 1) return false;
+	return (level->getBlockAt(_x + 1, _y) == NULL);
 }

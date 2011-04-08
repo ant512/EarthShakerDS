@@ -1,6 +1,7 @@
 #ifndef _BOULDER_BLOCK_H_
 #define _BOULDER_BLOCK_H_
 
+#include <debug.h>
 #include <graphics.h>
 #include <bitmap.h>
 #include <game.h>
@@ -11,7 +12,7 @@ using namespace WoopsiUI;
 
 class BoulderBlock : public BlockBase {
 public:
-	BoulderBlock() {
+	BoulderBlock(s32 x, s32 y) : BlockBase(x, y) {
 		Graphics* gfx = _bitmap->newGraphics();
 		gfx->drawFilledEllipse(7, 7, 7, 7, woopsiRGB(0, 0, 31));
 		delete gfx;
@@ -19,8 +20,8 @@ public:
 
 	~BoulderBlock() {};
 
-	virtual bool iterate(s32 x, s32 y, LevelBase* level) {
-		return drop(x, y, level);
+	virtual bool iterate(LevelBase* level) {
+		return drop(level);
 	};
 
 	/**
@@ -36,16 +37,19 @@ public:
 	 * @return True if the player successfully moves into this block; false if
 	 * not.
 	 */
-	virtual bool movePlayerInside(s32 x, s32 y, s32 playerX, s32 playerY, Game* game) {
+	virtual bool movePlayerInside(s32 playerX, s32 playerY, Game* game) {
+
+
+		Debug::printf("go");
 
 		// Ignore any attempts to push the block vertically
-		if (playerY != y) return false;
+		if (playerY != _y) return false;
 
 		// Try to push the block
-		if (x > playerX) {
-			return pushRight(x, y, game->getLevel());
-		} else if (x < playerX) {
-			return pushLeft(x, y, game->getLevel());
+		if (_x > playerX) {
+			return pushRight(game->getLevel());
+		} else if (_x < playerX) {
+			return pushLeft(game->getLevel());
 		}
 
 		// Block couldn't be pushed

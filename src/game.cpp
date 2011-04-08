@@ -11,7 +11,7 @@ Game::Game() {
 	s32 levelHeight = 8;
 	u8 levelData[128] = {2,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,
 						2,1,1,0,2,0,0,0,0,0,1,1,0,2,3,0,
-						2,1,3,0,2,0,0,0,0,1,1,1,0,0,3,0,
+						2,1,3,0,2,0,0,0,0,1,1,1,0,0,2,0,
 						2,2,2,2,0,0,0,1,0,1,0,1,0,0,0,1,
 						1,0,0,0,0,0,1,1,0,0,0,1,0,0,0,1,
 						1,1,0,1,0,1,1,1,0,0,0,0,0,0,0,1,
@@ -51,13 +51,13 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
 					block = NULL;
 					break;
 				case 1:
-					block = new SoilBlock();
+					block = new SoilBlock(x, y);
 					break;
 				case 2:
-					block = new BoulderBlock();
+					block = new BoulderBlock(x, y);
 					break;
 				case 3:
-					block = new DiamondBlock();
+					block = new DiamondBlock(x, y);
 					break;
 			}
 

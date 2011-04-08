@@ -23,7 +23,7 @@ void LevelBase::render(Graphics* gfx) {
 
 		BlockBase* block = getBlockAt(x, y);
 		if (block != NULL) {
-			block->render(x, y, gfx);
+			block->render(gfx);
 		} else {
 
 			// TODO: Magic numbers to constants
@@ -46,6 +46,11 @@ void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
 	BlockBase* source = getBlockAt(sourceX, sourceY);
 	setBlockAt(sourceX, sourceY, NULL);
 	setBlockAt(destX, destY, source);
+
+	if (source != NULL) {
+		source->setX(destX);
+		source->setY(destY);
+	}
 }
 
 bool LevelBase::iterate() {
@@ -58,7 +63,7 @@ bool LevelBase::iterate() {
 
 			if (block == NULL) continue;
 
-			if (block->iterate(x, y, this)) {
+			if (block->iterate(this)) {
 				requiresIteration = true;
 			}
 		}

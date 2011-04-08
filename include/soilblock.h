@@ -11,7 +11,7 @@ using namespace WoopsiUI;
 
 class SoilBlock : public BlockBase {
 public:
-	SoilBlock() {
+	SoilBlock(s32 x, s32 y) : BlockBase(x, y) {
 		Graphics* gfx = _bitmap->newGraphics();
 		gfx->drawFilledRect(0, 0, 16, 16, woopsiRGB(17, 8, 2));
 		delete gfx;
@@ -32,7 +32,7 @@ public:
 	 * @return True if the player successfully moves into this block; false if
 	 * not.
 	 */
-	virtual bool movePlayerInside(s32 x, s32 y, s32 playerX, s32 playerY, Game* game) {
+	virtual bool movePlayerInside(s32 playerX, s32 playerY, Game* game) {
 		return true;
 	};
 };

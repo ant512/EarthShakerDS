@@ -15,12 +15,15 @@ public:
 	/**
 	 * Constructor.
 	 */
-	BlockBase();
+	BlockBase(s32 x, s32 y);
 
 	/**
 	 * Destructor.
 	 */
 	virtual ~BlockBase();
+
+	void setX(s32 x);
+	void setY(s32 y);
 
 	/**
 	 * Draw the block to the graphics object using the supplied map co-ordinates
@@ -29,7 +32,7 @@ public:
 	 * @param y The y co-ordinate of this block within the level map.
 	 * @param gfx The graphics object to draw to.
 	 */
-	virtual void render(s32 x, s32 y, Graphics* gfx);
+	virtual void render(Graphics* gfx);
 
 	/**
 	 * The block examines the level and based on its layout acts appropriately.
@@ -39,7 +42,7 @@ public:
 	 * @return True if the block performs an action that changes the layout of
 	 * the map; false if not.
 	 */
-	virtual bool iterate(s32 x, s32 y, LevelBase* level);
+	virtual bool iterate(LevelBase* level);
 
 	/**
 	 * Check if the block is falling.  This is set to true during an iteration
@@ -60,11 +63,13 @@ public:
 	 * @return True if the player successfully moves into this block; false if
 	 * not.
 	 */
-	inline virtual bool movePlayerInside(s32 x, s32 y, s32 playerX, s32 playerY, Game* game) = 0;
+	virtual bool movePlayerInside(s32 playerX, s32 playerY, Game* game) = 0;
 
 protected:
 	Bitmap* _bitmap;		/**< The bitmap representing the appearance of the block. */
 	bool _isFalling;		/**< The falling state of the block. */
+	s32 _x;
+	s32 _y;
 
 	/**
 	 * Drops the block from its current position to a free block below.  Will
@@ -76,7 +81,7 @@ protected:
 	 * @param level The level containing this block.
 	 * @return True if the block drops; false if not.
 	 */
-	bool drop(s32 x, s32 y, LevelBase* level);
+	bool drop(LevelBase* level);
 
 	/**
 	 * Pushes this block to the left if the block to the left is empty.
@@ -85,7 +90,7 @@ protected:
 	 * @param level The level containing this block.
 	 * @return True if the block moves; false if not.
 	 */
-	bool pushLeft(s32 x, s32 y, LevelBase* level);
+	bool pushLeft(LevelBase* level);
 
 	/**
 	 * Pushes this block to the right if the block to the left is empty.
@@ -94,7 +99,7 @@ protected:
 	 * @param level The level containing this block.
 	 * @return True if the block moves; false if not.
 	 */
-	bool pushRight(s32 x, s32 y, LevelBase* level);
+	bool pushRight(LevelBase* level);
 };
 
 #endif

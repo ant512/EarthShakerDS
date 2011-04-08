@@ -10,7 +10,7 @@ using namespace WoopsiUI;
 
 class DiamondBlock : public BlockBase {
 public:
-	DiamondBlock() {
+	DiamondBlock(s32 x, s32 y) : BlockBase(x, y) {
 		Graphics* gfx = _bitmap->newGraphics();
 
 		gfx->drawLine(0, 7, 7, 0, woopsiRGB(0, 0, 31));
@@ -25,8 +25,8 @@ public:
 
 	~DiamondBlock() {};
 
-	virtual bool iterate(s32 x, s32 y, LevelBase* level) {
-		return drop(x, y, level);
+	virtual bool iterate(LevelBase* level) {
+		return drop(level);
 	};
 
 	/**
@@ -42,7 +42,7 @@ public:
 	 * @return True if the player successfully moves into this block; false if
 	 * not.
 	 */
-	virtual bool movePlayerInside(s32 x, s32 y, s32 playerX, s32 playerY, Game* game) {
+	virtual bool movePlayerInside(s32 playerX, s32 playerY, Game* game) {
 		
 		// TODO: Player should collect diamond here.
 		return true;
