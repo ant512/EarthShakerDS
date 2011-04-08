@@ -32,6 +32,10 @@ BoulderdashScreen::~BoulderdashScreen() {
 	delete _game;
 }
 
+void BoulderdashScreen::onKeyRepeat(KeyCode keyCode) {
+	onKeyPress(keyCode);
+}
+
 void BoulderdashScreen::onKeyPress(KeyCode keyCode) {
 
 	Graphics* gfx = _superBitmap->getGraphics();

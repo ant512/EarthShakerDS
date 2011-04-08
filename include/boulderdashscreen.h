@@ -26,6 +26,7 @@ public:
 	 * @param e The event data.
 	 */
 	void onKeyPress(KeyCode keyCode);
+	void onKeyRepeat(KeyCode keyCode);
 
 private:
 	Game* _game;
