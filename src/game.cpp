@@ -7,12 +7,16 @@ using namespace WoopsiUI;
 
 Game::Game() {
 
-	s32 levelWidth = 4;
-	s32 levelHeight = 4;
-	u8 levelData[16] = {2,1,1,2,
-					 	2,1,1,0,
-					 	2,1,3,0,
-					 	2,2,2,2};
+	s32 levelWidth = 8;
+	s32 levelHeight = 8;
+	u8 levelData[64] = {2,1,1,2,1,1,1,1,
+					 	2,1,1,0,2,0,0,0,
+					 	2,1,3,0,2,0,0,0,
+					 	2,2,2,2,0,0,0,1,
+					 	1,0,0,0,0,0,1,1,
+					 	1,1,0,1,0,1,1,1,
+					 	1,1,0,1,1,1,1,1,
+					 	1,1,1,1,1,1,1,1};
 
 	_level = createLevel(levelData, levelWidth, levelHeight);
 }
