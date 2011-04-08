@@ -16,10 +16,17 @@ public:
 
 	void render(Graphics* gfx);
 
-	void moveLeft();
-	void moveRight();
-	void moveUp();
-	void moveDown();
+	/**
+	 * The block examines the level and based on its layout acts appropriately.
+	 * @return True if the block performs an action that changes the layout of
+	 * the map; false if not.
+	 */
+	bool iterate() { return false; }
+
+	bool moveLeft();
+	bool moveRight();
+	bool moveUp();
+	bool moveDown();
 };
 
 #endif

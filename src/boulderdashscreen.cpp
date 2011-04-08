@@ -36,8 +36,6 @@ void BoulderdashScreen::onKeyPress(KeyCode keyCode) {
 
 	Graphics* gfx = _superBitmap->getGraphics();
 
-	Debug::printf("go");
-
 	switch (keyCode) {
 		case KEY_CODE_UP:
 			_game->getPlayerSprite()->moveUp();

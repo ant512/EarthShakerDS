@@ -40,6 +40,13 @@ public:
 	 */
 	virtual void render(Graphics* gfx) = 0;
 
+	/**
+	 * The block examines the level and based on its layout acts appropriately.
+	 * @return True if the block performs an action that changes the layout of
+	 * the map; false if not.
+	 */
+	virtual bool iterate() = 0;
+
 protected:
 	Bitmap* _bitmap;
 	s32 _x;

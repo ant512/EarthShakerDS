@@ -26,94 +26,62 @@ void PlayerSprite::render(Graphics* gfx) {
 	gfx->drawBitmap(_x * _bitmap->getWidth(), _y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
 }
 
-void PlayerSprite::moveLeft() {
-	if (_x == 0) return;
+bool PlayerSprite::moveLeft() {
+	if (_x == 0) return false;;
 
-	BlockBase* block = _game->getLevel()->getBlockAt(_x - 1, _y);
+	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x - 1, _y));
 
 	// Attempt to move to the new location - this will push boulders, collect
 	// diamonds, wipe out soil, etc.
 	if (block->movePlayerInside()) {
-
-		// We can move to the new location, but the block at that location may
-		// not have moved (in the case of soil, for example).  In that situation
-		// we need to make sure we delete the block
-		block = _game->getLevel()->getBlockAt(_x - 1, _y);
-		if (block != NULL) {
-			delete block;
-			_game->getLevel()->setBlockAt(_x - 1, _y, NULL);
-		}
-
-		// Update our own co-ordinates
-		_x -= 1;
+		_game->getLevel()->moveBlock(_x, _y, _x - 1, _y);
+		return true;
 	}
+
+	return false;
 }
 
-void PlayerSprite::moveRight() {
-	if (_x == _game->getLevel()->getWidth() - 1) return;
+bool PlayerSprite::moveRight() {
+	if (_x == _game->getLevel()->getWidth() - 1) return false;
 
-	BlockBase* block = _game->getLevel()->getBlockAt(_x + 1, _y);
+	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x + 1, _y));
 
 	// Attempt to move to the new location - this will push boulders, collect
 	// diamonds, wipe out soil, etc.
 	if (block->movePlayerInside()) {
-
-		// We can move to the new location, but the block at that location may
-		// not have moved (in the case of soil, for example).  In that situation
-		// we need to make sure we delete the block
-		block = _game->getLevel()->getBlockAt(_x + 1, _y);
-		if (block != NULL) {
-			delete block;
-			_game->getLevel()->setBlockAt(_x + 1, _y, NULL);
-		}
-
-		// Update our own co-ordinates
-		_x += 1;
+		_game->getLevel()->moveBlock(_x, _y, _x + 1, _y);
+		return true;
 	}
+
+	return false;
 }
 
-void PlayerSprite::moveUp() {
-	if (_y == 0) return;
+bool PlayerSprite::moveUp() {
+	if (_y == 0) return true;
 
-	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y - 1);
+	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x, _y - 1));
 
 	// Attempt to move to the new location - this will push boulders, collect
 	// diamonds, wipe out soil, etc.
 	if (block->movePlayerInside()) {
-
-		// We can move to the new location, but the block at that location may
-		// not have moved (in the case of soil, for example).  In that situation
-		// we need to make sure we delete the block
-		block = _game->getLevel()->getBlockAt(_x, _y - 1);
-		if (block != NULL) {
-			delete block;
-			_game->getLevel()->setBlockAt(_x, _y - 1, NULL);
-		}
-
-		// Update our own co-ordinates
-		_y -= 1;
+		_game->getLevel()->moveBlock(_x, _y, _x, _y - 1);
+		return true;
 	}
+
+	return false;
 }
 
-void PlayerSprite::moveDown() {
-	if (_y == _game->getLevel()->getHeight() - 1) return;
+bool PlayerSprite::moveDown() {
+	if (_y == _game->getLevel()->getHeight() - 1) return true;
 
-	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
+	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x, _y + 1));
 
 	// Attempt to move to the new location - this will push boulders, collect
 	// diamonds, wipe out soil, etc.
 	if (block->movePlayerInside()) {
-
-		// We can move to the new location, but the block at that location may
-		// not have moved (in the case of soil, for example).  In that situation
-		// we need to make sure we delete the block
-		block = _game->getLevel()->getBlockAt(_x, _y + 1);
-		if (block != NULL) {
-			delete block;
-			_game->getLevel()->setBlockAt(_x, _y + 1, NULL);
-		}
-
-		// Update our own co-ordinates
-		_y += 1;
+		_game->getLevel()->moveBlock(_x, _y, _x, _y + 1);
+		return true;
 	}
+
+	return false;
 }

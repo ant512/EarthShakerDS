@@ -14,13 +14,11 @@ Game::Game() {
 						2,1,3,0,2,0,0,0,0,1,1,1,0,0,2,0,
 						2,2,2,2,0,0,0,1,0,1,0,1,0,0,0,1,
 						1,0,0,0,0,0,1,1,0,0,0,1,0,0,0,1,
-						1,1,0,1,0,1,1,1,0,0,0,0,0,0,0,1,
+						1,1,0,1,0,1,1,1,0,0,0,0,4,0,0,1,
 						1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,1,
 						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
 	_level = createLevel(levelData, levelWidth, levelHeight);
-
-	_playerSprite = new PlayerSprite(5, 5, this);
 }
 
 Game::~Game() {
@@ -38,7 +36,6 @@ PlayerSprite* Game::getPlayerSprite() const {
 
 void Game::render(Graphics* gfx) {
 	_level->render(gfx);
-	_playerSprite->render(gfx);
 }
 
 bool Game::iterate() {
@@ -49,7 +46,7 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
 
 	LevelBase* level = new LevelBase(width, height);
 
-	BlockBase* block = NULL;
+	MapItemBase* block = NULL;
 
 	for (s32 x = 0; x < width; ++x) {
 		for (s32 y = 0; y < height; ++y) {
@@ -66,6 +63,10 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
 					break;
 				case 3:
 					block = new DiamondBlock(x, y, this);
+					break;
+				case 4:
+					block = new PlayerSprite(x, y, this);
+					_playerSprite = (PlayerSprite*)block;
 					break;
 			}
 

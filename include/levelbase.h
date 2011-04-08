@@ -5,7 +5,7 @@
 
 using namespace WoopsiUI;
 
-class BlockBase;
+class MapItemBase;
 
 class LevelBase {
 public:
@@ -18,9 +18,9 @@ public:
 
 	inline s32 getHeight() const { return _height; };
 
-	BlockBase* getBlockAt(s32 x, s32 y) const;
+	MapItemBase* getBlockAt(s32 x, s32 y) const;
 
-	inline void setBlockAt(s32 x, s32 y, BlockBase* block) { _data[(y * _width) + x] = block; };
+	inline void setBlockAt(s32 x, s32 y, MapItemBase* block) { _data[(y * _width) + x] = block; };
 
 	void moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY);
 
@@ -31,7 +31,7 @@ public:
 private:
 	s32 _width;
 	s32 _height;
-	BlockBase** _data;
+	MapItemBase** _data;
 };
 
 #endif

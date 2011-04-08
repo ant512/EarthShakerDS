@@ -36,7 +36,7 @@ bool BlockBase::drop() {
 		return false;
 	}
 
-	BlockBase* bottom = level->getBlockAt(_x, _y + 1);
+	MapItemBase* bottom = level->getBlockAt(_x, _y + 1);
 
 	if (bottom == NULL) {
 		level->moveBlock(_x, _y, _x, _y + 1);
@@ -45,8 +45,8 @@ bool BlockBase::drop() {
 	}
 
 	if (_x > 0) {
-		BlockBase* left = level->getBlockAt(_x - 1, _y);
-		BlockBase* bottomLeft = level->getBlockAt(_x - 1, _y + 1);
+		MapItemBase* left = level->getBlockAt(_x - 1, _y);
+		MapItemBase* bottomLeft = level->getBlockAt(_x - 1, _y + 1);
 
 		if ((left == NULL) && (bottomLeft == NULL)) {
 			level->moveBlock(_x, _y, _x - 1, _y + 1);
@@ -56,8 +56,8 @@ bool BlockBase::drop() {
 	}
 
 	if (_x < level->getWidth() - 1) {
-		BlockBase* right = level->getBlockAt(_x + 1, _y);
-		BlockBase* bottomRight = level->getBlockAt(_x + 1, _y + 1);
+		MapItemBase* right = level->getBlockAt(_x + 1, _y);
+		MapItemBase* bottomRight = level->getBlockAt(_x + 1, _y + 1);
 
 		if ((right == NULL) && (bottomRight == NULL)) {
 			level->moveBlock(_x, _y, _x + 1, _y + 1);
