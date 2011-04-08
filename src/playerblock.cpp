@@ -2,13 +2,13 @@
 #include <graphics.h>
 
 #include "game.h"
-#include "playersprite.h"
+#include "PlayerBlock.h"
 #include "mapitembase.h"
 #include "blockbase.h"
 
 using namespace WoopsiUI;
 
-PlayerSprite::PlayerSprite(s32 x, s32 y, Game* game) : MapItemBase(x, y, game) {
+PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : MapItemBase(x, y, game) {
 	_bitmap = new Bitmap(16, 16);
 
 	Graphics* gfx = _bitmap->newGraphics();
@@ -18,15 +18,15 @@ PlayerSprite::PlayerSprite(s32 x, s32 y, Game* game) : MapItemBase(x, y, game) {
 	delete gfx;
 }
 
-PlayerSprite::~PlayerSprite() {
+PlayerBlock::~PlayerBlock() {
 	delete _bitmap;
 }
 
-void PlayerSprite::render(Graphics* gfx) {
+void PlayerBlock::render(Graphics* gfx) {
 	gfx->drawBitmap(_x * _bitmap->getWidth(), _y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
 }
 
-bool PlayerSprite::moveLeft() {
+bool PlayerBlock::moveLeft() {
 	if (_x == 0) return false;;
 
 	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x - 1, _y));
@@ -41,7 +41,7 @@ bool PlayerSprite::moveLeft() {
 	return false;
 }
 
-bool PlayerSprite::moveRight() {
+bool PlayerBlock::moveRight() {
 	if (_x == _game->getLevel()->getWidth() - 1) return false;
 
 	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x + 1, _y));
@@ -56,7 +56,7 @@ bool PlayerSprite::moveRight() {
 	return false;
 }
 
-bool PlayerSprite::moveUp() {
+bool PlayerBlock::moveUp() {
 	if (_y == 0) return true;
 
 	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x, _y - 1));
@@ -71,7 +71,7 @@ bool PlayerSprite::moveUp() {
 	return false;
 }
 
-bool PlayerSprite::moveDown() {
+bool PlayerBlock::moveDown() {
 	if (_y == _game->getLevel()->getHeight() - 1) return true;
 
 	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x, _y + 1));

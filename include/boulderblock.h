@@ -6,7 +6,7 @@
 
 #include "game.h"
 #include "blockbase.h"
-#include "playersprite.h"
+#include "playerblock.h"
 
 using namespace WoopsiUI;
 
@@ -33,7 +33,7 @@ public:
 	 */
 	virtual bool movePlayerInside() {
 
-		PlayerSprite* player = _game->getPlayerSprite();
+		PlayerBlock* player = _game->getPlayerBlock();
 
 		// Ignore any attempts to push the block vertically
 		if (player->getY() != _y) return false;

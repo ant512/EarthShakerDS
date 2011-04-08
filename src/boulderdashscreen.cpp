@@ -38,28 +38,28 @@ void BoulderdashScreen::onKeyPress(KeyCode keyCode) {
 
 	switch (keyCode) {
 		case KEY_CODE_UP:
-			_game->getPlayerSprite()->moveUp();
+			_game->getPlayerBlock()->moveUp();
 			_game->render(gfx);
 			_superBitmap->markRectsDamaged();
 			_timer->reset();
 			_timer->start();
 			break;
 		case KEY_CODE_DOWN:
-			_game->getPlayerSprite()->moveDown();
+			_game->getPlayerBlock()->moveDown();
 			_game->render(gfx);
 			_superBitmap->markRectsDamaged();
 			_timer->reset();
 			_timer->start();
 			break;
 		case KEY_CODE_LEFT:
-			_game->getPlayerSprite()->moveLeft();
+			_game->getPlayerBlock()->moveLeft();
 			_game->render(gfx);
 			_superBitmap->markRectsDamaged();
 			_timer->reset();
 			_timer->start();
 			break;
 		case KEY_CODE_RIGHT:
-			_game->getPlayerSprite()->moveRight();
+			_game->getPlayerBlock()->moveRight();
 			_game->render(gfx);
 			_superBitmap->markRectsDamaged();
 			_timer->reset();

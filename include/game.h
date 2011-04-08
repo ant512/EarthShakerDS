@@ -5,7 +5,7 @@
 
 #include "levelbase.h"
 #include "blockbase.h"
-#include "playersprite.h"
+#include "playerblock.h"
 
 using namespace WoopsiUI;
 
@@ -18,13 +18,13 @@ public:
 	void render(Graphics* gfx);
 
 	LevelBase* getLevel() const;
-	PlayerSprite* getPlayerSprite() const;
+	PlayerBlock* getPlayerBlock() const;
 
 	bool iterate();
 
 private:
 	LevelBase* _level;
-	PlayerSprite* _playerSprite;
+	PlayerBlock* _playerBlock;
 
 	LevelBase* createLevel(u8* data, s32 width, s32 height);
 };

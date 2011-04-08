@@ -23,15 +23,15 @@ Game::Game() {
 
 Game::~Game() {
 	delete _level;
-	delete _playerSprite;
+	delete _playerBlock;
 }
 
 LevelBase* Game::getLevel() const {
 	return _level;
 }
 
-PlayerSprite* Game::getPlayerSprite() const {
-	return _playerSprite;
+PlayerBlock* Game::getPlayerBlock() const {
+	return _playerBlock;
 }
 
 void Game::render(Graphics* gfx) {
@@ -65,8 +65,8 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
 					block = new DiamondBlock(x, y, this);
 					break;
 				case 4:
-					block = new PlayerSprite(x, y, this);
-					_playerSprite = (PlayerSprite*)block;
+					block = new PlayerBlock(x, y, this);
+					_playerBlock = (PlayerBlock*)block;
 					break;
 			}
 
