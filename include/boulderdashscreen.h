@@ -3,9 +3,12 @@
 
 #include <amigascreen.h>
 #include <bitmap.h>
+#include <gadgeteventhandler.h>
+#include <gadgeteventargs.h>
 #include <graphics.h>
 #include <superbitmap.h>
 #include <woopsifuncs.h>
+#include <woopsitimer.h>
 
 #include "game.h"
 
@@ -16,9 +19,12 @@ public:
 	BoulderdashScreen();
 	~BoulderdashScreen();
 
+	void handleActionEvent(const GadgetEventArgs& e);
+
 private:
 	Game* _game;
 	SuperBitmap* _superBitmap;
+	WoopsiTimer* _timer;
 };
 
 #endif

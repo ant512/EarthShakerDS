@@ -57,7 +57,7 @@ bool LevelBase::iterate() {
 			BlockBase* block = getBlockAt(x, y);
 
 			if (block == NULL) continue;
-			
+
 			if (block->iterate(x, y, this)) {
 				requiresIteration = true;
 			}
