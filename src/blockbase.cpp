@@ -65,3 +65,13 @@ bool BlockBase::drop(s32 x, s32 y, LevelBase* level) {
 	_isFalling = false;
 	return false;
 }
+
+bool BlockBase::pushLeft(s32 x, s32 y, LevelBase* level) {
+	if (x == 0) return false;
+	return (level->getBlockAt(x - 1, y) == NULL);
+}
+
+bool BlockBase::pushRight(s32 x, s32 y, LevelBase* level) {
+	if (x == level->getWidth() - 1) return false;
+	return (level->getBlockAt(x + 1, y) == NULL);
+}
