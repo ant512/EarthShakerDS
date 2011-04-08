@@ -63,7 +63,7 @@ bool LevelBase::iterate() {
 
 			if (block == NULL) continue;
 
-			if (block->iterate(this)) {
+			if (block->iterate()) {
 				requiresIteration = true;
 			}
 		}

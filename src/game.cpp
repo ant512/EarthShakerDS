@@ -51,13 +51,13 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
 					block = NULL;
 					break;
 				case 1:
-					block = new SoilBlock(x, y);
+					block = new SoilBlock(x, y, this);
 					break;
 				case 2:
-					block = new BoulderBlock(x, y);
+					block = new BoulderBlock(x, y, this);
 					break;
 				case 3:
-					block = new DiamondBlock(x, y);
+					block = new DiamondBlock(x, y, this);
 					break;
 			}
 

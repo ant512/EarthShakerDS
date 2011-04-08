@@ -4,9 +4,10 @@
 
 using namespace WoopsiUI;
 
-BlockBase::BlockBase(s32 x, s32 y) {
+BlockBase::BlockBase(s32 x, s32 y, Game* game) {
 	_x = x;
 	_y = y;
+	_game = game;
 	_isFalling = false;
 	_bitmap = new Bitmap(16, 16);
 }
@@ -27,7 +28,7 @@ void BlockBase::render(Graphics* gfx) {
 	gfx->drawBitmap(_x * _bitmap->getWidth(), _y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
 }
 
-bool BlockBase::iterate(LevelBase* level) {
+bool BlockBase::iterate() {
 	return false;
 }
 
@@ -35,7 +36,9 @@ bool BlockBase::isFalling() const {
 	return _isFalling;
 }
 
-bool BlockBase::drop(LevelBase* level) {
+bool BlockBase::drop() {
+
+	LevelBase* level = _game->getLevel();
 
 	// Abort if we're already at the bottom of the grid
 	if (_y == level->getHeight() - 1) {
@@ -77,8 +80,11 @@ bool BlockBase::drop(LevelBase* level) {
 	return false;
 }
 
-bool BlockBase::pushLeft(LevelBase* level) {
+bool BlockBase::pushLeft() {
 	if (_x == 0) return false;
+
+	LevelBase* level = _game->getLevel();
+
 	if (level->getBlockAt(_x - 1, _y) == NULL) {
 		level->moveBlock(_x, _y, _x - 1, _y);
 		return true;
@@ -87,8 +93,11 @@ bool BlockBase::pushLeft(LevelBase* level) {
 	return false;
 }
 
-bool BlockBase::pushRight(LevelBase* level) {
+bool BlockBase::pushRight() {
+	LevelBase* level = _game->getLevel();
+
 	if (_x == level->getWidth() - 1) return false;
+
 	if (level->getBlockAt(_x + 1, _y) == NULL) {
 		level->moveBlock(_x, _y, _x + 1, _y);
 		return true;
