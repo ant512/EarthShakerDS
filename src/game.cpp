@@ -19,10 +19,13 @@ Game::Game() {
 						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
 	_level = createLevel(levelData, levelWidth, levelHeight);
+
+	_playerSprite = new PlayerSprite(5, 5, this);
 }
 
 Game::~Game() {
 	delete _level;
+	delete _playerSprite;
 }
 
 LevelBase* Game::getLevel() const {
@@ -31,6 +34,7 @@ LevelBase* Game::getLevel() const {
 
 void Game::render(Graphics* gfx) {
 	_level->render(gfx);
+	_playerSprite->render(gfx);
 }
 
 bool Game::iterate() {

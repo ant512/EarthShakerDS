@@ -5,6 +5,7 @@
 
 #include "levelbase.h"
 #include "blockbase.h"
+#include "playersprite.h"
 
 using namespace WoopsiUI;
 
@@ -22,6 +23,7 @@ public:
 
 private:
 	LevelBase* _level;
+	PlayerSprite* _playerSprite;
 
 	LevelBase* createLevel(u8* data, s32 width, s32 height);
 };
