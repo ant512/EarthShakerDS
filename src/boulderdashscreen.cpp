@@ -11,7 +11,6 @@ using namespace WoopsiUI;
 BoulderdashScreen::BoulderdashScreen() : AmigaScreen("Boulderdash", true, true) {
 
 	_game = new Game();
-	_game->getLevel()->getBlockAt(0, 0)->movePlayerInside(1, 0);
 	_game->getLevel()->getBlockAt(14, 2)->movePlayerInside(15, 2);
 
 	Rect rect;

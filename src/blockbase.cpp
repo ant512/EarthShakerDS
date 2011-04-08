@@ -1,27 +1,17 @@
 #include "blockbase.h"
 #include "levelbase.h"
+#include "mapitembase.h"
 #include "game.h"
 
 using namespace WoopsiUI;
 
-BlockBase::BlockBase(s32 x, s32 y, Game* game) {
-	_x = x;
-	_y = y;
-	_game = game;
+BlockBase::BlockBase(s32 x, s32 y, Game* game) : MapItemBase(x, y, game) {
 	_isFalling = false;
 	_bitmap = new Bitmap(16, 16);
 }
 
 BlockBase::~BlockBase() {
 	delete _bitmap;
-}
-
-void BlockBase::setX(s32 x) {
-	_x = x;
-}
-
-void BlockBase::setY(s32 y) {
-	_y = y;
 }
 
 void BlockBase::render(Graphics* gfx) {

@@ -4,12 +4,14 @@
 #include <bitmap.h>
 #include <graphics.h>
 
+#include "mapitembase.h"
+
 using namespace WoopsiUI;
 
 class LevelBase;
 class Game;
 
-class BlockBase {
+class BlockBase : public MapItemBase {
 public:
 
 	/**
@@ -21,9 +23,6 @@ public:
 	 * Destructor.
 	 */
 	virtual ~BlockBase();
-
-	void setX(s32 x);
-	void setY(s32 y);
 
 	/**
 	 * Draw the block to the graphics object using the supplied map co-ordinates
@@ -63,11 +62,7 @@ public:
 	virtual bool movePlayerInside(s32 playerX, s32 playerY) = 0;
 
 protected:
-	Bitmap* _bitmap;		/**< The bitmap representing the appearance of the block. */
 	bool _isFalling;		/**< The falling state of the block. */
-	s32 _x;
-	s32 _y;
-	Game* _game;
 
 	/**
 	 * Drops the block from its current position to a free block below.  Will
