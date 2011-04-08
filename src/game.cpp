@@ -25,6 +25,10 @@ Game::~Game() {
 	delete _level;
 }
 
+LevelBase* Game::getLevel() const {
+	return _level;
+}
+
 void Game::render(Graphics* gfx) {
 	_level->render(gfx);
 }

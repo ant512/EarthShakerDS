@@ -1,5 +1,6 @@
 #include "blockbase.h"
 #include "levelbase.h"
+#include "game.h"
 
 using namespace WoopsiUI;
 
