@@ -18,6 +18,7 @@ public:
 	void render(Graphics* gfx);
 
 	LevelBase* getLevel() const;
+	PlayerSprite* getPlayerSprite() const;
 
 	bool iterate();
 

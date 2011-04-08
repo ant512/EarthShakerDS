@@ -16,6 +16,10 @@ public:
 
 	void render(Graphics* gfx);
 
+	void moveLeft();
+	void moveRight();
+	void moveUp();
+	void moveDown();
 };
 
 #endif

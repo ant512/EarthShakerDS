@@ -32,6 +32,10 @@ LevelBase* Game::getLevel() const {
 	return _level;
 }
 
+PlayerSprite* Game::getPlayerSprite() const {
+	return _playerSprite;
+}
+
 void Game::render(Graphics* gfx) {
 	_level->render(gfx);
 	_playerSprite->render(gfx);

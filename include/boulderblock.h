@@ -6,6 +6,7 @@
 
 #include "game.h"
 #include "blockbase.h"
+#include "playersprite.h"
 
 using namespace WoopsiUI;
 
@@ -27,21 +28,20 @@ public:
 	 * Player is moving into this block.  The direction in which the player is
 	 * moving can be determined by comparing the co-ordinates of this block
 	 * with the co-ordinates of the player.
-	 * @param playerX The x co-ordinate of the player within the level map.
-	 * @param playerY The y co-ordinate of the player within the level map.
-	 * @param game Pointer to the overall game object.
 	 * @return True if the player successfully moves into this block; false if
 	 * not.
 	 */
-	virtual bool movePlayerInside(s32 playerX, s32 playerY) {
+	virtual bool movePlayerInside() {
+
+		PlayerSprite* player = _game->getPlayerSprite();
 
 		// Ignore any attempts to push the block vertically
-		if (playerY != _y) return false;
+		if (player->getY() != _y) return false;
 
 		// Try to push the block
-		if (_x > playerX) {
+		if (_x > player->getX()) {
 			return pushRight();
-		} else if (_x < playerX) {
+		} else if (_x < player->getX()) {
 			return pushLeft();
 		}
 

@@ -49,17 +49,12 @@ public:
 
 	/**
 	 * Player is moving into this block.  The direction in which the player is
-	 * moving can be determined by calculating the co-ordinates of this block
-	 * (given in x,y) and the co-ordinates of the player (given in playerX,
-	 * playerY).
-	 * @param x The x co-ordinate of this block within the level map.
-	 * @param y The y co-ordinate of this block within the level map.
-	 * @param playerX The x co-ordinate of the player within the level map.
-	 * @param playerY The y co-ordinate of the player within the level map.
+	 * moving can be determined by comparing the co-ordinates of this block
+	 * with the co-ordinates of the player.
 	 * @return True if the player successfully moves into this block; false if
 	 * not.
 	 */
-	virtual bool movePlayerInside(s32 playerX, s32 playerY) = 0;
+	virtual bool movePlayerInside() = 0;
 
 protected:
 	bool _isFalling;		/**< The falling state of the block. */

@@ -34,13 +34,10 @@ public:
 	 * Player is moving into this block.  The direction in which the player is
 	 * moving can be determined by comparing the co-ordinates of this block
 	 * with the co-ordinates of the player.
-	 * @param playerX The x co-ordinate of the player within the level map.
-	 * @param playerY The y co-ordinate of the player within the level map.
-	 * @param game Pointer to the overall game object.
 	 * @return True if the player successfully moves into this block; false if
 	 * not.
 	 */
-	virtual bool movePlayerInside(s32 playerX, s32 playerY) {
+	virtual bool movePlayerInside() {
 		
 		// TODO: Player should collect diamond here.
 		return true;

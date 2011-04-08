@@ -56,8 +56,8 @@ bool BlockBase::drop() {
 	}
 
 	if (_x < level->getWidth() - 1) {
-		BlockBase* right = level->getBlockAt(_x - 1, _y);
-		BlockBase* bottomRight = level->getBlockAt(_x, _y + 1);
+		BlockBase* right = level->getBlockAt(_x + 1, _y);
+		BlockBase* bottomRight = level->getBlockAt(_x + 1, _y + 1);
 
 		if ((right == NULL) && (bottomRight == NULL)) {
 			level->moveBlock(_x, _y, _x + 1, _y + 1);

@@ -21,6 +21,12 @@ public:
 
 	void handleActionEvent(const GadgetEventArgs& e);
 
+	/**
+	 * Handle a key press event.
+	 * @param e The event data.
+	 */
+	void onKeyPress(KeyCode keyCode);
+
 private:
 	Game* _game;
 	SuperBitmap* _superBitmap;
