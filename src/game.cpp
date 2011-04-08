@@ -44,7 +44,7 @@ bool Game::iterate() {
 
 LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
 
-	LevelBase* level = new LevelBase(width, height, this);
+	LevelBase* level = new LevelBase(width, height);
 
 	MapItemBase* block = NULL;
 

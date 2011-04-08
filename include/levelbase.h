@@ -2,16 +2,16 @@
 #define _LEVEL_BASE_H_
 
 #include <graphics.h>
+#include <woopsiarray.h>
 
 using namespace WoopsiUI;
 
 class MapItemBase;
-class Game;
 
 class LevelBase {
 public:
 
-	LevelBase(s32 width, s32 height, Game* game);
+	LevelBase(s32 width, s32 height);
 
 	virtual ~LevelBase();
 
@@ -21,7 +21,7 @@ public:
 
 	MapItemBase* getBlockAt(s32 x, s32 y) const;
 
-	inline void setBlockAt(s32 x, s32 y, MapItemBase* block) { _data[(y * _width) + x] = block; };
+	void setBlockAt(s32 x, s32 y, MapItemBase* block);
 
 	void moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY);
 
@@ -29,11 +29,13 @@ public:
 
 	bool iterate();
 
+	void addDamagedBlockIndex(s32 index);
+
 private:
 	s32 _width;
 	s32 _height;
 	MapItemBase** _data;
-	Game* _game;
+	WoopsiArray<s32> _damagedBlockList;
 };
 
 #endif

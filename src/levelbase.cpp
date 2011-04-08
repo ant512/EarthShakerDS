@@ -6,10 +6,9 @@
 
 using namespace WoopsiUI;
 
-LevelBase::LevelBase(s32 width, s32 height, Game* game) {
+LevelBase::LevelBase(s32 width, s32 height) {
 	_width = width;
 	_height = height;
-	_game = game;
 	_data = new MapItemBase*[width * height];
 }
 
@@ -18,12 +17,13 @@ LevelBase::~LevelBase() {
 }
 
 void LevelBase::render(Graphics* gfx) {
-	for (s32 i = 0; i < _width * _height; ++i) {
+	for (s32 i = 0; i < _damagedBlockList.size(); ++i) {
 
-		s32 y = i / _width;
-		s32 x = i % _width;
+		s32 y = _damagedBlockList[i] / _width;
+		s32 x = _damagedBlockList[i] % _width;
 
-		MapItemBase* block = getBlockAt(x, y);
+		MapItemBase* block = _data[_damagedBlockList[i]];
+
 		if (block != NULL) {
 			block->render(gfx);
 		} else {
@@ -41,6 +41,17 @@ MapItemBase* LevelBase::getBlockAt(s32 x, s32 y) const {
 	return _data[(y * _width) + x];
 }
 
+void LevelBase::setBlockAt(s32 x, s32 y, MapItemBase* block) {
+	if ((x < 0) || (x >= _width)) return;
+	if ((y < 0) || (y >= _height)) return;
+
+	s32 index = (y * _width) + x;
+
+	_data[index] = block;
+	
+	addDamagedBlockIndex(index);
+}
+
 void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
 	MapItemBase* dest = getBlockAt(destX, destY);
 	if (dest != NULL) delete dest;
@@ -53,6 +64,19 @@ void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
 		source->setX(destX);
 		source->setY(destY);
 	}
+
+	addDamagedBlockIndex((_width * sourceY) + sourceX);
+	addDamagedBlockIndex((_width * destY) + destX);
+}
+
+void LevelBase::addDamagedBlockIndex(s32 index) {
+
+	// Ensure each block is only listed once
+	for (s32 i = 0; i < _damagedBlockList.size(); ++i) {
+		if (_damagedBlockList[i] == index) return;
+	}
+
+	_damagedBlockList.push_back(index);
 }
 
 bool LevelBase::iterate() {
