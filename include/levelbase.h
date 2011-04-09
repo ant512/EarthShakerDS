@@ -2,7 +2,6 @@
 #define _LEVEL_BASE_H_
 
 #include <graphics.h>
-#include <woopsiarray.h>
 
 using namespace WoopsiUI;
 
@@ -29,13 +28,10 @@ public:
 
 	bool iterate();
 
-	void addDamagedBlockIndex(s32 index);
-
 private:
 	s32 _width;
 	s32 _height;
 	BlockBase** _data;
-	WoopsiArray<s32> _damagedBlockList;
 };
 
 #endif

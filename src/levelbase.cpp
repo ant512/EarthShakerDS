@@ -17,12 +17,12 @@ LevelBase::~LevelBase() {
 }
 
 void LevelBase::render(Graphics* gfx) {
-	for (s32 i = 0; i < _damagedBlockList.size(); ++i) {
+	for (s32 i = 0; i < _width * _height; ++i) {
 
-		s32 y = _damagedBlockList[i] / _width;
-		s32 x = _damagedBlockList[i] % _width;
+		s32 y = i / _width;
+		s32 x = i % _width;
 
-		BlockBase* block = _data[_damagedBlockList[i]];
+		BlockBase* block = _data[i];
 
 		if (block != NULL) {
 			block->render(x * 16, y * 16, gfx);
@@ -48,8 +48,6 @@ void LevelBase::setBlockAt(s32 x, s32 y, BlockBase* block) {
 	s32 index = (y * _width) + x;
 
 	_data[index] = block;
-	
-	addDamagedBlockIndex(index);
 }
 
 void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
@@ -64,19 +62,6 @@ void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
 		source->setX(destX);
 		source->setY(destY);
 	}
-
-	addDamagedBlockIndex((_width * sourceY) + sourceX);
-	addDamagedBlockIndex((_width * destY) + destX);
-}
-
-void LevelBase::addDamagedBlockIndex(s32 index) {
-
-	// Ensure each block is only listed once
-	for (s32 i = 0; i < _damagedBlockList.size(); ++i) {
-		if (_damagedBlockList[i] == index) return;
-	}
-
-	_damagedBlockList.push_back(index);
 }
 
 bool LevelBase::iterate() {
