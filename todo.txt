@@ -1,0 +1,18 @@
+Todo
+----
+
+ - Remove magic numbers.
+ - Replace generated bitmaps with pre-drawn graphics.
+ - Animate graphics - animation class instead of bitmap in BlockBase.
+ - Add scoring.
+ - Add timer.
+ - Add beans for time extension.
+ - Add death check - in PlayerBlock iterate() method, check if the block above
+   the player is falling.  If so, player is dead.
+ - Add life counter.
+ - Use top display for game stats (timer, score, lives, level number, etc).
+ - Move level creation somewhere else - load from disk?
+ - Add fires.
+ - Add teleporters.
+ - Add solid walls.
+ - Add between-level sequence?
