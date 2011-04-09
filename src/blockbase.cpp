@@ -7,20 +7,10 @@ using namespace WoopsiUI;
 
 BlockBase::BlockBase(s32 x, s32 y, Game* game) : MapItemBase(x, y, game) {
 	_isFalling = false;
-	_isSlippy = false;
-	_bitmap = new Bitmap(16, 16);
-}
-
-BlockBase::~BlockBase() {
-	delete _bitmap;
 }
 
 void BlockBase::render(Graphics* gfx) {
 	gfx->drawBitmap(_x * _bitmap->getWidth(), _y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
-}
-
-bool BlockBase::iterate() {
-	return false;
 }
 
 bool BlockBase::isFalling() const {

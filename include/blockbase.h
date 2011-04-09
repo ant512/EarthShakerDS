@@ -22,7 +22,7 @@ public:
 	/**
 	 * Destructor.
 	 */
-	virtual ~BlockBase();
+	virtual ~BlockBase() { };
 
 	/**
 	 * Draw the block to the graphics object using the supplied map co-ordinates
@@ -34,27 +34,11 @@ public:
 	virtual void render(Graphics* gfx);
 
 	/**
-	 * The block examines the level and based on its layout acts appropriately.
-	 * @return True if the block performs an action that changes the layout of
-	 * the map; false if not.
-	 */
-	virtual bool iterate();
-
-	/**
 	 * Check if the block is falling.  This is set to true during an iteration
 	 * if the block drops.
 	 * @return True if the block is falling; false if not.
 	 */
 	bool isFalling() const;
-
-
-	bool digFromBelow() { return false; };
-	bool digFromAbove() { return false; };
-	bool digFromLeft() { return false; };
-	bool digFromRight() { return false; };
-
-	bool applyUpwardForce() { return false; };
-	bool applyDownwardForce() { return false; };
 
 	/**
 	 * Pushes this block to the left if the block to the left is empty.

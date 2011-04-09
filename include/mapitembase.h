@@ -15,22 +15,17 @@ public:
 	/**
 	 * Constructor.
 	 */
-	MapItemBase(s32 x, s32 y, Game* game) {
-		_x = x;
-		_y = y;
-		_game = game;
-		_isSlippy = false;
-	}
+	MapItemBase(s32 x, s32 y, Game* game);
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~MapItemBase() { };
+	virtual ~MapItemBase();
 
-	void setX(s32 x) { _x = x; };
-	void setY(s32 y) { _y = y; };
-	s32 getX() const { return _x; };
-	s32 getY() const { return _y; };
+	void setX(s32 x);
+	void setY(s32 y);
+	s32 getX() const;
+	s32 getY() const;
 
 	/**
 	 * Draw the block to the graphics object using the supplied map co-ordinates
@@ -39,15 +34,14 @@ public:
 	 * @param y The y co-ordinate of this block within the level map.
 	 * @param gfx The graphics object to draw to.
 	 */
-	virtual void render(Graphics* gfx) = 0;
+	virtual void render(Graphics* gfx);
 
 	/**
 	 * The block examines the level and based on its layout acts appropriately.
 	 * @return True if the block performs an action that changes the layout of
 	 * the map; false if not.
 	 */
-	virtual bool iterate() = 0;
-
+	virtual bool iterate();
 
 	/**
 	 * Check if the block is slippy.  If this is true, blocks sitting on this
@@ -68,15 +62,15 @@ public:
 	 */
 	inline bool isSlippy() const { return _isSlippy; };
 
-	virtual bool applyUpwardForce() = 0;
-	virtual bool applyDownwardForce() = 0;
-	virtual bool applyRightwardForce() = 0;
-	virtual bool applyLeftwardForce() = 0;
+	virtual bool digFromBelow() { return false; };
+	virtual bool digFromAbove() { return false; };
+	virtual bool digFromLeft() { return false; };
+	virtual bool digFromRight() { return false; };
 
-	virtual bool digFromBelow() = 0;
-	virtual bool digFromAbove() = 0;
-	virtual bool digFromLeft() = 0;
-	virtual bool digFromRight() = 0;
+	virtual bool applyUpwardForce() { return false; };
+	virtual bool applyDownwardForce() { return false; };
+	virtual bool applyLeftwardForce() { return false; };
+	virtual bool applyRightwardForce() { return false; };
 
 
 protected:
