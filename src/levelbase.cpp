@@ -1,6 +1,5 @@
 #include <bitmap.h>
 
-#include "game.h"
 #include "blockbase.h"
 #include "levelbase.h"
 
@@ -16,20 +15,28 @@ LevelBase::~LevelBase() {
 	delete[] _data;
 }
 
-void LevelBase::render(Graphics* gfx) {
-	for (s32 i = 0; i < _width * _height; ++i) {
+void LevelBase::render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, Graphics* gfx) {
 
-		s32 y = i / _width;
-		s32 x = i % _width;
+	// Ensure we don't try to draw more blocks than exist
+	s32 stopX = numBlocksX + blockX;
+	s32 stopY = numBlocksY + blockY;
 
-		BlockBase* block = _data[i];
+	if (stopX > _width) stopX = _width;
+	if (stopY > _height) stopY = _height;
 
-		if (block != NULL) {
-			block->render(x * 16, y * 16, gfx);
-		} else {
+	for (s32 x = blockX; x < stopX; ++x) {
+		for (s32 y = blockY; y < stopY; ++y) {
+			s32 index = (y * _width) + x;
 
-			// TODO: Magic numbers to constants
-			gfx->drawFilledRect(x * 16, y * 16, 16, 16, woopsiRGB(0, 0, 0));
+			BlockBase* block = _data[index];
+
+			if (block != NULL) {
+				block->render((x - blockX) * 16, (y - blockY) * 16, gfx);
+			} else {
+
+				// TODO: Magic numbers to constants
+				gfx->drawFilledRect((x - blockX) * 16, (y - blockY) * 16, 16, 16, woopsiRGB(0, 0, 0));
+			}
 		}
 	}
 }

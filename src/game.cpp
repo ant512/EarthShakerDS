@@ -36,7 +36,25 @@ PlayerBlock* Game::getPlayerBlock() const {
 }
 
 void Game::render(Graphics* gfx) {
-	_level->render(gfx);
+
+	// TODO: Remove magic numbers
+	s32 blockSize = 16;
+	s32 displayWidth = 256 / blockSize;
+	s32 displayHeight = 192 / blockSize;
+
+	s32 centreX = _playerBlock->getX();
+	s32 centreY = _playerBlock->getY();
+
+	s32 x = centreX - (displayWidth / 2);
+	s32 y = centreY - (displayHeight / 2);
+
+	if (x + displayWidth > _level->getWidth()) x = _level->getWidth() - displayWidth;
+	if (x < 0) x = 0;
+
+	if (y + displayHeight > _level->getHeight()) y = _level->getHeight() - displayHeight;
+	if (y < 0) y = 0;
+
+	_level->render(x, y, displayWidth, displayHeight, gfx);
 }
 
 bool Game::iterate() {
