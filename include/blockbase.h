@@ -4,14 +4,12 @@
 #include <bitmap.h>
 #include <graphics.h>
 
-#include "mapitembase.h"
-
 using namespace WoopsiUI;
 
 class LevelBase;
 class Game;
 
-class BlockBase : public MapItemBase {
+class BlockBase {
 public:
 
 	/**
@@ -22,7 +20,12 @@ public:
 	/**
 	 * Destructor.
 	 */
-	virtual ~BlockBase() { };
+	virtual ~BlockBase();
+
+	void setX(s32 x);
+	void setY(s32 y);
+	s32 getX() const;
+	s32 getY() const;
 
 	/**
 	 * Draw the block to the graphics object using the supplied map co-ordinates
@@ -34,44 +37,50 @@ public:
 	virtual void render(Graphics* gfx);
 
 	/**
-	 * Check if the block is falling.  This is set to true during an iteration
-	 * if the block drops.
-	 * @return True if the block is falling; false if not.
+	 * The block examines the level and based on its layout acts appropriately.
+	 * @return True if the block performs an action that changes the layout of
+	 * the map; false if not.
 	 */
-	bool isFalling() const;
+	virtual bool iterate();
 
 	/**
-	 * Pushes this block to the left if the block to the left is empty.
-	 * @param x The x co-ordinate of this block within the level map.
-	 * @param y The y co-ordinate of this block within the level map.
-	 * @param level The level containing this block.
-	 * @return True if the block moves; false if not.
+	 * Check if the block is slippy.  If this is true, blocks sitting on this
+	 * block will slip to the left or right if the left or right block adjacent
+	 * to this is empty.  For example:
+	 *
+	 *   x   If block o is slippy, x slides to the left.
+	 *   oo
+	 *  ooo
+	 *
+	 *   x   If block o is slippy, x will not fall.
+	 *  ooo
+	 *
+	 *   x   If block o is not slippy, x will not fall.
+	 *   o
+	 *  ooo
+	 * @return True if the block is slippy; false if not.
 	 */
-	bool applyLeftwardForce();
+	inline bool isSlippy() const { return _isSlippy; };
 
-	/**
-	 * Pushes this block to the right if the block to the left is empty.
-	 * @param x The x co-ordinate of this block within the level map.
-	 * @param y The y co-ordinate of this block within the level map.
-	 * @param level The level containing this block.
-	 * @return True if the block moves; false if not.
-	 */
-	bool applyRightwardForce();
+	virtual bool digFromBelow() { return false; };
+	virtual bool digFromAbove() { return false; };
+	virtual bool digFromLeft() { return false; };
+	virtual bool digFromRight() { return false; };
+
+	virtual bool applyUpwardForce() { return false; };
+	virtual bool applyDownwardForce() { return false; };
+	virtual bool applyLeftwardForce() { return false; };
+	virtual bool applyRightwardForce() { return false; };
+
 
 protected:
-	bool _isFalling;		/**< The falling state of the block. */
-
-	/**
-	 * Drops the block from its current position to a free block below.  Will
-	 * drop vertically if the block beneath is empty.  Will drop to the left if
-	 * the left block and the one below that are empty.  Will drop to the right
-	 * if the right block and the one below that are empty.
-	 * @param x The x co-ordinate of this block within the level map.
-	 * @param y The y co-ordinate of this block within the level map.
-	 * @param level The level containing this block.
-	 * @return True if the block drops; false if not.
-	 */
-	bool drop();
+	Bitmap* _bitmap;
+	s32 _x;
+	s32 _y;
+	Game* _game;
+	bool _isSlippy;			/**< If true, blocks sitting on this will slip to
+								 the left or right if this block has empty space
+								 net to it. */
 };
 
 #endif

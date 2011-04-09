@@ -3,13 +3,13 @@
 
 #include <graphics.h>
 
-#include "mapitembase.h"
+#include "blockbase.h"
 
 using namespace WoopsiUI;
 
 class Game;
 
-class PlayerBlock : public MapItemBase {
+class PlayerBlock : public BlockBase {
 public:
 	PlayerBlock(s32 x, s32 y, Game* game);
 	~PlayerBlock();

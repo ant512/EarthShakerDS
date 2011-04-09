@@ -2,13 +2,12 @@
 #include <graphics.h>
 
 #include "game.h"
-#include "PlayerBlock.h"
-#include "mapitembase.h"
+#include "playerblock.h"
 #include "blockbase.h"
 
 using namespace WoopsiUI;
 
-PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : MapItemBase(x, y, game) {
+PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 	_bitmap = new Bitmap(16, 16);
 
 	Graphics* gfx = _bitmap->newGraphics();

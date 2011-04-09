@@ -10,9 +10,9 @@
 
 using namespace WoopsiUI;
 
-class BoulderBlock : public BlockBase {
+class BoulderBlock : public HeavyBlockBase {
 public:
-	BoulderBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	BoulderBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
 		_isSlippy = true;	// Boulders are born slippy
 
 		Graphics* gfx = _bitmap->newGraphics();

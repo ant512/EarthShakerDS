@@ -29,7 +29,7 @@ public:
 		if (_y == 0) return false;
 
 		LevelBase* level = _game->getLevel();
-		MapItemBase* block = level->getBlockAt(_x, _y - 1);
+		BlockBase* block = level->getBlockAt(_x, _y - 1);
 
 		// Try to push the bubble onto the next block
 		if (block != NULL) {
@@ -51,7 +51,7 @@ public:
 
 		if (_y == level->getHeight() - 1) return false;
 
-		MapItemBase* block = level->getBlockAt(_x, _y + 1);
+		BlockBase* block = level->getBlockAt(_x, _y + 1);
 
 		// Try to push the bubble onto the next block
 		if (block != NULL) {
@@ -72,7 +72,7 @@ public:
 		if (_x == 0) return false;
 
 		LevelBase* level = _game->getLevel();
-		MapItemBase* block = level->getBlockAt(_x - 1, _y);
+		BlockBase* block = level->getBlockAt(_x - 1, _y);
 
 		// Try to push the bubble onto the next block
 		if (block != NULL) {
@@ -94,7 +94,7 @@ public:
 
 		if (_x == level->getWidth() - 1) return false;
 
-		MapItemBase* block = level->getBlockAt(_x + 1, _y);
+		BlockBase* block = level->getBlockAt(_x + 1, _y);
 
 		// Try to push the bubble onto the next block
 		if (block != NULL) {

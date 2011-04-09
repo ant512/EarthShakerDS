@@ -1,7 +1,7 @@
 #include <bitmap.h>
 
 #include "game.h"
-#include "mapitembase.h"
+#include "blockbase.h"
 #include "levelbase.h"
 
 using namespace WoopsiUI;
@@ -9,7 +9,7 @@ using namespace WoopsiUI;
 LevelBase::LevelBase(s32 width, s32 height) {
 	_width = width;
 	_height = height;
-	_data = new MapItemBase*[width * height];
+	_data = new BlockBase*[width * height];
 }
 
 LevelBase::~LevelBase() {
@@ -22,7 +22,7 @@ void LevelBase::render(Graphics* gfx) {
 		s32 y = _damagedBlockList[i] / _width;
 		s32 x = _damagedBlockList[i] % _width;
 
-		MapItemBase* block = _data[_damagedBlockList[i]];
+		BlockBase* block = _data[_damagedBlockList[i]];
 
 		if (block != NULL) {
 			block->render(gfx);
@@ -34,14 +34,14 @@ void LevelBase::render(Graphics* gfx) {
 	}
 }
 
-MapItemBase* LevelBase::getBlockAt(s32 x, s32 y) const {
+BlockBase* LevelBase::getBlockAt(s32 x, s32 y) const {
 	if ((x < 0) || (x >= _width)) return NULL;
 	if ((y < 0) || (y >= _height)) return NULL;
 
 	return _data[(y * _width) + x];
 }
 
-void LevelBase::setBlockAt(s32 x, s32 y, MapItemBase* block) {
+void LevelBase::setBlockAt(s32 x, s32 y, BlockBase* block) {
 	if ((x < 0) || (x >= _width)) return;
 	if ((y < 0) || (y >= _height)) return;
 
@@ -53,10 +53,10 @@ void LevelBase::setBlockAt(s32 x, s32 y, MapItemBase* block) {
 }
 
 void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
-	MapItemBase* dest = getBlockAt(destX, destY);
+	BlockBase* dest = getBlockAt(destX, destY);
 	if (dest != NULL) delete dest;
 
-	MapItemBase* source = getBlockAt(sourceX, sourceY);
+	BlockBase* source = getBlockAt(sourceX, sourceY);
 	setBlockAt(sourceX, sourceY, NULL);
 	setBlockAt(destX, destY, source);
 
@@ -85,7 +85,7 @@ bool LevelBase::iterate() {
 	for (s32 y = _height - 1; y >= 0; --y) {
 		for (s32 x = _width - 1; x >= 0; --x) {
 
-			MapItemBase* block = getBlockAt(x, y);
+			BlockBase* block = getBlockAt(x, y);
 
 			if (block == NULL) continue;
 

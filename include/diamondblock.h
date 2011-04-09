@@ -5,13 +5,13 @@
 #include <bitmap.h>
 
 #include "game.h"
-#include "blockbase.h"
+#include "heavyblockbase.h"
 
 using namespace WoopsiUI;
 
-class DiamondBlock : public BlockBase {
+class DiamondBlock : public HeavyBlockBase {
 public:
-	DiamondBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	DiamondBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
 		_isSlippy = true;
 
 		Graphics* gfx = _bitmap->newGraphics();

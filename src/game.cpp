@@ -47,7 +47,7 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
 
 	LevelBase* level = new LevelBase(width, height);
 
-	MapItemBase* block = NULL;
+	BlockBase* block = NULL;
 
 	for (s32 x = 0; x < width; ++x) {
 		for (s32 y = 0; y < height; ++y) {
