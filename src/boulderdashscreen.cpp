@@ -24,7 +24,7 @@ BoulderdashScreen::BoulderdashScreen() : AmigaScreen("Boulderdash", true, true) 
 	addGadget(_superBitmap);
 	_superBitmap->addGadgetEventHandler(this);
 
-	_timer = new WoopsiTimer(8, true);
+	_timer = new WoopsiTimer(5, true);
 	addGadget(_timer);
 	_timer->addGadgetEventHandler(this);
 	_timer->start();
@@ -74,10 +74,11 @@ void BoulderdashScreen::handleActionEvent(const GadgetEventArgs& e) {
 		if (_rightHeld) _game->getPlayerBlock()->applyRightwardForce();
 
 		_game->iterate();
-
+		
 		Graphics* gfx = _superBitmap->getGraphics();
 		_game->render(gfx);
 		_superBitmap->markRectsDamaged();
+
 	} else {
 		AmigaScreen::handleActionEvent(e);
 	}
