@@ -16,8 +16,8 @@ BlockBase::~BlockBase() {
 	delete _bitmap;
 }
 
-void BlockBase::render(Graphics* gfx) {
-	gfx->drawBitmap(_x * _bitmap->getWidth(), _y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
+void BlockBase::render(s32 x, s32 y, Graphics* gfx) {
+	gfx->drawBitmap(x, y, _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
 }
 
 bool BlockBase::iterate() {

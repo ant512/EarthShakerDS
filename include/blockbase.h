@@ -30,11 +30,11 @@ public:
 	/**
 	 * Draw the block to the graphics object using the supplied map co-ordinates
 	 * to inform the location the block's bitmap will be drawn at.
-	 * @param x The x co-ordinate of this block within the level map.
-	 * @param y The y co-ordinate of this block within the level map.
+	 * @param x The x co-ordinate to render to.
+	 * @param y The y co-ordinate to render to.
 	 * @param gfx The graphics object to draw to.
 	 */
-	virtual void render(Graphics* gfx);
+	virtual void render(s32 x, s32 y, Graphics* gfx);
 
 	/**
 	 * The block examines the level and based on its layout acts appropriately.

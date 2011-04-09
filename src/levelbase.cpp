@@ -25,7 +25,7 @@ void LevelBase::render(Graphics* gfx) {
 		BlockBase* block = _data[_damagedBlockList[i]];
 
 		if (block != NULL) {
-			block->render(gfx);
+			block->render(x * 16, y * 16, gfx);
 		} else {
 
 			// TODO: Magic numbers to constants
