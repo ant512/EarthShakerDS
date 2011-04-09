@@ -13,7 +13,7 @@ class DiamondBlock : public BlockBase {
 public:
 	DiamondBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isSlippy = true;
-		
+
 		Graphics* gfx = _bitmap->newGraphics();
 
 		gfx->drawLine(0, 7, 7, 0, woopsiRGB(0, 0, 31));
@@ -32,14 +32,25 @@ public:
 		return drop();
 	};
 
-	/**
-	 * Player is moving into this block.  The direction in which the player is
-	 * moving can be determined by comparing the co-ordinates of this block
-	 * with the co-ordinates of the player.
-	 * @return True if the player successfully moves into this block; false if
-	 * not.
-	 */
-	virtual bool movePlayerInside() {
+	virtual bool applyUpwardForce() {
+		
+		// TODO: Player should collect diamond here.
+		return true;
+	};
+
+	virtual bool applyDownwardForce() {
+		
+		// TODO: Player should collect diamond here.
+		return true;
+	};
+
+	virtual bool applyLeftwardForce() {
+		
+		// TODO: Player should collect diamond here.
+		return true;
+	};
+
+	virtual bool applyRightwardForce() {
 		
 		// TODO: Player should collect diamond here.
 		return true;

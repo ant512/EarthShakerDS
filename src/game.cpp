@@ -2,6 +2,7 @@
 #include "diamondblock.h"
 #include "boulderblock.h"
 #include "soilblock.h"
+#include "bubbleblock.h"
 
 using namespace WoopsiUI;
 
@@ -11,7 +12,7 @@ Game::Game() {
 	s32 levelHeight = 8;
 	u8 levelData[128] = {2,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,
 						2,1,1,0,2,0,0,0,0,0,1,1,0,2,3,0,
-						2,1,3,0,2,0,0,0,0,1,1,1,0,0,2,0,
+						2,1,3,0,2,0,5,0,0,1,1,1,0,0,2,0,
 						2,2,2,2,0,0,0,1,0,1,0,1,0,0,0,1,
 						1,0,0,0,0,0,1,1,0,0,0,1,0,0,0,1,
 						1,1,0,1,0,1,1,1,0,0,0,0,4,0,0,1,
@@ -67,6 +68,9 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
 				case 4:
 					block = new PlayerBlock(x, y, this);
 					_playerBlock = (PlayerBlock*)block;
+					break;
+				case 5:
+					block = new BubbleBlock(x, y, this);
 					break;
 			}
 

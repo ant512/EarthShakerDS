@@ -68,6 +68,17 @@ public:
 	 */
 	inline bool isSlippy() const { return _isSlippy; };
 
+	virtual bool applyUpwardForce() = 0;
+	virtual bool applyDownwardForce() = 0;
+	virtual bool applyRightwardForce() = 0;
+	virtual bool applyLeftwardForce() = 0;
+
+	virtual bool digFromBelow() = 0;
+	virtual bool digFromAbove() = 0;
+	virtual bool digFromLeft() = 0;
+	virtual bool digFromRight() = 0;
+
+
 protected:
 	Bitmap* _bitmap;
 	s32 _x;

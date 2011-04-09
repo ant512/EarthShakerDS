@@ -25,31 +25,6 @@ public:
 	virtual bool iterate() {
 		return drop();
 	};
-
-	/**
-	 * Player is moving into this block.  The direction in which the player is
-	 * moving can be determined by comparing the co-ordinates of this block
-	 * with the co-ordinates of the player.
-	 * @return True if the player successfully moves into this block; false if
-	 * not.
-	 */
-	virtual bool movePlayerInside() {
-
-		PlayerBlock* player = _game->getPlayerBlock();
-
-		// Ignore any attempts to push the block vertically
-		if (player->getY() != _y) return false;
-
-		// Try to push the block
-		if (_x > player->getX()) {
-			return pushRight();
-		} else if (_x < player->getX()) {
-			return pushLeft();
-		}
-
-		// Block couldn't be pushed
-		return false;
-	};
 };
 
 #endif

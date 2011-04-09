@@ -26,14 +26,16 @@ void PlayerBlock::render(Graphics* gfx) {
 	gfx->drawBitmap(_x * _bitmap->getWidth(), _y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
 }
 
-bool PlayerBlock::moveLeft() {
+bool PlayerBlock::applyLeftwardForce() {
 	if (_x == 0) return false;;
 
 	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x - 1, _y));
 
-	// Attempt to move to the new location - this will push boulders, collect
-	// diamonds, wipe out soil, etc.
-	if (block->movePlayerInside()) {
+	bool canMove = block->applyLeftwardForce();
+
+	if (!canMove) canMove = block->digFromRight();
+
+	if (canMove) {
 		_game->getLevel()->moveBlock(_x, _y, _x - 1, _y);
 		return true;
 	}
@@ -41,14 +43,16 @@ bool PlayerBlock::moveLeft() {
 	return false;
 }
 
-bool PlayerBlock::moveRight() {
+bool PlayerBlock::applyRightwardForce() {
 	if (_x == _game->getLevel()->getWidth() - 1) return false;
 
 	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x + 1, _y));
 
-	// Attempt to move to the new location - this will push boulders, collect
-	// diamonds, wipe out soil, etc.
-	if (block->movePlayerInside()) {
+	bool canMove = block->applyRightwardForce();
+
+	if (!canMove) canMove = block->digFromLeft();
+
+	if (canMove) {
 		_game->getLevel()->moveBlock(_x, _y, _x + 1, _y);
 		return true;
 	}
@@ -56,14 +60,16 @@ bool PlayerBlock::moveRight() {
 	return false;
 }
 
-bool PlayerBlock::moveUp() {
-	if (_y == 0) return true;
+bool PlayerBlock::applyUpwardForce() {
+	if (_y == 0) return false;
 
 	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x, _y - 1));
 
-	// Attempt to move to the new location - this will push boulders, collect
-	// diamonds, wipe out soil, etc.
-	if (block->movePlayerInside()) {
+	bool canMove = block->applyUpwardForce();
+
+	if (!canMove) canMove = block->digFromBelow();
+
+	if (canMove) {
 		_game->getLevel()->moveBlock(_x, _y, _x, _y - 1);
 		return true;
 	}
@@ -71,14 +77,16 @@ bool PlayerBlock::moveUp() {
 	return false;
 }
 
-bool PlayerBlock::moveDown() {
-	if (_y == _game->getLevel()->getHeight() - 1) return true;
+bool PlayerBlock::applyDownwardForce() {
+	if (_y == _game->getLevel()->getHeight() - 1) return false;
 
 	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x, _y + 1));
 
-	// Attempt to move to the new location - this will push boulders, collect
-	// diamonds, wipe out soil, etc.
-	if (block->movePlayerInside()) {
+	bool canMove = block->applyDownwardForce();
+
+	if (!canMove) canMove = block->digFromAbove();
+
+	if (canMove) {
 		_game->getLevel()->moveBlock(_x, _y, _x, _y + 1);
 		return true;
 	}

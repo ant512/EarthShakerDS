@@ -80,7 +80,7 @@ bool BlockBase::drop() {
 	return false;
 }
 
-bool BlockBase::pushLeft() {
+bool BlockBase::applyLeftwardForce() {
 	if (_x == 0) return false;
 
 	LevelBase* level = _game->getLevel();
@@ -93,7 +93,7 @@ bool BlockBase::pushLeft() {
 	return false;
 }
 
-bool BlockBase::pushRight() {
+bool BlockBase::applyRightwardForce() {
 	LevelBase* level = _game->getLevel();
 
 	if (_x == level->getWidth() - 1) return false;

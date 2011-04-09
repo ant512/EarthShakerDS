@@ -47,14 +47,32 @@ public:
 	 */
 	bool isFalling() const;
 
+
+	bool digFromBelow() { return false; };
+	bool digFromAbove() { return false; };
+	bool digFromLeft() { return false; };
+	bool digFromRight() { return false; };
+
+	bool applyUpwardForce() { return false; };
+	bool applyDownwardForce() { return false; };
+
 	/**
-	 * Player is moving into this block.  The direction in which the player is
-	 * moving can be determined by comparing the co-ordinates of this block
-	 * with the co-ordinates of the player.
-	 * @return True if the player successfully moves into this block; false if
-	 * not.
+	 * Pushes this block to the left if the block to the left is empty.
+	 * @param x The x co-ordinate of this block within the level map.
+	 * @param y The y co-ordinate of this block within the level map.
+	 * @param level The level containing this block.
+	 * @return True if the block moves; false if not.
 	 */
-	virtual bool movePlayerInside() = 0;
+	bool applyLeftwardForce();
+
+	/**
+	 * Pushes this block to the right if the block to the left is empty.
+	 * @param x The x co-ordinate of this block within the level map.
+	 * @param y The y co-ordinate of this block within the level map.
+	 * @param level The level containing this block.
+	 * @return True if the block moves; false if not.
+	 */
+	bool applyRightwardForce();
 
 protected:
 	bool _isFalling;		/**< The falling state of the block. */
@@ -70,24 +88,6 @@ protected:
 	 * @return True if the block drops; false if not.
 	 */
 	bool drop();
-
-	/**
-	 * Pushes this block to the left if the block to the left is empty.
-	 * @param x The x co-ordinate of this block within the level map.
-	 * @param y The y co-ordinate of this block within the level map.
-	 * @param level The level containing this block.
-	 * @return True if the block moves; false if not.
-	 */
-	bool pushLeft();
-
-	/**
-	 * Pushes this block to the right if the block to the left is empty.
-	 * @param x The x co-ordinate of this block within the level map.
-	 * @param y The y co-ordinate of this block within the level map.
-	 * @param level The level containing this block.
-	 * @return True if the block moves; false if not.
-	 */
-	bool pushRight();
 };
 
 #endif

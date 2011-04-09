@@ -23,10 +23,15 @@ public:
 	 */
 	bool iterate() { return false; }
 
-	bool moveLeft();
-	bool moveRight();
-	bool moveUp();
-	bool moveDown();
+	bool digFromBelow() { return false; };
+	bool digFromAbove() { return false; };
+	bool digFromLeft() { return false; };
+	bool digFromRight() { return false; };
+
+	bool applyUpwardForce();
+	bool applyDownwardForce();
+	bool applyRightwardForce();
+	bool applyLeftwardForce();
 };
 
 #endif
