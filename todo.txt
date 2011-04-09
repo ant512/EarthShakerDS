@@ -2,8 +2,6 @@ Todo
 ----
 
  - Remove magic numbers.
- - Replace generated bitmaps with pre-drawn graphics.
- - Animate graphics - animation class instead of bitmap in BlockBase.
  - Add scoring.
  - Add timer.
  - Add beans for time extension.
