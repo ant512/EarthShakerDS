@@ -54,7 +54,7 @@ public:
 	 * block will slip to the left or right if the left or right block adjacent
 	 * to this is empty.  For example:
 	 *
-	 *   x   If block o is slippy, x falls to the left.
+	 *   x   If block o is slippy, x slides to the left.
 	 *   oo
 	 *  ooo
 	 *
