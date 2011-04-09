@@ -10,6 +10,11 @@ using namespace WoopsiUI;
 
 BoulderdashScreen::BoulderdashScreen() : AmigaScreen("Boulderdash", true, true) {
 
+	_upHeld = false;
+	_downHeld = false;
+	_leftHeld = false;
+	_rightHeld = false;
+
 	_game = new Game();
 
 	Rect rect;
@@ -19,7 +24,7 @@ BoulderdashScreen::BoulderdashScreen() : AmigaScreen("Boulderdash", true, true) 
 	addGadget(_superBitmap);
 	_superBitmap->addGadgetEventHandler(this);
 
-	_timer = new WoopsiTimer(10, true);
+	_timer = new WoopsiTimer(8, true);
 	addGadget(_timer);
 	_timer->addGadgetEventHandler(this);
 	_timer->start();
@@ -32,38 +37,30 @@ BoulderdashScreen::~BoulderdashScreen() {
 	delete _game;
 }
 
-void BoulderdashScreen::onKeyRepeat(KeyCode keyCode) {
-	onKeyPress(keyCode);
-}
-
-void BoulderdashScreen::onKeyPress(KeyCode keyCode) {
-
-	Graphics* gfx = _superBitmap->getGraphics();
-
+void BoulderdashScreen::onKeyRelease(KeyCode keyCode) {
 	switch (keyCode) {
 		case KEY_CODE_UP:
-			_game->getPlayerBlock()->applyUpwardForce();
-			_game->render(gfx);
-			_superBitmap->markRectsDamaged();
+			_upHeld = false;
 			break;
 		case KEY_CODE_DOWN:
-			_game->getPlayerBlock()->applyDownwardForce();
-			_game->render(gfx);
-			_superBitmap->markRectsDamaged();
+			_downHeld = false;
 			break;
 		case KEY_CODE_LEFT:
-			_game->getPlayerBlock()->applyLeftwardForce();
-			_game->render(gfx);
-			_superBitmap->markRectsDamaged();
+			_leftHeld = false;
 			break;
 		case KEY_CODE_RIGHT:
-			_game->getPlayerBlock()->applyRightwardForce();
-			_game->render(gfx);
-			_superBitmap->markRectsDamaged();
+			_rightHeld = false;
 			break;
 		default:
 			break;
 	}
+}
+
+void BoulderdashScreen::onKeyPress(KeyCode keyCode) {
+	_upHeld = keyCode == KEY_CODE_UP;
+	_downHeld = keyCode == KEY_CODE_DOWN;
+	_leftHeld = keyCode == KEY_CODE_LEFT;
+	_rightHeld = keyCode == KEY_CODE_RIGHT;
 }
 
 void BoulderdashScreen::handleActionEvent(const GadgetEventArgs& e) {
@@ -71,9 +68,33 @@ void BoulderdashScreen::handleActionEvent(const GadgetEventArgs& e) {
 
 	if (e.getSource() == _timer) {
 
-		bool requiresIteration = _game->iterate();
+		bool moved = false;
 
-		if (requiresIteration) {
+		if (_upHeld) {
+			if (_game->getPlayerBlock()->applyUpwardForce()) {
+				moved = true;
+			}
+		}
+
+		if (_downHeld) {
+			if (_game->getPlayerBlock()->applyDownwardForce()) {
+				moved = true;
+			}
+		}
+
+		if (_leftHeld) {
+			if (_game->getPlayerBlock()->applyLeftwardForce()) {
+				moved = true;
+			}
+		}
+
+		if (_rightHeld) {
+			if (_game->getPlayerBlock()->applyRightwardForce()) {
+				moved = true;
+			}
+		}
+
+		if (_game->iterate() || moved) {
 			
 			Graphics* gfx = _superBitmap->getGraphics();
 			_game->render(gfx);

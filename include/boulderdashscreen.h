@@ -26,12 +26,16 @@ public:
 	 * @param e The event data.
 	 */
 	void onKeyPress(KeyCode keyCode);
-	void onKeyRepeat(KeyCode keyCode);
+	void onKeyRelease(KeyCode keyCode);
 
 private:
 	Game* _game;
 	SuperBitmap* _superBitmap;
 	WoopsiTimer* _timer;
+	bool _upHeld;
+	bool _downHeld;
+	bool _leftHeld;
+	bool _rightHeld;
 };
 
 #endif
