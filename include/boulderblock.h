@@ -13,6 +13,8 @@ using namespace WoopsiUI;
 class BoulderBlock : public BlockBase {
 public:
 	BoulderBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+		_isSlippy = true;	// Boulders are born slippy
+
 		Graphics* gfx = _bitmap->newGraphics();
 		gfx->drawFilledEllipse(7, 7, 7, 7, woopsiRGB(31, 0, 0));
 		delete gfx;

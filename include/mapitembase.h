@@ -19,6 +19,7 @@ public:
 		_x = x;
 		_y = y;
 		_game = game;
+		_isSlippy = false;
 	}
 
 	/**
@@ -47,11 +48,34 @@ public:
 	 */
 	virtual bool iterate() = 0;
 
+
+	/**
+	 * Check if the block is slippy.  If this is true, blocks sitting on this
+	 * block will slip to the left or right if the left or right block adjacent
+	 * to this is empty.  For example:
+	 *
+	 *   x   If block o is slippy, x falls to the left.
+	 *   oo
+	 *  ooo
+	 *
+	 *   x   If block o is slippy, x will not fall.
+	 *  ooo
+	 *
+	 *   x   If block o is not slippy, x will not fall.
+	 *   o
+	 *  ooo
+	 * @return True if the block is falling; false if not.
+	 */
+	inline bool isSlippy() const { return _isSlippy; };
+
 protected:
 	Bitmap* _bitmap;
 	s32 _x;
 	s32 _y;
 	Game* _game;
+	bool _isSlippy;			/**< If true, blocks sitting on this will slip to
+								 the left or right if this block has empty space
+								 net to it. */
 };
 
 #endif

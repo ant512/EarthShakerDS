@@ -7,6 +7,7 @@ using namespace WoopsiUI;
 
 BlockBase::BlockBase(s32 x, s32 y, Game* game) : MapItemBase(x, y, game) {
 	_isFalling = false;
+	_isSlippy = false;
 	_bitmap = new Bitmap(16, 16);
 }
 
@@ -36,6 +37,7 @@ bool BlockBase::drop() {
 		return false;
 	}
 
+	// Try to drop straight downwards
 	MapItemBase* bottom = level->getBlockAt(_x, _y + 1);
 
 	if (bottom == NULL) {
@@ -44,12 +46,18 @@ bool BlockBase::drop() {
 		return true;
 	}
 
+	// Cannot drop straight down.  If the block under us is slippy, we might be
+	// able to slide to the left or right.
+	if (!bottom->isSlippy()) return false;
+
 	if (_x > 0) {
 		MapItemBase* left = level->getBlockAt(_x - 1, _y);
 		MapItemBase* bottomLeft = level->getBlockAt(_x - 1, _y + 1);
 
 		if ((left == NULL) && (bottomLeft == NULL)) {
-			level->moveBlock(_x, _y, _x - 1, _y + 1);
+
+			// Slide to the left
+			level->moveBlock(_x, _y, _x - 1, _y);
 			_isFalling = true;
 			return true;
 		}
@@ -60,7 +68,9 @@ bool BlockBase::drop() {
 		MapItemBase* bottomRight = level->getBlockAt(_x + 1, _y + 1);
 
 		if ((right == NULL) && (bottomRight == NULL)) {
-			level->moveBlock(_x, _y, _x + 1, _y + 1);
+
+			// Slide to the right
+			level->moveBlock(_x, _y, _x + 1, _y);
 			_isFalling = true;
 			return true;
 		}

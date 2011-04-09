@@ -19,7 +19,7 @@ BoulderdashScreen::BoulderdashScreen() : AmigaScreen("Boulderdash", true, true) 
 	addGadget(_superBitmap);
 	_superBitmap->addGadgetEventHandler(this);
 
-	_timer = new WoopsiTimer(10, false);
+	_timer = new WoopsiTimer(10, true);
 	addGadget(_timer);
 	_timer->addGadgetEventHandler(this);
 	_timer->start();
@@ -45,29 +45,21 @@ void BoulderdashScreen::onKeyPress(KeyCode keyCode) {
 			_game->getPlayerBlock()->moveUp();
 			_game->render(gfx);
 			_superBitmap->markRectsDamaged();
-			_timer->reset();
-			_timer->start();
 			break;
 		case KEY_CODE_DOWN:
 			_game->getPlayerBlock()->moveDown();
 			_game->render(gfx);
 			_superBitmap->markRectsDamaged();
-			_timer->reset();
-			_timer->start();
 			break;
 		case KEY_CODE_LEFT:
 			_game->getPlayerBlock()->moveLeft();
 			_game->render(gfx);
 			_superBitmap->markRectsDamaged();
-			_timer->reset();
-			_timer->start();
 			break;
 		case KEY_CODE_RIGHT:
 			_game->getPlayerBlock()->moveRight();
 			_game->render(gfx);
 			_superBitmap->markRectsDamaged();
-			_timer->reset();
-			_timer->start();
 			break;
 		default:
 			break;
@@ -86,9 +78,6 @@ void BoulderdashScreen::handleActionEvent(const GadgetEventArgs& e) {
 			Graphics* gfx = _superBitmap->getGraphics();
 			_game->render(gfx);
 			_superBitmap->markRectsDamaged();
-
-			_timer->reset();
-			_timer->start();
 		}
 	} else {
 		AmigaScreen::handleActionEvent(e);
