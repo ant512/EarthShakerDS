@@ -23,9 +23,12 @@ bool PlayerBlock::applyLeftwardForce() {
 
 	BlockBase* block = _game->getLevel()->getBlockAt(_x - 1, _y);
 
-	bool canMove = block->applyLeftwardForce();
+	bool canMove = true;
 
-	if (!canMove) canMove = block->digFromRight();
+	if (block != NULL) {
+		canMove = block->applyLeftwardForce();
+		if (!canMove) canMove = block->digFromRight();
+	}
 
 	if (canMove) {
 		_game->getLevel()->moveBlock(_x, _y, _x - 1, _y);
@@ -40,9 +43,12 @@ bool PlayerBlock::applyRightwardForce() {
 
 	BlockBase* block = _game->getLevel()->getBlockAt(_x + 1, _y);
 
-	bool canMove = block->applyRightwardForce();
+	bool canMove = true;
 
-	if (!canMove) canMove = block->digFromLeft();
+	if (block != NULL) {
+		canMove = block->applyRightwardForce();
+		if (!canMove) canMove = block->digFromLeft();
+	}
 
 	if (canMove) {
 		_game->getLevel()->moveBlock(_x, _y, _x + 1, _y);
@@ -57,9 +63,12 @@ bool PlayerBlock::applyUpwardForce() {
 
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y - 1);
 
-	bool canMove = block->applyUpwardForce();
+	bool canMove = true;
 
-	if (!canMove) canMove = block->digFromBelow();
+	if (block != NULL) {
+		canMove = block->applyUpwardForce();
+		if (!canMove) canMove = block->digFromBelow();
+	}
 
 	if (canMove) {
 		_game->getLevel()->moveBlock(_x, _y, _x, _y - 1);
@@ -74,9 +83,12 @@ bool PlayerBlock::applyDownwardForce() {
 
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
 
-	bool canMove = block->applyDownwardForce();
+	bool canMove = true;
 
-	if (!canMove) canMove = block->digFromAbove();
+	if (block != NULL) {
+		canMove = block->applyDownwardForce();
+		if (!canMove) canMove = block->digFromAbove();
+	}
 
 	if (canMove) {
 		_game->getLevel()->moveBlock(_x, _y, _x, _y + 1);
