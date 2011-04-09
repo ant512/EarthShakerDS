@@ -7,15 +7,13 @@
 #include "blockbase.h"
 #include "playerblock.h"
 
-using namespace WoopsiUI;
-
 class Game {
 public:
 	Game();
 
 	~Game();
 
-	void render(Graphics* gfx);
+	void render(WoopsiGfx::Graphics* gfx);
 
 	LevelBase* getLevel() const;
 	PlayerBlock* getPlayerBlock() const;

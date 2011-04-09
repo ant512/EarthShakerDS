@@ -1,8 +1,6 @@
 #include <nds.h>
 #include "boulderbmp.h"
 
-using namespace WoopsiUI;
-
 static const u16 boulderbmp_Bitmap[256] __attribute__ ((aligned (4))) = {
 32768, 32768, 32768, 32768, 33791, 33791, 33791, 33791, 33593, 33593, 33593, 
 33593, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 33791, 33791, 33791, 
@@ -30,4 +28,4 @@ static const u16 boulderbmp_Bitmap[256] __attribute__ ((aligned (4))) = {
 32768, 32768, 32768
 };
 
-BoulderBmp::BoulderBmp() : BitmapWrapper(boulderbmp_Bitmap, 16, 16) { };
+BoulderBmp::BoulderBmp() : WoopsiGfx::BitmapWrapper(boulderbmp_Bitmap, 16, 16) { };

@@ -1,8 +1,6 @@
 #include <nds.h>
 #include "soilbmp.h"
 
-using namespace WoopsiUI;
-
 static const u16 soilbmp_Bitmap[256] __attribute__ ((aligned (4))) = {
 32768, 64736, 32768, 32768, 32768, 32768, 64736, 32768, 32768, 32768, 32768, 
 32768, 32768, 58528, 32768, 32768, 32768, 32768, 64736, 64736, 32768, 32768, 
@@ -30,4 +28,4 @@ static const u16 soilbmp_Bitmap[256] __attribute__ ((aligned (4))) = {
 32768, 58528, 32768
 };
 
-SoilBmp::SoilBmp() : BitmapWrapper(soilbmp_Bitmap, 16, 16) { };
+SoilBmp::SoilBmp() : WoopsiGfx::BitmapWrapper(soilbmp_Bitmap, 16, 16) { };

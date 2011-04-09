@@ -1,8 +1,6 @@
 #include <nds.h>
 #include "beanbmp3.h"
 
-using namespace WoopsiUI;
-
 static const u16 beanbmp3_Bitmap[256] __attribute__ ((aligned (4))) = {
 32768, 32768, 32768, 32768, 32768, 32768, 32768, 64575, 59418, 32768, 32768, 
 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 
@@ -30,4 +28,4 @@ static const u16 beanbmp3_Bitmap[256] __attribute__ ((aligned (4))) = {
 32768, 32768, 32768
 };
 
-BeanBmp3::BeanBmp3() : BitmapWrapper(beanbmp3_Bitmap, 16, 16) { };
+BeanBmp3::BeanBmp3() : WoopsiGfx::BitmapWrapper(beanbmp3_Bitmap, 16, 16) { };

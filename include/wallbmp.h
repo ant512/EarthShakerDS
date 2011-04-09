@@ -3,11 +3,9 @@
 
 #include "bitmapwrapper.h"
 
-namespace WoopsiUI {
-	class WallBmp : public BitmapWrapper {
-	public:
-		WallBmp();
-	};
-}
+class WallBmp : public WoopsiGfx::BitmapWrapper {
+public:
+	WallBmp();
+};
 
 #endif

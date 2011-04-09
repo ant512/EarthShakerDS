@@ -3,11 +3,9 @@
 
 #include "bitmapwrapper.h"
 
-namespace WoopsiUI {
-	class DiamondBmp1 : public BitmapWrapper {
-	public:
-		DiamondBmp1();
-	};
-}
+class DiamondBmp1 : public WoopsiGfx::BitmapWrapper {
+public:
+	DiamondBmp1();
+};
 
 #endif

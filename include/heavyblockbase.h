@@ -6,8 +6,6 @@
 
 #include "blockbase.h"
 
-using namespace WoopsiUI;
-
 class LevelBase;
 class Game;
 

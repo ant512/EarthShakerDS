@@ -8,8 +8,6 @@
 #include "blockbase.h"
 #include "wallbmp.h"
 
-using namespace WoopsiUI;
-
 class WallBlock : public BlockBase {
 public:
 	WallBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {

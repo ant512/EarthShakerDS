@@ -3,11 +3,9 @@
 
 #include "bitmapwrapper.h"
 
-namespace WoopsiUI {
-	class BubbleBmp4 : public BitmapWrapper {
-	public:
-		BubbleBmp4();
-	};
-}
+class BubbleBmp4 : public WoopsiGfx::BitmapWrapper {
+public:
+	BubbleBmp4();
+};
 
 #endif

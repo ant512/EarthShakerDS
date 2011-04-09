@@ -3,11 +3,10 @@
 
 #include "bitmapwrapper.h"
 
-namespace WoopsiUI {
-	class BeanBmp2 : public BitmapWrapper {
-	public:
-		BeanBmp2();
-	};
-}
+class BeanBmp2 : public WoopsiGfx::BitmapWrapper {
+public:
+	BeanBmp2();
+};
+
 
 #endif

@@ -11,8 +11,6 @@
 #include "bubblebmp3.h"
 #include "bubblebmp4.h"
 
-using namespace WoopsiUI;
-
 class BubbleBlock : public BlockBase {
 public:
 	BubbleBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {

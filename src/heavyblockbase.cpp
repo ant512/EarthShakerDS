@@ -3,8 +3,6 @@
 #include "blockbase.h"
 #include "game.h"
 
-using namespace WoopsiUI;
-
 HeavyBlockBase::HeavyBlockBase(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 	_isFalling = false;
 }

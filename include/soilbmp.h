@@ -3,11 +3,9 @@
 
 #include "bitmapwrapper.h"
 
-namespace WoopsiUI {
-	class SoilBmp : public BitmapWrapper {
-	public:
-		SoilBmp();
-	};
-}
+class SoilBmp : public WoopsiGfx::BitmapWrapper {
+public:
+	SoilBmp();
+};
 
 #endif

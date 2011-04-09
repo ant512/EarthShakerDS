@@ -3,8 +3,6 @@
 #include "blockbase.h"
 #include "levelbase.h"
 
-using namespace WoopsiUI;
-
 LevelBase::LevelBase(s32 width, s32 height) {
 	_width = width;
 	_height = height;
@@ -15,7 +13,7 @@ LevelBase::~LevelBase() {
 	delete[] _data;
 }
 
-void LevelBase::render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, Graphics* gfx) {
+void LevelBase::render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, WoopsiGfx::Graphics* gfx) {
 
 	// Ensure we don't try to draw more blocks than exist
 	s32 stopX = numBlocksX + blockX;

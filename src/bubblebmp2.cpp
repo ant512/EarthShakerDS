@@ -1,8 +1,6 @@
 #include <nds.h>
 #include "bubblebmp2.h"
 
-using namespace WoopsiUI;
-
 static const u16 bubblebmp2_Bitmap[256] __attribute__ ((aligned (4))) = {
 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 
 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 
@@ -30,4 +28,4 @@ static const u16 bubblebmp2_Bitmap[256] __attribute__ ((aligned (4))) = {
 32768, 32768, 32768
 };
 
-BubbleBmp2::BubbleBmp2() : BitmapWrapper(bubblebmp2_Bitmap, 16, 16) { };
+BubbleBmp2::BubbleBmp2() : WoopsiGfx::BitmapWrapper(bubblebmp2_Bitmap, 16, 16) { };

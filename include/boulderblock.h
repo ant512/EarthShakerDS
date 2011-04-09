@@ -9,8 +9,6 @@
 #include "playerblock.h"
 #include "boulderbmp.h"
 
-using namespace WoopsiUI;
-
 class BoulderBlock : public HeavyBlockBase {
 public:
 	BoulderBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {

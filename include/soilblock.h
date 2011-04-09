@@ -8,8 +8,6 @@
 #include "blockbase.h"
 #include "soilbmp.h"
 
-using namespace WoopsiUI;
-
 class SoilBlock : public BlockBase {
 public:
 	SoilBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {

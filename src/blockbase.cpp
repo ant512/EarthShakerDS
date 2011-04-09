@@ -2,24 +2,22 @@
 #include "levelbase.h"
 #include "game.h"
 
-using namespace WoopsiUI;
-
 BlockBase::BlockBase(s32 x, s32 y, Game* game) {
 	_x = x;
 	_y = y;
 	_game = game;
 	_isSlippy = false;
-	_animation = new Animation(1, Animation::ANIMATION_LOOPTYPE_LOOP, 0);
+	_animation = new WoopsiGfx::Animation(1, WoopsiGfx::Animation::ANIMATION_LOOPTYPE_LOOP, 0);
 }
 
 BlockBase::~BlockBase() {
 	delete _animation;
 }
 
-void BlockBase::render(s32 x, s32 y, Graphics* gfx) {
+void BlockBase::render(s32 x, s32 y, WoopsiGfx::Graphics* gfx) {
 	_animation->run();
 
-	const BitmapBase* bitmap = _animation->getCurrentBitmap();
+	const WoopsiGfx::BitmapBase* bitmap = _animation->getCurrentBitmap();
 
 	gfx->drawBitmap(x, y, bitmap->getWidth(), bitmap->getHeight(), bitmap, 0, 0);
 }

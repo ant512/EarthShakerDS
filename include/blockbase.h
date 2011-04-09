@@ -5,8 +5,6 @@
 #include <graphics.h>
 #include <animation.h>
 
-using namespace WoopsiUI;
-
 class LevelBase;
 class Game;
 
@@ -35,7 +33,7 @@ public:
 	 * @param y The y co-ordinate to render to.
 	 * @param gfx The graphics object to draw to.
 	 */
-	virtual void render(s32 x, s32 y, Graphics* gfx);
+	virtual void render(s32 x, s32 y, WoopsiGfx::Graphics* gfx);
 
 	/**
 	 * The block examines the level and based on its layout acts appropriately.
@@ -75,7 +73,7 @@ public:
 
 
 protected:
-	Animation* _animation;
+	WoopsiGfx::Animation* _animation;
 	s32 _x;
 	s32 _y;
 	Game* _game;

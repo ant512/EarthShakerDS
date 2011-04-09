@@ -1,8 +1,6 @@
 #include <nds.h>
 #include "playerbmp2.h"
 
-using namespace WoopsiUI;
-
 static const u16 playerbmp2_Bitmap[256] __attribute__ ((aligned (4))) = {
 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 
 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 65535, 
@@ -30,4 +28,4 @@ static const u16 playerbmp2_Bitmap[256] __attribute__ ((aligned (4))) = {
 32768, 32768, 32768
 };
 
-PlayerBmp2::PlayerBmp2() : BitmapWrapper(playerbmp2_Bitmap, 16, 16) { };
+PlayerBmp2::PlayerBmp2() : WoopsiGfx::BitmapWrapper(playerbmp2_Bitmap, 16, 16) { };

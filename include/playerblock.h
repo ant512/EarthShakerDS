@@ -9,8 +9,6 @@
 #include "playerbmp3.h"
 #include "playerbmp4.h"
 
-using namespace WoopsiUI;
-
 class Game;
 
 class PlayerBlock : public BlockBase {

@@ -5,8 +5,6 @@
 #include "bubbleblock.h"
 #include "wallblock.h"
 
-using namespace WoopsiUI;
-
 Game::Game() {
 
 	s32 levelWidth = 32;
@@ -44,7 +42,7 @@ PlayerBlock* Game::getPlayerBlock() const {
 	return _playerBlock;
 }
 
-void Game::render(Graphics* gfx) {
+void Game::render(WoopsiGfx::Graphics* gfx) {
 
 	// TODO: Remove magic numbers
 	s32 blockSize = 16;

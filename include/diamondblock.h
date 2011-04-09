@@ -11,14 +11,12 @@
 #include "diamondbmp3.h"
 #include "diamondbmp4.h"
 
-using namespace WoopsiUI;
-
 class DiamondBlock : public HeavyBlockBase {
 public:
 	DiamondBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
 		_isSlippy = true;
 
-		_animation->setLoopType(Animation::ANIMATION_LOOPTYPE_PINGPONG);
+		_animation->setLoopType(WoopsiGfx::Animation::ANIMATION_LOOPTYPE_PINGPONG);
 		_animation->addFrame(&_bmp1, 0);
 		_animation->addFrame(&_bmp2, 0);
 		_animation->addFrame(&_bmp3, 0);

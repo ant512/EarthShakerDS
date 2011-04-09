@@ -3,8 +3,6 @@
 
 #include <graphics.h>
 
-using namespace WoopsiUI;
-
 class BlockBase;
 
 class LevelBase {
@@ -24,7 +22,7 @@ public:
 
 	void moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY);
 
-	void render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, Graphics* gfx);
+	void render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, WoopsiGfx::Graphics* gfx);
 
 	bool iterate();
 
