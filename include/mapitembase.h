@@ -64,7 +64,7 @@ public:
 	 *   x   If block o is not slippy, x will not fall.
 	 *   o
 	 *  ooo
-	 * @return True if the block is falling; false if not.
+	 * @return True if the block is slippy; false if not.
 	 */
 	inline bool isSlippy() const { return _isSlippy; };
 
