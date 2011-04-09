@@ -14,5 +14,4 @@ Todo
  - Move level creation somewhere else - load from disk?
  - Add fires.
  - Add teleporters.
- - Add solid walls.
  - Add between-level sequence?
