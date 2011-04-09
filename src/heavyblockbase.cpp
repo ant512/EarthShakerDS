@@ -9,10 +9,6 @@ HeavyBlockBase::HeavyBlockBase(s32 x, s32 y, Game* game) : BlockBase(x, y, game)
 	_isFalling = false;
 }
 
-void HeavyBlockBase::render(Graphics* gfx) {
-	gfx->drawBitmap(_x * _bitmap->getWidth(), _y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
-}
-
 bool HeavyBlockBase::isFalling() const {
 	return _isFalling;
 }

@@ -8,22 +8,15 @@
 using namespace WoopsiUI;
 
 PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-	_bitmap = new Bitmap(16, 16);
-
-	Graphics* gfx = _bitmap->newGraphics();
-	gfx->drawFilledRect(0, 0, 16, 16, woopsiRGB(0, 0, 0));
-	gfx->drawLine(0, 0, 15, 15, woopsiRGB(0, 31, 0));
-	gfx->drawLine(0, 15, 15, 0, woopsiRGB(0, 31, 0));
-	delete gfx;
+	_animation->setLoopType(Animation::ANIMATION_LOOPTYPE_PINGPONG);
+	_animation->addFrame(&_bmp1, 0);
+	_animation->addFrame(&_bmp2, 0);
+	_animation->addFrame(&_bmp3, 0);
+	_animation->addFrame(&_bmp4, 0);
+	_animation->play();
 }
 
-PlayerBlock::~PlayerBlock() {
-	delete _bitmap;
-}
-
-void PlayerBlock::render(Graphics* gfx) {
-	gfx->drawBitmap(_x * _bitmap->getWidth(), _y * _bitmap->getHeight(), _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
-}
+PlayerBlock::~PlayerBlock() { }
 
 bool PlayerBlock::applyLeftwardForce() {
 	if (_x == 0) return false;;

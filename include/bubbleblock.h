@@ -6,6 +6,10 @@
 
 #include "game.h"
 #include "blockbase.h"
+#include "bubblebmp1.h"
+#include "bubblebmp2.h"
+#include "bubblebmp3.h"
+#include "bubblebmp4.h"
 
 using namespace WoopsiUI;
 
@@ -14,9 +18,11 @@ public:
 	BubbleBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isSlippy = true;
 		
-		Graphics* gfx = _bitmap->newGraphics();
-		gfx->drawEllipse(7, 7, 7, 7, woopsiRGB(31, 0, 0));
-		delete gfx;
+		_animation->addFrame(&_bmp1, 0);
+		_animation->addFrame(&_bmp2, 0);
+		_animation->addFrame(&_bmp3, 0);
+		_animation->addFrame(&_bmp4, 0);
+		_animation->play();
 	};
 
 	~BubbleBlock() {};
@@ -111,6 +117,11 @@ public:
 		return true;
 	};
 
+private:
+	BubbleBmp1 _bmp1;
+	BubbleBmp2 _bmp2;
+	BubbleBmp3 _bmp3;
+	BubbleBmp4 _bmp4;
 };
 
 #endif

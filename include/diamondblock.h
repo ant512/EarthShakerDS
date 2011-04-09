@@ -6,6 +6,7 @@
 
 #include "game.h"
 #include "heavyblockbase.h"
+#include "boulderbmp.h"
 
 using namespace WoopsiUI;
 
@@ -14,16 +15,8 @@ public:
 	DiamondBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
 		_isSlippy = true;
 
-		Graphics* gfx = _bitmap->newGraphics();
+		_animation->addFrame(&_bmp1, 0);
 
-		gfx->drawLine(0, 7, 7, 0, woopsiRGB(0, 0, 31));
-		gfx->drawLine(8, 0, 15, 7, woopsiRGB(0, 0, 31));
-		gfx->drawLine(0, 8, 7, 15, woopsiRGB(0, 0, 31));
-		gfx->drawLine(8, 15, 15, 8, woopsiRGB(0, 0, 31));
-
-		gfx->floodFill(7, 7, woopsiRGB(0, 0, 31));
-
-		delete gfx;
 	};
 
 	~DiamondBlock() {};
@@ -56,6 +49,8 @@ public:
 		return true;
 	};
 
+private:
+	BoulderBmp _bmp1;
 };
 
 #endif

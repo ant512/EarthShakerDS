@@ -25,15 +25,6 @@ public:
 	virtual ~HeavyBlockBase() { };
 
 	/**
-	 * Draw the block to the graphics object using the supplied map co-ordinates
-	 * to inform the location the block's bitmap will be drawn at.
-	 * @param x The x co-ordinate of this block within the level map.
-	 * @param y The y co-ordinate of this block within the level map.
-	 * @param gfx The graphics object to draw to.
-	 */
-	virtual void render(Graphics* gfx);
-
-	/**
 	 * Check if the block is falling.  This is set to true during an iteration
 	 * if the block drops.
 	 * @return True if the block is falling; false if not.

@@ -3,6 +3,7 @@
 
 #include <bitmap.h>
 #include <graphics.h>
+#include <animation.h>
 
 using namespace WoopsiUI;
 
@@ -74,7 +75,7 @@ public:
 
 
 protected:
-	Bitmap* _bitmap;
+	Animation* _animation;
 	s32 _x;
 	s32 _y;
 	Game* _game;

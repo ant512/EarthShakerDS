@@ -9,15 +9,19 @@ BlockBase::BlockBase(s32 x, s32 y, Game* game) {
 	_y = y;
 	_game = game;
 	_isSlippy = false;
-	_bitmap = new Bitmap(16, 16);
+	_animation = new Animation(1, Animation::ANIMATION_LOOPTYPE_LOOP, 0);
 }
 
 BlockBase::~BlockBase() {
-	delete _bitmap;
+	delete _animation;
 }
 
 void BlockBase::render(s32 x, s32 y, Graphics* gfx) {
-	gfx->drawBitmap(x, y, _bitmap->getWidth(), _bitmap->getHeight(), _bitmap, 0, 0);
+	_animation->run();
+
+	const BitmapBase* bitmap = _animation->getCurrentBitmap();
+
+	gfx->drawBitmap(x, y, bitmap->getWidth(), bitmap->getHeight(), bitmap, 0, 0);
 }
 
 bool BlockBase::iterate() {

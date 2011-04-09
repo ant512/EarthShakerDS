@@ -6,15 +6,14 @@
 #include <game.h>
 
 #include "blockbase.h"
+#include "soilbmp.h"
 
 using namespace WoopsiUI;
 
 class SoilBlock : public BlockBase {
 public:
 	SoilBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		Graphics* gfx = _bitmap->newGraphics();
-		gfx->drawFilledRect(0, 0, 16, 16, woopsiRGB(17, 8, 2));
-		delete gfx;
+		_animation->addFrame(&_bmp, 0);
 	};
 
 	~SoilBlock() {};
@@ -28,6 +27,9 @@ public:
 	bool digFromAbove() { return true; };
 	bool digFromLeft() { return true; };
 	bool digFromRight() { return true; };
+
+private:
+	SoilBmp _bmp;
 };
 
 #endif

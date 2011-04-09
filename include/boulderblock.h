@@ -7,6 +7,7 @@
 #include "game.h"
 #include "blockbase.h"
 #include "playerblock.h"
+#include "boulderbmp.h"
 
 using namespace WoopsiUI;
 
@@ -15,9 +16,7 @@ public:
 	BoulderBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
 		_isSlippy = true;	// Boulders are born slippy
 
-		Graphics* gfx = _bitmap->newGraphics();
-		gfx->drawFilledEllipse(7, 7, 7, 7, woopsiRGB(31, 0, 0));
-		delete gfx;
+		_animation->addFrame(&_bmp, 0);
 	};
 
 	~BoulderBlock() {};
@@ -25,6 +24,9 @@ public:
 	virtual bool iterate() {
 		return drop();
 	};
+
+private:
+	BoulderBmp _bmp;
 };
 
 #endif

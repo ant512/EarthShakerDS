@@ -68,38 +68,16 @@ void BoulderdashScreen::handleActionEvent(const GadgetEventArgs& e) {
 
 	if (e.getSource() == _timer) {
 
-		bool moved = false;
+		if (_upHeld) _game->getPlayerBlock()->applyUpwardForce();
+		if (_downHeld) _game->getPlayerBlock()->applyDownwardForce();
+		if (_leftHeld) _game->getPlayerBlock()->applyLeftwardForce();
+		if (_rightHeld) _game->getPlayerBlock()->applyRightwardForce();
 
-		if (_upHeld) {
-			if (_game->getPlayerBlock()->applyUpwardForce()) {
-				moved = true;
-			}
-		}
+		_game->iterate();
 
-		if (_downHeld) {
-			if (_game->getPlayerBlock()->applyDownwardForce()) {
-				moved = true;
-			}
-		}
-
-		if (_leftHeld) {
-			if (_game->getPlayerBlock()->applyLeftwardForce()) {
-				moved = true;
-			}
-		}
-
-		if (_rightHeld) {
-			if (_game->getPlayerBlock()->applyRightwardForce()) {
-				moved = true;
-			}
-		}
-
-		if (_game->iterate() || moved) {
-			
-			Graphics* gfx = _superBitmap->getGraphics();
-			_game->render(gfx);
-			_superBitmap->markRectsDamaged();
-		}
+		Graphics* gfx = _superBitmap->getGraphics();
+		_game->render(gfx);
+		_superBitmap->markRectsDamaged();
 	} else {
 		AmigaScreen::handleActionEvent(e);
 	}
