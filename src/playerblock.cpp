@@ -28,7 +28,7 @@ void PlayerBlock::render(Graphics* gfx) {
 bool PlayerBlock::applyLeftwardForce() {
 	if (_x == 0) return false;;
 
-	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x - 1, _y));
+	BlockBase* block = _game->getLevel()->getBlockAt(_x - 1, _y);
 
 	bool canMove = block->applyLeftwardForce();
 
@@ -45,7 +45,7 @@ bool PlayerBlock::applyLeftwardForce() {
 bool PlayerBlock::applyRightwardForce() {
 	if (_x == _game->getLevel()->getWidth() - 1) return false;
 
-	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x + 1, _y));
+	BlockBase* block = _game->getLevel()->getBlockAt(_x + 1, _y);
 
 	bool canMove = block->applyRightwardForce();
 
@@ -62,7 +62,7 @@ bool PlayerBlock::applyRightwardForce() {
 bool PlayerBlock::applyUpwardForce() {
 	if (_y == 0) return false;
 
-	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x, _y - 1));
+	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y - 1);
 
 	bool canMove = block->applyUpwardForce();
 
@@ -79,7 +79,7 @@ bool PlayerBlock::applyUpwardForce() {
 bool PlayerBlock::applyDownwardForce() {
 	if (_y == _game->getLevel()->getHeight() - 1) return false;
 
-	BlockBase* block = (BlockBase*)(_game->getLevel()->getBlockAt(_x, _y + 1));
+	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
 
 	bool canMove = block->applyDownwardForce();
 
