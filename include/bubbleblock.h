@@ -28,6 +28,7 @@ public:
 
 	virtual bool applyUpwardForce() {
 		if (_y == 0) return false;
+		if (_isExploding) return false;
 
 		LevelBase* level = _game->getLevel();
 		BlockBase* block = level->getBlockAt(_x, _y - 1);
@@ -62,6 +63,8 @@ public:
 	};
 
 	virtual bool applyDownwardForce() {
+		if (_isExploding) return false;
+
 		LevelBase* level = _game->getLevel();
 
 		if (_y == level->getHeight() - 1) return false;
@@ -99,6 +102,7 @@ public:
 
 	virtual bool applyLeftwardForce() {
 		if (_x == 0) return false;
+		if (_isExploding) return false;
 
 		LevelBase* level = _game->getLevel();
 		BlockBase* block = level->getBlockAt(_x - 1, _y);
@@ -133,6 +137,8 @@ public:
 	};
 
 	virtual bool applyRightwardForce() {
+		if (_isExploding) return false;
+		
 		LevelBase* level = _game->getLevel();
 
 		if (_x == level->getWidth() - 1) return false;

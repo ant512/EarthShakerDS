@@ -40,6 +40,7 @@ public:
 	 */
 	virtual bool applyLeftwardForce() {
 		if (_x == 0) return false;
+		if (_isExploding) return false;
 
 		LevelBase* level = _game->getLevel();
 		BlockBase* block = level->getBlockAt(_x - 1, _y);
@@ -63,6 +64,8 @@ public:
 	 * @return True if the block moves; false if not.
 	 */
 	virtual bool applyRightwardForce() {
+		if (_isExploding) return false;
+
 		LevelBase* level = _game->getLevel();
 
 		if (_x == level->getWidth() - 1) return false;
@@ -84,6 +87,8 @@ public:
 	};
 
 	virtual void iterate() {
+		if (_isExploding) return;
+
 		if (_game->isGravityInverted()) {
 
 			// If we're sat on a hot tile then explode
