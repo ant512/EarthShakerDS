@@ -16,13 +16,6 @@ public:
 	PlayerBlock(s32 x, s32 y, Game* game);
 	~PlayerBlock();
 
-	/**
-	 * The block examines the level and based on its layout acts appropriately.
-	 * @return True if the block performs an action that changes the layout of
-	 * the map; false if not.
-	 */
-	bool iterate() { return false; }
-
 	bool digFromBelow() { return false; };
 	bool digFromAbove() { return false; };
 	bool digFromLeft() { return false; };

@@ -6,6 +6,7 @@
 #include "wallblock.h"
 
 Game::Game() {
+	_isGravityInverted = false;
 
 	s32 levelWidth = 32;
 	s32 levelHeight = 16;
@@ -64,8 +65,16 @@ void Game::render(WoopsiGfx::Graphics* gfx) {
 	_level->render(x, y, displayWidth, displayHeight, gfx);
 }
 
-bool Game::iterate() {
-	return _level->iterate();
+void Game::iterate() {
+	_level->iterate(_isGravityInverted);
+}
+
+bool Game::isGravityInverted() const {
+	return _isGravityInverted;
+}
+
+void Game::flipGravity() {
+	_isGravityInverted = !_isGravityInverted;
 }
 
 LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {

@@ -69,23 +69,27 @@ void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
 	}
 }
 
-bool LevelBase::iterate() {
-	bool requiresIteration = false;
+void LevelBase::iterate(bool isGravityInverted) {
 
-	for (s32 y = _height - 1; y >= 0; --y) {
-		for (s32 x = _width - 1; x >= 0; --x) {
+	if (isGravityInverted) {
 
-			BlockBase* block = getBlockAt(x, y);
+		for (s32 i = 0; i < _width * _height; ++i) {
+			BlockBase* block = _data[i];
 
 			if (block == NULL) continue;
 
-			if (block->iterate()) {
-				requiresIteration = true;
-			}
+			block->iterate();
+		}
+	} else {
+
+		for (s32 i = _width * _height; i >= 0; --i) {
+			BlockBase* block = _data[i];
+
+			if (block == NULL) continue;
+
+			block->iterate();
 		}
 	}
-
-	return requiresIteration;
 }
 
 

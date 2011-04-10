@@ -25,10 +25,6 @@ public:
 
 	~BubbleBlock() {};
 
-	virtual bool iterate() {
-		return false;
-	};
-
 	virtual bool applyUpwardForce() {
 		if (_y == 0) return false;
 

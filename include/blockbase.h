@@ -40,7 +40,7 @@ public:
 	 * @return True if the block performs an action that changes the layout of
 	 * the map; false if not.
 	 */
-	virtual bool iterate();
+	virtual void iterate() { };
 
 	/**
 	 * Check if the block is slippy.  If this is true, blocks sitting on this
@@ -61,6 +61,8 @@ public:
 	 */
 	inline bool isSlippy() const { return _isSlippy; };
 
+	inline bool isHot() const { return _isHot; };
+
 	virtual bool digFromBelow() { return false; };
 	virtual bool digFromAbove() { return false; };
 	virtual bool digFromLeft() { return false; };
@@ -80,6 +82,7 @@ protected:
 	bool _isSlippy;			/**< If true, blocks sitting on this will slip to
 								 the left or right if this block has empty space
 								 net to it. */
+	bool _isHot;
 };
 
 #endif

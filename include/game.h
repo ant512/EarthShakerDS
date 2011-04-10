@@ -18,11 +18,15 @@ public:
 	LevelBase* getLevel() const;
 	PlayerBlock* getPlayerBlock() const;
 
-	bool iterate();
+	void iterate();
+
+	bool isGravityInverted() const;
+	void flipGravity();
 
 private:
 	LevelBase* _level;
 	PlayerBlock* _playerBlock;
+	bool _isGravityInverted;
 
 	LevelBase* createLevel(u8* data, s32 width, s32 height);
 };

@@ -27,8 +27,12 @@ public:
 
 	~DiamondBlock() {};
 
-	virtual bool iterate() {
-		return drop();
+	virtual void iterate() {
+		if (_game->isGravityInverted()) {
+			raise();
+		} else {
+			drop();
+		}
 	};
 
 	virtual bool applyUpwardForce() {

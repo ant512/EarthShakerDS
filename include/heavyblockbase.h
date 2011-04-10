@@ -31,18 +31,12 @@ public:
 
 	/**
 	 * Pushes this block to the left if the block to the left is empty.
-	 * @param x The x co-ordinate of this block within the level map.
-	 * @param y The y co-ordinate of this block within the level map.
-	 * @param level The level containing this block.
 	 * @return True if the block moves; false if not.
 	 */
 	bool applyLeftwardForce();
 
 	/**
 	 * Pushes this block to the right if the block to the left is empty.
-	 * @param x The x co-ordinate of this block within the level map.
-	 * @param y The y co-ordinate of this block within the level map.
-	 * @param level The level containing this block.
 	 * @return True if the block moves; false if not.
 	 */
 	bool applyRightwardForce();
@@ -55,12 +49,14 @@ protected:
 	 * drop vertically if the block beneath is empty.  Will drop to the left if
 	 * the left block and the one below that are empty.  Will drop to the right
 	 * if the right block and the one below that are empty.
-	 * @param x The x co-ordinate of this block within the level map.
-	 * @param y The y co-ordinate of this block within the level map.
-	 * @param level The level containing this block.
-	 * @return True if the block drops; false if not.
 	 */
-	bool drop();
+	void drop();
+
+	/**
+	 * Uses the same algorithm as drop() but raises the block instead of
+	 * lowering it.  To be used when gravity is inverted.
+	 */
+	void raise();
 };
 
 #endif

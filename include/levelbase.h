@@ -24,7 +24,7 @@ public:
 
 	void render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, WoopsiGfx::Graphics* gfx);
 
-	bool iterate();
+	void iterate(bool isGravityInverted);
 
 private:
 	s32 _width;

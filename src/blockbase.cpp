@@ -7,6 +7,7 @@ BlockBase::BlockBase(s32 x, s32 y, Game* game) {
 	_y = y;
 	_game = game;
 	_isSlippy = false;
+	_isHot = false;
 	_animation = new WoopsiGfx::Animation(1, WoopsiGfx::Animation::ANIMATION_LOOPTYPE_LOOP, 0);
 }
 
@@ -20,10 +21,6 @@ void BlockBase::render(s32 x, s32 y, WoopsiGfx::Graphics* gfx) {
 	const WoopsiGfx::BitmapBase* bitmap = _animation->getCurrentBitmap();
 
 	gfx->drawBitmap(x, y, bitmap->getWidth(), bitmap->getHeight(), bitmap, 0, 0);
-}
-
-bool BlockBase::iterate() {
-	return false;
 }
 
 void BlockBase::setX(s32 x) {
