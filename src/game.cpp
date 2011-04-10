@@ -123,8 +123,24 @@ void Game::drawTimerBar() {
 	s32 maxWidth = DISPLAY_WIDTH - 40;
 	s32 percentage = (_levelTime * 100) / STARTING_TIME;
 	s32 width = maxWidth * percentage / 100;
-	s32 green = 31 * percentage / 100;
-	s32 red = 31 - green;
+	s32 green = 0;
+	s32 red = 0;
+
+	// Green is initially at 31 (max) and stays there until the percentage hits
+	// 50.  At that point, green decreases to 0.  At the same time, red starts
+	// at 0 (min) and stays there until the percentage hits 50.  At that point,
+	// red increases to 31.  This makes the bar cycle from green to yellow to
+	// red.
+	if (percentage >= 50) {
+		green = 31;
+		red = (31 - (31 * percentage / 100)) * 2;
+	} else {
+		red = 31;
+		green = (31 * percentage / 100) * 2;
+	}
+
+	if (red > 31) red = 31;
+	if (green > 31) green = 31;
 
 	_bottomGfx->drawFilledRect(20, 50, maxWidth, 10, woopsiRGB(0, 0, 0));
 	_bottomGfx->drawFilledRect(20, 50, width, 10, woopsiRGB(red, green, 0));
