@@ -1,7 +1,9 @@
 Todo
 ----
 
- - Improve HUD.
+ - Improve HUD:
+   - Erasing needs to be more accurate.
+   - Draw a surrounding bitmap?
  - Implement all scoring.
  - Implement timer.
  - Make beans give time extension.
@@ -9,13 +11,10 @@ Todo
  - Add death check - in PlayerBlock iterate() method, check if the block above
    the player is falling.  If so, player is dead.  Also check for collisions
    with hot blocks.
- - Add life counter.
- - Use top display for game stats (timer, score, lives, level number, etc).
  - Move level creation somewhere else - load from disk?
  - Add teleporters.
  - Add between-level sequence?
  - Power-ups - flip gravity, etc.
  - Need explosion graphics for:
-  - FireBlock
   - PlayerBlock
-  - BoulderBlock
+ - Should heavy blocks slip sideways if the diagonal block is fire?
