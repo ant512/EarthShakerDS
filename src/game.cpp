@@ -71,13 +71,13 @@ void Game::addScore(s32 score) {
 
 	// TODO: Time printing should be in another function
 	str.format("Lives: %02d", _lives);
-	_bottomGfx->drawFilledRect(0, _font.getHeight() * 2, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
-	_bottomGfx->drawText(0, _font.getHeight() * 2, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
+	_bottomGfx->drawFilledRect(0, _font.getHeight(), _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
+	_bottomGfx->drawText(0, _font.getHeight(), &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 
 	// TODO: Level printing should be in another function
 	str.format("Level: %02d:", _level->getLevelNumber());
-	_bottomGfx->drawFilledRect(0, _font.getHeight() * 3, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
-	_bottomGfx->drawText(0, _font.getHeight() * 3, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
+	_bottomGfx->drawFilledRect(0, _font.getHeight() * 2, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
+	_bottomGfx->drawText(0, _font.getHeight() * 2, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 }
 
 PlayerBlock* Game::getPlayerBlock() const {
@@ -116,11 +116,18 @@ bool Game::isGravityInverted() const {
 void Game::decreaseTime() {
 	_levelTime -= TIME_DECREMENT;
 
-	// TODO: Time printing should be in another function
-	WoopsiGfx::WoopsiString str;
-	str.format("Time: %03d", _levelTime >> 2);
-	_bottomGfx->drawFilledRect(0, _font.getHeight(), _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
-	_bottomGfx->drawText(0, _font.getHeight(), &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
+	drawTimerBar();
+}
+
+void Game::drawTimerBar() {
+	s32 maxWidth = DISPLAY_WIDTH - 40;
+	s32 percentage = (_levelTime * 100) / STARTING_TIME;
+	s32 width = maxWidth * percentage / 100;
+	s32 green = 31 * percentage / 100;
+	s32 red = 31 - green;
+
+	_bottomGfx->drawFilledRect(20, 50, maxWidth, 10, woopsiRGB(0, 0, 0));
+	_bottomGfx->drawFilledRect(20, 50, width, 10, woopsiRGB(red, green, 0));
 }
 
 void Game::flipGravity() {

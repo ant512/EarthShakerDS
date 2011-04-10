@@ -43,6 +43,7 @@ private:
 	LevelBase* createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name);
 
 	void decreaseTime();
+	void drawTimerBar();
 };
 
 #endif
