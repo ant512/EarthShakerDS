@@ -5,5 +5,7 @@ const s32 ANIMATION_TIME = 3;
 const s32 MOVEMENT_TIME = 6;
 const s32 DISPLAY_WIDTH = 256;
 const s32 DISPLAY_HEIGHT = 192;
+const s32 DIAMOND_SCORE = 10;
+const s32 FIRE_EXTINGUISH_SCORE = 100;
 
 #endif

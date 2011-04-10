@@ -10,6 +10,7 @@
 #include "diamondbmp2.h"
 #include "diamondbmp3.h"
 #include "diamondbmp4.h"
+#include "constants.h"
 
 class DiamondBlock : public HeavyBlockBase {
 public:
@@ -36,26 +37,22 @@ public:
 	};
 
 	virtual bool applyUpwardForce() {
-		
-		// TODO: Player should collect diamond here.
+		_game->addScore(DIAMOND_SCORE);
 		return true;
 	};
 
 	virtual bool applyDownwardForce() {
-		
-		// TODO: Player should collect diamond here.
+		_game->addScore(DIAMOND_SCORE);
 		return true;
 	};
 
 	virtual bool applyLeftwardForce() {
-		
-		// TODO: Player should collect diamond here.
+		_game->addScore(DIAMOND_SCORE);
 		return true;
 	};
 
 	virtual bool applyRightwardForce() {
-		
-		// TODO: Player should collect diamond here.
+		_game->addScore(DIAMOND_SCORE);
 		return true;
 	};
 

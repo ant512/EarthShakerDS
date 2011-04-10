@@ -10,6 +10,7 @@
 #include "bubblebmp2.h"
 #include "bubblebmp3.h"
 #include "bubblebmp4.h"
+#include "constants.h"
 
 class BubbleBlock : public BlockBase {
 public:
@@ -40,6 +41,9 @@ public:
 
 				explode();
 				block->explode();
+
+				_game->addScore(FIRE_EXTINGUISH_SCORE);
+
 				return false;
 			}
 
@@ -73,6 +77,9 @@ public:
 
 				explode();
 				block->explode();
+
+				_game->addScore(FIRE_EXTINGUISH_SCORE);
+
 				return false;
 			}
 
@@ -105,6 +112,9 @@ public:
 
 				explode();
 				block->explode();
+
+				_game->addScore(FIRE_EXTINGUISH_SCORE);
+
 				return false;
 			}
 
@@ -138,6 +148,9 @@ public:
 
 				explode();
 				block->explode();
+
+				_game->addScore(FIRE_EXTINGUISH_SCORE);
+				
 				return false;
 			}
 
