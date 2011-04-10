@@ -10,6 +10,7 @@ Todo
  - Add life counter.
  - Use top display for game stats (timer, score, lives, level number, etc).
  - Move level creation somewhere else - load from disk?
- - Add fires.
+ - Add fire graphics.
  - Add teleporters.
  - Add between-level sequence?
+ - Power-ups - flip gravity, etc.
