@@ -29,11 +29,9 @@ void LevelBase::render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, W
 			BlockBase* block = _data[index];
 
 			if (block != NULL) {
-				block->render((x - blockX) * 16, (y - blockY) * 16, gfx);
+				block->render((x - blockX) * BlockBase::BLOCK_SIZE, (y - blockY) * BlockBase::BLOCK_SIZE, gfx);
 			} else {
-
-				// TODO: Magic numbers to constants
-				gfx->drawFilledRect((x - blockX) * 16, (y - blockY) * 16, 16, 16, woopsiRGB(0, 0, 0));
+				gfx->drawFilledRect((x - blockX) * BlockBase::BLOCK_SIZE, (y - blockY) * BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE, woopsiRGB(0, 0, 0));
 			}
 		}
 	}

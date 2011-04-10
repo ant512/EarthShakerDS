@@ -10,6 +10,7 @@ class Game;
 
 class BlockBase {
 public:
+	static const s32 BLOCK_SIZE = 16;
 
 	/**
 	 * Constructor.
