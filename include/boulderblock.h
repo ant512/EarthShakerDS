@@ -8,6 +8,13 @@
 #include "blockbase.h"
 #include "playerblock.h"
 #include "boulderbmp.h"
+#include "boulderexplodebmp1.h"
+#include "boulderexplodebmp2.h"
+#include "boulderexplodebmp3.h"
+#include "boulderexplodebmp4.h"
+#include "boulderexplodebmp5.h"
+#include "boulderexplodebmp6.h"
+#include "boulderexplodebmp7.h"
 
 class BoulderBlock : public HeavyBlockBase {
 public:
@@ -15,6 +22,14 @@ public:
 		_isSlippy = true;	// Boulders are born slippy
 
 		_animation->addFrame(&_bmp, 0);
+
+		_explodingAnimation->addFrame(&_explodingBmp1, 0);
+		_explodingAnimation->addFrame(&_explodingBmp2, 0);
+		_explodingAnimation->addFrame(&_explodingBmp3, 0);
+		_explodingAnimation->addFrame(&_explodingBmp4, 0);
+		_explodingAnimation->addFrame(&_explodingBmp5, 0);
+		_explodingAnimation->addFrame(&_explodingBmp6, 0);
+		_explodingAnimation->addFrame(&_explodingBmp7, 0);
 	};
 
 	~BoulderBlock() {};
@@ -105,6 +120,13 @@ public:
 
 private:
 	BoulderBmp _bmp;
+	BoulderExplodeBmp1 _explodingBmp1;
+	BoulderExplodeBmp2 _explodingBmp2;
+	BoulderExplodeBmp3 _explodingBmp3;
+	BoulderExplodeBmp4 _explodingBmp4;
+	BoulderExplodeBmp5 _explodingBmp5;
+	BoulderExplodeBmp6 _explodingBmp6;
+	BoulderExplodeBmp7 _explodingBmp7;
 };
 
 #endif
