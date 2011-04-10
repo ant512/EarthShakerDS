@@ -10,10 +10,12 @@
 #include "beanblock.h"
 #include "constants.h"
 
-Game::Game() {
+Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_isGravityInverted = false;
 	_score = 0;
 	_levelTime = 100;
+	_topGfx = topGfx;
+	_bottomGfx = bottomGfx;
 
 	s32 levelWidth = 32;
 	s32 levelHeight = 16;
@@ -62,7 +64,7 @@ PlayerBlock* Game::getPlayerBlock() const {
 	return _playerBlock;
 }
 
-void Game::render(WoopsiGfx::Graphics* gfx) {
+void Game::render() {
 
 	s32 displayWidth = DISPLAY_WIDTH / BlockBase::BLOCK_SIZE;
 	s32 displayHeight = DISPLAY_HEIGHT / BlockBase::BLOCK_SIZE;
@@ -79,7 +81,7 @@ void Game::render(WoopsiGfx::Graphics* gfx) {
 	if (y + displayHeight > _level->getHeight()) y = _level->getHeight() - displayHeight;
 	if (y < 0) y = 0;
 
-	_level->render(x, y, displayWidth, displayHeight, gfx);
+	_level->render(x, y, displayWidth, displayHeight, _topGfx);
 }
 
 void Game::iterate() {

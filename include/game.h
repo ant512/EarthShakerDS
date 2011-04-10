@@ -9,11 +9,11 @@
 
 class Game {
 public:
-	Game();
+	Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx);
 
 	~Game();
 
-	void render(WoopsiGfx::Graphics* gfx);
+	void render();
 
 	LevelBase* getLevel() const;
 	PlayerBlock* getPlayerBlock() const;
@@ -34,6 +34,8 @@ private:
 	bool _isGravityInverted;
 	s32 _score;
 	s32 _levelTime;
+	WoopsiGfx::Graphics* _topGfx;
+	WoopsiGfx::Graphics* _bottomGfx;
 
 	LevelBase* createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name);
 };

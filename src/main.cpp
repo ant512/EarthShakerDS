@@ -21,11 +21,14 @@ void initGfxMode() {
 int main(int argc, char* argv[]) {
 	initGfxMode();
 
-	WoopsiGfx::FrameBuffer buffer((u16*)BG_BMP_RAM(0), 256, 192);
-	WoopsiGfx::Graphics* gfx = buffer.newGraphics();
+	WoopsiGfx::FrameBuffer topBuffer((u16*)BG_BMP_RAM(0), DISPLAY_WIDTH, DISPLAY_HEIGHT);
+	WoopsiGfx::FrameBuffer bottomBuffer((u16*)BG_BMP_RAM_SUB(0), DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
-	Game* game = new Game();
-	game->render(gfx);
+	WoopsiGfx::Graphics* topGfx = topBuffer.newGraphics();
+	WoopsiGfx::Graphics* bottomGfx = bottomBuffer.newGraphics();
+
+	Game* game = new Game(topGfx, bottomGfx);
+	game->render();
 
 	s32 animationTimer = 0;
 	s32 movementTimer = 0;
@@ -37,7 +40,7 @@ int main(int argc, char* argv[]) {
 		if (animationTimer == ANIMATION_TIME) {
 			animationTimer = 0;
 
-			game->render(gfx);
+			game->render();
 		}
 
 		movementTimer++;
@@ -62,6 +65,10 @@ int main(int argc, char* argv[]) {
 
 		swiWaitForVBlank();
 	}
+
+	delete topGfx;
+	delete bottomGfx;
+	delete game;
 
 	return 0;
 }
