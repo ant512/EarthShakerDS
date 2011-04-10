@@ -47,9 +47,9 @@ int main(int argc, char* argv[]) {
 		if (movementTimer == MOVEMENT_TIME) {
 			movementTimer = 0;
 
-			scanKeys();
-
 			game->iterate();
+
+			scanKeys();
 
 			if (keysHeld() & KEY_UP) {
 				game->getPlayerBlock()->applyUpwardForce();
