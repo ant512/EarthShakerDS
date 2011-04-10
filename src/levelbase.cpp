@@ -22,11 +22,13 @@ void LevelBase::render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, W
 	if (stopX > _width) stopX = _width;
 	if (stopY > _height) stopY = _height;
 
+	BlockBase* block = NULL;
+
 	for (s32 x = blockX; x < stopX; ++x) {
 		for (s32 y = blockY; y < stopY; ++y) {
 			s32 index = (y * _width) + x;
 
-			BlockBase* block = _data[index];
+			block = _data[index];
 
 			if (block != NULL) {
 				block->render((x - blockX) * BlockBase::BLOCK_SIZE, (y - blockY) * BlockBase::BLOCK_SIZE, gfx);
@@ -81,10 +83,16 @@ void LevelBase::iterate(bool isGravityInverted) {
 		increment = -1;
 	}
 
+	BlockBase* block = NULL;
+	BlockBase* lastBlock = NULL;
+
 	for (s32 i = start; i != stop; i += increment) {
-		BlockBase* block = _data[i];
+		block = _data[i];
 
 		if (block == NULL) continue;
+		if (block == lastBlock) continue;
+
+		lastBlock = block;
 
 		// Remove the block if it has finished exploding
 		if (block->isDestroyed()) {
