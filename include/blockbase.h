@@ -66,7 +66,6 @@ public:
 	bool isDestroyed() const;
 
 	void explode();
-	void explodeIfHotBlockAt(s32 x, s32 y);
 
 	virtual bool digFromBelow() { return false; };
 	virtual bool digFromAbove() { return false; };
