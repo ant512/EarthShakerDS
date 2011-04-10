@@ -39,6 +39,9 @@ void BlockBase::render(s32 x, s32 y, WoopsiGfx::Graphics* gfx) {
 }
 
 void BlockBase::explode() {
+
+	if (_isExploding) return;
+
 	_isExploding = true;
 	_explodingAnimation->play();
 }

@@ -31,8 +31,19 @@ public:
 		LevelBase* level = _game->getLevel();
 		BlockBase* block = level->getBlockAt(_x, _y - 1);
 
-		// Try to push the bubble onto the next block
 		if (block != NULL) {
+
+			// If we're pushing the bubble onto fire, explode this and the fire
+			// block
+			if (block->isHot()) {
+				if (_isExploding) return false;
+
+				explode();
+				block->explode();
+				return false;
+			}
+
+			// Try to push the bubble onto the next block
 			if (block->digFromLeft()) {
 				level->moveBlock(_x, _y, _x, _y - 1);
 				return true;
@@ -53,8 +64,19 @@ public:
 
 		BlockBase* block = level->getBlockAt(_x, _y + 1);
 
-		// Try to push the bubble onto the next block
 		if (block != NULL) {
+
+			// If we're pushing the bubble onto fire, explode this and the fire
+			// block
+			if (block->isHot()) {
+				if (_isExploding) return false;
+
+				explode();
+				block->explode();
+				return false;
+			}
+
+			// Try to push the bubble onto the next block
 			if (block->digFromLeft()) {
 				level->moveBlock(_x, _y, _x, _y + 1);
 				return true;
@@ -74,8 +96,19 @@ public:
 		LevelBase* level = _game->getLevel();
 		BlockBase* block = level->getBlockAt(_x - 1, _y);
 
-		// Try to push the bubble onto the next block
 		if (block != NULL) {
+
+			// If we're pushing the bubble onto fire, explode this and the fire
+			// block
+			if (block->isHot()) {
+				if (_isExploding) return false;
+
+				explode();
+				block->explode();
+				return false;
+			}
+
+			// Try to push the bubble onto the next block
 			if (block->digFromLeft()) {
 				level->moveBlock(_x, _y, _x - 1, _y);
 				return true;
@@ -96,8 +129,19 @@ public:
 
 		BlockBase* block = level->getBlockAt(_x + 1, _y);
 
-		// Try to push the bubble onto the next block
 		if (block != NULL) {
+
+			// If we're pushing the bubble onto fire, explode this and the fire
+			// block
+			if (block->isHot()) {
+				if (_isExploding) return false;
+
+				explode();
+				block->explode();
+				return false;
+			}
+
+			// Try to push the bubble onto the next block
 			if (block->digFromRight()) {
 				level->moveBlock(_x, _y, _x + 1, _y);
 				return true;
