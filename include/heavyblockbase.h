@@ -29,18 +29,6 @@ public:
 	 */
 	bool isFalling() const;
 
-	/**
-	 * Pushes this block to the left if the block to the left is empty.
-	 * @return True if the block moves; false if not.
-	 */
-	bool applyLeftwardForce();
-
-	/**
-	 * Pushes this block to the right if the block to the left is empty.
-	 * @return True if the block moves; false if not.
-	 */
-	bool applyRightwardForce();
-
 protected:
 	bool _isFalling;		/**< The falling state of the block. */
 

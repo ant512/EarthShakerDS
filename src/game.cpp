@@ -4,6 +4,7 @@
 #include "soilblock.h"
 #include "bubbleblock.h"
 #include "wallblock.h"
+#include "fireblock.h"
 
 Game::Game() {
 	_isGravityInverted = false;
@@ -25,7 +26,7 @@ Game::Game() {
 						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 						1,1,1,1,1,1,1,1,1,1,1,1,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 						6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-						6,6,6,6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+						6,6,6,6,6,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
 	_level = createLevel(levelData, levelWidth, levelHeight);
 }
@@ -108,6 +109,9 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
 					break;
 				case 6:
 					block = new WallBlock(x, y, this);
+					break;
+				case 7:
+					block = new FireBlock(x, y, this);
 					break;
 			}
 

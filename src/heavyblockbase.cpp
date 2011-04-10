@@ -116,29 +116,3 @@ void HeavyBlockBase::drop() {
 	_isFalling = false;
 	return;
 }
-
-bool HeavyBlockBase::applyLeftwardForce() {
-	if (_x == 0) return false;
-
-	LevelBase* level = _game->getLevel();
-
-	if (level->getBlockAt(_x - 1, _y) == NULL) {
-		level->moveBlock(_x, _y, _x - 1, _y);
-		return true;
-	}
-
-	return false;
-}
-
-bool HeavyBlockBase::applyRightwardForce() {
-	LevelBase* level = _game->getLevel();
-
-	if (_x == level->getWidth() - 1) return false;
-
-	if (level->getBlockAt(_x + 1, _y) == NULL) {
-		level->moveBlock(_x, _y, _x + 1, _y);
-		return true;
-	}
-
-	return false;
-}

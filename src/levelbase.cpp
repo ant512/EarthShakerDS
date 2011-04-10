@@ -88,13 +88,18 @@ void LevelBase::iterate(bool isGravityInverted) {
 
 		if (block == NULL) continue;
 
-		block->iterate();
-
 		// Remove the block if it has finished exploding
 		if (block->isDestroyed()) {
-			delete block;
 			_data[i] = NULL;
+			delete block;
 		}
+
+		// Try and grab the block again - it may have been deleted
+		block = _data[i];
+		
+		if (block == NULL) continue;
+
+		block->iterate();
 	}
 }
 

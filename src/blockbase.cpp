@@ -33,6 +33,8 @@ void BlockBase::render(s32 x, s32 y, WoopsiGfx::Graphics* gfx) {
 		bitmap = _explodingAnimation->getCurrentBitmap();
 	}
 
+	if (bitmap == NULL) return;
+
 	gfx->drawBitmap(x, y, bitmap->getWidth(), bitmap->getHeight(), bitmap, 0, 0);
 }
 
