@@ -22,8 +22,27 @@ public:
 	virtual void iterate() {
 		if (_game->isGravityInverted()) {
 			raise();
+
+			// If we're sat on a hot tile then explode
+			if (_y == 0) return;
+			
+			BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
+
+			if (block == NULL) return;
+
+			if (block->isHot()) explode();
+
 		} else {
 			drop();
+
+			// If we're sat on a hot tile then explode
+			if (_y == _game->getLevel()->getHeight() - 1) return;
+			
+			BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
+
+			if (block == NULL) return;
+
+			if (block->isHot()) explode();
 		}
 	};
 

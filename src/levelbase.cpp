@@ -71,23 +71,29 @@ void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
 
 void LevelBase::iterate(bool isGravityInverted) {
 
+	s32 start = 0;
+	s32 stop = 0;
+	s32 increment = 1;
+
 	if (isGravityInverted) {
-
-		for (s32 i = 0; i < _width * _height; ++i) {
-			BlockBase* block = _data[i];
-
-			if (block == NULL) continue;
-
-			block->iterate();
-		}
+		stop = _width * _height;
 	} else {
+		start = (_width * _height) - 1;
+		stop = -1;
+		increment = -1;
+	}
 
-		for (s32 i = _width * _height; i >= 0; --i) {
-			BlockBase* block = _data[i];
+	for (s32 i = start; i != stop; i += increment) {
+		BlockBase* block = _data[i];
 
-			if (block == NULL) continue;
+		if (block == NULL) continue;
 
-			block->iterate();
+		block->iterate();
+
+		// Remove the block if it has finished exploding
+		if (block->isDestroyed()) {
+			delete block;
+			_data[i] = NULL;
 		}
 	}
 }
