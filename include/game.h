@@ -23,10 +23,17 @@ public:
 	bool isGravityInverted() const;
 	void flipGravity();
 
+	s32 getScore() const;
+	s32 getLevelTime() const;
+
+	void addScore(s32 score);
+
 private:
 	LevelBase* _level;
 	PlayerBlock* _playerBlock;
 	bool _isGravityInverted;
+	s32 _score;
+	s32 _levelTime;
 
 	LevelBase* createLevel(u8* data, s32 width, s32 height);
 };

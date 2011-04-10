@@ -10,6 +10,8 @@
 
 Game::Game() {
 	_isGravityInverted = false;
+	_score = 0;
+	_levelTime = 100;
 
 	s32 levelWidth = 32;
 	s32 levelHeight = 16;
@@ -38,8 +40,20 @@ Game::~Game() {
 	delete _playerBlock;
 }
 
+s32 Game::getScore() const {
+	return _score;
+}
+
+s32 Game::getLevelTime() const {
+	return _levelTime;
+}
+
 LevelBase* Game::getLevel() const {
 	return _level;
+}
+
+void Game::addScore(s32 score) {
+	_score += score;
 }
 
 PlayerBlock* Game::getPlayerBlock() const {
