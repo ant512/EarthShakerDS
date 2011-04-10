@@ -13,7 +13,7 @@
 Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_isGravityInverted = false;
 	_score = 0;
-	_levelTime = 100;
+	_levelTime = STARTING_TIME;
 	_lives = STARTING_LIVES;
 	_topGfx = topGfx;
 	_bottomGfx = bottomGfx;
@@ -70,11 +70,6 @@ void Game::addScore(s32 score) {
 	_bottomGfx->drawText(0, 0, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 
 	// TODO: Time printing should be in another function
-	str.format("Time: %03d", _levelTime);
-	_bottomGfx->drawFilledRect(0, _font.getHeight(), _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
-	_bottomGfx->drawText(0, _font.getHeight(), &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
-
-	// TODO: Time printing should be in another function
 	str.format("Lives: %02d", _lives);
 	_bottomGfx->drawFilledRect(0, _font.getHeight() * 2, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
 	_bottomGfx->drawText(0, _font.getHeight() * 2, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
@@ -111,10 +106,21 @@ void Game::render() {
 
 void Game::iterate() {
 	_level->iterate(_isGravityInverted);
+	decreaseTime();
 }
 
 bool Game::isGravityInverted() const {
 	return _isGravityInverted;
+}
+
+void Game::decreaseTime() {
+	_levelTime -= TIME_DECREMENT;
+
+	// TODO: Time printing should be in another function
+	WoopsiGfx::WoopsiString str;
+	str.format("Time: %03d", _levelTime >> 2);
+	_bottomGfx->drawFilledRect(0, _font.getHeight(), _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
+	_bottomGfx->drawText(0, _font.getHeight(), &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 }
 
 void Game::flipGravity() {

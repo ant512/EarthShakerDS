@@ -9,5 +9,7 @@ const s32 DIAMOND_SCORE = 10;
 const s32 FIRE_EXTINGUISH_SCORE = 100;
 const s32 BEAN_SCORE= 64;
 const s32 STARTING_LIVES = 5;
+const s32 STARTING_TIME = 2000;
+const s32 TIME_DECREMENT = 1;
 
 #endif
