@@ -6,6 +6,7 @@
 #include "levelbase.h"
 #include "blockbase.h"
 #include "playerblock.h"
+#include "newtopaz.h"
 
 class Game {
 public:
@@ -36,6 +37,7 @@ private:
 	s32 _levelTime;
 	WoopsiGfx::Graphics* _topGfx;
 	WoopsiGfx::Graphics* _bottomGfx;
+	NewTopaz _font;
 
 	LevelBase* createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name);
 };

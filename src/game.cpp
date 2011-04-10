@@ -17,6 +17,9 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_topGfx = topGfx;
 	_bottomGfx = bottomGfx;
 
+	// Ensure that the score display is drawn
+	addScore(0);
+
 	s32 levelWidth = 32;
 	s32 levelHeight = 16;
 	u8 levelData[512] = {6,6,6,2,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -58,6 +61,13 @@ LevelBase* Game::getLevel() const {
 
 void Game::addScore(s32 score) {
 	_score += score;
+
+	// TODO: Fix the quick and dirty score display
+	_bottomGfx->drawFilledRect(0, 0, DISPLAY_WIDTH, _font.getHeight(), woopsiRGB(0, 0, 0));
+
+	WoopsiGfx::WoopsiString str;
+	str.format("Score: %06d", _score);
+	_bottomGfx->drawText(0, 0, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 }
 
 PlayerBlock* Game::getPlayerBlock() const {
