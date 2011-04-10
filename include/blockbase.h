@@ -63,7 +63,9 @@ public:
 
 	inline bool isHot() const { return _isHot; };
 	inline bool isExploding() const { return _isExploding; };
-	inline bool isDestroyed() const { return _isDestroyed; };
+	bool isDestroyed() const;
+
+	void explode();
 
 	virtual bool digFromBelow() { return false; };
 	virtual bool digFromAbove() { return false; };
@@ -87,7 +89,6 @@ protected:
 								 net to it. */
 	bool _isHot;
 	bool _isExploding;
-	bool _isDestroyed;
 };
 
 #endif
