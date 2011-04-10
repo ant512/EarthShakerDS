@@ -6,6 +6,7 @@
 #include "wallblock.h"
 #include "fireblock.h"
 #include "beanblock.h"
+#include "constants.h"
 
 Game::Game() {
 	_isGravityInverted = false;
@@ -47,10 +48,8 @@ PlayerBlock* Game::getPlayerBlock() const {
 
 void Game::render(WoopsiGfx::Graphics* gfx) {
 
-	// TODO: Remove magic numbers
-	s32 blockSize = BlockBase::BLOCK_SIZE;
-	s32 displayWidth = 256 / blockSize;
-	s32 displayHeight = 192 / blockSize;
+	s32 displayWidth = DISPLAY_WIDTH / BlockBase::BLOCK_SIZE;
+	s32 displayHeight = DISPLAY_HEIGHT / BlockBase::BLOCK_SIZE;
 
 	s32 centreX = _playerBlock->getX();
 	s32 centreY = _playerBlock->getY();

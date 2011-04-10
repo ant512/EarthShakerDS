@@ -2,9 +2,7 @@
 #include "framebuffer.h"
 #include "graphics.h"
 #include "game.h"
-
-const s32 ANIMATION_TIME = 3;
-const s32 MOVEMENT_TIME = 6;
+#include "constants.h"
 
 void initGfxMode() {
 	powerOn(POWER_ALL_2D);
