@@ -5,9 +5,8 @@ Todo
    - Erasing needs to be more accurate.
    - Draw a surrounding bitmap?
  - Implement all scoring.
- - Implement timer.
+ - Timer expiry should make player die.
  - Make beans give time extension.
- - Make diamonds add to score.
  - Add death check - in PlayerBlock iterate() method, check if the block above
    the player is falling.  If so, player is dead.  Also check for collisions
    with hot blocks.
@@ -18,3 +17,4 @@ Todo
  - Need explosion graphics for:
   - PlayerBlock
  - Should heavy blocks slip sideways if the diagonal block is fire?
+ - Sounds.
