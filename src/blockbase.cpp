@@ -43,6 +43,22 @@ void BlockBase::explode() {
 	_explodingAnimation->play();
 }
 
+void BlockBase::explodeIfHotBlockAt(s32 x, s32 y) {
+
+	if (_isExploding) return;
+
+	if (x < 0) return;
+	if (y < 0) return;
+	if (x > _game->getLevel()->getWidth() - 1) return;
+	if (y > _game->getLevel()->getHeight() - 1) return;
+
+	BlockBase* block = _game->getLevel()->getBlockAt(x, y);
+
+	if (block == NULL) return;
+
+	if (block->isHot()) explode();
+}
+
 bool BlockBase::isDestroyed() const {
 	return (_isExploding && (_explodingAnimation->getStatus() == WoopsiGfx::Animation::ANIMATION_STATUS_STOPPED));
 }
