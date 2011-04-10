@@ -62,6 +62,8 @@ public:
 	inline bool isSlippy() const { return _isSlippy; };
 
 	inline bool isHot() const { return _isHot; };
+	inline bool isExploding() const { return _isExploding; };
+	inline bool isDestroyed() const { return _isDestroyed; };
 
 	virtual bool digFromBelow() { return false; };
 	virtual bool digFromAbove() { return false; };
@@ -76,6 +78,7 @@ public:
 
 protected:
 	WoopsiGfx::Animation* _animation;
+	WoopsiGfx::Animation* _explodingAnimation;
 	s32 _x;
 	s32 _y;
 	Game* _game;
@@ -83,6 +86,8 @@ protected:
 								 the left or right if this block has empty space
 								 net to it. */
 	bool _isHot;
+	bool _isExploding;
+	bool _isDestroyed;
 };
 
 #endif

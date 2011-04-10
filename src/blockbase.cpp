@@ -8,11 +8,16 @@ BlockBase::BlockBase(s32 x, s32 y, Game* game) {
 	_game = game;
 	_isSlippy = false;
 	_isHot = false;
+	_isExploding = false;
+	_isDestroyed = false;
+
 	_animation = new WoopsiGfx::Animation(1, WoopsiGfx::Animation::ANIMATION_LOOPTYPE_LOOP, 0);
+	_explodingAnimation = new WoopsiGfx::Animation(1, WoopsiGfx::Animation::ANIMATION_LOOPTYPE_NONE, 0);
 }
 
 BlockBase::~BlockBase() {
 	delete _animation;
+	delete _explodingAnimation;
 }
 
 void BlockBase::render(s32 x, s32 y, WoopsiGfx::Graphics* gfx) {
