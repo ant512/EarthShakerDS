@@ -3,9 +3,11 @@
 #include "blockbase.h"
 #include "levelbase.h"
 
-LevelBase::LevelBase(s32 width, s32 height) {
+LevelBase::LevelBase(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name) {
 	_width = width;
 	_height = height;
+	_levelNumber = number;
+	_name = name;
 	_data = new BlockBase*[width * height];
 }
 

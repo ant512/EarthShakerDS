@@ -1,3 +1,5 @@
+#include <woopsistring.h>
+
 #include "game.h"
 #include "diamondblock.h"
 #include "boulderblock.h"
@@ -32,7 +34,7 @@ Game::Game() {
 						6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 						6,6,6,6,6,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
-	_level = createLevel(levelData, levelWidth, levelHeight);
+	_level = createLevel(levelData, levelWidth, levelHeight, 1, "Test Level");
 }
 
 Game::~Game() {
@@ -92,9 +94,9 @@ void Game::flipGravity() {
 	_isGravityInverted = !_isGravityInverted;
 }
 
-LevelBase* Game::createLevel(u8* data, s32 width, s32 height) {
+LevelBase* Game::createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name) {
 
-	LevelBase* level = new LevelBase(width, height);
+	LevelBase* level = new LevelBase(width, height, number, name);
 
 	BlockBase* block = NULL;
 

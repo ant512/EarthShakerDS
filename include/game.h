@@ -35,7 +35,7 @@ private:
 	s32 _score;
 	s32 _levelTime;
 
-	LevelBase* createLevel(u8* data, s32 width, s32 height);
+	LevelBase* createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name);
 };
 
 #endif

@@ -2,19 +2,24 @@
 #define _LEVEL_BASE_H_
 
 #include <graphics.h>
+#include <woopsistring.h>
 
 class BlockBase;
 
 class LevelBase {
 public:
 
-	LevelBase(s32 width, s32 height);
+	LevelBase(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name);
 
 	virtual ~LevelBase();
 
 	inline s32 getWidth() const { return _width; };
 
 	inline s32 getHeight() const { return _height; };
+
+	inline const WoopsiGfx::WoopsiString& getName() const { return _name; };
+
+	inline s32 getLevelNumber() const { return _levelNumber; };
 
 	BlockBase* getBlockAt(s32 x, s32 y) const;
 
@@ -30,6 +35,8 @@ private:
 	s32 _width;
 	s32 _height;
 	BlockBase** _data;
+	WoopsiGfx::WoopsiString _name;
+	s32 _levelNumber;
 };
 
 #endif
