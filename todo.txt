@@ -1,10 +1,10 @@
 Todo
 ----
 
- - Remove magic numbers.
  - Add scoring.
  - Add timer.
  - Make beans give time extension.
+ - Make diamonds add to score.
  - Add death check - in PlayerBlock iterate() method, check if the block above
    the player is falling.  If so, player is dead.  Also check for collisions
    with hot blocks.
