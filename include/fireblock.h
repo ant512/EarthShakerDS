@@ -6,10 +6,10 @@
 
 #include "game.h"
 #include "blockbase.h"
-#include "bubblebmp1.h"
-#include "bubblebmp2.h"
-#include "bubblebmp3.h"
-#include "bubblebmp4.h"
+#include "firebmp1.h"
+#include "firebmp2.h"
+#include "firebmp3.h"
+#include "firebmp4.h"
 
 class FireBlock : public BlockBase {
 public:
@@ -26,10 +26,10 @@ public:
 	~FireBlock() {};
 
 private:
-	BubbleBmp1 _bmp1;
-	BubbleBmp2 _bmp2;
-	BubbleBmp3 _bmp3;
-	BubbleBmp4 _bmp4;
+	FireBmp1 _bmp1;
+	FireBmp2 _bmp2;
+	FireBmp3 _bmp3;
+	FireBmp4 _bmp4;
 };
 
 #endif
