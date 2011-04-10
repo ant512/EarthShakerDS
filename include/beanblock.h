@@ -9,6 +9,7 @@
 #include "beanbmp1.h"
 #include "beanbmp2.h"
 #include "beanbmp3.h"
+#include "constants.h"
 
 class BeanBlock : public HeavyBlockBase {
 public:
@@ -34,26 +35,22 @@ public:
 	};
 
 	virtual bool applyUpwardForce() {
-		
-		// TODO: Player should collect bean here.
+		_game->addScore(BEAN_SCORE);
 		return true;
 	};
 
 	virtual bool applyDownwardForce() {
-		
-		// TODO: Player should collect bean here.
+		_game->addScore(BEAN_SCORE);
 		return true;
 	};
 
 	virtual bool applyLeftwardForce() {
-		
-		// TODO: Player should collect bean here.
+		_game->addScore(BEAN_SCORE);
 		return true;
 	};
 
 	virtual bool applyRightwardForce() {
-		
-		// TODO: Player should collect bean here.
+		_game->addScore(BEAN_SCORE);
 		return true;
 	};
 

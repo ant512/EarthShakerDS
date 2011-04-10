@@ -35,6 +35,7 @@ private:
 	bool _isGravityInverted;
 	s32 _score;
 	s32 _levelTime;
+	s32 _lives;
 	WoopsiGfx::Graphics* _topGfx;
 	WoopsiGfx::Graphics* _bottomGfx;
 	NewTopaz _font;

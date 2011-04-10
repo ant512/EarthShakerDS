@@ -14,6 +14,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_isGravityInverted = false;
 	_score = 0;
 	_levelTime = 100;
+	_lives = STARTING_LIVES;
 	_topGfx = topGfx;
 	_bottomGfx = bottomGfx;
 
@@ -63,11 +64,25 @@ void Game::addScore(s32 score) {
 	_score += score;
 
 	// TODO: Fix the quick and dirty score display
-	_bottomGfx->drawFilledRect(0, 0, DISPLAY_WIDTH, _font.getHeight(), woopsiRGB(0, 0, 0));
-
 	WoopsiGfx::WoopsiString str;
 	str.format("Score: %06d", _score);
+	_bottomGfx->drawFilledRect(0, 0, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
 	_bottomGfx->drawText(0, 0, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
+
+	// TODO: Time printing should be in another function
+	str.format("Time: %03d", _levelTime);
+	_bottomGfx->drawFilledRect(0, _font.getHeight(), _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
+	_bottomGfx->drawText(0, _font.getHeight(), &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
+
+	// TODO: Time printing should be in another function
+	str.format("Lives: %02d", _lives);
+	_bottomGfx->drawFilledRect(0, _font.getHeight() * 2, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
+	_bottomGfx->drawText(0, _font.getHeight() * 2, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
+
+	// TODO: Level printing should be in another function
+	str.format("Level: %02d:", _level->getLevelNumber());
+	_bottomGfx->drawFilledRect(0, _font.getHeight() * 3, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
+	_bottomGfx->drawText(0, _font.getHeight() * 3, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 }
 
 PlayerBlock* Game::getPlayerBlock() const {

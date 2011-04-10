@@ -5,15 +5,15 @@
 #include <bitmap.h>
 
 #include "game.h"
-#include "blockbase.h"
+#include "heavyblockbase.h"
 #include "firebmp1.h"
 #include "firebmp2.h"
 #include "firebmp3.h"
 #include "firebmp4.h"
 
-class FireBlock : public BlockBase {
+class FireBlock : public HeavyBlockBase {
 public:
-	FireBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	FireBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
 		_isHot = true;
 		
 		_animation->addFrame(&_bmp1, 0);

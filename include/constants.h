@@ -7,5 +7,7 @@ const s32 DISPLAY_WIDTH = 256;
 const s32 DISPLAY_HEIGHT = 192;
 const s32 DIAMOND_SCORE = 10;
 const s32 FIRE_EXTINGUISH_SCORE = 100;
+const s32 BEAN_SCORE= 64;
+const s32 STARTING_LIVES = 5;
 
 #endif
