@@ -13,7 +13,7 @@
 Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_isGravityInverted = false;
 	_score = 0;
-	_levelTime = STARTING_TIME;
+	_remainingTime = STARTING_TIME;
 	_lives = STARTING_LIVES;
 	_topGfx = topGfx;
 	_bottomGfx = bottomGfx;
@@ -59,8 +59,8 @@ s32 Game::getScore() const {
 	return _score;
 }
 
-s32 Game::getLevelTime() const {
-	return _levelTime;
+s32 Game::getRemainingTime() const {
+	return _remainingTime;
 }
 
 LevelBase* Game::getLevel() const {
@@ -76,7 +76,7 @@ void Game::addScore(s32 score) {
 	_bottomGfx->drawFilledRect(0, 0, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
 	_bottomGfx->drawText(0, 0, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 
-	// TODO: Time printing should be in another function
+	// TODO: Life printing should be in another function
 	str.format("Lives: %02d", _lives);
 	_bottomGfx->drawFilledRect(0, _font.getHeight(), _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
 	_bottomGfx->drawText(0, _font.getHeight(), &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
@@ -119,6 +119,12 @@ void Game::render() {
 	if (y < 0) y = 0;
 
 	_level->render(x, y, displayWidth, displayHeight, _topGfx);
+}
+
+
+void Game::iterate() {
+	animate();
+	move();
 }
 
 void Game::animate() {
@@ -168,17 +174,12 @@ void Game::setRightHeld(bool rightHeld) {
 	_rightHeld = rightHeld;
 }
 
-void Game::iterate() {
-	animate();
-	move();
-}
-
 bool Game::isGravityInverted() const {
 	return _isGravityInverted;
 }
 
 void Game::decreaseTime() {
-	_levelTime -= TIME_DECREMENT;
+	_remainingTime -= TIME_DECREMENT;
 
 	drawTimerBar();
 }
@@ -186,7 +187,7 @@ void Game::decreaseTime() {
 void Game::drawTimerBar() {
 
 	// Calculate the percentage of time that has elapsed so far
-	s32 percentage = (_levelTime * 100) / STARTING_TIME;
+	s32 percentage = (_remainingTime * 100) / STARTING_TIME;
 
 	// Calculate the width of the timer bar - it shows the remaining percentage
 	// of time

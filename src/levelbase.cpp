@@ -58,13 +58,18 @@ void LevelBase::setBlockAt(s32 x, s32 y, BlockBase* block) {
 }
 
 void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
+
+	// If there is an existing block at the destination position it will be
+	// overwritten.  That block is deleted before the pointer is forgotten.
 	BlockBase* dest = getBlockAt(destX, destY);
 	if (dest != NULL) delete dest;
 
+	// Overwrite the destination with the source block
 	BlockBase* source = getBlockAt(sourceX, sourceY);
 	setBlockAt(sourceX, sourceY, NULL);
 	setBlockAt(destX, destY, source);
 
+	// Notify the moved block of its new co-ordinates
 	if (source != NULL) {
 		source->setX(destX);
 		source->setY(destY);

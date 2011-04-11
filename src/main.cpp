@@ -28,7 +28,6 @@ int main(int argc, char* argv[]) {
 	WoopsiGfx::Graphics* bottomGfx = bottomBuffer.newGraphics();
 
 	Game* game = new Game(topGfx, bottomGfx);
-	game->render();
 
 	while(1) {
 		scanKeys();
