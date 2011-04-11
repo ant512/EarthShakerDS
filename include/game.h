@@ -29,6 +29,11 @@ public:
 
 	void addScore(s32 score);
 
+	void setUpHeld(bool upHeld);
+	void setDownHeld(bool downHeld);
+	void setLeftHeld(bool leftHeld);
+	void setRightHeld(bool rightHeld);
+
 private:
 	LevelBase* _level;
 	PlayerBlock* _playerBlock;
@@ -39,11 +44,20 @@ private:
 	WoopsiGfx::Graphics* _topGfx;
 	WoopsiGfx::Graphics* _bottomGfx;
 	NewTopaz _font;
+	s32 _animationTimer;
+	s32 _movementTimer;
+
+	bool _upHeld;
+	bool _downHeld;
+	bool _leftHeld;
+	bool _rightHeld;
 
 	LevelBase* createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name);
 
 	void decreaseTime();
 	void drawTimerBar();
+	void animate();
+	void move();
 };
 
 #endif

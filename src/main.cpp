@@ -30,39 +30,14 @@ int main(int argc, char* argv[]) {
 	Game* game = new Game(topGfx, bottomGfx);
 	game->render();
 
-	s32 animationTimer = 0;
-	s32 movementTimer = 0;
-
 	while(1) {
+		scanKeys();
+		game->setUpHeld((keysDown() & KEY_UP) || (keysHeld() & KEY_UP));
+		game->setDownHeld((keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN));
+		game->setLeftHeld((keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT));
+		game->setRightHeld((keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT));
 
-		animationTimer++;
-
-		if (animationTimer == ANIMATION_TIME) {
-			animationTimer = 0;
-
-			game->render();
-		}
-
-		movementTimer++;
-
-		if (movementTimer == MOVEMENT_TIME) {
-			movementTimer = 0;
-
-			game->iterate();
-
-			scanKeys();
-
-			if ((keysDown() & KEY_UP) || (keysHeld() & KEY_UP)) {
-				game->getPlayerBlock()->pushUp();
-			} else if ((keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN)) {
-				game->getPlayerBlock()->pushDown();
-			} else if ((keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT)) {
-				game->getPlayerBlock()->pushLeft();
-			} else if ((keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT)) {
-				game->getPlayerBlock()->pushRight();
-			}
-		}
-
+		game->iterate();
 		swiWaitForVBlank();
 	}
 

@@ -17,6 +17,13 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_lives = STARTING_LIVES;
 	_topGfx = topGfx;
 	_bottomGfx = bottomGfx;
+	_animationTimer = 0;
+	_movementTimer = 0;
+
+	_upHeld = false;
+	_downHeld = false;
+	_leftHeld = false;
+	_rightHeld = false;
 
 	// Ensure that the score display is drawn
 	addScore(0);
@@ -104,9 +111,56 @@ void Game::render() {
 	_level->render(x, y, displayWidth, displayHeight, _topGfx);
 }
 
+void Game::animate() {
+	_animationTimer++;
+
+	if (_animationTimer == ANIMATION_TIME) {
+		_animationTimer = 0;
+
+		render();
+	}
+}
+
+void Game::move() {
+	_movementTimer++;
+
+	if (_movementTimer == MOVEMENT_TIME) {
+		_movementTimer = 0;
+
+		_level->iterate(_isGravityInverted);
+		decreaseTime();
+
+		if (_upHeld) {
+			_playerBlock->pushUp();
+		} else if (_downHeld) {
+			_playerBlock->pushDown();
+		} else if (_leftHeld) {
+			_playerBlock->pushLeft();
+		} else if (_rightHeld) {
+			_playerBlock->pushRight();
+		}
+	}
+}
+
+void Game::setUpHeld(bool upHeld) {
+	_upHeld = upHeld;
+}
+
+void Game::setDownHeld(bool downHeld) {
+	_downHeld = downHeld;
+}
+
+void Game::setLeftHeld(bool leftHeld) {
+	_leftHeld = leftHeld;
+}
+
+void Game::setRightHeld(bool rightHeld) {
+	_rightHeld = rightHeld;
+}
+
 void Game::iterate() {
-	_level->iterate(_isGravityInverted);
-	decreaseTime();
+	animate();
+	move();
 }
 
 bool Game::isGravityInverted() const {
