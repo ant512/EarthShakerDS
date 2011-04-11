@@ -6,7 +6,7 @@ Todo
    - Draw a surrounding bitmap?
  - Implement all scoring.
  - Timer expiry should make player die.
- - Make beans give time extension.
+ - Make beans give time extension - how much?
  - Add death check - in PlayerBlock iterate() method, check if the block above
    the player is falling.  If so, player is dead.  Also check for collisions
    with hot blocks.
