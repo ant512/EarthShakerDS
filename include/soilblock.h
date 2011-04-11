@@ -41,7 +41,6 @@ public:
 		return true;
 	};
 
-
 private:
 	SoilBmp _bmp;
 };

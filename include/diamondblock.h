@@ -36,25 +36,25 @@ public:
 		}
 	};
 
-	virtual bool applyUpwardForce() {
+	virtual bool pushUp() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
-	virtual bool applyDownwardForce() {
+	virtual bool pushDown() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
-	virtual bool applyLeftwardForce() {
+	virtual bool pushLeft() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
-	virtual bool applyRightwardForce() {
+	virtual bool pushRight() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;

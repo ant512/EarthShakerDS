@@ -16,15 +16,10 @@ public:
 	PlayerBlock(s32 x, s32 y, Game* game);
 	~PlayerBlock();
 
-	bool digFromBelow() { return false; };
-	bool digFromAbove() { return false; };
-	bool digFromLeft() { return false; };
-	bool digFromRight() { return false; };
-
-	bool applyUpwardForce();
-	bool applyDownwardForce();
-	bool applyRightwardForce();
-	bool applyLeftwardForce();
+	bool pushUp();
+	bool pushDown();
+	bool pushLeft();
+	bool pushRight();
 
 private:
 	PlayerBmp1 _bmp1;

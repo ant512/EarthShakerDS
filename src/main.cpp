@@ -53,13 +53,13 @@ int main(int argc, char* argv[]) {
 			scanKeys();
 
 			if ((keysDown() & KEY_UP) || (keysHeld() & KEY_UP)) {
-				game->getPlayerBlock()->applyUpwardForce();
+				game->getPlayerBlock()->pushUp();
 			} else if ((keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN)) {
-				game->getPlayerBlock()->applyDownwardForce();
+				game->getPlayerBlock()->pushDown();
 			} else if ((keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT)) {
-				game->getPlayerBlock()->applyLeftwardForce();
+				game->getPlayerBlock()->pushLeft();
 			} else if ((keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT)) {
-				game->getPlayerBlock()->applyRightwardForce();
+				game->getPlayerBlock()->pushRight();
 			}
 		}
 

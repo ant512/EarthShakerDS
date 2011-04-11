@@ -18,16 +18,6 @@ public:
 
 	~WallBlock() {};
 
-	bool applyUpwardForce() { return false; };
-	bool applyDownwardForce() { return false; };
-	bool applyLeftwardForce() { return false; };
-	bool applyRightwardForce() { return false; };
-
-	bool digFromBelow() { return false; };
-	bool digFromAbove() { return false; };
-	bool digFromLeft() { return false; };
-	bool digFromRight() { return false; };
-
 private:
 	WallBmp _bmp;
 };

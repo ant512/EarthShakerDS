@@ -15,7 +15,7 @@ PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 
 PlayerBlock::~PlayerBlock() { }
 
-bool PlayerBlock::applyLeftwardForce() {
+bool PlayerBlock::pushLeft() {
 	if (_x == 0) return false;;
 
 	// Get the block to the left of this
@@ -24,7 +24,7 @@ bool PlayerBlock::applyLeftwardForce() {
 	// Attempt to apply a force to the block or, if that fails, attempt to dig
 	// the block
 	if (block != NULL) {
-		if (!block->applyLeftwardForce()) block->digFromRight();
+		if (!block->pushLeft()) block->digFromRight();
 	}
 
 	// Re-fetch the block in case it has moved or no longer exists
@@ -39,7 +39,7 @@ bool PlayerBlock::applyLeftwardForce() {
 	return false;
 }
 
-bool PlayerBlock::applyRightwardForce() {
+bool PlayerBlock::pushRight() {
 	if (_x == _game->getLevel()->getWidth() - 1) return false;
 
 	// Get the block to the right of this
@@ -48,7 +48,7 @@ bool PlayerBlock::applyRightwardForce() {
 	// Attempt to apply a force to the block or, if that fails, attempt to dig
 	// the block
 	if (block != NULL) {
-		if (!block->applyRightwardForce()) block->digFromLeft();
+		if (!block->pushRight()) block->digFromLeft();
 	}
 
 	// Re-fetch the block in case it has moved or no longer exists
@@ -63,7 +63,7 @@ bool PlayerBlock::applyRightwardForce() {
 	return false;
 }
 
-bool PlayerBlock::applyUpwardForce() {
+bool PlayerBlock::pushUp() {
 	if (_y == 0) return false;
 
 	// Get the block above this
@@ -72,7 +72,7 @@ bool PlayerBlock::applyUpwardForce() {
 	// Attempt to apply a force to the block or, if that fails, attempt to dig
 	// the block
 	if (block != NULL) {
-		if (!block->applyUpwardForce()) block->digFromBelow();
+		if (!block->pushUp()) block->digFromBelow();
 	}
 
 	// Re-fetch the block in case it has moved or no longer exists
@@ -87,7 +87,7 @@ bool PlayerBlock::applyUpwardForce() {
 	return false;
 }
 
-bool PlayerBlock::applyDownwardForce() {
+bool PlayerBlock::pushDown() {
 	if (_y == _game->getLevel()->getHeight() - 1) return false;
 
 	// Get the block below this
@@ -96,7 +96,7 @@ bool PlayerBlock::applyDownwardForce() {
 	// Attempt to apply a force to the block or, if that fails, attempt to dig
 	// the block
 	if (block != NULL) {
-		if (!block->applyDownwardForce()) block->digFromAbove();
+		if (!block->pushDown()) block->digFromAbove();
 	}
 
 	// Re-fetch the block in case it has moved or no longer exists

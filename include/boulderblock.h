@@ -38,7 +38,7 @@ public:
 	 * Pushes this block to the left if the block to the left is empty.
 	 * @return True if the block moves; false if not.
 	 */
-	virtual bool applyLeftwardForce() {
+	virtual bool pushLeft() {
 		if (_x == 0) return false;
 		if (_isExploding) return false;
 
@@ -63,7 +63,7 @@ public:
 	 * Pushes this block to the right if the block to the left is empty.
 	 * @return True if the block moves; false if not.
 	 */
-	virtual bool applyRightwardForce() {
+	virtual bool pushRight() {
 		if (_isExploding) return false;
 
 		LevelBase* level = _game->getLevel();

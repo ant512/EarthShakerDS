@@ -39,25 +39,25 @@ public:
 	 */
 	~BeanBlock() {};
 
-	virtual bool applyUpwardForce() {
+	virtual bool pushUp() {
 		_game->addScore(BEAN_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
-	virtual bool applyDownwardForce() {
+	virtual bool pushDown() {
 		_game->addScore(BEAN_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
-	virtual bool applyLeftwardForce() {
+	virtual bool pushLeft() {
 		_game->addScore(BEAN_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
-	virtual bool applyRightwardForce() {
+	virtual bool pushRight() {
 		_game->addScore(BEAN_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;

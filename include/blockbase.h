@@ -98,32 +98,28 @@ public:
 	virtual bool digFromRight() { return false; };
 
 	/**
-	 * Attempt to apply an upwards-acting force to this block (ie. push up from
-	 * below).
+	 * Attempt to push this block upwards.
 	 * @return True if the attempt was successful; false if not.
 	 */
-	virtual bool applyUpwardForce() { return false; };
+	virtual bool pushUp() { return false; };
 
 	/**
-	 * Attempt to apply an downwards-acting force to this block (ie. push down
-	 * from above).
+	 * Attempt to push this block downwards.
 	 * @return True if the attempt was successful; false if not.
 	 */
-	virtual bool applyDownwardForce() { return false; };
+	virtual bool pushDown() { return false; };
 
 	/**
-	 * Attempt to apply an leftwards-acting force to this block (ie. push right
-	 * from left).
+	 * Attempt to push this block leftwards.
 	 * @return True if the attempt was successful; false if not.
 	 */
-	virtual bool applyLeftwardForce() { return false; };
+	virtual bool pushLeft() { return false; };
 
 	/**
-	 * Attempt to apply an rightwards-acting force to this block (ie. push left
-	 * from right).
+	 * Attempt to push this block rightwards.
 	 * @return True if the attempt was successful; false if not.
 	 */
-	virtual bool applyRightwardForce() { return false; };
+	virtual bool pushRight() { return false; };
 
 protected:
 	WoopsiGfx::Animation* _animation;

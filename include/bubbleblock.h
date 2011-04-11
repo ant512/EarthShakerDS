@@ -26,7 +26,7 @@ public:
 
 	~BubbleBlock() {};
 
-	virtual bool applyUpwardForce() {
+	virtual bool pushUp() {
 		if (_y == 0) return false;
 		if (_isExploding) return false;
 
@@ -62,7 +62,7 @@ public:
 		return true;
 	};
 
-	virtual bool applyDownwardForce() {
+	virtual bool pushDown() {
 		if (_isExploding) return false;
 
 		LevelBase* level = _game->getLevel();
@@ -100,7 +100,7 @@ public:
 		return true;
 	};
 
-	virtual bool applyLeftwardForce() {
+	virtual bool pushLeft() {
 		if (_x == 0) return false;
 		if (_isExploding) return false;
 
@@ -136,7 +136,7 @@ public:
 		return true;
 	};
 
-	virtual bool applyRightwardForce() {
+	virtual bool pushRight() {
 		if (_isExploding) return false;
 		
 		LevelBase* level = _game->getLevel();
