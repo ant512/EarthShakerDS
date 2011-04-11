@@ -32,6 +32,12 @@ public:
 
 	void iterate(bool isGravityInverted);
 
+	/**
+	 * Removes the block at the specified co-ordinates and adds it to the list
+	 * of blocks for deletion.
+	 * @param x The x co-ordinate of the block to remove.
+	 * @param y The y co-ordinate of the block to remove.
+	 */
 	void removeBlockAt(s32 x, s32 y);
 
 private:

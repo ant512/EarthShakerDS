@@ -55,29 +55,39 @@ void LevelBase::setBlockAt(s32 x, s32 y, BlockBase* block) {
 	s32 index = (y * _width) + x;
 
 	_data[index] = block;
+
+	// Notify the block that its co-ordinates have changed.
+	if (block != NULL) {
+		block->setX(x);
+		block->setY(y);
+	}
 }
 
 void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
 
-	// If there is an existing block at the destination position it will be
-	// overwritten.  That block is deleted before the pointer is forgotten.
-	BlockBase* dest = getBlockAt(destX, destY);
-	if (dest != NULL) delete dest;
+	if ((sourceX == destX) && (sourceY == destY)) return;
+
+	// Remove the destination block if the co-ordinate is not empty.  We use the
+	// removed list to ensure that blocks can move other blocks on top of
+	// themselves without therefore deleting themselves and causing memory
+	// corruption.  The removed list is deleted outside of any block logic so
+	// there is no chance of us deleting something currently being used.
+	removeBlockAt(destX, destY);
 
 	// Overwrite the destination with the source block
-	BlockBase* source = getBlockAt(sourceX, sourceY);
-	setBlockAt(sourceX, sourceY, NULL);
-	setBlockAt(destX, destY, source);
+	setBlockAt(destX, destY, getBlockAt(sourceX, sourceY));
 
-	// Notify the moved block of its new co-ordinates
-	if (source != NULL) {
-		source->setX(destX);
-		source->setY(destY);
-	}
+	// Wipe the original co-ordinates
+	setBlockAt(sourceX, sourceY, NULL);
 }
 
 void LevelBase::removeBlockAt(s32 x, s32 y) {
-	_removedBlockList.push_back(getBlockAt(x, y));
+
+	BlockBase* block = getBlockAt(x, y);
+
+	if (block == NULL) return;
+
+	_removedBlockList.push_back(block);
 	setBlockAt(x, y, NULL);
 }
 
