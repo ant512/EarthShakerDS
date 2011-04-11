@@ -11,8 +11,18 @@
 #include "beanbmp3.h"
 #include "constants.h"
 
+/**
+ * BeanBlocks give a time extension and points when collected.
+ */
 class BeanBlock : public HeavyBlockBase {
 public:
+
+	/**
+	 * Constructor.
+	 * @param x X co-ordinate within the level map of the block.
+	 * @param y Y co-ordinate within tne level map of the block.
+	 * @param game Pointer to the game that contains the block.
+	 */
 	BeanBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
 		_isSlippy = true;
 
@@ -24,15 +34,10 @@ public:
 
 	};
 
+	/**
+	 * Destructor.
+	 */
 	~BeanBlock() {};
-
-	virtual void iterate() {
-		if (_game->isGravityInverted()) {
-			raise();
-		} else {
-			drop();
-		}
-	};
 
 	virtual bool applyUpwardForce() {
 		_game->addScore(BEAN_SCORE);
@@ -55,9 +60,9 @@ public:
 	};
 
 private:
-	BeanBmp1 _bmp1;
-	BeanBmp2 _bmp2;
-	BeanBmp3 _bmp3;
+	BeanBmp1 _bmp1;		/**< First animation bitmap. */
+	BeanBmp2 _bmp2;		/**< Second animation bitmap. */
+	BeanBmp3 _bmp3;		/**< Third animation bitmap. */
 };
 
 #endif
