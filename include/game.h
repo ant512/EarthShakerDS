@@ -99,7 +99,9 @@ public:
 	void iterate();
 
 	/**
-	 * Increase the number of diamonds remaining in the level.
+	 * Increase the number of diamonds remaining in the level.  Also increases
+	 * the total number of diamonds since it is assumed that diamonds will only
+	 * increase when levels are being built.
 	 */
 	void increaseDiamondsRemaining();
 
@@ -115,6 +117,7 @@ private:
 	s32 _score;							/**< The current score. */
 	s32 _remainingTime;					/**< The amount of time remaining. */
 	s32 _lives;							/**< The number of lives remaining. */
+	s32 _totalDiamonds;					/**< The total number of diamonds in the level. */
 	s32 _diamondsRemaining;				/**< Number of diamonds to collect. */
 	WoopsiGfx::Graphics* _topGfx;		/**< The graphics object for the top display. */
 	WoopsiGfx::Graphics* _bottomGfx;	/**< The graphics object for the bottom display. */

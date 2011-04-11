@@ -14,6 +14,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_isGravityInverted = false;
 	_score = 0;
 	_diamondsRemaining = 0;
+	_totalDiamonds = 0;
 	_remainingTime = STARTING_TIME;
 	_lives = STARTING_LIVES;
 	_topGfx = topGfx;
@@ -83,9 +84,14 @@ void Game::addScore(s32 score) {
 	_bottomGfx->drawText(0, _font.getHeight(), &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 
 	// TODO: Level printing should be in another function
-	str.format("Level: %02d:", _level->getLevelNumber());
+	str.format("Level: %02d", _level->getLevelNumber());
 	_bottomGfx->drawFilledRect(0, _font.getHeight() * 2, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
 	_bottomGfx->drawText(0, _font.getHeight() * 2, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
+
+	// TODO: Diamond printing should be in another function
+	str.format("Diamonds: %02d:%02d", _totalDiamonds, _diamondsRemaining);
+	_bottomGfx->drawFilledRect(0, _font.getHeight() * 3, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
+	_bottomGfx->drawText(0, _font.getHeight() * 3, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 }
 
 PlayerBlock* Game::getPlayerBlock() const {
@@ -181,6 +187,7 @@ bool Game::isGravityInverted() const {
 
 void Game::increaseDiamondsRemaining() {
 	++_diamondsRemaining;
+	++_totalDiamonds;
 }
 
 void Game::decreaseDiamondsRemaining() {
