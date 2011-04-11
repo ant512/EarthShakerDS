@@ -18,16 +18,20 @@ PlayerBlock::~PlayerBlock() { }
 bool PlayerBlock::applyLeftwardForce() {
 	if (_x == 0) return false;;
 
+	// Get the block to the left of this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x - 1, _y);
 
-	bool canMove = true;
-
+	// Attempt to apply a force to the block or, if that fails, attempt to dig
+	// the block
 	if (block != NULL) {
-		canMove = block->applyLeftwardForce();
-		if (!canMove) canMove = block->digFromRight();
+		if (!block->applyLeftwardForce()) block->digFromRight();
 	}
 
-	if (canMove) {
+	// Re-fetch the block in case it has moved or no longer exists
+	block = _game->getLevel()->getBlockAt(_x - 1, _y);
+
+	// We can move into the block if it has been vacated
+	if (block == NULL) {
 		_game->getLevel()->moveBlock(_x, _y, _x - 1, _y);
 		return true;
 	}
@@ -38,16 +42,20 @@ bool PlayerBlock::applyLeftwardForce() {
 bool PlayerBlock::applyRightwardForce() {
 	if (_x == _game->getLevel()->getWidth() - 1) return false;
 
+	// Get the block to the right of this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x + 1, _y);
 
-	bool canMove = true;
-
+	// Attempt to apply a force to the block or, if that fails, attempt to dig
+	// the block
 	if (block != NULL) {
-		canMove = block->applyRightwardForce();
-		if (!canMove) canMove = block->digFromLeft();
+		if (!block->applyRightwardForce()) block->digFromLeft();
 	}
 
-	if (canMove) {
+	// Re-fetch the block in case it has moved or no longer exists
+	block = _game->getLevel()->getBlockAt(_x + 1, _y);
+
+	// We can move into the block if it has been vacated
+	if (block == NULL) {
 		_game->getLevel()->moveBlock(_x, _y, _x + 1, _y);
 		return true;
 	}
@@ -58,16 +66,20 @@ bool PlayerBlock::applyRightwardForce() {
 bool PlayerBlock::applyUpwardForce() {
 	if (_y == 0) return false;
 
+	// Get the block above this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y - 1);
 
-	bool canMove = true;
-
+	// Attempt to apply a force to the block or, if that fails, attempt to dig
+	// the block
 	if (block != NULL) {
-		canMove = block->applyUpwardForce();
-		if (!canMove) canMove = block->digFromBelow();
+		if (!block->applyUpwardForce()) block->digFromBelow();
 	}
 
-	if (canMove) {
+	// Re-fetch the block in case it has moved or no longer exists
+	block = _game->getLevel()->getBlockAt(_x, _y - 1);
+
+	// We can move into the block if it has been vacated
+	if (block == NULL) {
 		_game->getLevel()->moveBlock(_x, _y, _x, _y - 1);
 		return true;
 	}
@@ -78,16 +90,20 @@ bool PlayerBlock::applyUpwardForce() {
 bool PlayerBlock::applyDownwardForce() {
 	if (_y == _game->getLevel()->getHeight() - 1) return false;
 
+	// Get the block below this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
 
-	bool canMove = true;
-
+	// Attempt to apply a force to the block or, if that fails, attempt to dig
+	// the block
 	if (block != NULL) {
-		canMove = block->applyDownwardForce();
-		if (!canMove) canMove = block->digFromAbove();
+		if (!block->applyDownwardForce()) block->digFromAbove();
 	}
 
-	if (canMove) {
+	// Re-fetch the block in case it has moved or no longer exists
+	block = _game->getLevel()->getBlockAt(_x, _y + 1);
+
+	// We can move into the block if it has been vacated
+	if (block == NULL) {
 		_game->getLevel()->moveBlock(_x, _y, _x, _y + 1);
 		return true;
 	}

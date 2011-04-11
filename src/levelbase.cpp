@@ -71,8 +71,24 @@ void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
 	}
 }
 
-void LevelBase::iterate(bool isGravityInverted) {
+void LevelBase::removeBlockAt(s32 x, s32 y) {
+	_removedBlockList.push_back(getBlockAt(x, y));
+	setBlockAt(x, y, NULL);
+}
 
+void LevelBase::deleteRemovedBlocks() {
+	for (s32 i = 0; i < _removedBlockList.size(); ++i) {
+		delete _removedBlockList[i];
+	}
+	_removedBlockList.clear();
+}
+
+void LevelBase::iterateBlocks(bool isGravityInverted) {
+
+	// Calculate the start and end points for all blocks we will iterate.  We
+	// need to iterate over all blocks, but depending on the direction of
+	// gravity we need to either start at the bottom-right (normal gravity) or
+	// top-left (inverted gravity).
 	s32 start = 0;
 	s32 stop = 0;
 	s32 increment = 1;
@@ -88,27 +104,29 @@ void LevelBase::iterate(bool isGravityInverted) {
 	BlockBase* block = NULL;
 	BlockBase* lastBlock = NULL;
 
+	// Iterate over all blocks and call their own iterate() methods
 	for (s32 i = start; i != stop; i += increment) {
 		block = _data[i];
 
 		if (block == NULL) continue;
 		if (block == lastBlock) continue;
 
+		// We need to remember the last block we iterated so that we don't end
+		// up iterating over it twice in one level iteration.  This can happen
+		// if the block moves to the left or right (depending on loop direction)
+		// and therefore appears in the next iteration of the for loop.
+		// This doesn't allow for situations in which blocks change rows against
+		// gravity, or move more than one block to the left or right.  In the
+		// current engine this is not a problem as no blocks can do this.  If
+		// the engine is updated to allow more complex block movement, a better
+		// solution must be found.
 		lastBlock = block;
-
-		// Remove the block if it has finished exploding
-		if (block->isDestroyed()) {
-			_data[i] = NULL;
-			delete block;
-		}
-
-		// Try and grab the block again - it may have been deleted
-		block = _data[i];
-		
-		if (block == NULL) continue;
 
 		block->iterate();
 	}
 }
 
-
+void LevelBase::iterate(bool isGravityInverted) {
+	deleteRemovedBlocks();
+	iterateBlocks(isGravityInverted);
+}

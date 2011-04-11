@@ -41,7 +41,7 @@ public:
 	 * @return True if the block performs an action that changes the layout of
 	 * the map; false if not.
 	 */
-	virtual void iterate() { };
+	void iterate();
 
 	/**
 	 * Check if the block is slippy.  If this is true, blocks sitting on this
@@ -66,18 +66,64 @@ public:
 	inline bool isExploding() const { return _isExploding; };
 	bool isDestroyed() const;
 
+	/**
+	 * Explodes the block.  The block will switch to showing its exploded
+	 * animation and can no longer be interacted with.  Once the animation ends,
+	 * the block orders the level to remove it.
+	 */
 	void explode();
 
+	/**
+	 * Attempt to dig this block from below.
+	 * @return True if the dig attempt was successful; false if not.
+	 */
 	virtual bool digFromBelow() { return false; };
+
+	/**
+	 * Attempt to dig this block from below.
+	 * @return True if the dig attempt was successful; false if not.
+	 */
 	virtual bool digFromAbove() { return false; };
+
+	/**
+	 * Attempt to dig this block from below.
+	 * @return True if the dig attempt was successful; false if not.
+	 */
 	virtual bool digFromLeft() { return false; };
+
+	/**
+	 * Attempt to dig this block from below.
+	 * @return True if the dig attempt was successful; false if not.
+	 */
 	virtual bool digFromRight() { return false; };
 
+	/**
+	 * Attempt to apply an upwards-acting force to this block (ie. push up from
+	 * below).
+	 * @return True if the attempt was successful; false if not.
+	 */
 	virtual bool applyUpwardForce() { return false; };
-	virtual bool applyDownwardForce() { return false; };
-	virtual bool applyLeftwardForce() { return false; };
-	virtual bool applyRightwardForce() { return false; };
 
+	/**
+	 * Attempt to apply an downwards-acting force to this block (ie. push down
+	 * from above).
+	 * @return True if the attempt was successful; false if not.
+	 */
+	virtual bool applyDownwardForce() { return false; };
+
+	/**
+	 * Attempt to apply an leftwards-acting force to this block (ie. push right
+	 * from left).
+	 * @return True if the attempt was successful; false if not.
+	 */
+	virtual bool applyLeftwardForce() { return false; };
+
+	/**
+	 * Attempt to apply an rightwards-acting force to this block (ie. push left
+	 * from right).
+	 * @return True if the attempt was successful; false if not.
+	 */
+	virtual bool applyRightwardForce() { return false; };
 
 protected:
 	WoopsiGfx::Animation* _animation;
@@ -90,6 +136,9 @@ protected:
 								 net to it. */
 	bool _isHot;
 	bool _isExploding;
+
+	virtual void onIterate() { };
+	virtual void onDestroyed() { };
 };
 
 #endif

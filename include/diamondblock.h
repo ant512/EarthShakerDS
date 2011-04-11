@@ -28,7 +28,7 @@ public:
 
 	~DiamondBlock() {};
 
-	virtual void iterate() {
+	virtual void onIterate() {
 		if (_game->isGravityInverted()) {
 			raise();
 		} else {
@@ -38,21 +38,25 @@ public:
 
 	virtual bool applyUpwardForce() {
 		_game->addScore(DIAMOND_SCORE);
+		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
 	virtual bool applyDownwardForce() {
 		_game->addScore(DIAMOND_SCORE);
+		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
 	virtual bool applyLeftwardForce() {
 		_game->addScore(DIAMOND_SCORE);
+		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
 	virtual bool applyRightwardForce() {
 		_game->addScore(DIAMOND_SCORE);
+		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 

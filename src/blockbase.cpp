@@ -38,6 +38,23 @@ void BlockBase::render(s32 x, s32 y, WoopsiGfx::Graphics* gfx) {
 	gfx->drawBitmap(x, y, bitmap->getWidth(), bitmap->getHeight(), bitmap, 0, 0);
 }
 
+void BlockBase::iterate() {
+
+	// Do not allow exploding blocks to do anything
+	if (_isExploding) return;
+
+	// Remove the block from the level if it has been destroyed.  This will
+	// prevent it from being iterated over again, so onDestroyed() will only be
+	// called once
+	if (isDestroyed()) {
+		onDestroyed();
+
+		_game->getLevel()->removeBlockAt(_x, _y);
+	} else {
+		onIterate();
+	}
+}
+
 void BlockBase::explode() {
 
 	if (_isExploding) return;

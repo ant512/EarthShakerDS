@@ -3,6 +3,7 @@
 
 #include <graphics.h>
 #include <woopsistring.h>
+#include <woopsiarray.h>
 
 class BlockBase;
 
@@ -31,12 +32,25 @@ public:
 
 	void iterate(bool isGravityInverted);
 
+	void removeBlockAt(s32 x, s32 y);
+
 private:
 	s32 _width;
 	s32 _height;
 	BlockBase** _data;
 	WoopsiGfx::WoopsiString _name;
 	s32 _levelNumber;
+	WoopsiArray<BlockBase*> _removedBlockList;
+
+	/**
+	 * Deletes any blocks in the removed list.
+	 */
+	void deleteRemovedBlocks();
+
+	/**
+	 * Calls the iterate() method of all child blocks.
+	 */
+	void iterateBlocks(bool isGravityInverted);
 };
 
 #endif

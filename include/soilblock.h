@@ -21,10 +21,26 @@ public:
 	bool applyLeftwardForce() { return false; };
 	bool applyRightwardForce() { return false; };
 
-	bool digFromBelow() { return true; };
-	bool digFromAbove() { return true; };
-	bool digFromLeft() { return true; };
-	bool digFromRight() { return true; };
+	bool digFromBelow() {
+		_game->getLevel()->removeBlockAt(_x, _y);
+		return true;
+	};
+
+	bool digFromAbove() {
+		_game->getLevel()->removeBlockAt(_x, _y);
+		return true;
+	};
+
+	bool digFromLeft() {
+		_game->getLevel()->removeBlockAt(_x, _y);
+		return true;
+	};
+
+	bool digFromRight() {
+		_game->getLevel()->removeBlockAt(_x, _y);
+		return true;
+	};
+
 
 private:
 	SoilBmp _bmp;

@@ -86,9 +86,7 @@ public:
 		return false;
 	};
 
-	virtual void iterate() {
-		if (_isExploding) return;
-
+	virtual void onIterate() {
 		if (_game->isGravityInverted()) {
 
 			// If we're sat on a hot tile then explode
@@ -108,8 +106,6 @@ public:
 	};
 
 	void explodeIfHotBlockAt(s32 x, s32 y) {
-
-		if (_isExploding) return;
 
 		if (x < 0) return;
 		if (y < 0) return;

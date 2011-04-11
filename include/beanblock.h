@@ -41,21 +41,25 @@ public:
 
 	virtual bool applyUpwardForce() {
 		_game->addScore(BEAN_SCORE);
+		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
 	virtual bool applyDownwardForce() {
 		_game->addScore(BEAN_SCORE);
+		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
 	virtual bool applyLeftwardForce() {
 		_game->addScore(BEAN_SCORE);
+		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
 	virtual bool applyRightwardForce() {
 		_game->addScore(BEAN_SCORE);
+		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
