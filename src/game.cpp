@@ -249,6 +249,7 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height, s32 number, const 
 					break;
 				case 3:
 					block = new DiamondBlock(x, y, this);
+					level->increaseDiamondsRemaining();
 					break;
 				case 4:
 					block = new PlayerBlock(x, y, this);

@@ -8,6 +8,7 @@ LevelBase::LevelBase(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiS
 	_height = height;
 	_levelNumber = number;
 	_name = name;
+	_diamondsRemaining = 0;
 	_data = new BlockBase*[width * height];
 }
 
@@ -144,4 +145,8 @@ void LevelBase::iterateBlocks(bool isGravityInverted) {
 void LevelBase::iterate(bool isGravityInverted) {
 	deleteRemovedBlocks();
 	iterateBlocks(isGravityInverted);
+}
+
+void LevelBase::increaseDiamondsRemaining() {
+	++_diamondsRemaining;
 }
