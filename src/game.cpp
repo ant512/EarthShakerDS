@@ -93,15 +93,25 @@ PlayerBlock* Game::getPlayerBlock() const {
 
 void Game::render() {
 
+	// Get the size of the display measured in blocks
 	s32 displayWidth = DISPLAY_WIDTH / BlockBase::BLOCK_SIZE;
 	s32 displayHeight = DISPLAY_HEIGHT / BlockBase::BLOCK_SIZE;
 
+	// The centre of the display should be the player, unless the player is too
+	// close to an edge for the display to scroll.  In that situation, we keep
+	// the edge of the map at the edge of the display and move the player
+	// around instead.  Assume for the moment that the player is at the centre
+	// of the screen
 	s32 centreX = _playerBlock->getX();
 	s32 centreY = _playerBlock->getY();
 
+	// Get the top-left corner based on the assumption that the player is at the
+	// centre of the screen
 	s32 x = centreX - (displayWidth / 2);
 	s32 y = centreY - (displayHeight / 2);
 
+	// Prevent scrolling past the end of the level.  This accounts for the
+	// situation in which the player is not the centre of the screen
 	if (x + displayWidth > _level->getWidth()) x = _level->getWidth() - displayWidth;
 	if (x < 0) x = 0;
 
@@ -174,16 +184,22 @@ void Game::decreaseTime() {
 }
 
 void Game::drawTimerBar() {
-	s32 maxWidth = DISPLAY_WIDTH - 40;
+
+	// Calculate the percentage of time that has elapsed so far
 	s32 percentage = (_levelTime * 100) / STARTING_TIME;
+
+	// Calculate the width of the timer bar - it shows the remaining percentage
+	// of time
+	s32 maxWidth = DISPLAY_WIDTH - 40;
 	s32 width = maxWidth * percentage / 100;
+
 	s32 green = 0;
 	s32 red = 0;
 
 	// Green is initially at 31 (max) and stays there until the percentage hits
 	// 50.  At that point, green decreases to 0.  At the same time, red starts
-	// at 0 (min) and stays there until the percentage hits 50.  At that point,
-	// red increases to 31.  This makes the bar cycle from green to yellow to
+	// at 0 (min) and increases to 31 until the percentage hits 50.  At that
+	// point, red stays at 31.  This makes the bar cycle from green to yellow to
 	// red.
 	if (percentage >= 50) {
 		green = 31;
@@ -196,7 +212,14 @@ void Game::drawTimerBar() {
 	if (red > 31) red = 31;
 	if (green > 31) green = 31;
 
+	// Erase previous bar graphic - we need to erase as the bar will have become
+	// shorter, so at least a portion of the previous bar won't be drawn.  We
+	// could optimise by calculating the difference and drawing that, but the
+	// speed at which rects are drawn (thanks to the DMA) makes the optimisation
+	// moot.
 	_bottomGfx->drawFilledRect(20, 50, maxWidth, 10, woopsiRGB(0, 0, 0));
+
+	// Draw new bar graphic
 	_bottomGfx->drawFilledRect(20, 50, width, 10, woopsiRGB(red, green, 0));
 }
 
