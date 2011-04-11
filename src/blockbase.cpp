@@ -61,6 +61,8 @@ void BlockBase::explode() {
 
 	_isExploding = true;
 	_explodingAnimation->play();
+
+	onExplode();
 }
 
 bool BlockBase::isDestroyed() const {

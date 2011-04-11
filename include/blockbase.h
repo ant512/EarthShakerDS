@@ -135,6 +135,7 @@ protected:
 
 	virtual void onIterate() { };
 	virtual void onDestroyed() { };
+	virtual void onExplode() { };
 };
 
 #endif
