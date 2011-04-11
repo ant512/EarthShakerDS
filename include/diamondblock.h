@@ -12,8 +12,19 @@
 #include "diamondbmp4.h"
 #include "constants.h"
 
+/**
+ * Diamonds can be collected for points.  They fall if not sitting on anything.
+ * Collecting diamonds is the object of the game.
+ */
 class DiamondBlock : public HeavyBlockBase {
 public:
+
+	/**
+	 * Constructor.
+	 * @param x The x co-ordinate within the level map of the block.
+	 * @param y The y co-ordinate within tne level map of the block.
+	 * @param game Pointer to the game that contains the block.
+	 */
 	DiamondBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
 		_isSlippy = true;
 
@@ -26,8 +37,14 @@ public:
 
 	};
 
+	/**
+	 * Destructor.
+	 */
 	~DiamondBlock() {};
 
+	/**
+	 * Drops or raises the block depending on gravity.
+	 */
 	virtual void onIterate() {
 		if (_game->isGravityInverted()) {
 			raise();
@@ -36,24 +53,40 @@ public:
 		}
 	};
 
+	/**
+	 * Adds to the player's score and removes the block from the level.
+	 * @return True.
+	 */
 	virtual bool pushUp() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
+	/**
+	 * Adds to the player's score and removes the block from the level.
+	 * @return True.
+	 */
 	virtual bool pushDown() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
+	/**
+	 * Adds to the player's score and removes the block from the level.
+	 * @return True.
+	 */
 	virtual bool pushLeft() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
+	/**
+	 * Adds to the player's score and removes the block from the level.
+	 * @return True.
+	 */
 	virtual bool pushRight() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
@@ -61,10 +94,10 @@ public:
 	};
 
 private:
-	DiamondBmp1 _bmp1;
-	DiamondBmp2 _bmp2;
-	DiamondBmp3 _bmp3;
-	DiamondBmp4 _bmp4;
+	DiamondBmp1 _bmp1;			/**< First animation bitmap. */
+	DiamondBmp2 _bmp2;			/**< Second animation bitmap. */
+	DiamondBmp3 _bmp3;			/**< Third animation bitmap. */
+	DiamondBmp4 _bmp4;			/**< Fourth animation bitmap. */
 };
 
 #endif

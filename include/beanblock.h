@@ -19,8 +19,8 @@ public:
 
 	/**
 	 * Constructor.
-	 * @param x X co-ordinate within the level map of the block.
-	 * @param y Y co-ordinate within tne level map of the block.
+	 * @param x The x co-ordinate within the level map of the block.
+	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
 	BeanBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
@@ -39,24 +39,40 @@ public:
 	 */
 	~BeanBlock() {};
 
+	/**
+	 * Adds to the player's score and removes the block from the level.
+	 * @return True.
+	 */
 	virtual bool pushUp() {
 		_game->addScore(BEAN_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
+	/**
+	 * Adds to the player's score and removes the block from the level.
+	 * @return True.
+	 */
 	virtual bool pushDown() {
 		_game->addScore(BEAN_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
+	/**
+	 * Adds to the player's score and removes the block from the level.
+	 * @return True.
+	 */
 	virtual bool pushLeft() {
 		_game->addScore(BEAN_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
+	/**
+	 * Adds to the player's score and removes the block from the level.
+	 * @return True.
+	 */
 	virtual bool pushRight() {
 		_game->addScore(BEAN_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);

@@ -8,6 +8,9 @@
 #include "playerblock.h"
 #include "newtopaz.h"
 
+/**
+ * Game class ultimately controls everything in the game.
+ */
 class Game {
 public:
 

@@ -8,12 +8,19 @@
 class LevelBase;
 class Game;
 
+/**
+ * Base class for all blocks that appear in the game.
+ */
 class BlockBase {
 public:
-	static const s32 BLOCK_SIZE = 16;
+
+	static const s32 BLOCK_SIZE = 16;			/**< The width and height of a block in pixels. */
 
 	/**
 	 * Constructor.
+	 * @param x The x co-ordinate within the level map of the block.
+	 * @param y The y co-ordinate within tne level map of the block.
+	 * @param game Pointer to the game that contains the block.
 	 */
 	BlockBase(s32 x, s32 y, Game* game);
 
@@ -22,9 +29,30 @@ public:
 	 */
 	virtual ~BlockBase();
 
+	/**
+	 * Sets the x co-ordinate of the block.  Typically the LevelBase class
+	 * should be left alone to manage block co-ordinates using this method.
+	 * @param x The x co-ordinate of the block.
+	 */
 	void setX(s32 x);
+
+	/**
+	 * Sets the y co-ordinate of the block.  Typically the LevelBase class
+	 * should be left alone to manage block co-ordinates using this method.
+	 * @param y The y co-ordinate of the block.
+	 */
 	void setY(s32 y);
+
+	/**
+	 * Gets the x co-ordinate of the block.
+	 * @return The x co-ordinate of the block.
+	 */
 	s32 getX() const;
+
+	/**
+	 * Gets the y co-ordinate of the block.
+	 * @return The y co-ordinate of the block.
+	 */
 	s32 getY() const;
 
 	/**
@@ -62,8 +90,25 @@ public:
 	 */
 	inline bool isSlippy() const { return _isSlippy; };
 
+	/**
+	 * Gets whether or not the block is hot.  Hot blocks can be extinguished
+	 * and removed by bubbles.  They cause boulders to explode.
+	 * @return True if the block is hot; false if not.
+	 */
 	inline bool isHot() const { return _isHot; };
+
+	/**
+	 * Check if the block is exploding.
+	 * @return True if the block is exploding; false if not.
+	 */
 	inline bool isExploding() const { return _isExploding; };
+
+	/**
+	 * Check if the block has been destroyed.  Blocks are considered destroyed
+	 * if they are exploding and their exploding animation has finished
+	 * playing.
+	 * @return True if the block is destroyed; false if not.
+	 */
 	bool isDestroyed() const;
 
 	/**
@@ -122,19 +167,33 @@ public:
 	virtual bool pushRight() { return false; };
 
 protected:
-	WoopsiGfx::Animation* _animation;
-	WoopsiGfx::Animation* _explodingAnimation;
-	s32 _x;
-	s32 _y;
-	Game* _game;
-	bool _isSlippy;			/**< If true, blocks sitting on this will slip to
-								 the left or right if this block has empty space
-								 net to it. */
-	bool _isHot;
-	bool _isExploding;
+	WoopsiGfx::Animation* _animation;			/**< Standard animation. */
+	WoopsiGfx::Animation* _explodingAnimation;	/**< Animation shown when the block is exploding. */
+	s32 _x;										/**< The x co-ordinate of the block within the level. */
+	s32 _y;										/**< The y co-ordinate of the block within the level. */
+	Game* _game;								/**< Pointer to the game that contains this block. */
+	bool _isSlippy;								/**< If true, blocks sitting on this will slip to
+													 the left or right if this block has empty space
+													 net to it. */
+	bool _isHot;								/**< Indicates whether or not the block is hot; hot
+													 blocks cause boulders to explode. */
+	bool _isExploding;							/**< Indicates whether or not the block is exploding. */
 
+	/**
+	 * Called when the block's iterate() method runs.
+	 */
 	virtual void onIterate() { };
+
+	/**
+	 * Called when an exploded block is finally destroyed.  Don't confuse this
+	 * with the C++ destructor, which is called when the block is deleted from
+	 * memory.
+	 */
 	virtual void onDestroyed() { };
+
+	/**
+	 * Called when the block explodes.
+	 */
 	virtual void onExplode() { };
 };
 

@@ -12,8 +12,20 @@
 #include "bubblebmp4.h"
 #include "constants.h"
 
+/**
+ * Bubbles can be pushed around in any direction.  They can dig other blocks, so
+ * it is possible to push them through soil.  Pushing them onto hot blocks such
+ * as fire causes the bubble and the hot block to explode.
+ */
 class BubbleBlock : public BlockBase {
 public:
+
+	/**
+	 * Constructor.
+	 * @param x The x co-ordinate within the level map of the block.
+	 * @param y The y co-ordinate within tne level map of the block.
+	 * @param game Pointer to the game that contains the block.
+	 */
 	BubbleBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isSlippy = true;
 		
@@ -24,8 +36,18 @@ public:
 		_animation->play();
 	};
 
+	/**
+	 * Destructor.
+	 */
 	~BubbleBlock() {};
 
+	/**
+	 * If there is no block above the bubble, it moves upwards.  If the block
+	 * above the bubble is hot, both the bubble and the hot block are exploded.
+	 * Otherwise, the bubble tries to dig the block.  In the case of soil this
+	 * works.  If the block becomes vacated, the bubble moves into the block.
+	 * @return True if the bubble moved; false if not.
+	 */
 	virtual bool pushUp() {
 		if (_y == 0) return false;
 		if (_isExploding) return false;
@@ -62,6 +84,13 @@ public:
 		return true;
 	};
 
+	/**
+	 * If there is no block below the bubble, it moves downwards.  If the block
+	 * below the bubble is hot, both the bubble and the hot block are exploded.
+	 * Otherwise, the bubble tries to dig the block.  In the case of soil this
+	 * works.  If the block becomes vacated, the bubble moves into the block.
+	 * @return True if the bubble moved; false if not.
+	 */
 	virtual bool pushDown() {
 		if (_isExploding) return false;
 
@@ -100,6 +129,14 @@ public:
 		return true;
 	};
 
+	/**
+	 * If there is no block to the left of the bubble, it moves leftwards.  If
+	 * the block to the left of the bubble is hot, both the bubble and the hot
+	 * block are exploded.  Otherwise, the bubble tries to dig the block.  In
+	 * the case of soil this works.  If the block becomes vacated, the bubble
+	 * moves into the block.
+	 * @return True if the bubble moved; false if not.
+	 */
 	virtual bool pushLeft() {
 		if (_x == 0) return false;
 		if (_isExploding) return false;
@@ -136,6 +173,14 @@ public:
 		return true;
 	};
 
+	/**
+	 * If there is no block to the right of the bubble, it moves rightwards.  If
+	 * the block to the right of the bubble is hot, both the bubble and the hot
+	 * block are exploded.  Otherwise, the bubble tries to dig the block.  In
+	 * the case of soil this works.  If the block becomes vacated, the bubble
+	 * moves into the block.
+	 * @return True if the bubble moved; false if not.
+	 */
 	virtual bool pushRight() {
 		if (_isExploding) return false;
 		
@@ -175,10 +220,10 @@ public:
 	};
 
 private:
-	BubbleBmp1 _bmp1;
-	BubbleBmp2 _bmp2;
-	BubbleBmp3 _bmp3;
-	BubbleBmp4 _bmp4;
+	BubbleBmp1 _bmp1;		/**< First animation bitmap. */
+	BubbleBmp2 _bmp2;		/**< Second animation bitmap. */
+	BubbleBmp3 _bmp3;		/**< Third animation bitmap. */
+	BubbleBmp4 _bmp4;		/**< Fourth animation bitmap. */
 };
 
 #endif

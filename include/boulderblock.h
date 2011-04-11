@@ -16,10 +16,21 @@
 #include "boulderexplodebmp6.h"
 #include "boulderexplodebmp7.h"
 
+/**
+ * Boulders fall if not sitting on anything and can be pushed horizontally.
+ * They are the primary "enemy" in the game.
+ */
 class BoulderBlock : public HeavyBlockBase {
 public:
+
+	/**
+	 * Constructor.
+	 * @param x The x co-ordinate within the level map of the block.
+	 * @param y The y co-ordinate within tne level map of the block.
+	 * @param game Pointer to the game that contains the block.
+	 */
 	BoulderBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
-		_isSlippy = true;	// Boulders are born slippy
+		_isSlippy = true;
 
 		_animation->addFrame(&_bmp, 0);
 
@@ -32,6 +43,9 @@ public:
 		_explodingAnimation->addFrame(&_explodingBmp7, 0);
 	};
 
+	/**
+	 * Destructor.
+	 */
 	~BoulderBlock() {};
 
 	/**
@@ -86,6 +100,10 @@ public:
 		return false;
 	};
 
+	/**
+	 * Drops or raises the block depending on gravity.  If the block is sat on
+	 * a hot block it explodes.
+	 */
 	virtual void onIterate() {
 		if (_game->isGravityInverted()) {
 
@@ -105,12 +123,13 @@ public:
 		}
 	};
 
+	/**
+	 * Causes the block to explode if the block at the specified co-ordinates
+	 * is hot.
+	 * @param x The x co-ordinate to check for a hot block.
+	 * @param y The y co-ordinate to check for a hot block.
+	 */
 	void explodeIfHotBlockAt(s32 x, s32 y) {
-
-		if (x < 0) return;
-		if (y < 0) return;
-		if (x > _game->getLevel()->getWidth() - 1) return;
-		if (y > _game->getLevel()->getHeight() - 1) return;
 
 		BlockBase* block = _game->getLevel()->getBlockAt(x, y);
 
@@ -120,14 +139,14 @@ public:
 	};
 
 private:
-	BoulderBmp _bmp;
-	BoulderExplodeBmp1 _explodingBmp1;
-	BoulderExplodeBmp2 _explodingBmp2;
-	BoulderExplodeBmp3 _explodingBmp3;
-	BoulderExplodeBmp4 _explodingBmp4;
-	BoulderExplodeBmp5 _explodingBmp5;
-	BoulderExplodeBmp6 _explodingBmp6;
-	BoulderExplodeBmp7 _explodingBmp7;
+	BoulderBmp _bmp;						/**< Static bitmap. */
+	BoulderExplodeBmp1 _explodingBmp1;		/**< First explosion bitmap. */
+	BoulderExplodeBmp2 _explodingBmp2;		/**< Second explosion bitmap. */
+	BoulderExplodeBmp3 _explodingBmp3;		/**< Third explosion bitmap. */
+	BoulderExplodeBmp4 _explodingBmp4;		/**< Fourth explosion bitmap. */
+	BoulderExplodeBmp5 _explodingBmp5;		/**< Fifth explosion bitmap. */
+	BoulderExplodeBmp6 _explodingBmp6;		/**< Sixth explosion bitmap. */
+	BoulderExplodeBmp7 _explodingBmp7;		/**< Seventh explosion bitmap. */
 };
 
 #endif

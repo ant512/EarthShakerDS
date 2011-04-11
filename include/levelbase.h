@@ -7,6 +7,9 @@
 
 class BlockBase;
 
+/**
+ * Base class for all levels.  Controls the entire grid of blocks.
+ */
 class LevelBase {
 public:
 

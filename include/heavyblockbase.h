@@ -9,11 +9,17 @@
 class LevelBase;
 class Game;
 
+/**
+ * Base class for all blocks that fall when they are not sitting on anything.
+ */
 class HeavyBlockBase : public BlockBase {
 public:
 
 	/**
 	 * Constructor.
+	 * @param x The x co-ordinate of the block within the current level.
+	 * @param y The y co-ordinate of the block within the current level.
+	 * @param game Pointe to the game that contains this block.
 	 */
 	HeavyBlockBase(s32 x, s32 y, Game* game);
 

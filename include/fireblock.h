@@ -15,8 +15,19 @@
 #include "fireexplodebmp3.h"
 #include "fireexplodebmp4.h"
 
+/**
+ * Fire explodes boulders and bubbles (which also extinguish it).  It falls if
+ * not sitting on anything.  Touching fire will kill the player.
+ */
 class FireBlock : public HeavyBlockBase {
 public:
+
+	/**
+	 * Constructor.
+	 * @param x The x co-ordinate within the level map of the block.
+	 * @param y The y co-ordinate within tne level map of the block.
+	 * @param game Pointer to the game that contains the block.
+	 */
 	FireBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
 		_isHot = true;
 		
@@ -32,18 +43,21 @@ public:
 		_explodingAnimation->addFrame(&_explodeBmp4, 0);
 	};
 
+	/**
+	 * Destructor.
+	 */
 	~FireBlock() {};
 
 private:
-	FireBmp1 _bmp1;
-	FireBmp2 _bmp2;
-	FireBmp3 _bmp3;
-	FireBmp4 _bmp4;
+	FireBmp1 _bmp1;					/**< First animation bitmap. */
+	FireBmp2 _bmp2;					/**< Second animation bitmap. */
+	FireBmp3 _bmp3;					/**< Third animation bitmap. */
+	FireBmp4 _bmp4;					/**< Fourth animation bitmap. */
 
-	FireExplodeBmp1 _explodeBmp1;
-	FireExplodeBmp2 _explodeBmp2;
-	FireExplodeBmp3 _explodeBmp3;
-	FireExplodeBmp4 _explodeBmp4;
+	FireExplodeBmp1 _explodeBmp1;	/**< First exploding bitmap. */
+	FireExplodeBmp2 _explodeBmp2;	/**< Second exploding bitmap. */
+	FireExplodeBmp3 _explodeBmp3;	/**< Third exploding bitmap. */
+	FireExplodeBmp4 _explodeBmp4;	/**< Fourth exploding bitmap. */
 };
 
 #endif
