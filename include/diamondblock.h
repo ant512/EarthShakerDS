@@ -59,6 +59,7 @@ public:
 	 */
 	virtual bool pushUp() {
 		_game->addScore(DIAMOND_SCORE);
+		_game->decreaseDiamondsRemaining();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
@@ -69,6 +70,7 @@ public:
 	 */
 	virtual bool pushDown() {
 		_game->addScore(DIAMOND_SCORE);
+		_game->decreaseDiamondsRemaining();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
@@ -79,6 +81,7 @@ public:
 	 */
 	virtual bool pushLeft() {
 		_game->addScore(DIAMOND_SCORE);
+		_game->decreaseDiamondsRemaining();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
@@ -89,6 +92,7 @@ public:
 	 */
 	virtual bool pushRight() {
 		_game->addScore(DIAMOND_SCORE);
+		_game->decreaseDiamondsRemaining();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};

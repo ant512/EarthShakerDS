@@ -113,11 +113,6 @@ public:
 	 */
 	void removeBlockAt(s32 x, s32 y);
 
-	/**
-	 * Increase the number of diamonds remaining in the level.
-	 */
-	void increaseDiamondsRemaining();
-
 private:
 	s32 _width;									/**< The width of the level. */
 	s32 _height;								/**< The height of the level. */
@@ -126,7 +121,6 @@ private:
 	s32 _levelNumber;							/**< The number of the level. */
 	WoopsiArray<BlockBase*> _removedBlockList;	/**< Array of blocks that have been removed
 													 from the level and are awaiting deletion. */
-	s32 _diamondsRemaining;						/**< Number of diamonds to collect. */
 
 	/**
 	 * Deletes any blocks in the removed list.

@@ -98,6 +98,16 @@ public:
 	 */
 	void iterate();
 
+	/**
+	 * Increase the number of diamonds remaining in the level.
+	 */
+	void increaseDiamondsRemaining();
+
+	/**
+	 * Decrease the number of diamonds remaining in the level.
+	 */
+	void decreaseDiamondsRemaining();
+
 private:
 	LevelBase* _level;					/**< The currently-active level.*/
 	PlayerBlock* _playerBlock;			/**< The player's block within the level. */
@@ -105,6 +115,7 @@ private:
 	s32 _score;							/**< The current score. */
 	s32 _remainingTime;					/**< The amount of time remaining. */
 	s32 _lives;							/**< The number of lives remaining. */
+	s32 _diamondsRemaining;				/**< Number of diamonds to collect. */
 	WoopsiGfx::Graphics* _topGfx;		/**< The graphics object for the top display. */
 	WoopsiGfx::Graphics* _bottomGfx;	/**< The graphics object for the bottom display. */
 	NewTopaz _font;						/**< Font used for text output. */
