@@ -22,6 +22,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_bottomGfx = bottomGfx;
 	_animationTimer = 0;
 	_movementTimer = 0;
+	_levelTimer = 0;
 
 	_upHeld = false;
 	_downHeld = false;
@@ -130,6 +131,17 @@ void Game::render() {
 void Game::iterate() {
 	animate();
 	move();
+	timer();
+}
+
+void Game::timer() {
+	_levelTimer++;
+
+	if (_levelTimer == TIMER_TIME) {
+		_levelTimer = 0;
+
+		decreaseTime();
+	}
 }
 
 void Game::animate() {
@@ -149,7 +161,6 @@ void Game::move() {
 		_movementTimer = 0;
 
 		_level->iterate(_isGravityInverted);
-		decreaseTime();
 
 		if (_upHeld) {
 			_playerBlock->pushUp();
@@ -205,7 +216,7 @@ void Game::drawDiamondCounters() {
 }
 
 void Game::decreaseTime() {
-	_remainingTime -= TIME_DECREMENT;
+	--_remainingTime;
 
 	drawTimerBar();
 }
@@ -233,27 +244,22 @@ void Game::drawHUD() {
 	s32 nameX = (SCREEN_WIDTH - nameWidth) / 2;
 	s32 nameY = (SCREEN_HEIGHT - nameHeight) / 2;
 
+	// Erase region under name
 	_bottomGfx->drawFilledRect(0, nameY, SCREEN_WIDTH, nameHeight, COLOUR_BLACK);
 
-	
+	// Draw name
 	_bottomGfx->drawText(nameX, nameY, &_font, _level->getName(), 0, _level->getName().getLength(), COLOUR_WHITE);
 }
 
 void Game::drawTimerBar() {
-
-	s32 barY = 178;
 
 	// Rather than draw a bar representing the amount of time left to elapse,
 	// we overwrite the existing graphics from right to left with a black rect.
 	// This gives the illusion of shortening the remaining time bar with much
 	// less effort.
 
-	// Calculate the percentage of time that is left to elapse
-	s32 percentage = 100 - ((_remainingTime * 100) / STARTING_TIME);
-
-	// Calculate the width of the timer bar - it shows the elapsed percentage
-	// of time
-	s32 width = SCREEN_WIDTH * percentage / 100;
+	s32 barY = 178;
+	s32 width = STARTING_TIME - _remainingTime;
 
 	// Draw new bar graphic
 	_topGfx->drawFilledRect(SCREEN_WIDTH - width, barY, width, 4, COLOUR_BLACK);

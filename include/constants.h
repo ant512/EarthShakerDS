@@ -14,6 +14,12 @@ const s32 ANIMATION_TIME = 3;
 const s32 MOVEMENT_TIME = 6;
 
 /**
+ * Number of frames before remaining time decreases.  The DS runs at 60hz, so we
+ * decrease the time once per second.
+ */
+const s32 TIMER_TIME = 60;
+
+/**
  * Width of the game display.
  */
 const s32 GAME_WIDTH = 256;
@@ -43,16 +49,10 @@ const s32 BEAN_SCORE= 64;
  */
 const s32 STARTING_LIVES = 5;
 
-
 /**
- * Amount of time each level starts with.
+ * Amount of time each level starts with.  Starting time value is the same as
+ * the screen width, which makes drawing the timer bar simple.
  */
-const s32 STARTING_TIME = 2000;
-
-
-/**
- * Amount removed from remaining time every time the game is updated.
- */
-const s32 TIME_DECREMENT = 1;
+const s32 STARTING_TIME = 192;
 
 #endif

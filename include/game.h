@@ -124,6 +124,7 @@ private:
 	NewTopaz _font;						/**< Font used for text output. */
 	s32 _animationTimer;				/**< Timer used to moderate animation speed. */
 	s32 _movementTimer;					/**< Timer used to moderate movement speed. */
+	s32 _levelTimer;					/**< Timer used to decrease remaining level time. */
 
 	bool _upHeld;						/**< State of the up button. */
 	bool _downHeld;						/**< State of the down button. */
@@ -160,6 +161,13 @@ private:
 	 * value.
 	 */
 	void move();
+
+	/**
+	 * Decreases remaining time.  Uses a timer system, so calling the method
+	 * will not necessarily produce an effect other than adjusting the
+	 * _levelTimer value.
+	 */
+	void timer();
 
 	/**
 	 * Redraws the game.
