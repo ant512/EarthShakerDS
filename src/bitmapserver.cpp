@@ -8,3 +8,4 @@ WoopsiGfx::Bitmap* BitmapServer::_boulderExplodeBmp4 = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_boulderExplodeBmp5 = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_boulderExplodeBmp6 = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_boulderExplodeBmp7 = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_soilBmp = NULL;

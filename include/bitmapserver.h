@@ -20,7 +20,11 @@ enum SpectrumColour {
 	COLOUR_YELLOW = 39935,
 	COLOUR_YELLOW_DARK = 37722,
 	COLOUR_CYAN = 65513,
-	COLOUR_CYAN_DARK = 60229
+	COLOUR_CYAN_DARK = 60229,
+	COLOUR_BLUE = 64736,
+	COLOUR_BLUE_DARK = 58528,
+	COLOUR_WHITE = 65535,
+	COLOUR_WHITE_DARK = 59193
 };
 
 class BitmapServer {
@@ -36,6 +40,7 @@ public:
 		if (_boulderExplodeBmp5 != NULL) delete _boulderExplodeBmp5;
 		if (_boulderExplodeBmp6 != NULL) delete _boulderExplodeBmp6;
 		if (_boulderExplodeBmp7 != NULL) delete _boulderExplodeBmp7;
+		if (_soilBmp != NULL) delete _soilBmp;
 
 		BoulderBmp boulderBmp;
 		BoulderExplodeBmp1 boulderExplodeBmp1;
@@ -45,6 +50,7 @@ public:
 		BoulderExplodeBmp5 boulderExplodeBmp5;
 		BoulderExplodeBmp6 boulderExplodeBmp6;
 		BoulderExplodeBmp7 boulderExplodeBmp7;
+		SoilBmp soilBmp;
 
 		_boulderBmp = createMutableBitmap(&boulderBmp);
 		_boulderExplodeBmp1 = createMutableBitmap(&boulderExplodeBmp1);
@@ -54,8 +60,15 @@ public:
 		_boulderExplodeBmp5 = createMutableBitmap(&boulderExplodeBmp5);
 		_boulderExplodeBmp6 = createMutableBitmap(&boulderExplodeBmp6);
 		_boulderExplodeBmp7 = createMutableBitmap(&boulderExplodeBmp7);
+		_soilBmp = createMutableBitmap(&soilBmp);
 
 		makeBouldersBlue();
+		makeSoilWhite();
+	};
+
+	static void makeSoilWhite() {
+		swapColours(COLOUR_BLUE, COLOUR_WHITE, _soilBmp);
+		swapColours(COLOUR_BLUE_DARK, COLOUR_WHITE_DARK, _soilBmp);
 	};
 
 	static void makeBouldersBlue() {
@@ -145,6 +158,10 @@ public:
 		return _boulderExplodeBmp7;
 	};
 
+	inline static WoopsiGfx::Bitmap* getSoilBmp() {
+		return _soilBmp;
+	};
+
 private:
 	static WoopsiGfx::Bitmap* _boulderBmp;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp1;
@@ -154,6 +171,7 @@ private:
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp5;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp6;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp7;
+	static WoopsiGfx::Bitmap* _soilBmp;
 };
 
 #endif
