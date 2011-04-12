@@ -31,8 +31,6 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	// Ensure that the score display is drawn
 	addScore(0);
 
-	drawHUD();
-
 	s32 levelWidth = 32;
 	s32 levelHeight = 16;
 	u8 levelData[512] = {6,6,6,2,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -52,7 +50,9 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 						6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 						6,6,6,6,6,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
-	_level = createLevel(levelData, levelWidth, levelHeight, 1, "Test Level");
+	_level = createLevel(levelData, levelWidth, levelHeight, 1, "Testing Ground");
+
+	drawHUD();
 }
 
 Game::~Game() {
@@ -212,6 +212,8 @@ void Game::decreaseTime() {
 
 
 void Game::drawHUD() {
+
+	// Timer bar initial state
 	s32 barY = 178;
 	s32 barWidth = SCREEN_WIDTH / 8;
 	s32 barHeight = 4;
@@ -224,6 +226,17 @@ void Game::drawHUD() {
 	_topGfx->drawFilledRect(barWidth * 5, barY, SCREEN_WIDTH, barHeight, COLOUR_CYAN);
 	_topGfx->drawFilledRect(barWidth * 6, barY, SCREEN_WIDTH, barHeight, COLOUR_YELLOW);
 	_topGfx->drawFilledRect(barWidth * 7, barY, SCREEN_WIDTH, barHeight, COLOUR_WHITE);
+
+	// Level name
+	s32 nameWidth = _font.getStringWidth(_level->getName());
+	s32 nameHeight = _font.getHeight();
+	s32 nameX = (SCREEN_WIDTH - nameWidth) / 2;
+	s32 nameY = (SCREEN_HEIGHT - nameHeight) / 2;
+
+	_bottomGfx->drawFilledRect(0, nameY, SCREEN_WIDTH, nameHeight, COLOUR_BLACK);
+
+	
+	_bottomGfx->drawText(nameX, nameY, &_font, _level->getName(), 0, _level->getName().getLength(), COLOUR_WHITE);
 }
 
 void Game::drawTimerBar() {
