@@ -21,7 +21,7 @@ const s32 DISPLAY_WIDTH = 256;
 /**
  * Height of the screen.
  */
-const s32 DISPLAY_HEIGHT = 192;
+const s32 DISPLAY_HEIGHT = 176;
 
 /**
  * Points for collecting a diamond.

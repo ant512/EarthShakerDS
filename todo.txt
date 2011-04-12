@@ -14,12 +14,19 @@ Todo
  - Add teleporters.
  - Add extra life potions.
  - Add barriers and controllers.
- - Add alternative colour versions of blocks.
+ - Add missing colours:
+   - Red
+   - Green
+   - Magenta
+ - Add colour switching for:
+   - Door
  - Add wet soil.
+ - Add door.
  - Add between-level sequence?
- - Power-ups - flip gravity, etc.
+ - Power-ups:
+   - Flip gravity
+   - Extra life
  - Need explosion graphics for:
   - PlayerBlock.
   - Barrier controller.
-  - Alternative colour boulders.
  - Sounds.
