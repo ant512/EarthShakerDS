@@ -176,6 +176,8 @@ void Game::move() {
 
 		_level->iterate(_remainingGravityTime > 0);
 
+		if (_remainingGravityTime > 0) --_remainingGravityTime;
+
 		if (_upHeld) {
 			_playerBlock->pushUp();
 		} else if (_downHeld) {
