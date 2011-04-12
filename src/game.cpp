@@ -312,7 +312,7 @@ void Game::drawTimerBar() {
 	_topGfx->drawFilledRect(SCREEN_WIDTH - width, barY, width, 4, COLOUR_BLACK);
 }
 
-void Game::flipGravity() {
+void Game::invertGravity() {
 	_remainingGravityTime = GRAVITY_INVERSION_TIME;
 }
 

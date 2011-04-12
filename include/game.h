@@ -45,9 +45,9 @@ public:
 	bool isGravityInverted() const;
 
 	/**
-	 * Flips gravity from inverted to not and vice-versa.
+	 * Inverts gravity.
 	 */
-	void flipGravity();
+	void invertGravity();
 
 	/**
 	 * Get the current score.
