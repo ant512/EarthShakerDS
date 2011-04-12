@@ -55,4 +55,10 @@ const s32 STARTING_LIVES = 5;
  */
 const s32 STARTING_TIME = 192;
 
+/**
+ * Amount of time gravity is inverted for on picking up the gravity switch
+ * block.
+ */
+const s32 GRAVITY_INVERSION_TIME = 99;
+
 #endif

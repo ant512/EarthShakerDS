@@ -106,7 +106,7 @@ public:
 private:
 	LevelBase* _level;					/**< The currently-active level.*/
 	PlayerBlock* _playerBlock;			/**< The player's block within the level. */
-	bool _isGravityInverted;			/**< The inversion state of gravity. */
+	s32 _remainingGravityTime;			/**< The amount of time left until gravity returns to normal. */
 	s32 _score;							/**< The current score. */
 	s32 _remainingTime;					/**< The amount of time remaining. */
 	s32 _lives;							/**< The number of lives remaining. */
@@ -145,6 +145,11 @@ private:
 	 * Draws the count of diamonds remaining and total.
 	 */
 	void drawDiamondCounters();
+
+	/**
+	 * Draws the count of lives remaining.
+	 */
+	void drawLifeCounter();
 
 	/**
 	 * Redraws the level.  Uses a timer system, so calling the method will not

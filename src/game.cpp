@@ -12,7 +12,6 @@
 #include "bitmapserver.h"
 
 Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
-	_isGravityInverted = false;
 	_score = 0;
 	_lives = STARTING_LIVES;
 	_topGfx = topGfx;
@@ -47,6 +46,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	drawHUD();
 	drawDiamondCounters();
 	drawScore();
+	drawLifeCounter();
 }
 
 Game::~Game() {
@@ -92,6 +92,19 @@ void Game::drawScore() {
 	str.format("Level: %02d", _level->getLevelNumber());
 	_bottomGfx->drawFilledRect(0, _font.getHeight() * 2, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
 	_bottomGfx->drawText(0, _font.getHeight() * 2, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
+}
+
+void Game::drawLifeCounter() {
+	WoopsiGfx::WoopsiString str;
+	str.format("%01d", _lives);
+
+	s32 width = _font.getStringWidth(str);
+	s32 height = _font.getHeight();
+	s32 x = 104;
+	s32 y = SCREEN_HEIGHT - height - 1;
+
+	_topGfx->drawFilledRect(x, y, width, height, COLOUR_BLACK);
+	_topGfx->drawText(x, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 }
 
 PlayerBlock* Game::getPlayerBlock() const {
@@ -161,7 +174,7 @@ void Game::move() {
 	if (_movementTimer == MOVEMENT_TIME) {
 		_movementTimer = 0;
 
-		_level->iterate(_isGravityInverted);
+		_level->iterate(_remainingGravityTime > 0);
 
 		if (_upHeld) {
 			_playerBlock->pushUp();
@@ -192,7 +205,7 @@ void Game::setRightHeld(bool rightHeld) {
 }
 
 bool Game::isGravityInverted() const {
-	return _isGravityInverted;
+	return _remainingGravityTime > 0;
 }
 
 void Game::increaseCollectedDiamonds() {
@@ -275,6 +288,12 @@ void Game::drawHUD() {
 	// Diamonds
 	str.setText(":");
 	_topGfx->drawText(64, counterY, &_font, str, 0, str.getLength(), COLOUR_CYAN);
+
+	// TODO: Heart here
+
+	// TODO: Gravity g here (indicator needs to be drawn elsewhere)
+
+	// TODO: "SCORE:" here
 }
 
 void Game::drawTimerBar() {
@@ -292,13 +311,14 @@ void Game::drawTimerBar() {
 }
 
 void Game::flipGravity() {
-	_isGravityInverted = !_isGravityInverted;
+	_remainingGravityTime = GRAVITY_INVERSION_TIME;
 }
 
 LevelBase* Game::createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name) {
 	_collectedDiamonds = 0;
 	_totalDiamonds = 0;
 	_remainingTime = STARTING_TIME;
+	_remainingGravityTime = 0;
 
 	_animationTimer = 0;
 	_movementTimer = 0;
