@@ -1,20 +1,17 @@
 Todo
 ----
 
- - Improve HUD:
-   - Erasing needs to be more accurate.
-   - Draw a surrounding bitmap?  Use Spectrum title screen graphic?
+ - Finish HUD.
  - Implement all scoring.
  - Timer expiry should make player die.
  - Make beans give time extension - how much?
  - Add death check - in PlayerBlock iterate() method, check if the block above
    the player is falling.  If so, player is dead.  Also check for collisions
    with hot blocks.
- - Move level creation somewhere else - load from disk?
  - Add teleporters.
  - Add extra life potions.
  - Add barriers and controllers.
- - Add missing colours:
+ - Add missing dark colours:
    - Red
    - Green
    - Magenta
