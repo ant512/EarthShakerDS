@@ -143,6 +143,11 @@ private:
 	void drawTimerBar();
 
 	/**
+	 * Draws the count of diamonds remaining and total.
+	 */
+	void drawDiamondCounters();
+
+	/**
 	 * Redraws the level.  Uses a timer system, so calling the method will not
 	 * necessarily produce an effect other than adjusting the _animationTimer
 	 * value.

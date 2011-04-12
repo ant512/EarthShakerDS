@@ -87,11 +87,6 @@ void Game::addScore(s32 score) {
 	str.format("Level: %02d", _level->getLevelNumber());
 	_bottomGfx->drawFilledRect(0, _font.getHeight() * 2, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
 	_bottomGfx->drawText(0, _font.getHeight() * 2, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
-
-	// TODO: Diamond printing should be in another function
-	str.format("Diamonds: %02d:%02d", _totalDiamonds, _diamondsRemaining);
-	_bottomGfx->drawFilledRect(0, _font.getHeight() * 3, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
-	_bottomGfx->drawText(0, _font.getHeight() * 3, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 }
 
 PlayerBlock* Game::getPlayerBlock() const {
@@ -188,10 +183,22 @@ bool Game::isGravityInverted() const {
 void Game::increaseDiamondsRemaining() {
 	++_diamondsRemaining;
 	++_totalDiamonds;
+	
+	drawDiamondCounters();
 }
 
 void Game::decreaseDiamondsRemaining() {
 	--_diamondsRemaining;
+
+	drawDiamondCounters();
+}
+
+void Game::drawDiamondCounters() {
+	WoopsiGfx::WoopsiString str;
+	str.format("Diamonds: %02d:%02d", _totalDiamonds, _diamondsRemaining);
+
+	_bottomGfx->drawFilledRect(0, _font.getHeight() * 3, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
+	_bottomGfx->drawText(0, _font.getHeight() * 3, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 }
 
 void Game::decreaseTime() {
