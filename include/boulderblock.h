@@ -59,13 +59,7 @@ public:
 		LevelBase* level = _game->getLevel();
 		BlockBase* block = level->getBlockAt(_x - 1, _y);
 
-		// Check if we're pushing the block into fire
-		if (block != NULL) {
-			if (block->isHot()) {
-				explode();
-				return false;
-			}
-		} else {
+		if (block == NULL) {
 			level->moveBlock(_x, _y, _x - 1, _y);
 			return true;
 		}
@@ -86,13 +80,7 @@ public:
 
 		BlockBase* block = level->getBlockAt(_x + 1, _y);
 
-		// Check if we're pushing the block into fire
-		if (block != NULL) {
-			if (block->isHot()) {
-				explode();
-				return false;
-			}
-		} else {
+		if (block == NULL) {
 			level->moveBlock(_x, _y, _x + 1, _y);
 			return true;
 		}
