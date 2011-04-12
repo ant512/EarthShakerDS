@@ -17,14 +17,21 @@
 #include "soilbmp.h"
 
 enum SpectrumColour {
-	COLOUR_YELLOW = 39935,
-	COLOUR_YELLOW_DARK = 37722,
-	COLOUR_CYAN = 65513,
-	COLOUR_CYAN_DARK = 60229,
+	COLOUR_BLACK = 32768,
 	COLOUR_BLUE = 64736,
 	COLOUR_BLUE_DARK = 58528,
+	COLOUR_CYAN = 65513,
+	COLOUR_CYAN_DARK = 60229,
 	COLOUR_WHITE = 65535,
-	COLOUR_WHITE_DARK = 59193
+	COLOUR_WHITE_DARK = 59193,
+	COLOUR_YELLOW = 39935,
+	COLOUR_YELLOW_DARK = 37722,
+	COLOUR_RED = 0,
+	COLOUR_RED_DARK = 0,
+	COLOUR_GREEN = 0,
+	COLOUR_GREEN_DARK = 0,
+	COLOUR_MAGENTA = 0,
+	COLOUR_MAGENTA_DARK = 0
 };
 
 class BitmapServer {
@@ -63,7 +70,7 @@ public:
 		_soilBmp = createMutableBitmap(&soilBmp);
 
 		makeBouldersBlue();
-		makeSoilWhite();
+		makeSoilCyan();
 	};
 
 	static void makeSoilWhite() {
@@ -71,30 +78,44 @@ public:
 		swapColours(COLOUR_BLUE_DARK, COLOUR_WHITE_DARK, _soilBmp);
 	};
 
+	static void makeSoilRed() {
+		swapColours(COLOUR_BLUE, COLOUR_RED, _soilBmp);
+		swapColours(COLOUR_BLUE_DARK, COLOUR_RED_DARK, _soilBmp);
+	};
+
+	static void makeSoilGreen() {
+		swapColours(COLOUR_BLUE, COLOUR_GREEN, _soilBmp);
+		swapColours(COLOUR_BLUE_DARK, COLOUR_GREEN_DARK, _soilBmp);
+	};
+
+	static void makeSoilCyan() {
+		swapColours(COLOUR_BLUE, COLOUR_CYAN, _soilBmp);
+		swapColours(COLOUR_BLUE_DARK, COLOUR_CYAN_DARK, _soilBmp);
+	};
+
+	static void makeSoilMagenta() {
+		swapColours(COLOUR_BLUE, COLOUR_MAGENTA, _soilBmp);
+		swapColours(COLOUR_BLUE_DARK, COLOUR_MAGENTA_DARK, _soilBmp);
+	};
+
 	static void makeBouldersBlue() {
-		swapColours(COLOUR_YELLOW, COLOUR_CYAN, _boulderBmp);
-		swapColours(COLOUR_YELLOW_DARK, COLOUR_CYAN_DARK, _boulderBmp);
+		changeBoulderColours(COLOUR_BLUE, COLOUR_BLUE_DARK);
+	};
 
-		swapColours(COLOUR_YELLOW, COLOUR_CYAN, _boulderExplodeBmp1);
-		swapColours(COLOUR_YELLOW_DARK, COLOUR_CYAN_DARK, _boulderExplodeBmp1);
+	static void makeBouldersCyan() {
+		changeBoulderColours(COLOUR_CYAN, COLOUR_CYAN_DARK);
+	};
 
-		swapColours(COLOUR_YELLOW, COLOUR_CYAN, _boulderExplodeBmp2);
-		swapColours(COLOUR_YELLOW_DARK, COLOUR_CYAN_DARK, _boulderExplodeBmp2);
+	static void makeBouldersRed() {
+		changeBoulderColours(COLOUR_RED, COLOUR_RED_DARK);
+	};
 
-		swapColours(COLOUR_YELLOW, COLOUR_CYAN, _boulderExplodeBmp3);
-		swapColours(COLOUR_YELLOW_DARK, COLOUR_CYAN_DARK, _boulderExplodeBmp3);
+	static void makeBouldersMaganta() {
+		changeBoulderColours(COLOUR_MAGENTA, COLOUR_MAGENTA_DARK);
+	};
 
-		swapColours(COLOUR_YELLOW, COLOUR_CYAN, _boulderExplodeBmp4);
-		swapColours(COLOUR_YELLOW_DARK, COLOUR_CYAN_DARK, _boulderExplodeBmp4);
-
-		swapColours(COLOUR_YELLOW, COLOUR_CYAN, _boulderExplodeBmp5);
-		swapColours(COLOUR_YELLOW_DARK, COLOUR_CYAN_DARK, _boulderExplodeBmp5);
-
-		swapColours(COLOUR_YELLOW, COLOUR_CYAN, _boulderExplodeBmp6);
-		swapColours(COLOUR_YELLOW_DARK, COLOUR_CYAN_DARK, _boulderExplodeBmp6);
-
-		swapColours(COLOUR_YELLOW, COLOUR_CYAN, _boulderExplodeBmp7);
-		swapColours(COLOUR_YELLOW_DARK, COLOUR_CYAN_DARK, _boulderExplodeBmp7);
+	static void makeBouldersGreen() {
+		changeBoulderColours(COLOUR_GREEN, COLOUR_GREEN_DARK);
 	};
 
 	static void shutdown() {
@@ -106,24 +127,6 @@ public:
 		delete _boulderExplodeBmp5;
 		delete _boulderExplodeBmp6;
 		delete _boulderExplodeBmp7;
-	};
-
-	static void swapColours(SpectrumColour source, SpectrumColour dest, WoopsiGfx::Bitmap* bitmap) {
-		for (s32 x = 0; x < bitmap->getWidth(); ++x) {
-			for (s32 y = 0; y < bitmap->getHeight(); ++y) {
-				if (bitmap->getPixel(x, y) == (u16)source) bitmap->setPixel(x, y, (u16)dest);
-			}
-		}
-	};
-
-	static WoopsiGfx::Bitmap* createMutableBitmap(WoopsiGfx::BitmapBase* source) {
-		WoopsiGfx::Bitmap* dest = new WoopsiGfx::Bitmap(source->getWidth(), source->getHeight());
-
-		WoopsiGfx::Graphics* gfx = dest->newGraphics();
-		gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
-		delete gfx;
-
-		return dest;
 	};
 
 	inline static WoopsiGfx::Bitmap* getBoulderBmp() {
@@ -172,6 +175,50 @@ private:
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp6;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp7;
 	static WoopsiGfx::Bitmap* _soilBmp;
+
+	static void changeBoulderColours(SpectrumColour light, SpectrumColour dark) {
+		swapColours(COLOUR_YELLOW, light, _boulderBmp);
+		swapColours(COLOUR_YELLOW_DARK, dark, _boulderBmp);
+
+		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp1);
+		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp1);
+
+		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp2);
+		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp2);
+
+		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp3);
+		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp3);
+
+		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp4);
+		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp4);
+
+		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp5);
+		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp5);
+
+		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp6);
+		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp6);
+
+		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp7);
+		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp7);
+	};
+
+	static void swapColours(SpectrumColour source, SpectrumColour dest, WoopsiGfx::Bitmap* bitmap) {
+		for (s32 x = 0; x < bitmap->getWidth(); ++x) {
+			for (s32 y = 0; y < bitmap->getHeight(); ++y) {
+				if (bitmap->getPixel(x, y) == (u16)source) bitmap->setPixel(x, y, (u16)dest);
+			}
+		}
+	};
+
+	static WoopsiGfx::Bitmap* createMutableBitmap(WoopsiGfx::BitmapBase* source) {
+		WoopsiGfx::Bitmap* dest = new WoopsiGfx::Bitmap(source->getWidth(), source->getHeight());
+
+		WoopsiGfx::Graphics* gfx = dest->newGraphics();
+		gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+		delete gfx;
+
+		return dest;
+	};
 };
 
 #endif
