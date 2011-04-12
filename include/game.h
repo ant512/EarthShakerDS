@@ -6,7 +6,7 @@
 #include "levelbase.h"
 #include "blockbase.h"
 #include "playerblock.h"
-#include "newtopaz.h"
+#include "gamefont.h"
 
 /**
  * Game class ultimately controls everything in the game.
@@ -99,16 +99,9 @@ public:
 	void iterate();
 
 	/**
-	 * Increase the number of diamonds remaining in the level.  Also increases
-	 * the total number of diamonds since it is assumed that diamonds will only
-	 * increase when levels are being built.
+	 * Increase the number of diamonds collected in the level.
 	 */
-	void increaseDiamondsRemaining();
-
-	/**
-	 * Decrease the number of diamonds remaining in the level.
-	 */
-	void decreaseDiamondsRemaining();
+	void increaseCollectedDiamonds();
 
 private:
 	LevelBase* _level;					/**< The currently-active level.*/
@@ -118,10 +111,10 @@ private:
 	s32 _remainingTime;					/**< The amount of time remaining. */
 	s32 _lives;							/**< The number of lives remaining. */
 	s32 _totalDiamonds;					/**< The total number of diamonds in the level. */
-	s32 _diamondsRemaining;				/**< Number of diamonds to collect. */
+	s32 _collectedDiamonds;				/**< Number of diamonds collected in the level. */
 	WoopsiGfx::Graphics* _topGfx;		/**< The graphics object for the top display. */
 	WoopsiGfx::Graphics* _bottomGfx;	/**< The graphics object for the bottom display. */
-	NewTopaz _font;						/**< Font used for text output. */
+	GameFont _font;						/**< Font used for text output. */
 	s32 _animationTimer;				/**< Timer used to moderate animation speed. */
 	s32 _movementTimer;					/**< Timer used to moderate movement speed. */
 	s32 _levelTimer;					/**< Timer used to decrease remaining level time. */
@@ -142,6 +135,11 @@ private:
 	 * Draws the timer bar.
 	 */
 	void drawTimerBar();
+
+	/**
+	 * Draws the score.
+	 */
+	void drawScore();
 
 	/**
 	 * Draws the count of diamonds remaining and total.

@@ -14,23 +14,14 @@
 Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_isGravityInverted = false;
 	_score = 0;
-	_diamondsRemaining = 0;
-	_totalDiamonds = 0;
-	_remainingTime = STARTING_TIME;
 	_lives = STARTING_LIVES;
 	_topGfx = topGfx;
 	_bottomGfx = bottomGfx;
-	_animationTimer = 0;
-	_movementTimer = 0;
-	_levelTimer = 0;
 
 	_upHeld = false;
 	_downHeld = false;
 	_leftHeld = false;
 	_rightHeld = false;
-
-	// Ensure that the score display is drawn
-	addScore(0);
 
 	s32 levelWidth = 32;
 	s32 levelHeight = 16;
@@ -54,6 +45,8 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_level = createLevel(levelData, levelWidth, levelHeight, 1, "Testing Ground");
 
 	drawHUD();
+	drawDiamondCounters();
+	drawScore();
 }
 
 Game::~Game() {
@@ -75,12 +68,20 @@ LevelBase* Game::getLevel() const {
 
 void Game::addScore(s32 score) {
 	_score += score;
+	drawScore();
+}
 
-	// TODO: Fix the quick and dirty score display
+void Game::drawScore() {
 	WoopsiGfx::WoopsiString str;
-	str.format("Score: %06d", _score);
-	_bottomGfx->drawFilledRect(0, 0, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
-	_bottomGfx->drawText(0, 0, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
+	str.format("%06d", _score);
+
+	s32 scoreWidth = _font.getStringWidth(str);
+	s32 scoreHeight = _font.getHeight();
+	s32 scoreX = SCREEN_WIDTH - scoreWidth;
+	s32 scoreY = SCREEN_HEIGHT - scoreHeight - 1;
+
+	_topGfx->drawFilledRect(scoreX, scoreY, scoreWidth, scoreHeight, COLOUR_BLACK);
+	_topGfx->drawText(scoreX, scoreY, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 
 	// TODO: Life printing should be in another function
 	str.format("Lives: %02d", _lives);
@@ -194,25 +195,26 @@ bool Game::isGravityInverted() const {
 	return _isGravityInverted;
 }
 
-void Game::increaseDiamondsRemaining() {
-	++_diamondsRemaining;
-	++_totalDiamonds;
-	
-	drawDiamondCounters();
-}
-
-void Game::decreaseDiamondsRemaining() {
-	--_diamondsRemaining;
+void Game::increaseCollectedDiamonds() {
+	++_collectedDiamonds;
 
 	drawDiamondCounters();
 }
 
 void Game::drawDiamondCounters() {
 	WoopsiGfx::WoopsiString str;
-	str.format("Diamonds: %02d:%02d", _totalDiamonds, _diamondsRemaining);
 
-	_bottomGfx->drawFilledRect(0, _font.getHeight() * 3, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
-	_bottomGfx->drawText(0, _font.getHeight() * 3, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
+	// Erase region for counters
+	s32 height = _font.getHeight();
+	s32 y = SCREEN_HEIGHT - height - 1;
+
+	str.format("%02d", _totalDiamonds);
+	_topGfx->drawFilledRect(48, y, 16, height, COLOUR_BLACK);
+	_topGfx->drawText(48, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+	str.format("%02d", _collectedDiamonds);
+	_topGfx->drawFilledRect(72, y, 16, height, COLOUR_BLACK);
+	_topGfx->drawText(72, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 }
 
 void Game::decreaseTime() {
@@ -249,6 +251,30 @@ void Game::drawHUD() {
 
 	// Draw name
 	_bottomGfx->drawText(nameX, nameY, &_font, _level->getName(), 0, _level->getName().getLength(), COLOUR_WHITE);
+
+	// Erase region for counters
+	s32 counterHeight = _font.getHeight();
+	s32 counterX = 0;
+	s32 counterY = SCREEN_HEIGHT - counterHeight - 1;
+
+	_topGfx->drawFilledRect(counterX, counterY, SCREEN_WIDTH, counterHeight, COLOUR_BLACK);
+
+	// Level display
+	WoopsiGfx::WoopsiString str("L");
+
+	// Here we abandon calculated text co-ordinates and hard-code everything
+	// with magic numbers, because it's quicker for both the computer and the
+	// programmer to execute
+	_topGfx->drawText(0, counterY, &_font, str, 0, str.getLength(), COLOUR_GREEN);
+
+	str.format("%02d", _level->getLevelNumber());
+	_topGfx->drawText(8, counterY, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+	// TODO: Draw a diamond here
+
+	// Diamonds
+	str.setText(":");
+	_topGfx->drawText(64, counterY, &_font, str, 0, str.getLength(), COLOUR_CYAN);
 }
 
 void Game::drawTimerBar() {
@@ -270,6 +296,13 @@ void Game::flipGravity() {
 }
 
 LevelBase* Game::createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name) {
+	_collectedDiamonds = 0;
+	_totalDiamonds = 0;
+	_remainingTime = STARTING_TIME;
+
+	_animationTimer = 0;
+	_movementTimer = 0;
+	_levelTimer = 0;
 
 	BitmapServer::init();
 
@@ -292,7 +325,7 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height, s32 number, const 
 					break;
 				case 3:
 					block = new DiamondBlock(x, y, this);
-					increaseDiamondsRemaining();
+					_totalDiamonds++;
 					break;
 				case 4:
 					block = new PlayerBlock(x, y, this);
