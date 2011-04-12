@@ -31,6 +31,8 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	// Ensure that the score display is drawn
 	addScore(0);
 
+	drawHUD();
+
 	s32 levelWidth = 32;
 	s32 levelHeight = 16;
 	u8 levelData[512] = {6,6,6,2,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -97,8 +99,8 @@ PlayerBlock* Game::getPlayerBlock() const {
 void Game::render() {
 
 	// Get the size of the display measured in blocks
-	s32 displayWidth = DISPLAY_WIDTH / BlockBase::BLOCK_SIZE;
-	s32 displayHeight = DISPLAY_HEIGHT / BlockBase::BLOCK_SIZE;
+	s32 displayWidth = GAME_WIDTH / BlockBase::BLOCK_SIZE;
+	s32 displayHeight = GAME_HEIGHT / BlockBase::BLOCK_SIZE;
 
 	// The centre of the display should be the player, unless the player is too
 	// close to an edge for the display to scroll.  In that situation, we keep
@@ -208,44 +210,40 @@ void Game::decreaseTime() {
 	drawTimerBar();
 }
 
+
+void Game::drawHUD() {
+	s32 barY = 178;
+	s32 barWidth = SCREEN_WIDTH / 8;
+	s32 barHeight = 4;
+
+	_topGfx->drawFilledRect(0, barY, SCREEN_WIDTH, barHeight, COLOUR_BLUE_DARK);
+	_topGfx->drawFilledRect(barWidth, barY, SCREEN_WIDTH, barHeight, COLOUR_BLUE);
+	_topGfx->drawFilledRect(barWidth * 2, barY, SCREEN_WIDTH, barHeight, COLOUR_RED);
+	_topGfx->drawFilledRect(barWidth * 3, barY, SCREEN_WIDTH, barHeight, COLOUR_MAGENTA);
+	_topGfx->drawFilledRect(barWidth * 4, barY, SCREEN_WIDTH, barHeight, COLOUR_GREEN);
+	_topGfx->drawFilledRect(barWidth * 5, barY, SCREEN_WIDTH, barHeight, COLOUR_CYAN);
+	_topGfx->drawFilledRect(barWidth * 6, barY, SCREEN_WIDTH, barHeight, COLOUR_YELLOW);
+	_topGfx->drawFilledRect(barWidth * 7, barY, SCREEN_WIDTH, barHeight, COLOUR_WHITE);
+}
+
 void Game::drawTimerBar() {
 
-	// Calculate the percentage of time that has elapsed so far
-	s32 percentage = (_remainingTime * 100) / STARTING_TIME;
+	s32 barY = 178;
 
-	// Calculate the width of the timer bar - it shows the remaining percentage
+	// Rather than draw a bar representing the amount of time left to elapse,
+	// we overwrite the existing graphics from right to left with a black rect.
+	// This gives the illusion of shortening the remaining time bar with much
+	// less effort.
+
+	// Calculate the percentage of time that is left to elapse
+	s32 percentage = 100 - ((_remainingTime * 100) / STARTING_TIME);
+
+	// Calculate the width of the timer bar - it shows the elapsed percentage
 	// of time
-	s32 maxWidth = DISPLAY_WIDTH - 40;
-	s32 width = maxWidth * percentage / 100;
-
-	s32 green = 0;
-	s32 red = 0;
-
-	// Green is initially at 31 (max) and stays there until the percentage hits
-	// 50.  At that point, green decreases to 0.  At the same time, red starts
-	// at 0 (min) and increases to 31 until the percentage hits 50.  At that
-	// point, red stays at 31.  This makes the bar cycle from green to yellow to
-	// red.
-	if (percentage >= 50) {
-		green = 31;
-		red = (31 - (31 * percentage / 100)) * 2;
-	} else {
-		red = 31;
-		green = (31 * percentage / 100) * 2;
-	}
-
-	if (red > 31) red = 31;
-	if (green > 31) green = 31;
-
-	// Erase previous bar graphic - we need to erase as the bar will have become
-	// shorter, so at least a portion of the previous bar won't be drawn.  We
-	// could optimise by calculating the difference and drawing that, but the
-	// speed at which rects are drawn (thanks to the DMA) makes the optimisation
-	// moot.
-	_bottomGfx->drawFilledRect(20, 50, maxWidth, 10, woopsiRGB(0, 0, 0));
+	s32 width = SCREEN_WIDTH * percentage / 100;
 
 	// Draw new bar graphic
-	_bottomGfx->drawFilledRect(20, 50, width, 10, woopsiRGB(red, green, 0));
+	_topGfx->drawFilledRect(SCREEN_WIDTH - width, barY, width, 4, COLOUR_BLACK);
 }
 
 void Game::flipGravity() {

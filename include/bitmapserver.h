@@ -26,11 +26,11 @@ enum SpectrumColour {
 	COLOUR_WHITE_DARK = 59193,
 	COLOUR_YELLOW = 39935,
 	COLOUR_YELLOW_DARK = 37722,
-	COLOUR_RED = 0,
+	COLOUR_RED = 32799,
 	COLOUR_RED_DARK = 0,
-	COLOUR_GREEN = 0,
+	COLOUR_GREEN = 33760,
 	COLOUR_GREEN_DARK = 0,
-	COLOUR_MAGENTA = 0,
+	COLOUR_MAGENTA = 64543,
 	COLOUR_MAGENTA_DARK = 0
 };
 
@@ -68,9 +68,6 @@ public:
 		_boulderExplodeBmp6 = createMutableBitmap(&boulderExplodeBmp6);
 		_boulderExplodeBmp7 = createMutableBitmap(&boulderExplodeBmp7);
 		_soilBmp = createMutableBitmap(&soilBmp);
-
-		makeBouldersBlue();
-		makeSoilCyan();
 	};
 
 	static void makeSoilWhite() {

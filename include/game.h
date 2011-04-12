@@ -165,6 +165,11 @@ private:
 	 * Redraws the game.
 	 */
 	void render();
+
+	/**
+	 * Draws the background HUD graphics.
+	 */
+	void drawHUD();
 };
 
 #endif

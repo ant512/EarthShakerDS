@@ -22,8 +22,8 @@ void initGfxMode() {
 int main(int argc, char* argv[]) {
 	initGfxMode();
 
-	WoopsiGfx::FrameBuffer topBuffer((u16*)BG_BMP_RAM(0), DISPLAY_WIDTH, DISPLAY_HEIGHT);
-	WoopsiGfx::FrameBuffer bottomBuffer((u16*)BG_BMP_RAM_SUB(0), DISPLAY_WIDTH, DISPLAY_HEIGHT);
+	WoopsiGfx::FrameBuffer topBuffer((u16*)BG_BMP_RAM(0), SCREEN_WIDTH, SCREEN_HEIGHT);
+	WoopsiGfx::FrameBuffer bottomBuffer((u16*)BG_BMP_RAM_SUB(0), SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	WoopsiGfx::Graphics* topGfx = topBuffer.newGraphics();
 	WoopsiGfx::Graphics* bottomGfx = bottomBuffer.newGraphics();

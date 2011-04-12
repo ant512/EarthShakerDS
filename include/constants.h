@@ -14,14 +14,14 @@ const s32 ANIMATION_TIME = 3;
 const s32 MOVEMENT_TIME = 6;
 
 /**
- * Width of the screen.
+ * Width of the game display.
  */
-const s32 DISPLAY_WIDTH = 256;
+const s32 GAME_WIDTH = 256;
 
 /**
- * Height of the screen.
+ * Height of the game display.
  */
-const s32 DISPLAY_HEIGHT = 176;
+const s32 GAME_HEIGHT = 176;
 
 /**
  * Points for collecting a diamond.
