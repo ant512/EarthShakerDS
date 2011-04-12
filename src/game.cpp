@@ -295,7 +295,24 @@ void Game::drawHUD() {
 
 	// TODO: Gravity g here (indicator needs to be drawn elsewhere)
 
-	// TODO: "SCORE:" here
+	// "SCORE:"
+	str.setText("S");
+	_topGfx->drawText(160, counterY, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+	str.setText("C");
+	_topGfx->drawText(168, counterY, &_font, str, 0, str.getLength(), COLOUR_YELLOW);
+
+	str.setText("O");
+	_topGfx->drawText(176, counterY, &_font, str, 0, str.getLength(), COLOUR_CYAN);
+
+	str.setText("R");
+	_topGfx->drawText(184, counterY, &_font, str, 0, str.getLength(), COLOUR_GREEN);
+
+	str.setText("E");
+	_topGfx->drawText(192, counterY, &_font, str, 0, str.getLength(), COLOUR_MAGENTA);
+
+	str.setText(":");
+	_topGfx->drawText(200, counterY, &_font, str, 0, str.getLength(), COLOUR_RED);
 }
 
 void Game::drawTimerBar() {
