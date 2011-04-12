@@ -3,6 +3,7 @@
 #include "graphics.h"
 #include "game.h"
 #include "constants.h"
+#include "bitmapserver.h"
 
 void initGfxMode() {
 	powerOn(POWER_ALL_2D);
@@ -39,6 +40,8 @@ int main(int argc, char* argv[]) {
 		game->iterate();
 		swiWaitForVBlank();
 	}
+
+	BitmapServer::shutdown();
 
 	delete topGfx;
 	delete bottomGfx;

@@ -3,7 +3,7 @@ Todo
 
  - Improve HUD:
    - Erasing needs to be more accurate.
-   - Draw a surrounding bitmap?
+   - Draw a surrounding bitmap?  Use Spectrum title screen graphic?
  - Implement all scoring.
  - Timer expiry should make player die.
  - Make beans give time extension - how much?
@@ -12,9 +12,14 @@ Todo
    with hot blocks.
  - Move level creation somewhere else - load from disk?
  - Add teleporters.
+ - Add extra life potions.
+ - Add barriers and controllers.
+ - Add alternative colour versions of blocks.
+ - Add wet soil.
  - Add between-level sequence?
  - Power-ups - flip gravity, etc.
  - Need explosion graphics for:
-  - PlayerBlock
- - Should heavy blocks slip sideways if the diagonal block is fire?
+  - PlayerBlock.
+  - Barrier controller.
+  - Alternative colour boulders.
  - Sounds.

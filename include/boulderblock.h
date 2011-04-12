@@ -7,14 +7,7 @@
 #include "game.h"
 #include "blockbase.h"
 #include "playerblock.h"
-#include "boulderbmp.h"
-#include "boulderexplodebmp1.h"
-#include "boulderexplodebmp2.h"
-#include "boulderexplodebmp3.h"
-#include "boulderexplodebmp4.h"
-#include "boulderexplodebmp5.h"
-#include "boulderexplodebmp6.h"
-#include "boulderexplodebmp7.h"
+#include "bitmapserver.h"
 
 /**
  * Boulders fall if not sitting on anything and can be pushed horizontally.
@@ -32,15 +25,15 @@ public:
 	BoulderBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
 		_isSlippy = true;
 
-		_animation->addFrame(&_bmp, 0);
+		_animation->addFrame(BitmapServer::getBoulderBmp(), 0);
 
-		_explodingAnimation->addFrame(&_explodingBmp1, 0);
-		_explodingAnimation->addFrame(&_explodingBmp2, 0);
-		_explodingAnimation->addFrame(&_explodingBmp3, 0);
-		_explodingAnimation->addFrame(&_explodingBmp4, 0);
-		_explodingAnimation->addFrame(&_explodingBmp5, 0);
-		_explodingAnimation->addFrame(&_explodingBmp6, 0);
-		_explodingAnimation->addFrame(&_explodingBmp7, 0);
+		_explodingAnimation->addFrame(BitmapServer::getBoulderExplodeBmp1(), 0);
+		_explodingAnimation->addFrame(BitmapServer::getBoulderExplodeBmp2(), 0);
+		_explodingAnimation->addFrame(BitmapServer::getBoulderExplodeBmp3(), 0);
+		_explodingAnimation->addFrame(BitmapServer::getBoulderExplodeBmp4(), 0);
+		_explodingAnimation->addFrame(BitmapServer::getBoulderExplodeBmp5(), 0);
+		_explodingAnimation->addFrame(BitmapServer::getBoulderExplodeBmp6(), 0);
+		_explodingAnimation->addFrame(BitmapServer::getBoulderExplodeBmp7(), 0);
 	};
 
 	/**
@@ -125,16 +118,6 @@ public:
 
 		if (block->isHot()) explode();
 	};
-
-private:
-	BoulderBmp _bmp;						/**< Static bitmap. */
-	BoulderExplodeBmp1 _explodingBmp1;		/**< First explosion bitmap. */
-	BoulderExplodeBmp2 _explodingBmp2;		/**< Second explosion bitmap. */
-	BoulderExplodeBmp3 _explodingBmp3;		/**< Third explosion bitmap. */
-	BoulderExplodeBmp4 _explodingBmp4;		/**< Fourth explosion bitmap. */
-	BoulderExplodeBmp5 _explodingBmp5;		/**< Fifth explosion bitmap. */
-	BoulderExplodeBmp6 _explodingBmp6;		/**< Sixth explosion bitmap. */
-	BoulderExplodeBmp7 _explodingBmp7;		/**< Seventh explosion bitmap. */
 };
 
 #endif

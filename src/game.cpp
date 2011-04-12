@@ -9,6 +9,7 @@
 #include "fireblock.h"
 #include "beanblock.h"
 #include "constants.h"
+#include "bitmapserver.h"
 
 Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_isGravityInverted = false;
@@ -252,6 +253,8 @@ void Game::flipGravity() {
 }
 
 LevelBase* Game::createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name) {
+
+	BitmapServer::init();
 
 	LevelBase* level = new LevelBase(width, height, number, name);
 
