@@ -4,6 +4,7 @@
 #include "game.h"
 #include "constants.h"
 #include "bitmapserver.h"
+#include "logobmp.h"
 
 void initGfxMode() {
 	powerOn(POWER_ALL_2D);
@@ -27,6 +28,10 @@ int main(int argc, char* argv[]) {
 
 	WoopsiGfx::Graphics* topGfx = topBuffer.newGraphics();
 	WoopsiGfx::Graphics* bottomGfx = bottomBuffer.newGraphics();
+
+	LogoBmp logoBmp;
+
+	bottomGfx->drawBitmap(0, 0, 256, 64, &logoBmp, 0, 0);
 
 	Game* game = new Game(topGfx, bottomGfx);
 
