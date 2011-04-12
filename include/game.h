@@ -152,6 +152,11 @@ private:
 	void drawLifeCounter();
 
 	/**
+	 * Draws the inverted gravity time remaining.
+	 */
+	void drawGravityCounter();
+
+	/**
 	 * Redraws the level.  Uses a timer system, so calling the method will not
 	 * necessarily produce an effect other than adjusting the _animationTimer
 	 * value.

@@ -47,6 +47,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	drawDiamondCounters();
 	drawScore();
 	drawLifeCounter();
+	drawGravityCounter();
 }
 
 Game::~Game() {
@@ -82,16 +83,6 @@ void Game::drawScore() {
 
 	_topGfx->drawFilledRect(scoreX, scoreY, scoreWidth, scoreHeight, COLOUR_BLACK);
 	_topGfx->drawText(scoreX, scoreY, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
-
-	// TODO: Life printing should be in another function
-	str.format("Lives: %02d", _lives);
-	_bottomGfx->drawFilledRect(0, _font.getHeight(), _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
-	_bottomGfx->drawText(0, _font.getHeight(), &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
-
-	// TODO: Level printing should be in another function
-	str.format("Level: %02d", _level->getLevelNumber());
-	_bottomGfx->drawFilledRect(0, _font.getHeight() * 2, _font.getStringWidth(str), _font.getHeight(), woopsiRGB(0, 0, 0));
-	_bottomGfx->drawText(0, _font.getHeight() * 2, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
 }
 
 void Game::drawLifeCounter() {
@@ -101,6 +92,19 @@ void Game::drawLifeCounter() {
 	s32 width = _font.getStringWidth(str);
 	s32 height = _font.getHeight();
 	s32 x = 104;
+	s32 y = SCREEN_HEIGHT - height - 1;
+
+	_topGfx->drawFilledRect(x, y, width, height, COLOUR_BLACK);
+	_topGfx->drawText(x, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+}
+
+void Game::drawGravityCounter() {
+	WoopsiGfx::WoopsiString str;
+	str.format("%02d", _remainingGravityTime);
+
+	s32 width = _font.getStringWidth(str);
+	s32 height = _font.getHeight();
+	s32 x = 136;
 	s32 y = SCREEN_HEIGHT - height - 1;
 
 	_topGfx->drawFilledRect(x, y, width, height, COLOUR_BLACK);
@@ -176,7 +180,10 @@ void Game::move() {
 
 		_level->iterate(_remainingGravityTime > 0);
 
-		if (_remainingGravityTime > 0) --_remainingGravityTime;
+		if (_remainingGravityTime > 0) {
+			--_remainingGravityTime;
+			drawGravityCounter();
+		}
 
 		if (_upHeld) {
 			_playerBlock->pushUp();
@@ -293,7 +300,7 @@ void Game::drawHUD() {
 
 	// TODO: Heart here
 
-	// TODO: Gravity g here (indicator needs to be drawn elsewhere)
+	// TODO: Gravity g here
 
 	// "SCORE:"
 	str.setText("S");
@@ -331,6 +338,8 @@ void Game::drawTimerBar() {
 
 void Game::invertGravity() {
 	_remainingGravityTime = GRAVITY_INVERSION_TIME;
+
+	drawGravityCounter();
 }
 
 LevelBase* Game::createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name) {
