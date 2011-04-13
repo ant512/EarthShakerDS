@@ -10,6 +10,7 @@
 #include "fireblock.h"
 #include "gravityinversionblock.h"
 #include "game.h"
+#include "icewallblock.h"
 #include "level0.h"
 #include "levelbase.h"
 #include "leveldefinition.h"
@@ -121,6 +122,9 @@ private:
 						break;
 					case 11:
 						block = new WhiteWallBlock(x, y, game);
+						break;
+					case 12:
+						block = new IceWallBlock(x, y, game);
 						break;
 				}
 
