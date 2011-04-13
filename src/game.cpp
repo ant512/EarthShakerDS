@@ -341,10 +341,10 @@ void Game::moveToNextLevel() {
 	BitmapServer::init();
 
 	if (_level == NULL) {
-		_level = LevelFactory::getLevel(0, this);
+		_level = LevelFactory::newLevel(0, this);
 	} else {
 		delete _level;
 
-		_level = LevelFactory::getLevel(_level->getNumber() + 1, this);
+		_level = LevelFactory::newLevel(_level->getNumber() + 1, this);
 	}
 }

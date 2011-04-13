@@ -21,7 +21,8 @@ class LevelFactory {
 public:
 
 	/**
-	 * Gets a LevelBase object representing the specified level number.
+	 * Creates and returns a new LevelBase object representing the specified
+	 * level number.
 	 * @param number The level to create.
 	 * @param game Pointer to the overall game object.
 	 * @return A new LevelBase object containing the specified level definition
@@ -29,7 +30,7 @@ public:
 	 * responsibility of the caller to delete the level once it is no longer
 	 * required.
 	 */
-	static LevelBase* getLevel(s32 number, Game* game) {
+	static LevelBase* newLevel(s32 number, Game* game) {
 		LevelDefinition* data = NULL;
 
 		switch (number) {
