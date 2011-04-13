@@ -118,6 +118,14 @@ public:
 	 */
 	void explode();
 
+	void slideLeft();
+	void slideRight();
+
+	/**
+	 * Either drops or raises the block depending on gravity.
+	 */
+	void fall();
+
 	/**
 	 * Squashes the block.  Called when a heavy block lands on it.
 	 */
@@ -183,6 +191,13 @@ protected:
 	bool _isHot;								/**< Indicates whether or not the block is hot; hot
 													 blocks cause boulders to explode. */
 	bool _isExploding;							/**< Indicates whether or not the block is exploding. */
+	bool _isOddIteration;
+
+	bool _isOnPlayer;					/**< Indicates that the block is sitting
+											 on top of the player. */
+	bool _isHeavyEnoughToKill;			/**< Indicates whether or not having the
+											 block land on the player kills him. */
+	bool _isHeavy;
 
 	/**
 	 * Called when the block's iterate() method runs.
@@ -200,6 +215,30 @@ protected:
 	 * Called when the block explodes.
 	 */
 	virtual void onExplode() { };
+
+	/**
+	 * Called when the block falls.
+	 */
+	virtual void onFall() { };
+
+	/**
+	 * Drops the block from its current position to a free block below.  Will
+	 * drop vertically if the block beneath is empty.  Will drop to the left if
+	 * the left block and the one below that are empty.  Will drop to the right
+	 * if the right block and the one below that are empty.
+	 */
+	void drop();
+
+	/**
+	 * Uses the same algorithm as drop() but raises the block instead of
+	 * lowering it.  To be used when gravity is inverted.
+	 */
+	void raise();
+
+	/**
+	 * Squashes the block we're falling onto.
+	 */
+	void squashBlock();
 };
 
 #endif

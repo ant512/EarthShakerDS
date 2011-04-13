@@ -5,7 +5,7 @@
 #include <bitmap.h>
 
 #include "game.h"
-#include "heavyblockbase.h"
+#include "blockbase.h"
 #include "beanbmp1.h"
 #include "beanbmp2.h"
 #include "beanbmp3.h"
@@ -14,7 +14,7 @@
 /**
  * BeanBlocks give a time extension and points when collected.
  */
-class BeanBlock : public HeavyBlockBase {
+class BeanBlock : public BlockBase {
 public:
 
 	/**
@@ -23,8 +23,9 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	BeanBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
+	BeanBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isSlippy = true;
+		_isHeavy = true;
 
 		_animation->setLoopType(WoopsiGfx::Animation::ANIMATION_LOOPTYPE_PINGPONG);
 		_animation->addFrame(&_bmp1, 0);

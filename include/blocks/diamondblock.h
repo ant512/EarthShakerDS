@@ -5,7 +5,7 @@
 #include <bitmap.h>
 
 #include "game.h"
-#include "heavyblockbase.h"
+#include "blockbase.h"
 #include "diamondbmp1.h"
 #include "diamondbmp2.h"
 #include "diamondbmp3.h"
@@ -16,7 +16,7 @@
  * Diamonds can be collected for points.  They fall if not sitting on anything.
  * Collecting diamonds is the object of the game.
  */
-class DiamondBlock : public HeavyBlockBase {
+class DiamondBlock : public BlockBase {
 public:
 
 	/**
@@ -25,8 +25,9 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	DiamondBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
+	DiamondBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isSlippy = true;
+		_isHeavy = true;
 
 		_animation->setLoopType(WoopsiGfx::Animation::ANIMATION_LOOPTYPE_PINGPONG);
 		_animation->addFrame(&_bmp1, 0);

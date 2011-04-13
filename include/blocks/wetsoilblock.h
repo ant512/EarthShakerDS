@@ -5,14 +5,14 @@
 #include <bitmap.h>
 
 #include "game.h"
-#include "heavyblockbase.h"
+#include "blockbase.h"
 #include "constants.h"
 
 /**
  * Wet soil works the same way as ordinary soil, except it falls like boulders
  * whenever possible.
  */
-class WetSoilBlock : public HeavyBlockBase {
+class WetSoilBlock : public BlockBase {
 public:
 
 	/**
@@ -21,8 +21,9 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	WetSoilBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
+	WetSoilBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isSlippy = true;
+		_isHeavy = true;
 		_isHeavyEnoughToKill = false;
 
 		// TODO: Set up animation here

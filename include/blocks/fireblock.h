@@ -5,7 +5,7 @@
 #include <bitmap.h>
 
 #include "game.h"
-#include "heavyblockbase.h"
+#include "blockbase.h"
 #include "firebmp1.h"
 #include "firebmp2.h"
 #include "firebmp3.h"
@@ -19,7 +19,7 @@
  * Fire explodes boulders and bubbles (which also extinguish it).  It falls if
  * not sitting on anything.  Touching fire will kill the player.
  */
-class FireBlock : public HeavyBlockBase {
+class FireBlock : public BlockBase {
 public:
 
 	/**
@@ -28,8 +28,9 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	FireBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
+	FireBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isHot = true;
+		_isHeavy = true;
 		
 		_animation->addFrame(&_bmp1, 0);
 		_animation->addFrame(&_bmp2, 0);

@@ -10,6 +10,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_lives = STARTING_LIVES;
 	_topGfx = topGfx;
 	_bottomGfx = bottomGfx;
+	_isOddIteration = true;
 
 	_upHeld = false;
 	_downHeld = false;
@@ -45,6 +46,10 @@ LevelBase* Game::getLevel() const {
 
 bool Game::isRunning() const {
 	return _lives > -1;
+}
+
+bool Game::isOddIteration() const {
+	return _isOddIteration;
 }
 
 void Game::addScore(s32 score) {
@@ -176,6 +181,7 @@ void Game::move() {
 		}
 
 		_level->iterate(_remainingGravityTime > 0);
+		_isOddIteration = !_isOddIteration;
 
 		if (_remainingGravityTime > 0) {
 			--_remainingGravityTime;

@@ -112,35 +112,38 @@ void LevelBase::iterateBlocks(bool isGravityInverted) {
 	s32 stop = 0;
 	s32 increment = 1;
 
-	if (isGravityInverted) {
+	//if (isGravityInverted) {
 		stop = _width * _height;
-	} else {
-		start = (_width * _height) - 1;
-		stop = -1;
-		increment = -1;
-	}
+	//} else {
+	//	start = (_width * _height) - 1;
+	//	stop = -1;
+	//	increment = -1;
+	//}
 
 	BlockBase* block = NULL;
-	BlockBase* lastBlock = NULL;
 
 	// Iterate over all blocks and call their own iterate() methods
+	for (s32 i = start; i != stop; i += increment) {	
+		block = _data[i];
+		if (block == NULL) continue;
+		block->slideLeft();
+	}
+
 	for (s32 i = start; i != stop; i += increment) {
 		block = _data[i];
-
 		if (block == NULL) continue;
-		if (block == lastBlock) continue;
+		block->slideRight();
+	}
 
-		// We need to remember the last block we iterated so that we don't end
-		// up iterating over it twice in one level iteration.  This can happen
-		// if the block moves to the left or right (depending on loop direction)
-		// and therefore appears in the next iteration of the for loop.
-		// This doesn't allow for situations in which blocks change rows against
-		// gravity, or move more than one block to the left or right.  In the
-		// current engine this is not a problem as no blocks can do this.  If
-		// the engine is updated to allow more complex block movement, a better
-		// solution must be found.
-		lastBlock = block;
+	for (s32 i = start; i != stop; i += increment) {
+		block = _data[i];
+		if (block == NULL) continue;
+		block->fall();
+	}
 
+	for (s32 i = start; i != stop; i += increment) {
+		block = _data[i];
+		if (block == NULL) continue;
 		block->iterate();
 	}
 }

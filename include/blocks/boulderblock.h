@@ -13,7 +13,7 @@
  * Boulders fall if not sitting on anything and can be pushed horizontally.
  * They are the primary "enemy" in the game.
  */
-class BoulderBlock : public HeavyBlockBase {
+class BoulderBlock : public BlockBase {
 public:
 
 	/**
@@ -22,8 +22,9 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	BoulderBlock(s32 x, s32 y, Game* game) : HeavyBlockBase(x, y, game) {
+	BoulderBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isSlippy = true;
+		_isHeavy = true;
 
 		_animation->addFrame(BitmapServer::getBoulderBmp(), 0);
 
@@ -95,8 +96,6 @@ public:
 		}
 
 		if (_isExploding) return;
-
-		HeavyBlockBase::onIterate();
 	};
 
 	/**

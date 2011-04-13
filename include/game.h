@@ -51,6 +51,8 @@ public:
 	 */
 	bool isRunning() const;
 
+	bool isOddIteration() const;
+
 	/**
 	 * Inverts gravity.
 	 */
@@ -141,6 +143,7 @@ private:
 	s32 _movementTimer;					/**< Timer used to moderate movement speed. */
 	s32 _levelTimer;					/**< Timer used to decrease remaining level time. */
 	bool _isPlayerDead;					/**< Indicates whether or not the player has been killed. */
+	bool _isOddIteration;
 
 	bool _upHeld;						/**< State of the up button. */
 	bool _downHeld;						/**< State of the down button. */
