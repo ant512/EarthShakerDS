@@ -26,11 +26,7 @@ Todo
    - Door
      - Colours animate when active
      - Changes colour between levels
-   - White wall
-   - Ice wall
    - Honeycomb wall
-   - Wet soil
-     - Falls but does not kill player
    - Teleporter
      - Add in some sort of pointer system to connect teleporters together
    - Barrier
@@ -38,6 +34,10 @@ Todo
      - Removed when controller is destroyed
    - Barrier controller
      - Do they give a score bonus when squashed?
+ - Block bitmaps:
+   - WhiteWallBmp
+   - IceWallBmp
+   - Wet soil bitmaps
  - Gravity Inversion and Extra Life Blocks:
    - Does collecting them raise the score?
    - Should the blocks fall?  If so, do they kill when falling on the player?

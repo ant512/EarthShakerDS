@@ -16,6 +16,7 @@
 #include "leveldefinition.h"
 #include "playerblock.h"
 #include "soilblock.h"
+#include "wetsoilblock.h"
 #include "whitewallblock.h"
 
 /**
@@ -125,6 +126,9 @@ private:
 						break;
 					case 12:
 						block = new IceWallBlock(x, y, game);
+						break;
+					case 13:
+						block = new WetSoilBlock(x, y, game);
 						break;
 				}
 
