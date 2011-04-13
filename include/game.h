@@ -108,6 +108,12 @@ public:
 	 */
 	void increaseLives();
 
+	/**
+	 * Informs the game that the player has been killed.  The next call to
+	 * iterate() will reset the level or end the game.
+	 */
+	void killPlayer();
+
 private:
 	LevelBase* _level;					/**< The currently-active level.*/
 	s32 _remainingGravityTime;			/**< The amount of time left until gravity returns to normal. */
@@ -121,6 +127,7 @@ private:
 	s32 _animationTimer;				/**< Timer used to moderate animation speed. */
 	s32 _movementTimer;					/**< Timer used to moderate movement speed. */
 	s32 _levelTimer;					/**< Timer used to decrease remaining level time. */
+	bool _isPlayerDead;					/**< Indicates whether or not the player has been killed. */
 
 	bool _upHeld;						/**< State of the up button. */
 	bool _downHeld;						/**< State of the down button. */
@@ -196,6 +203,16 @@ private:
 	 * Moves the game to the next level.
 	 */
 	void moveToNextLevel();
+
+	/**
+	 * Resets the current level to its default state.
+	 */
+	void resetLevel();
+
+	/**
+	 * Decreases the number of lives and redraws the life counter.
+	 */
+	void decreaseLives();
 };
 
 #endif

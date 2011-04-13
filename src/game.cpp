@@ -149,6 +149,14 @@ void Game::animate() {
 }
 
 void Game::move() {
+
+	if (_isPlayerDead) {
+
+		// TODO: Check life count and stop game if no lives are left.
+		decreaseLives();
+		resetLevel();
+	}
+
 	_movementTimer++;
 
 	if (_movementTimer == MOVEMENT_TIME) {
@@ -203,6 +211,16 @@ void Game::increaseLives() {
 	++_lives;
 
 	drawLifeCounter();
+}
+
+void Game::decreaseLives() {
+	--_lives;
+
+	drawLifeCounter();
+}
+
+void Game::killPlayer() {
+	_isPlayerDead = true;
 }
 
 void Game::drawDiamondCounters() {
@@ -328,10 +346,29 @@ void Game::invertGravity() {
 	drawGravityCounter();
 }
 
+void Game::resetLevel() {
+	_collectedDiamonds = 0;
+	_remainingTime = STARTING_TIME;
+	_remainingGravityTime = 0;
+	_isPlayerDead = false;
+
+	_animationTimer = 0;
+	_movementTimer = 0;
+	_levelTimer = 0;
+
+	s32 levelNumber = _level->getNumber();
+
+	delete _level;
+
+	_level = LevelFactory::newLevel(levelNumber, this);
+}
+
+
 void Game::moveToNextLevel() {
 	_collectedDiamonds = 0;
 	_remainingTime = STARTING_TIME;
 	_remainingGravityTime = 0;
+	_isPlayerDead = false;
 
 	_animationTimer = 0;
 	_movementTimer = 0;

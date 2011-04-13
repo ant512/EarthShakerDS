@@ -36,7 +36,9 @@ public:
 	bool isFalling() const;
 
 protected:
-	bool _isFalling;		/**< The falling state of the block. */
+	bool _isFalling;					/**< The falling state of the block. */
+	bool _isHeavyEnoughToKill;			/**< Indicates whether or not having the
+											 block land on the player kills him. */
 
 	/**
 	 * Either drops or raises the block depending on gravity.

@@ -5,6 +5,7 @@
 
 HeavyBlockBase::HeavyBlockBase(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 	_isFalling = false;
+	_isHeavyEnoughToKill = true;
 }
 
 bool HeavyBlockBase::isFalling() const {
@@ -12,6 +13,25 @@ bool HeavyBlockBase::isFalling() const {
 }
 
 void HeavyBlockBase::onIterate() {
+
+	// Kill the player if we're falling and he is under us
+	if (_isFalling && _isHeavyEnoughToKill) {
+
+		BlockBase* playerBlock = _game->getPlayerBlock();
+		
+		if (playerBlock->getX() == _x) {
+			if (_game->isGravityInverted()) {
+				if (playerBlock->getY() == _y - 1) {
+					_game->killPlayer();
+				}
+			} else {
+				if (playerBlock->getY() == _y + 1) {
+					_game->killPlayer();
+				}
+			}
+		}
+	}
+	
 	fall();
 }
 
