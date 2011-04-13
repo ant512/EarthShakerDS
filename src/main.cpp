@@ -33,24 +33,33 @@ int main(int argc, char* argv[]) {
 
 	bottomGfx->drawBitmap(0, 0, 256, 64, &logoBmp, 0, 0);
 
-	Game* game = new Game(topGfx, bottomGfx);
+	while (1) {
 
-	while(1) {
-		scanKeys();
-		game->setUpHeld((keysDown() & KEY_UP) || (keysHeld() & KEY_UP));
-		game->setDownHeld((keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN));
-		game->setLeftHeld((keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT));
-		game->setRightHeld((keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT));
+		// TODO: Menu screen here
 
-		game->iterate();
-		swiWaitForVBlank();
+		// Create a new game and run it
+		Game* game = new Game(topGfx, bottomGfx);
+
+		while(game->isRunning()) {
+			scanKeys();
+			game->setUpHeld((keysDown() & KEY_UP) || (keysHeld() & KEY_UP));
+			game->setDownHeld((keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN));
+			game->setLeftHeld((keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT));
+			game->setRightHeld((keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT));
+
+			game->iterate();
+			swiWaitForVBlank();
+		}
+
+		// TODO: Game over screen here
+
+		delete game;
 	}
 
 	BitmapServer::shutdown();
 
 	delete topGfx;
 	delete bottomGfx;
-	delete game;
 
 	return 0;
 }

@@ -45,6 +45,13 @@ public:
 	bool isGravityInverted() const;
 
 	/**
+	 * Check if the game is running or not.  The game is running whilst the
+	 * player has at least 0 lives.
+	 * @return True if the player has at least 0 lives; false if not.
+	 */
+	bool isRunning() const;
+
+	/**
 	 * Inverts gravity.
 	 */
 	void invertGravity();

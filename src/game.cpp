@@ -43,6 +43,10 @@ LevelBase* Game::getLevel() const {
 	return _level;
 }
 
+bool Game::isRunning() const {
+	return _lives > -1;
+}
+
 void Game::addScore(s32 score) {
 	_score += score;
 	drawScore();
@@ -120,7 +124,6 @@ void Game::render() {
 
 	_level->render(x, y, displayWidth, displayHeight, _topGfx);
 }
-
 
 void Game::iterate() {
 	animate();
