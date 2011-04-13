@@ -3,11 +3,10 @@ Todo
 
  - Finish HUD.
  - Implement all scoring.
- - Timer expiry should make player die.
+ - Add game over screen.
+ - Add high score screen.
+ - Add level selection screen.
  - Make beans give time extension - how much?
- - Add death check - in PlayerBlock iterate() method, check if the block above
-   the player is falling.  If so, player is dead.  Also check for collisions
-   with hot blocks.
  - Add teleporters.
  - Add extra life potions.
  - Add barriers and controllers.
@@ -27,3 +26,8 @@ Todo
   - PlayerBlock.
   - Barrier controller.
  - Sounds.
+ - Does collecting gravity inversion blocks raise the score?
+ - Should gravity inversion blocks fall?  If so, do they kill when falling on
+   the player?
+ - Are gravity inversion blocks slippy?
+ - Add gravity inversion block bitmaps.

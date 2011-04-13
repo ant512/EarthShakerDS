@@ -13,8 +13,11 @@ bool HeavyBlockBase::isFalling() const {
 }
 
 void HeavyBlockBase::onIterate() {
+	squashPlayer();
+	fall();
+}
 
-	// Kill the player if we're falling and he is under us
+void HeavyBlockBase::squashPlayer() {
 	if (_isFalling && _isHeavyEnoughToKill) {
 
 		BlockBase* playerBlock = _game->getPlayerBlock();
@@ -31,8 +34,6 @@ void HeavyBlockBase::onIterate() {
 			}
 		}
 	}
-	
-	fall();
 }
 
 void HeavyBlockBase::fall() {

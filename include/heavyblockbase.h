@@ -41,11 +41,6 @@ protected:
 											 block land on the player kills him. */
 
 	/**
-	 * Either drops or raises the block depending on gravity.
-	 */
-	void fall();
-
-	/**
 	 * Called when the block falls.
 	 */
 	virtual void onFall() { };
@@ -70,6 +65,16 @@ private:
 	 * lowering it.  To be used when gravity is inverted.
 	 */
 	void raise();
+
+	/**
+	 * Either drops or raises the block depending on gravity.
+	 */
+	void fall();
+
+	/**
+	 * Kills the player if we're falling and he is under us.
+	 */
+	void squashPlayer();
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include "bubbleblock.h"
 #include "diamondblock.h"
 #include "fireblock.h"
+#include "gravityinversionblock.h"
 #include "game.h"
 #include "level0.h"
 #include "levelbase.h"
@@ -109,6 +110,9 @@ private:
 						break;
 					case 8:
 						block = new BeanBlock(x, y, game);
+						break;
+					case 9:
+						block = new GravityInversionBlock(x, y, game);
 						break;
 				}
 
