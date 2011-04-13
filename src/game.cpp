@@ -199,6 +199,12 @@ void Game::increaseCollectedDiamonds() {
 	drawDiamondCounters();
 }
 
+void Game::increaseLives() {
+	++_lives;
+
+	drawLifeCounter();
+}
+
 void Game::drawDiamondCounters() {
 	WoopsiGfx::WoopsiString str;
 

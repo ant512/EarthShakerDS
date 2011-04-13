@@ -99,9 +99,14 @@ public:
 	void iterate();
 
 	/**
-	 * Increase the number of diamonds collected in the level.
+	 * Increase the number of diamonds collected in the level by one.
 	 */
 	void increaseCollectedDiamonds();
+
+	/**
+	 * Increase the number of lives that the player has.
+	 */
+	void increaseLives();
 
 private:
 	LevelBase* _level;					/**< The currently-active level.*/
