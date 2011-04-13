@@ -2,8 +2,8 @@
 #define _BITMAP_SERVER_H_
 
 #include <bitmap.h>
-#include <graphics.h>
 #include <bitmapbase.h>
+#include <graphics.h>
 #include <mutablebitmapbase.h>
 
 #include "boulderbmp.h"
@@ -15,28 +15,7 @@
 #include "boulderexplodebmp6.h"
 #include "boulderexplodebmp7.h"
 #include "soilbmp.h"
-
-/**
- * List of all colours in the game.
- * TODO: Move this to a separate file.
- */
-enum SpectrumColour {
-	COLOUR_BLACK = 32768,
-	COLOUR_BLUE = 64736,
-	COLOUR_BLUE_DARK = 58528,
-	COLOUR_CYAN = 65513,
-	COLOUR_CYAN_DARK = 60229,
-	COLOUR_WHITE = 65535,
-	COLOUR_WHITE_DARK = 59193,
-	COLOUR_YELLOW = 39935,
-	COLOUR_YELLOW_DARK = 37722,
-	COLOUR_RED = 32799,
-	COLOUR_RED_DARK = 0,
-	COLOUR_GREEN = 33760,
-	COLOUR_GREEN_DARK = 0,
-	COLOUR_MAGENTA = 64543,
-	COLOUR_MAGENTA_DARK = 0
-};
+#include "spectrumcolours.h"
 
 /**
  * Supplies pre-instantiated mutable bitmap objects that can be recoloured.
