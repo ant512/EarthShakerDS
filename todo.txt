@@ -1,30 +1,40 @@
 Todo
 ----
 
- - Finish HUD.
- - Implement all scoring.
- - Add game over screen.
- - Add high score screen.
- - Add level selection screen.
+ - Finish HUD
+ - Implement all scoring
+ - New screens:
+   - Game over
+   - High score
+   - Level selection
+   - Between level sequence?
  - Check bean collection time extension is correct.
- - Add teleporters.
- - Add extra life potions.
- - Add barriers and controllers.
+ - Check that killed-by-squashing logic is correct.  When a heavy block falls,
+   should the player die in the same iteration as the block falling or in the
+   next iteration?
  - Add missing dark colours:
    - Red
    - Green
    - Magenta
- - Add colour switching for:
-   - Door
- - Add wet soil.
- - Add door.
- - Add between-level sequence?
  - Need explosion graphics for:
-  - PlayerBlock.
-  - Barrier controller.
- - Sounds.
+  - PlayerBlock
+  - Barrier controller
+ - Sounds
+ - New blocks:
+   - Door
+     - Colours animate when active
+     - Changes colour between levels
+   - White wall
+   - Ice wall
+   - Honeycomb wall
+   - Wet soil
+   - Teleporter
+   - Barrier
+     - Reduces time when touched
+   - Barrier controller
+     - Do they give a score bonus when squashed?
  - Gravity Inversion and Extra Life Blocks:
    - Does collecting them raise the score?
    - Should the blocks fall?  If so, do they kill when falling on the player?
    - Are the blocks slippy?
-   - Add the block bitmaps.
+   - Add the block bitmaps
