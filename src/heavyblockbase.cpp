@@ -95,8 +95,6 @@ void HeavyBlockBase::raise() {
 
 			onFall();
 
-			squashBlock();
-
 			return;
 		}
 	}
@@ -111,8 +109,6 @@ void HeavyBlockBase::raise() {
 			level->moveBlock(_x, _y, _x + 1, _y);
 
 			onFall();
-
-			squashBlock();
 
 			return;
 		}
@@ -173,8 +169,6 @@ void HeavyBlockBase::drop() {
 
 			onFall();
 
-			squashBlock();
-
 			return;
 		}
 	}
@@ -189,8 +183,6 @@ void HeavyBlockBase::drop() {
 			level->moveBlock(_x, _y, _x + 1, _y);
 
 			onFall();
-
-			squashBlock();
 
 			return;
 		}
