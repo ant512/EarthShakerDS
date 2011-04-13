@@ -19,7 +19,7 @@ public:
 	 * Constructor.
 	 * @param x The x co-ordinate of the block within the current level.
 	 * @param y The y co-ordinate of the block within the current level.
-	 * @param game Pointe to the game that contains this block.
+	 * @param game Pointer to the game that contains this block.
 	 */
 	HeavyBlockBase(s32 x, s32 y, Game* game);
 
@@ -37,6 +37,23 @@ public:
 
 protected:
 	bool _isFalling;		/**< The falling state of the block. */
+
+	/**
+	 * Either drops or raises the block depending on gravity.
+	 */
+	void fall();
+
+	/**
+	 * Called when the block falls.
+	 */
+	virtual void onFall() { };
+
+	/**
+	 * Called when the block's iterate() method runs.
+	 */
+	virtual void onIterate();
+
+private:
 
 	/**
 	 * Drops the block from its current position to a free block below.  Will

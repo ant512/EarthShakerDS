@@ -48,17 +48,6 @@ public:
 	 */
 	~FireBlock() {};
 
-	/**
-	 * Drops or raises the block depending on gravity.
-	 */
-	virtual void onIterate() {
-		if (_game->isGravityInverted()) {
-			raise();
-		} else {
-			drop();
-		}
-	};
-
 private:
 	FireBmp1 _bmp1;					/**< First animation bitmap. */
 	FireBmp2 _bmp2;					/**< Second animation bitmap. */

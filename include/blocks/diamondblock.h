@@ -43,17 +43,6 @@ public:
 	~DiamondBlock() {};
 
 	/**
-	 * Drops or raises the block depending on gravity.
-	 */
-	virtual void onIterate() {
-		if (_game->isGravityInverted()) {
-			raise();
-		} else {
-			drop();
-		}
-	};
-
-	/**
 	 * Adds to the player's score and removes the block from the level.
 	 * @return True.
 	 */

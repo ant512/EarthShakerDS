@@ -11,6 +11,18 @@ bool HeavyBlockBase::isFalling() const {
 	return _isFalling;
 }
 
+void HeavyBlockBase::onIterate() {
+	fall();
+}
+
+void HeavyBlockBase::fall() {
+	if (_game->isGravityInverted()) {
+		raise();
+	} else {
+		drop();
+	}
+}
+
 void HeavyBlockBase::raise() {
 
 	LevelBase* level = _game->getLevel();	
@@ -27,6 +39,9 @@ void HeavyBlockBase::raise() {
 	if (top == NULL) {
 		level->moveBlock(_x, _y, _x, _y - 1);
 		_isFalling = true;
+
+		onFall();
+
 		return;
 	}
 
@@ -43,6 +58,9 @@ void HeavyBlockBase::raise() {
 			// Slide to the left
 			level->moveBlock(_x, _y, _x - 1, _y);
 			_isFalling = true;
+
+			onFall();
+
 			return;
 		}
 	}
@@ -56,6 +74,9 @@ void HeavyBlockBase::raise() {
 			// Slide to the right
 			level->moveBlock(_x, _y, _x + 1, _y);
 			_isFalling = true;
+
+			onFall();
+
 			return;
 		}
 	}
@@ -80,6 +101,9 @@ void HeavyBlockBase::drop() {
 	if (bottom == NULL) {
 		level->moveBlock(_x, _y, _x, _y + 1);
 		_isFalling = true;
+
+		onFall();
+
 		return;
 	}
 
@@ -96,6 +120,9 @@ void HeavyBlockBase::drop() {
 			// Slide to the left
 			level->moveBlock(_x, _y, _x - 1, _y);
 			_isFalling = true;
+
+			onFall();
+
 			return;
 		}
 	}
@@ -109,6 +136,9 @@ void HeavyBlockBase::drop() {
 			// Slide to the right
 			level->moveBlock(_x, _y, _x + 1, _y);
 			_isFalling = true;
+
+			onFall();
+
 			return;
 		}
 	}

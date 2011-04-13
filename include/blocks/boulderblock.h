@@ -86,22 +86,17 @@ public:
 	 * a hot block it explodes.
 	 */
 	virtual void onIterate() {
+
+		// If we're sat on a hot tile then explode
 		if (_game->isGravityInverted()) {
-
-			// If we're sat on a hot tile then explode
 			explodeIfHotBlockAt(_x, _y - 1);
-
-			if (_isExploding) return;
-
-			raise();
-
 		} else {
 			explodeIfHotBlockAt(_x, _y + 1);
-
-			if (_isExploding) return;
-
-			drop();
 		}
+
+		if (_isExploding) return;
+
+		HeavyBlockBase::onIterate();
 	};
 
 	/**
