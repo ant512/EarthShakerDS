@@ -21,6 +21,12 @@ bool PlayerBlock::pushLeft() {
 	// Get the block to the left of this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x - 1, _y);
 
+	// If the block is hot, we've committed suicide
+	if (block->isHot()) {
+		_game->killPlayer();
+		return false;
+	}
+
 	// Attempt to apply a force to the block or, if that fails, attempt to dig
 	// the block
 	if (block != NULL) {
@@ -44,6 +50,12 @@ bool PlayerBlock::pushRight() {
 
 	// Get the block to the right of this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x + 1, _y);
+
+	// If the block is hot, we've committed suicide
+	if (block->isHot()) {
+		_game->killPlayer();
+		return false;
+	}
 
 	// Attempt to apply a force to the block or, if that fails, attempt to dig
 	// the block
@@ -69,6 +81,12 @@ bool PlayerBlock::pushUp() {
 	// Get the block above this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y - 1);
 
+	// If the block is hot, we've committed suicide
+	if (block->isHot()) {
+		_game->killPlayer();
+		return false;
+	}
+
 	// Attempt to apply a force to the block or, if that fails, attempt to dig
 	// the block
 	if (block != NULL) {
@@ -92,6 +110,12 @@ bool PlayerBlock::pushDown() {
 
 	// Get the block below this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
+
+	// If the block is hot, we've committed suicide
+	if (block->isHot()) {
+		_game->killPlayer();
+		return false;
+	}
 
 	// Attempt to apply a force to the block or, if that fails, attempt to dig
 	// the block
