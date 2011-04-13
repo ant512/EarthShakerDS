@@ -14,7 +14,7 @@
 #include "leveldefinition.h"
 #include "playerblock.h"
 #include "soilblock.h"
-#include "wallblock.h"
+#include "brickwallblock.h"
 
 /**
  * Creates new instances of LevelBase.
@@ -104,7 +104,7 @@ private:
 						block = new BubbleBlock(x, y, game);
 						break;
 					case 6:
-						block = new WallBlock(x, y, game);
+						block = new BrickWallBlock(x, y, game);
 						break;
 					case 7:
 						block = new FireBlock(x, y, game);

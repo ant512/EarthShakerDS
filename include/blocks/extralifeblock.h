@@ -23,6 +23,8 @@ public:
 	ExtraLifeBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isSlippy = true;
 
+		// TODO: Set up animation here
+
 		_animation->play();
 
 	};

@@ -1,7 +1,7 @@
 #include <nds.h>
-#include "wallbmp.h"
+#include "brickwallbmp.h"
 
-static const u16 wallbmp_Bitmap[256] __attribute__ ((aligned (4))) = {
+static const u16 brickwallbmp_Bitmap[256] __attribute__ ((aligned (4))) = {
 32895, 32895, 32895, 32895, 32895, 32895, 32895, 32768, 32858, 32858, 32858, 
 32858, 32858, 32858, 32858, 32768, 32768, 32895, 32895, 32895, 32895, 32895, 
 32895, 32768, 32768, 32858, 32858, 32858, 32858, 32858, 32858, 32768, 32895, 
@@ -28,4 +28,4 @@ static const u16 wallbmp_Bitmap[256] __attribute__ ((aligned (4))) = {
 32768, 32768, 32768
 };
 
-WallBmp::WallBmp() : WoopsiGfx::BitmapWrapper(wallbmp_Bitmap, 16, 16) { };
+BrickWallBmp::BrickWallBmp() : WoopsiGfx::BitmapWrapper(brickwallbmp_Bitmap, 16, 16) { };

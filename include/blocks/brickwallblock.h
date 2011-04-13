@@ -1,18 +1,18 @@
-#ifndef _WALL_BLOCK_H_
-#define _WALL_BLOCK_H_
+#ifndef _BRICK_WALL_BLOCK_H_
+#define _BRICK_WALL_BLOCK_H_
 
 #include <graphics.h>
 #include <bitmap.h>
 #include <game.h>
 
 #include "blockbase.h"
-#include "wallbmp.h"
+#include "brickwallbmp.h"
 
 /**
  * Wall blocks are static.  They have no function other than providing
  * obstacles.
  */
-class WallBlock : public BlockBase {
+class BrickWallBlock : public BlockBase {
 public:
 
 	/**
@@ -21,7 +21,7 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	WallBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	BrickWallBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isSlippy = true;
 		
 		_animation->addFrame(&_bmp, 0);
@@ -30,10 +30,10 @@ public:
 	/**
 	 * Destructor.
 	 */
-	~WallBlock() {};
+	~BrickWallBlock() {};
 
 private:
-	WallBmp _bmp;					/**< The wall bitmap. */
+	BrickWallBmp _bmp;					/**< The wall bitmap. */
 };
 
 #endif
