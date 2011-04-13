@@ -16,6 +16,10 @@
 #include "boulderexplodebmp7.h"
 #include "soilbmp.h"
 
+/**
+ * List of all colours in the game.
+ * TODO: Move this to a separate file.
+ */
 enum SpectrumColour {
 	COLOUR_BLACK = 32768,
 	COLOUR_BLUE = 64736,
@@ -34,8 +38,17 @@ enum SpectrumColour {
 	COLOUR_MAGENTA_DARK = 0
 };
 
+/**
+ * Supplies pre-instantiated mutable bitmap objects that can be recoloured.
+ */
 class BitmapServer {
 public:
+
+	/**
+	 * Creates all mutable bitmaps ready for use.  If the bitmaps already exist,
+	 * it resets them to their original state by deleting the existing bitmaps
+	 * and recreating them.
+	 */
 	static void init() {
 
 		// Clean up in case we're called more than once
@@ -172,6 +185,9 @@ private:
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp6;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp7;
 	static WoopsiGfx::Bitmap* _soilBmp;
+
+	BitmapServer();
+	~BitmapServer();
 
 	static void changeBoulderColours(SpectrumColour light, SpectrumColour dark) {
 		swapColours(COLOUR_YELLOW, light, _boulderBmp);

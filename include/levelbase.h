@@ -6,6 +6,7 @@
 #include <woopsiarray.h>
 
 class BlockBase;
+class PlayerBlock;
 
 /**
  * Base class for all levels.  Controls the entire grid of blocks.
@@ -49,7 +50,30 @@ public:
 	 * Gets the number of the level.
 	 * @return The number of the level.
 	 */
-	inline s32 getLevelNumber() const { return _levelNumber; };
+	inline s32 getNumber() const { return _number; };
+
+	/**
+	 * Increases the total number of diamonds in the level by one.
+	 */
+	inline void increaseDiamondCount() { ++_diamondCount; };
+
+	/**
+	 * Gets the total number of diamonds in the level.
+	 * @return The total number of diamonds in the level.
+	 */
+	inline s32 getDiamondCount() { return _diamondCount; };
+
+	/**
+	 * Gets a pointer to the block representing the player.
+	 * @return A pointer to the player block.
+	 */
+	PlayerBlock* getPlayerBlock() const;
+
+	/**
+	 * Sets the player block pointer to the specified block.
+	 * @param block A pointer to the player block.
+	 */
+	void setPlayerBlock(PlayerBlock* block);
 
 	/**
 	 * Gets the block at the specified co-ordinates.
@@ -118,7 +142,9 @@ private:
 	s32 _height;								/**< The height of the level. */
 	BlockBase** _data;							/**< Array of blocks that make up the level. */
 	WoopsiGfx::WoopsiString _name;				/**< The name of the level. */
-	s32 _levelNumber;							/**< The number of the level. */
+	s32 _number;								/**< The number of the level. */
+	s32 _diamondCount;							/**< The total number of diamonds in the level. */
+	PlayerBlock* _playerBlock;					/**< The player's block within the level. */
 	WoopsiArray<BlockBase*> _removedBlockList;	/**< Array of blocks that have been removed
 													 from the level and are awaiting deletion. */
 

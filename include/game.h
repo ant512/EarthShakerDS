@@ -105,12 +105,10 @@ public:
 
 private:
 	LevelBase* _level;					/**< The currently-active level.*/
-	PlayerBlock* _playerBlock;			/**< The player's block within the level. */
 	s32 _remainingGravityTime;			/**< The amount of time left until gravity returns to normal. */
 	s32 _score;							/**< The current score. */
 	s32 _remainingTime;					/**< The amount of time remaining. */
 	s32 _lives;							/**< The number of lives remaining. */
-	s32 _totalDiamonds;					/**< The total number of diamonds in the level. */
 	s32 _collectedDiamonds;				/**< Number of diamonds collected in the level. */
 	WoopsiGfx::Graphics* _topGfx;		/**< The graphics object for the top display. */
 	WoopsiGfx::Graphics* _bottomGfx;	/**< The graphics object for the bottom display. */
@@ -183,9 +181,16 @@ private:
 	void render();
 
 	/**
-	 * Draws the background HUD graphics.
+	 * Draws the background HUD graphics.  This method should be called just
+	 * once at the start of each level.  It draws just the parts that do not
+	 * change during the course of a level.
 	 */
 	void drawHUD();
+
+	/**
+	 * Moves the game to the next level.
+	 */
+	void moveToNextLevel();
 };
 
 #endif

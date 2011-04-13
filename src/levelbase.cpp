@@ -2,13 +2,17 @@
 
 #include "blockbase.h"
 #include "levelbase.h"
+#include "game.h"
+#include "playerblock.h"
 
 LevelBase::LevelBase(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name) {
 	_width = width;
 	_height = height;
-	_levelNumber = number;
+	_number = number;
 	_name = name;
 	_data = new BlockBase*[width * height];
+
+	_diamondCount = 0;
 }
 
 LevelBase::~LevelBase() {
@@ -144,4 +148,12 @@ void LevelBase::iterateBlocks(bool isGravityInverted) {
 void LevelBase::iterate(bool isGravityInverted) {
 	deleteRemovedBlocks();
 	iterateBlocks(isGravityInverted);
+}
+
+PlayerBlock* LevelBase::getPlayerBlock() const {
+	return _playerBlock;
+}
+
+void LevelBase::setPlayerBlock(PlayerBlock* block) {
+	_playerBlock = block;
 }

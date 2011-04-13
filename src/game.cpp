@@ -10,6 +10,7 @@
 #include "beanblock.h"
 #include "constants.h"
 #include "bitmapserver.h"
+#include "levelfactory.h"
 
 Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_score = 0;
@@ -22,26 +23,9 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_leftHeld = false;
 	_rightHeld = false;
 
-	s32 levelWidth = 32;
-	s32 levelHeight = 16;
-	u8 levelData[512] = {6,6,6,2,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,
-						6,1,6,1,2,1,1,1,1,1,1,1,1,2,3,1,2,1,1,1,2,1,8,1,1,1,1,1,1,2,3,1,
-						6,1,3,1,2,1,5,1,1,1,1,1,1,1,2,1,2,1,3,1,2,1,5,1,1,1,1,1,1,1,2,1,
-						2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,
-						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-						1,1,1,1,1,1,1,1,1,1,1,1,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-						6,1,8,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-						6,6,6,6,6,1,3,1,1,1,1,1,1,1,1,1,1,1,1,8,1,1,1,1,1,1,1,1,1,1,1,1,
-						6,6,6,2,1,1,3,3,1,1,1,1,1,1,1,1,2,1,1,2,1,1,1,1,1,1,1,1,1,8,1,1,
-						6,1,6,1,2,3,3,3,1,1,1,1,1,2,3,1,2,1,1,1,2,1,1,1,1,1,1,1,1,2,3,1,
-						6,1,3,1,2,1,5,1,1,1,1,1,1,1,2,1,2,1,3,1,2,1,5,1,1,1,1,1,1,1,2,1,
-						2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,
-						1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-						1,1,1,1,1,1,1,1,1,1,1,1,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-						6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-						6,6,6,6,6,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+	_level = NULL;
 
-	_level = createLevel(levelData, levelWidth, levelHeight, 1, "Testing Ground");
+	moveToNextLevel();
 
 	drawHUD();
 	drawDiamondCounters();
@@ -52,7 +36,6 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 
 Game::~Game() {
 	delete _level;
-	delete _playerBlock;
 }
 
 s32 Game::getScore() const {
@@ -112,7 +95,7 @@ void Game::drawGravityCounter() {
 }
 
 PlayerBlock* Game::getPlayerBlock() const {
-	return _playerBlock;
+	return _level->getPlayerBlock();
 }
 
 void Game::render() {
@@ -126,8 +109,8 @@ void Game::render() {
 	// the edge of the map at the edge of the display and move the player
 	// around instead.  Assume for the moment that the player is at the centre
 	// of the screen
-	s32 centreX = _playerBlock->getX();
-	s32 centreY = _playerBlock->getY();
+	s32 centreX = getPlayerBlock()->getX();
+	s32 centreY = getPlayerBlock()->getY();
 
 	// Get the top-left corner based on the assumption that the player is at the
 	// centre of the screen
@@ -186,13 +169,13 @@ void Game::move() {
 		}
 
 		if (_upHeld) {
-			_playerBlock->pushUp();
+			getPlayerBlock()->pushUp();
 		} else if (_downHeld) {
-			_playerBlock->pushDown();
+			getPlayerBlock()->pushDown();
 		} else if (_leftHeld) {
-			_playerBlock->pushLeft();
+			getPlayerBlock()->pushLeft();
 		} else if (_rightHeld) {
-			_playerBlock->pushRight();
+			getPlayerBlock()->pushRight();
 		}
 	}
 }
@@ -230,7 +213,7 @@ void Game::drawDiamondCounters() {
 	s32 height = _font.getHeight();
 	s32 y = SCREEN_HEIGHT - height - 1;
 
-	str.format("%02d", _totalDiamonds);
+	str.format("%02d", _level->getDiamondCount());
 	_topGfx->drawFilledRect(48, y, 16, height, COLOUR_BLACK);
 	_topGfx->drawText(48, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 
@@ -243,8 +226,12 @@ void Game::decreaseTime() {
 	--_remainingTime;
 
 	drawTimerBar();
-}
 
+	if (_remainingTime == 0) {
+
+		// TODO: Kill the player here
+	}
+}
 
 void Game::drawHUD() {
 
@@ -289,7 +276,7 @@ void Game::drawHUD() {
 	// programmer to execute
 	_topGfx->drawText(0, counterY, &_font, str, 0, str.getLength(), COLOUR_GREEN);
 
-	str.format("%02d", _level->getLevelNumber());
+	str.format("%02d", _level->getNumber());
 	_topGfx->drawText(8, counterY, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 
 	// TODO: Draw a diamond here
@@ -342,9 +329,8 @@ void Game::invertGravity() {
 	drawGravityCounter();
 }
 
-LevelBase* Game::createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name) {
+void Game::moveToNextLevel() {
 	_collectedDiamonds = 0;
-	_totalDiamonds = 0;
 	_remainingTime = STARTING_TIME;
 	_remainingGravityTime = 0;
 
@@ -354,48 +340,11 @@ LevelBase* Game::createLevel(u8* data, s32 width, s32 height, s32 number, const 
 
 	BitmapServer::init();
 
-	LevelBase* level = new LevelBase(width, height, number, name);
+	if (_level == NULL) {
+		_level = LevelFactory::getLevel(0, this);
+	} else {
+		delete _level;
 
-	BlockBase* block = NULL;
-
-	for (s32 x = 0; x < width; ++x) {
-		for (s32 y = 0; y < height; ++y) {
-
-			switch (data[(y * width) + x]) {
-				case 0:
-					block = NULL;
-					break;
-				case 1:
-					block = new SoilBlock(x, y, this);
-					break;
-				case 2:
-					block = new BoulderBlock(x, y, this);
-					break;
-				case 3:
-					block = new DiamondBlock(x, y, this);
-					_totalDiamonds++;
-					break;
-				case 4:
-					block = new PlayerBlock(x, y, this);
-					_playerBlock = (PlayerBlock*)block;
-					break;
-				case 5:
-					block = new BubbleBlock(x, y, this);
-					break;
-				case 6:
-					block = new WallBlock(x, y, this);
-					break;
-				case 7:
-					block = new FireBlock(x, y, this);
-					break;
-				case 8:
-					block = new BeanBlock(x, y, this);
-					break;
-			}
-
-			level->setBlockAt(x, y, block);
-		}
+		_level = LevelFactory::getLevel(_level->getNumber() + 1, this);
 	}
-
-	return level;
 }
