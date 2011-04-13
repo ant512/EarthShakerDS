@@ -1,13 +1,6 @@
 #include <woopsistring.h>
 
 #include "game.h"
-#include "diamondblock.h"
-#include "boulderblock.h"
-#include "soilblock.h"
-#include "bubbleblock.h"
-#include "wallblock.h"
-#include "fireblock.h"
-#include "beanblock.h"
 #include "constants.h"
 #include "bitmapserver.h"
 #include "levelfactory.h"

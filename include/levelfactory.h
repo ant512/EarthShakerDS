@@ -1,18 +1,18 @@
 #ifndef _LEVEL_FACTORY_H_
 #define _LEVEL_FACTORY_H_
 
-#include "leveldefinition.h"
+#include "beanblock.h"
+#include "boulderblock.h"
+#include "bubbleblock.h"
+#include "diamondblock.h"
+#include "fireblock.h"
+#include "game.h"
 #include "level0.h"
 #include "levelbase.h"
-#include "boulderblock.h"
-#include "game.h"
-#include "beanblock.h"
-#include "wallblock.h"
-#include "diamondblock.h"
-#include "soilblock.h"
+#include "leveldefinition.h"
 #include "playerblock.h"
-#include "bubbleblock.h"
-#include "fireblock.h"
+#include "soilblock.h"
+#include "wallblock.h"
 
 /**
  * Creates new instances of LevelBase.

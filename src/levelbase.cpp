@@ -1,8 +1,8 @@
 #include <bitmap.h>
 
+#include "game.h"
 #include "blockbase.h"
 #include "levelbase.h"
-#include "game.h"
 #include "playerblock.h"
 
 LevelBase::LevelBase(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name) {
