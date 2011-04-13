@@ -3,6 +3,7 @@
 
 #include "beanblock.h"
 #include "boulderblock.h"
+#include "brickwallblock.h"
 #include "bubbleblock.h"
 #include "diamondblock.h"
 #include "extralifeblock.h"
@@ -14,7 +15,7 @@
 #include "leveldefinition.h"
 #include "playerblock.h"
 #include "soilblock.h"
-#include "brickwallblock.h"
+#include "whitewallblock.h"
 
 /**
  * Creates new instances of LevelBase.
@@ -117,6 +118,9 @@ private:
 						break;
 					case 10:
 						block = new ExtraLifeBlock(x, y, game);
+						break;
+					case 11:
+						block = new WhiteWallBlock(x, y, game);
 						break;
 				}
 
