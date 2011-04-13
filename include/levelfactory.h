@@ -5,6 +5,7 @@
 #include "boulderblock.h"
 #include "bubbleblock.h"
 #include "diamondblock.h"
+#include "extralifeblock.h"
 #include "fireblock.h"
 #include "gravityinversionblock.h"
 #include "game.h"
@@ -113,6 +114,9 @@ private:
 						break;
 					case 9:
 						block = new GravityInversionBlock(x, y, game);
+						break;
+					case 10:
+						block = new ExtraLifeBlock(x, y, game);
 						break;
 				}
 

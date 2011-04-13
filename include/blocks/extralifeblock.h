@@ -1,5 +1,5 @@
-#ifndef _GRAVITY_INVERSION_BLOCK_H_
-#define _GRAVITY_INVERSION_BLOCK_H_
+#ifndef _EXTRA_LIFE_BLOCK_H_
+#define _EXTRA_LIFE_BLOCK_H_
 
 #include <graphics.h>
 #include <bitmap.h>
@@ -9,10 +9,9 @@
 #include "constants.h"
 
 /**
- * Collecting a gravity inversion block switches gravity in the game so that
- * blocks fall upwards instead of downwards.
+ * Gives the player an extra life when collected.
  */
-class GravityInversionBlock : public BlockBase {
+class ExtraLifeBlock : public BlockBase {
 public:
 
 	/**
@@ -21,7 +20,7 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	GravityInversionBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	ExtraLifeBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isSlippy = true;
 
 		_animation->play();
@@ -31,44 +30,44 @@ public:
 	/**
 	 * Destructor.
 	 */
-	~GravityInversionBlock() {};
+	~ExtraLifeBlock() {};
 
 	/**
-	 * Inverts gravity and removes the block from the level.
+	 * Adds an extra life and removes the block from the level.
 	 * @return True.
 	 */
 	virtual bool pushUp() {
-		_game->invertGravity();
+		_game->increaseLives();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
 	/**
-	 * Inverts gravity and removes the block from the level.
+	 * Adds an extra life and removes the block from the level.
 	 * @return True.
 	 */
 	virtual bool pushDown() {
-		_game->invertGravity();
+		_game->increaseLives();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
 	/**
-	 * Inverts gravity and removes the block from the level.
+	 * Adds an extra life and removes the block from the level.
 	 * @return True.
 	 */
 	virtual bool pushLeft() {
-		_game->invertGravity();
+		_game->increaseLives();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
 	/**
-	 * Inverts gravity and removes the block from the level.
+	 * Adds an extra life and removes the block from the level.
 	 * @return True.
 	 */
 	virtual bool pushRight() {
-		_game->invertGravity();
+		_game->increaseLives();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};

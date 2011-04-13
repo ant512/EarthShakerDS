@@ -19,15 +19,12 @@ Todo
  - Add wet soil.
  - Add door.
  - Add between-level sequence?
- - Power-ups:
-   - Flip gravity
-   - Extra life
  - Need explosion graphics for:
   - PlayerBlock.
   - Barrier controller.
  - Sounds.
- - Does collecting gravity inversion blocks raise the score?
- - Should gravity inversion blocks fall?  If so, do they kill when falling on
-   the player?
- - Are gravity inversion blocks slippy?
- - Add gravity inversion block bitmaps.
+ - Gravity Inversion and Extra Life Blocks:
+   - Does collecting them raise the score?
+   - Should the blocks fall?  If so, do they kill when falling on the player?
+   - Are the blocks slippy?
+   - Add the block bitmaps.
