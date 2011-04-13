@@ -22,8 +22,8 @@ ICON 		:= $(DEVKITPRO)/libwoopsigfx/icon/logo.bmp
 TARGET		:=	$(shell basename $(CURDIR))
 BUILD		:=	build
 RELEASE     :=  Release
-SOURCES		:=	src data gfx
-INCLUDES	:=	include
+SOURCES		:=	src src/bmp data gfx
+INCLUDES	:=	include include/bmp include/blocks include/levels
 DEFINES		:=
 
 # we do *not* do -o thing - WinterMute points out that this stops our
