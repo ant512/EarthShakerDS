@@ -124,8 +124,8 @@ void Game::render() {
 
 void Game::iterate() {
 	animate();
-	move();
 	timer();
+	move();
 }
 
 void Game::timer() {
@@ -245,8 +245,7 @@ void Game::decreaseTime() {
 	drawTimerBar();
 
 	if (_remainingTime == 0) {
-
-		// TODO: Kill the player here
+		killPlayer();
 	}
 }
 
