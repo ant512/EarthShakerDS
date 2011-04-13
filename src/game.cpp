@@ -273,11 +273,7 @@ void Game::drawTimerBarBackground() {
 	_topGfx->drawFilledRect(barWidth * 7, barY, SCREEN_WIDTH, barHeight, COLOUR_WHITE);
 }
 
-void Game::drawHUD() {
-
-	drawTimerBarBackground();
-
-	// Level name
+void Game::drawLevelName() {
 	s32 nameWidth = _font.getStringWidth(_level->getName());
 	s32 nameHeight = _font.getHeight();
 	s32 nameX = (SCREEN_WIDTH - nameWidth) / 2;
@@ -288,13 +284,18 @@ void Game::drawHUD() {
 
 	// Draw name
 	_bottomGfx->drawText(nameX, nameY, &_font, _level->getName(), 0, _level->getName().getLength(), COLOUR_WHITE);
+}
+
+void Game::drawHUD() {
+
+	drawTimerBarBackground();
+	drawLevelName();
 
 	// Erase region for counters
 	s32 counterHeight = _font.getHeight();
-	s32 counterX = 0;
 	s32 counterY = SCREEN_HEIGHT - counterHeight - 1;
 
-	_topGfx->drawFilledRect(counterX, counterY, SCREEN_WIDTH, counterHeight, COLOUR_BLACK);
+	_topGfx->drawFilledRect(0, counterY, SCREEN_WIDTH, counterHeight, COLOUR_BLACK);
 
 	// Level display
 	WoopsiGfx::WoopsiString str("L");

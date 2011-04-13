@@ -4,11 +4,13 @@ Todo
  - Finish HUD
  - Implement all scoring
  - New screens:
+   - Title screen
    - Game over
    - High score
    - Level selection
    - Between level sequence?
- - Check bean collection time extension is correct.
+ - Add copyrights to bottom in-game screen
+ - Check bean collection time extension is correct
  - Check that killed-by-squashing logic is correct.  When a heavy block falls,
    should the player die in the same iteration as the block falling or in the
    next iteration?
@@ -28,9 +30,12 @@ Todo
    - Ice wall
    - Honeycomb wall
    - Wet soil
+     - Falls but does not kill player
    - Teleporter
+     - Add in some sort of pointer system to connect teleporters together
    - Barrier
      - Reduces time when touched
+     - Removed when controller is destroyed
    - Barrier controller
      - Do they give a score bonus when squashed?
  - Gravity Inversion and Extra Life Blocks:

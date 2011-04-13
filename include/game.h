@@ -224,6 +224,11 @@ private:
 	 * Decreases the number of lives and redraws the life counter.
 	 */
 	void decreaseLives();
+
+	/**
+	 * Draws the name of the level to the bottom display.
+	 */
+	void drawLevelName();
 };
 
 #endif
