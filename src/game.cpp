@@ -165,13 +165,6 @@ void Game::move() {
 	if (_movementTimer == MOVEMENT_TIME) {
 		_movementTimer = 0;
 
-		_level->iterate(_remainingGravityTime > 0);
-
-		if (_remainingGravityTime > 0) {
-			--_remainingGravityTime;
-			drawGravityCounter();
-		}
-
 		if (_upHeld) {
 			getPlayerBlock()->pushUp();
 		} else if (_downHeld) {
@@ -180,6 +173,13 @@ void Game::move() {
 			getPlayerBlock()->pushLeft();
 		} else if (_rightHeld) {
 			getPlayerBlock()->pushRight();
+		}
+
+		_level->iterate(_remainingGravityTime > 0);
+
+		if (_remainingGravityTime > 0) {
+			--_remainingGravityTime;
+			drawGravityCounter();
 		}
 	}
 }

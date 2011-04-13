@@ -28,15 +28,9 @@ public:
 	 */
 	virtual ~HeavyBlockBase() { };
 
-	/**
-	 * Check if the block is falling.  This is set to true during an iteration
-	 * if the block drops.
-	 * @return True if the block is falling; false if not.
-	 */
-	bool isFalling() const;
-
 protected:
-	bool _isFalling;					/**< The falling state of the block. */
+	bool _isOnPlayer;					/**< Indicates that the block is sitting
+											 on top of the player. */
 	bool _isHeavyEnoughToKill;			/**< Indicates whether or not having the
 											 block land on the player kills him. */
 
