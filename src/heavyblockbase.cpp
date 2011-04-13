@@ -1,7 +1,7 @@
-#include "heavyblockbase.h"
-#include "levelbase.h"
 #include "blockbase.h"
 #include "game.h"
+#include "heavyblockbase.h"
+#include "levelbase.h"
 
 HeavyBlockBase::HeavyBlockBase(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 	_isFalling = false;
@@ -25,11 +25,11 @@ void HeavyBlockBase::squashPlayer() {
 		if (playerBlock->getX() == _x) {
 			if (_game->isGravityInverted()) {
 				if (playerBlock->getY() == _y - 1) {
-					_game->killPlayer();
+					playerBlock->explode();
 				}
 			} else {
 				if (playerBlock->getY() == _y + 1) {
-					_game->killPlayer();
+					playerBlock->explode();
 				}
 			}
 		}

@@ -4,10 +4,8 @@ Todo
  - Finish HUD
  - Implement all scoring
  - New screens:
-   - Title screen
+   - Menu screen - level select, etc.
    - Game over
-   - High score
-   - Level selection
    - Between level sequence?
  - Add copyrights to bottom in-game screen
  - Check bean collection time extension is correct

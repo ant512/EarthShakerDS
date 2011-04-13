@@ -16,14 +16,15 @@ PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 PlayerBlock::~PlayerBlock() { }
 
 bool PlayerBlock::pushLeft() {
-	if (_x == 0) return false;;
+	if (_x == 0) return false;
+	if (_isExploding) return false;
 
 	// Get the block to the left of this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x - 1, _y);
 
 	// If the block is hot, we've committed suicide
 	if (block->isHot()) {
-		_game->killPlayer();
+		explode();
 		return false;
 	}
 
@@ -47,13 +48,14 @@ bool PlayerBlock::pushLeft() {
 
 bool PlayerBlock::pushRight() {
 	if (_x == _game->getLevel()->getWidth() - 1) return false;
+	if (_isExploding) return false;
 
 	// Get the block to the right of this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x + 1, _y);
 
 	// If the block is hot, we've committed suicide
 	if (block->isHot()) {
-		_game->killPlayer();
+		explode();
 		return false;
 	}
 
@@ -77,13 +79,14 @@ bool PlayerBlock::pushRight() {
 
 bool PlayerBlock::pushUp() {
 	if (_y == 0) return false;
+	if (_isExploding) return false;
 
 	// Get the block above this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y - 1);
 
 	// If the block is hot, we've committed suicide
 	if (block->isHot()) {
-		_game->killPlayer();
+		explode();
 		return false;
 	}
 
@@ -107,13 +110,14 @@ bool PlayerBlock::pushUp() {
 
 bool PlayerBlock::pushDown() {
 	if (_y == _game->getLevel()->getHeight() - 1) return false;
+	if (_isExploding) return false;
 
 	// Get the block below this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
 
 	// If the block is hot, we've committed suicide
 	if (block->isHot()) {
-		_game->killPlayer();
+		explode();
 		return false;
 	}
 
@@ -133,4 +137,8 @@ bool PlayerBlock::pushDown() {
 	}
 
 	return false;
+}
+
+void PlayerBlock::onDestroyed() {
+	_game->killPlayer();
 }

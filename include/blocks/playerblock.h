@@ -75,6 +75,11 @@ private:
 	PlayerBmp2 _bmp2;				/**< Second animation bitmap. */
 	PlayerBmp3 _bmp3;				/**< Third animation bitmap. */
 	PlayerBmp4 _bmp4;				/**< Fourth animation bitmap. */
+
+	/**
+	 * Notifies the game that the player is dead.
+	 */
+	void onDestroyed();
 };
 
 #endif
