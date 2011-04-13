@@ -201,6 +201,15 @@ bool Game::isGravityInverted() const {
 	return _remainingGravityTime > 0;
 }
 
+void Game::increaseTime(s32 time) {
+	_remainingTime += time;
+
+	// We have to redraw the background and then redraw the black overlay to
+	// correctly show the state of the timer bar
+	drawTimerBarBackground();
+	drawTimerBar();
+}
+
 void Game::increaseCollectedDiamonds() {
 	++_collectedDiamonds;
 
@@ -249,9 +258,7 @@ void Game::decreaseTime() {
 	}
 }
 
-void Game::drawHUD() {
-
-	// Timer bar initial state
+void Game::drawTimerBarBackground() {
 	s32 barY = 178;
 	s32 barWidth = SCREEN_WIDTH / 8;
 	s32 barHeight = 4;
@@ -264,6 +271,11 @@ void Game::drawHUD() {
 	_topGfx->drawFilledRect(barWidth * 5, barY, SCREEN_WIDTH, barHeight, COLOUR_CYAN);
 	_topGfx->drawFilledRect(barWidth * 6, barY, SCREEN_WIDTH, barHeight, COLOUR_YELLOW);
 	_topGfx->drawFilledRect(barWidth * 7, barY, SCREEN_WIDTH, barHeight, COLOUR_WHITE);
+}
+
+void Game::drawHUD() {
+
+	drawTimerBarBackground();
 
 	// Level name
 	s32 nameWidth = _font.getStringWidth(_level->getName());

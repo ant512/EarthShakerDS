@@ -109,6 +109,12 @@ public:
 	void increaseLives();
 
 	/**
+	 * Increase the time remaining by the specified amount.
+	 * @param time Amount to increase time by.
+	 */
+	void increaseTime(s32 time);
+
+	/**
 	 * Informs the game that the player has been killed.  The next call to
 	 * iterate() will reset the level or end the game.
 	 */
@@ -165,6 +171,11 @@ private:
 	 * Draws the inverted gravity time remaining.
 	 */
 	void drawGravityCounter();
+
+	/**
+	 * Draws the multicolour timer bar background.
+	 */
+	void drawTimerBarBackground();
 
 	/**
 	 * Redraws the level.  Uses a timer system, so calling the method will not

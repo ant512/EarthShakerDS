@@ -42,7 +42,12 @@ const s32 FIRE_EXTINGUISH_SCORE = 100;
 /**
  * Points for collecting a bean.
  */
-const s32 BEAN_SCORE= 64;
+const s32 BEAN_SCORE = 64;
+
+/**
+ * Time increase for collecting a bean.
+ */
+const s32 BEAN_TIME = 32;
 
 /**
  * Number of lives players start with.

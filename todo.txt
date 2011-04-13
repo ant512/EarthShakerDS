@@ -6,7 +6,7 @@ Todo
  - Add game over screen.
  - Add high score screen.
  - Add level selection screen.
- - Make beans give time extension - how much?
+ - Check bean collection time extension is correct.
  - Add teleporters.
  - Add extra life potions.
  - Add barriers and controllers.

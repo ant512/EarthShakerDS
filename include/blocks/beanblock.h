@@ -45,6 +45,7 @@ public:
 	 */
 	virtual bool pushUp() {
 		_game->addScore(BEAN_SCORE);
+		_game->increaseTime(BEAN_TIME);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
@@ -55,6 +56,7 @@ public:
 	 */
 	virtual bool pushDown() {
 		_game->addScore(BEAN_SCORE);
+		_game->increaseTime(BEAN_TIME);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
@@ -65,6 +67,7 @@ public:
 	 */
 	virtual bool pushLeft() {
 		_game->addScore(BEAN_SCORE);
+		_game->increaseTime(BEAN_TIME);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
@@ -75,6 +78,7 @@ public:
 	 */
 	virtual bool pushRight() {
 		_game->addScore(BEAN_SCORE);
+		_game->increaseTime(BEAN_TIME);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
