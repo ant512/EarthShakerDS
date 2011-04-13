@@ -70,6 +70,13 @@ public:
 	 */
 	bool pushRight();
 
+	/**
+	 * Explodes the player.  Called when a heavy block lands on it.
+	 */
+	void squash() {
+		explode();
+	};
+
 private:
 	PlayerBmp1 _bmp1;				/**< First animation bitmap. */
 	PlayerBmp2 _bmp2;				/**< Second animation bitmap. */

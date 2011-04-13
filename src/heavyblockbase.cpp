@@ -13,25 +13,28 @@ bool HeavyBlockBase::isFalling() const {
 }
 
 void HeavyBlockBase::onIterate() {
-	squashPlayer();
+	squashBlock();
 	fall();
 }
 
-void HeavyBlockBase::squashPlayer() {
+void HeavyBlockBase::squashBlock() {
 	if (_isFalling && _isHeavyEnoughToKill) {
 
-		BlockBase* playerBlock = _game->getPlayerBlock();
+		BlockBase* block = NULL;
+		LevelBase* level = _game->getLevel();	
 		
-		if (playerBlock->getX() == _x) {
-			if (_game->isGravityInverted()) {
-				if (playerBlock->getY() == _y - 1) {
-					playerBlock->explode();
-				}
-			} else {
-				if (playerBlock->getY() == _y + 1) {
-					playerBlock->explode();
-				}
-			}
+		if (_game->isGravityInverted()) {
+			block = level->getBlockAt(_x, _y - 1);
+
+			if (block == NULL) return;
+
+			block->squash();
+		} else {
+			block = level->getBlockAt(_x, _y + 1);
+
+			if (block == NULL) return;
+
+			block->squash();
 		}
 	}
 }

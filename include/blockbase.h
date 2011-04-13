@@ -119,6 +119,11 @@ public:
 	void explode();
 
 	/**
+	 * Squashes the block.  Called when a heavy block lands on it.
+	 */
+	virtual void squash() { };
+
+	/**
 	 * Attempt to dig this block from below.
 	 * @return True if the dig attempt was successful; false if not.
 	 */

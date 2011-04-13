@@ -72,9 +72,9 @@ private:
 	void fall();
 
 	/**
-	 * Kills the player if we're falling and he is under us.
+	 * Squashes the block we're falling onto.
 	 */
-	void squashPlayer();
+	void squashBlock();
 };
 
 #endif
