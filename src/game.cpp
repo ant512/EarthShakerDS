@@ -72,8 +72,12 @@ void Game::drawScore() {
 }
 
 void Game::drawLifeCounter() {
+
+	// Prevent lives less than 0 being printed
+	s32 lives = _lives > -1 ? _lives : 0;
+
 	WoopsiGfx::WoopsiString str;
-	str.format("%01d", _lives);
+	str.format("%01d", lives);
 
 	s32 width = _font.getStringWidth(str);
 	s32 height = _font.getHeight();
