@@ -11,7 +11,7 @@ const s32 ANIMATION_TIME = 3;
  * Number of frames before the level is iterated and block movements are
  * performed.
  */
-const s32 MOVEMENT_TIME = 20;
+const s32 MOVEMENT_TIME = 6;
 
 /**
  * Number of frames before remaining time decreases.  The DS runs at 60hz, so we

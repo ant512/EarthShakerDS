@@ -6,6 +6,8 @@
 #include "blockbase.h"
 
 PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	_isSlippy = false;
+	
 	_animation->addFrame(&_bmp1, 0);
 	_animation->addFrame(&_bmp2, 0);
 	_animation->addFrame(&_bmp3, 0);
