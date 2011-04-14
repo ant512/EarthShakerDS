@@ -55,6 +55,7 @@ public:
 
 		if (block == NULL) {
 			level->moveBlock(_x, _y, _x - 1, _y);
+			_isOddIteration = !_isOddIteration;
 			return true;
 		}
 
@@ -76,6 +77,7 @@ public:
 
 		if (block == NULL) {
 			level->moveBlock(_x, _y, _x + 1, _y);
+			_isOddIteration = !_isOddIteration;
 			return true;
 		}
 
