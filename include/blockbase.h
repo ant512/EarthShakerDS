@@ -193,8 +193,7 @@ protected:
 	bool _isExploding;							/**< Indicates whether or not the block is exploding. */
 	bool _isOddIteration;
 
-	bool _isOnPlayer;					/**< Indicates that the block is sitting
-											 on top of the player. */
+	bool _isFalling;
 	bool _isHeavyEnoughToKill;			/**< Indicates whether or not having the
 											 block land on the player kills him. */
 	bool _isHeavy;
