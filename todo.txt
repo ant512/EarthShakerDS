@@ -1,7 +1,6 @@
 Todo
 ----
 
- - Fix crash bug when having died 7 or 8 times.
  - Implement all scoring
  - New screens:
    - Menu screen - level select, etc.
