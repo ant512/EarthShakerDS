@@ -18,9 +18,6 @@ Todo
    - Barrier controller
  - Sounds
  - New blocks:
-   - Door
-     - Colours animate when active
-     - Changes colour between levels
    - Honeycomb wall
    - Teleporter
      - Add in some sort of pointer system to connect teleporters together
@@ -38,3 +35,9 @@ Todo
    - Should the blocks fall?  If so, do they kill when falling on the player?
    - Are the blocks slippy?
    - Add the block bitmaps
+ - Door block:
+   - Colours animate when active
+   - Changes colour between levels
+   - Level ends when touched
+   - Activates when all diamonds collected
+   - Add block bitmap

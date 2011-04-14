@@ -6,6 +6,7 @@
 #include "brickwallblock.h"
 #include "bubbleblock.h"
 #include "diamondblock.h"
+#include "doorblock.h"
 #include "extralifeblock.h"
 #include "fireblock.h"
 #include "gravityinversionblock.h"
@@ -129,6 +130,9 @@ private:
 						break;
 					case 13:
 						block = new WetSoilBlock(x, y, game);
+						break;
+					case 14:
+						block = new DoorBlock(x, y, game);
 						break;
 				}
 
