@@ -224,8 +224,6 @@ void BlockBase::drop() {
 	}
 }
 
-
-
 void BlockBase::slideLeft() {
 
 	if (_isOddIteration != _game->isOddIteration()) return;
@@ -233,14 +231,22 @@ void BlockBase::slideLeft() {
 	if (_isFalling) return;
 
 	LevelBase* level = _game->getLevel();
-	BlockBase* bottom = level->getBlockAt(_x, _y + 1);
+	BlockBase* restingOn = NULL;
 
-	if (bottom == NULL) return;
+	// We can only slide if the block we're resting on is slippy.  We can't
+	// slide if the block is NULL as that would mean we are sliding over an
+	// empty block.
+	if (_game->isGravityInverted()) {
+		restingOn = level->getBlockAt(_x, _y - 1);
+	} else {
+		restingOn = level->getBlockAt(_x, _y + 1);
+	}
 
-	// Cannot raise straight up.  If the block above us is slippy, we might be
-	// able to slide to the left or right.
-	if (!bottom->isSlippy()) return;
+	if (restingOn == NULL) return;
+	if (!restingOn->isSlippy()) return;
 
+	// At this point, we can slide if the block immediately to our left is NULL
+	// and the block below that is also NULL.
 	if (_x > 0) {
 
 		BlockBase* left = level->getBlockAt(_x - 1, _y);
@@ -265,21 +271,28 @@ void BlockBase::slideLeft() {
 void BlockBase::slideRight() {
 
 	if (_isOddIteration != _game->isOddIteration()) return;
-
 	if (!_isHeavy) return;
-
 	if (_isFalling) return;
 
 	LevelBase* level = _game->getLevel();
-	BlockBase* bottom = level->getBlockAt(_x, _y + 1);
+	BlockBase* restingOn = NULL;
 
-	if (bottom == NULL) return;
+	// We can only slide if the block we're resting on is slippy.  We can't
+	// slide if the block is NULL as that would mean we are sliding over an
+	// empty block.
+	if (_game->isGravityInverted()) {
+		restingOn = level->getBlockAt(_x, _y - 1);
+	} else {
+		restingOn = level->getBlockAt(_x, _y + 1);
+	}
 
-	// Cannot raise straight up.  If the block above us is slippy, we might be
-	// able to slide to the left or right.
-	if (!bottom->isSlippy()) return;
+	if (restingOn == NULL) return;
+	if (!restingOn->isSlippy()) return;
 
+	// At this point, we can slide if the block immediately to our left is NULL
+	// and the block below that is also NULL.
 	if (_x < level->getWidth() - 1) {
+		
 		BlockBase* right = level->getBlockAt(_x + 1, _y);
 		BlockBase* rightDiagonal = NULL;
 
