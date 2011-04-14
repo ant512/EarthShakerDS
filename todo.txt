@@ -1,14 +1,11 @@
 Todo
 ----
 
- - Finish HUD
  - Implement all scoring
  - New screens:
    - Menu screen - level select, etc.
    - Game over
    - Between level sequence?
- - Add copyrights to bottom in-game screen
- - Check bean collection time extension is correct
  - Add missing dark colours:
    - Red
    - Green

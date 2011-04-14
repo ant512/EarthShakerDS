@@ -8,6 +8,7 @@
 #include "playerbmp2.h"
 #include "playerbmp3.h"
 #include "playerbmp4.h"
+#include "playerexplodebmp.h"
 
 class Game;
 
@@ -82,6 +83,7 @@ private:
 	PlayerBmp2 _bmp2;				/**< Second animation bitmap. */
 	PlayerBmp3 _bmp3;				/**< Third animation bitmap. */
 	PlayerBmp4 _bmp4;				/**< Fourth animation bitmap. */
+	PlayerExplodeBmp _explodeBmp;	/**< Explosion bitmap. */
 
 	/**
 	 * Notifies the game that the player is dead.

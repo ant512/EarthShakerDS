@@ -13,6 +13,8 @@ PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 	_animation->addFrame(&_bmp3, 0);
 	_animation->addFrame(&_bmp4, 0);
 	_animation->play();
+
+	_explodingAnimation->addFrame(&_explodeBmp, 20);
 }
 
 PlayerBlock::~PlayerBlock() { }
