@@ -95,7 +95,7 @@ public:
 	 * and removed by bubbles.  They cause boulders to explode.
 	 * @return True if the block is hot; false if not.
 	 */
-	inline bool isHot() const { return _isHot; };
+	bool isHot() const;
 
 	/**
 	 * Check if the block is exploding.

@@ -78,6 +78,10 @@ bool BlockBase::isDestroyed() const {
 	return (_isExploding && (_explodingAnimation->getStatus() == WoopsiGfx::Animation::ANIMATION_STATUS_STOPPED));
 }
 
+bool BlockBase::isHot() const {
+	return _isHot && !_isExploding && !isDestroyed();
+}
+
 void BlockBase::setX(s32 x) {
 	_x = x;
 }
