@@ -21,9 +21,6 @@ PlayerBlock::~PlayerBlock() { }
 
 bool PlayerBlock::pushLeft() {
 
-	if (_isOddIteration != _game->isOddIteration()) return false;
-	_isOddIteration = !_isOddIteration;
-
 	if (_x == 0) return false;
 	if (_isExploding) return false;
 
@@ -56,9 +53,6 @@ bool PlayerBlock::pushLeft() {
 }
 
 bool PlayerBlock::pushRight() {
-
-	if (_isOddIteration != _game->isOddIteration()) return false;
-	_isOddIteration = !_isOddIteration;
 
 	if (_x == _game->getLevel()->getWidth() - 1) return false;
 	if (_isExploding) return false;
@@ -93,9 +87,6 @@ bool PlayerBlock::pushRight() {
 
 bool PlayerBlock::pushUp() {
 
-	if (_isOddIteration != _game->isOddIteration()) return false;
-	_isOddIteration = !_isOddIteration;
-
 	if (_y == 0) return false;
 	if (_isExploding) return false;
 
@@ -128,9 +119,6 @@ bool PlayerBlock::pushUp() {
 }
 
 bool PlayerBlock::pushDown() {
-
-	if (_isOddIteration != _game->isOddIteration()) return false;
-	_isOddIteration = !_isOddIteration;
 
 	if (_y == _game->getLevel()->getHeight() - 1) return false;
 	if (_isExploding) return false;
