@@ -49,6 +49,7 @@ public:
 	virtual bool pushLeft() {
 		if (_x == 0) return false;
 		if (_isExploding) return false;
+		if (_isFalling) return false;
 
 		if (_isOddIteration != _game->isOddIteration()) return false;
 		_isOddIteration = !_isOddIteration;
@@ -71,6 +72,7 @@ public:
 	 */
 	virtual bool pushRight() {
 		if (_isExploding) return false;
+		if (_isFalling) return false;
 
 		LevelBase* level = _game->getLevel();
 
