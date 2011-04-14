@@ -165,9 +165,21 @@ private:
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp7;
 	static WoopsiGfx::Bitmap* _soilBmp;
 
+	/**
+	 * Constructor is private to prevent creation.
+	 */
 	BitmapServer();
+
+	/**
+	 * Destructor.
+	 */
 	~BitmapServer();
 
+	/**
+	 * Changes all boulder bitmaps to use the specified colours.
+	 * @param light New light colour.
+	 * @param dark New dark colour.
+	 */
 	static void changeBoulderColours(SpectrumColour light, SpectrumColour dark) {
 		swapColours(COLOUR_YELLOW, light, _boulderBmp);
 		swapColours(COLOUR_YELLOW_DARK, dark, _boulderBmp);
@@ -194,6 +206,12 @@ private:
 		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp7);
 	};
 
+	/**
+	 * Swap two colours on the supplied bitmap.
+	 * @param source Colour to swap from.
+	 * @param dest Colour to swap to.
+	 * @param bitmap The bitmap on which to exchange the colours.
+	 */
 	static void swapColours(SpectrumColour source, SpectrumColour dest, WoopsiGfx::Bitmap* bitmap) {
 		for (s32 x = 0; x < bitmap->getWidth(); ++x) {
 			for (s32 y = 0; y < bitmap->getHeight(); ++y) {
@@ -202,6 +220,12 @@ private:
 		}
 	};
 
+	/**
+	 * Creates a mutable copy of the supplied immutable bitmap.  Must be deleted
+	 * when it is no longer needed.
+	 * @param source The bitmap to copy.
+	 * @return A pointer to a mutable copy of the supplied immutable bitmap.
+	 */
 	static WoopsiGfx::Bitmap* createMutableBitmap(WoopsiGfx::BitmapBase* source) {
 		WoopsiGfx::Bitmap* dest = new WoopsiGfx::Bitmap(source->getWidth(), source->getHeight());
 
