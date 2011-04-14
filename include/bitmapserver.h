@@ -153,34 +153,66 @@ public:
 		return _boulderBmp;
 	};
 
+	/**
+	 * Gets a pointer to the first boulder explosion bitmap.
+	 * @return A pointer to the first boulder explosion bitmap.
+	 */
 	inline static WoopsiGfx::Bitmap* getBoulderExplodeBmp1() {
 		return _boulderExplodeBmp1;
 	};
 
+	/**
+	 * Gets a pointer to the second boulder explosion bitmap.
+	 * @return A pointer to the second boulder explosion bitmap.
+	 */
 	inline static WoopsiGfx::Bitmap* getBoulderExplodeBmp2() {
 		return _boulderExplodeBmp2;
 	};
 
+	/**
+	 * Gets a pointer to the third boulder explosion bitmap.
+	 * @return A pointer to the third boulder explosion bitmap.
+	 */
 	inline static WoopsiGfx::Bitmap* getBoulderExplodeBmp3() {
 		return _boulderExplodeBmp3;
 	};
 
+	/**
+	 * Gets a pointer to the fourth boulder explosion bitmap.
+	 * @return A pointer to the fourth boulder explosion bitmap.
+	 */
 	inline static WoopsiGfx::Bitmap* getBoulderExplodeBmp4() {
 		return _boulderExplodeBmp4;
 	};
 
+	/**
+	 * Gets a pointer to the fifth boulder explosion bitmap.
+	 * @return A pointer to the fifth boulder explosion bitmap.
+	 */
 	inline static WoopsiGfx::Bitmap* getBoulderExplodeBmp5() {
 		return _boulderExplodeBmp5;
 	};
 
+	/**
+	 * Gets a pointer to the sixth boulder explosion bitmap.
+	 * @return A pointer to the sixth boulder explosion bitmap.
+	 */
 	inline static WoopsiGfx::Bitmap* getBoulderExplodeBmp6() {
 		return _boulderExplodeBmp6;
 	};
 
+	/**
+	 * Gets a pointer to the seventh boulder explosion bitmap.
+	 * @return A pointer to the seventh boulder explosion bitmap.
+	 */
 	inline static WoopsiGfx::Bitmap* getBoulderExplodeBmp7() {
 		return _boulderExplodeBmp7;
 	};
 
+	/**
+	 * Gets a pointer to the soil bitmap.
+	 * @return A pointer to the soil bitmap.
+	 */
 	inline static WoopsiGfx::Bitmap* getSoilBmp() {
 		return _soilBmp;
 	};
