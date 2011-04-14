@@ -167,7 +167,7 @@ void BlockBase::raise() {
 
 		onFall();
 
-		squashBlock();
+		// Note that we don't squash blocks when raising.
 	} else {
 
 		// Do not stop raising if the block above us is also being raised.
