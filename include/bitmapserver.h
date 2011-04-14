@@ -14,6 +14,7 @@
 #include "boulderexplodebmp5.h"
 #include "boulderexplodebmp6.h"
 #include "boulderexplodebmp7.h"
+#include "doorbmp.h"
 #include "soilbmp.h"
 #include "spectrumcolours.h"
 
@@ -41,6 +42,7 @@ public:
 		BoulderExplodeBmp5 boulderExplodeBmp5;
 		BoulderExplodeBmp6 boulderExplodeBmp6;
 		BoulderExplodeBmp7 boulderExplodeBmp7;
+		DoorBmp doorBmp;
 		SoilBmp soilBmp;
 
 		_boulderBmp = createMutableBitmap(&boulderBmp);
@@ -51,7 +53,48 @@ public:
 		_boulderExplodeBmp5 = createMutableBitmap(&boulderExplodeBmp5);
 		_boulderExplodeBmp6 = createMutableBitmap(&boulderExplodeBmp6);
 		_boulderExplodeBmp7 = createMutableBitmap(&boulderExplodeBmp7);
+		_doorBmp = createMutableBitmap(&doorBmp);
 		_soilBmp = createMutableBitmap(&soilBmp);
+	};
+
+	/**
+	 * Turns the door bitmap white.
+	 */
+	static void makeDoorWhite() {
+		swapColours(COLOUR_RED, COLOUR_WHITE, _doorBmp);
+		swapColours(COLOUR_RED_DARK, COLOUR_WHITE_DARK, _doorBmp);
+	};
+
+	/**
+	 * Turns the door bitmap blue.
+	 */
+	static void makeDoorRed() {
+		swapColours(COLOUR_RED, COLOUR_RED, _doorBmp);
+		swapColours(COLOUR_RED_DARK, COLOUR_RED_DARK, _doorBmp);
+	};
+
+	/**
+	 * Turns the door bitmap green.
+	 */
+	static void makeDoorGreen() {
+		swapColours(COLOUR_RED, COLOUR_GREEN, _doorBmp);
+		swapColours(COLOUR_RED_DARK, COLOUR_GREEN_DARK, _doorBmp);
+	};
+
+	/**
+	 * Turns the door bitmap cyan.
+	 */
+	static void makeDoorCyan() {
+		swapColours(COLOUR_RED, COLOUR_CYAN, _doorBmp);
+		swapColours(COLOUR_RED_DARK, COLOUR_CYAN_DARK, _doorBmp);
+	};
+
+	/**
+	 * Turns the door bitmap magenta.
+	 */
+	static void makeDoorMagenta() {
+		swapColours(COLOUR_RED, COLOUR_MAGENTA, _doorBmp);
+		swapColours(COLOUR_RED_DARK, COLOUR_MAGENTA_DARK, _doorBmp);
 	};
 
 	/**
@@ -210,6 +253,14 @@ public:
 	};
 
 	/**
+	 * Gets a pointer to the door bitmap.
+	 * @return A pointer to the door bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getDoorBmp() {
+		return _doorBmp;
+	};
+
+	/**
 	 * Gets a pointer to the soil bitmap.
 	 * @return A pointer to the soil bitmap.
 	 */
@@ -226,6 +277,7 @@ private:
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp5;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp6;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp7;
+	static WoopsiGfx::Bitmap* _doorBmp;
 	static WoopsiGfx::Bitmap* _soilBmp;
 
 	/**

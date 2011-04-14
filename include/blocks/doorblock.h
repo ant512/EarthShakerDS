@@ -7,9 +7,6 @@
 
 #include "blockbase.h"
 
-// TODO: Add door bitmap and uncomment.
-//#include "doorbmp.h"
-
 /**
  * Door blocks are static.  They become active when all diamonds in a level are
  * collected.  Touching an active door completes the level.
@@ -24,16 +21,13 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	DoorBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		//_animation->addFrame(&_bmp, 0);
+		_animation->addFrame(BitmapServer::getDoorBmp(), 0);
 	};
 
 	/**
 	 * Destructor.
 	 */
 	~DoorBlock() {};
-
-private:
-	//DoorBmp _bmp;					/**< The door bitmap. */
 };
 
 #endif

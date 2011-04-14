@@ -8,7 +8,6 @@ Todo
    - Game over
    - Between level sequence?
  - Add missing dark colours:
-   - Green
    - Magenta
  - Need explosion graphics for:
    - Barrier controller
@@ -36,4 +35,3 @@ Todo
    - Changes colour between levels
    - Level ends when touched
    - Activates when all diamonds collected
-   - Add block bitmap
