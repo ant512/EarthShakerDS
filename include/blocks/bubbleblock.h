@@ -50,6 +50,9 @@ public:
 		if (_y == 0) return false;
 		if (_isExploding) return false;
 
+		if (_isOddIteration != _game->isOddIteration()) return false;
+		_isOddIteration = !_isOddIteration;
+
 		LevelBase* level = _game->getLevel();
 		BlockBase* block = level->getBlockAt(_x, _y - 1);
 
@@ -96,6 +99,9 @@ public:
 
 		if (_y == level->getHeight() - 1) return false;
 
+		if (_isOddIteration != _game->isOddIteration()) return false;
+		_isOddIteration = !_isOddIteration;
+
 		BlockBase* block = level->getBlockAt(_x, _y + 1);
 
 		if (block != NULL) {
@@ -138,6 +144,9 @@ public:
 	virtual bool pushLeft() {
 		if (_x == 0) return false;
 		if (_isExploding) return false;
+
+		if (_isOddIteration != _game->isOddIteration()) return false;
+		_isOddIteration = !_isOddIteration;
 
 		LevelBase* level = _game->getLevel();
 		BlockBase* block = level->getBlockAt(_x - 1, _y);
@@ -185,6 +194,9 @@ public:
 		LevelBase* level = _game->getLevel();
 
 		if (_x == level->getWidth() - 1) return false;
+
+		if (_isOddIteration != _game->isOddIteration()) return false;
+		_isOddIteration = !_isOddIteration;
 
 		BlockBase* block = level->getBlockAt(_x + 1, _y);
 

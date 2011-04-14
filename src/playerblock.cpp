@@ -18,21 +18,26 @@ PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 PlayerBlock::~PlayerBlock() { }
 
 bool PlayerBlock::pushLeft() {
+
+	if (_isOddIteration != _game->isOddIteration()) return false;
+	_isOddIteration = !_isOddIteration;
+
 	if (_x == 0) return false;
 	if (_isExploding) return false;
 
 	// Get the block to the left of this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x - 1, _y);
 
-	// If the block is hot, we've committed suicide
-	if (block->isHot()) {
-		explode();
-		return false;
-	}
-
-	// Attempt to apply a force to the block or, if that fails, attempt to dig
-	// the block
 	if (block != NULL) {
+
+		// If the block is hot, we've committed suicide
+		if (block->isHot()) {
+			explode();
+			return false;
+		}
+
+		// Attempt to apply a force to the block or, if that fails, attempt to
+		// dig the block
 		if (!block->pushLeft()) block->digFromRight();
 	}
 
@@ -49,21 +54,26 @@ bool PlayerBlock::pushLeft() {
 }
 
 bool PlayerBlock::pushRight() {
+
+	if (_isOddIteration != _game->isOddIteration()) return false;
+	_isOddIteration = !_isOddIteration;
+
 	if (_x == _game->getLevel()->getWidth() - 1) return false;
 	if (_isExploding) return false;
 
 	// Get the block to the right of this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x + 1, _y);
 
-	// If the block is hot, we've committed suicide
-	if (block->isHot()) {
-		explode();
-		return false;
-	}
-
-	// Attempt to apply a force to the block or, if that fails, attempt to dig
-	// the block
 	if (block != NULL) {
+
+		// If the block is hot, we've committed suicide
+		if (block->isHot()) {
+			explode();
+			return false;
+		}
+
+		// Attempt to apply a force to the block or, if that fails, attempt to
+		// dig the block
 		if (!block->pushRight()) block->digFromLeft();
 	}
 
@@ -80,21 +90,26 @@ bool PlayerBlock::pushRight() {
 }
 
 bool PlayerBlock::pushUp() {
+
+	if (_isOddIteration != _game->isOddIteration()) return false;
+	_isOddIteration = !_isOddIteration;
+
 	if (_y == 0) return false;
 	if (_isExploding) return false;
 
 	// Get the block above this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y - 1);
 
-	// If the block is hot, we've committed suicide
-	if (block->isHot()) {
-		explode();
-		return false;
-	}
-
-	// Attempt to apply a force to the block or, if that fails, attempt to dig
-	// the block
 	if (block != NULL) {
+
+		// If the block is hot, we've committed suicide
+		if (block->isHot()) {
+			explode();
+			return false;
+		}
+
+		// Attempt to apply a force to the block or, if that fails, attempt to
+		// dig the block
 		if (!block->pushUp()) block->digFromBelow();
 	}
 
@@ -111,21 +126,26 @@ bool PlayerBlock::pushUp() {
 }
 
 bool PlayerBlock::pushDown() {
+
+	if (_isOddIteration != _game->isOddIteration()) return false;
+	_isOddIteration = !_isOddIteration;
+
 	if (_y == _game->getLevel()->getHeight() - 1) return false;
 	if (_isExploding) return false;
 
 	// Get the block below this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
 
-	// If the block is hot, we've committed suicide
-	if (block->isHot()) {
-		explode();
-		return false;
-	}
-
-	// Attempt to apply a force to the block or, if that fails, attempt to dig
-	// the block
 	if (block != NULL) {
+
+		// If the block is hot, we've committed suicide
+		if (block->isHot()) {
+			explode();
+			return false;
+		}
+
+		// Attempt to apply a force to the block or, if that fails, attempt to
+		// dig the block
 		if (!block->pushDown()) block->digFromAbove();
 	}
 
