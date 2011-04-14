@@ -402,9 +402,12 @@ void Game::resetLevel() {
 	_movementTimer = 0;
 	_levelTimer = 0;
 
-	s32 levelNumber = _level->getNumber();
+	s32 levelNumber = 0;
 
-	delete _level;
+	if (_level != NULL) {
+		levelNumber = _level->getNumber();
+		delete _level;
+	}
 
 	_level = LevelFactory::newLevel(levelNumber, this);
 }
@@ -425,8 +428,10 @@ void Game::moveToNextLevel() {
 	if (_level == NULL) {
 		_level = LevelFactory::newLevel(0, this);
 	} else {
+		s32 levelNumber = _level->getNumber() + 1;
+
 		delete _level;
 
-		_level = LevelFactory::newLevel(_level->getNumber() + 1, this);
+		_level = LevelFactory::newLevel(levelNumber, this);
 	}
 }
