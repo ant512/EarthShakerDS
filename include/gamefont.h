@@ -10,9 +10,8 @@ class GameFont : public WoopsiGfx::PackedFont1 {
 public:
 	/**
 	 * Constructor.
-	 * @param fixedWidth Set to 0 for proportional or 1 for fixed width.
 	 */
-	GameFont(u8 fixedWidth = 0);
+	GameFont();
 };
 
 #endif

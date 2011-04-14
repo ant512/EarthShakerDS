@@ -105,16 +105,16 @@ static const u8 GameFont_width[83] = {
  7, 7, 7
 };
 
-GameFont::GameFont(u8 fixedWidth) : WoopsiGfx::PackedFont1 (
+GameFont::GameFont() : WoopsiGfx::PackedFont1 (
 	40,
 	122,
 	GameFont_glyphdata,
 	GameFont_offset,
 	GameFont_width,
 	8,
-	2,
+	8,
 	6,
 	8
 ) {
-	if (fixedWidth) setFontWidth(fixedWidth);
+	setFontWidth(8);
 };
