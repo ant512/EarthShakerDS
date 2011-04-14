@@ -38,6 +38,7 @@ public:
 	 * @return True.
 	 */
 	virtual bool pushUp() {
+		_game->addScore(GRAVITY_INVERSION_SCORE);
 		_game->invertGravity();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
@@ -48,6 +49,7 @@ public:
 	 * @return True.
 	 */
 	virtual bool pushDown() {
+		_game->addScore(GRAVITY_INVERSION_SCORE);
 		_game->invertGravity();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
@@ -58,6 +60,7 @@ public:
 	 * @return True.
 	 */
 	virtual bool pushLeft() {
+		_game->addScore(GRAVITY_INVERSION_SCORE);
 		_game->invertGravity();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
@@ -68,6 +71,7 @@ public:
 	 * @return True.
 	 */
 	virtual bool pushRight() {
+		_game->addScore(GRAVITY_INVERSION_SCORE);
 		_game->invertGravity();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;

@@ -66,4 +66,9 @@ const s32 STARTING_TIME = 192;
  */
 const s32 GRAVITY_INVERSION_TIME = 99;
 
+/**
+ * Points for collecting a gravity inversion block.
+ */
+const s32 GRAVITY_INVERSION_SCORE = 200;
+
 #endif
