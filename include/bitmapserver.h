@@ -31,15 +31,7 @@ public:
 	static void init() {
 
 		// Clean up in case we're called more than once
-		if (_boulderBmp != NULL) delete _boulderBmp;
-		if (_boulderExplodeBmp1 != NULL) delete _boulderExplodeBmp1;
-		if (_boulderExplodeBmp2 != NULL) delete _boulderExplodeBmp2;
-		if (_boulderExplodeBmp3 != NULL) delete _boulderExplodeBmp3;
-		if (_boulderExplodeBmp4 != NULL) delete _boulderExplodeBmp4;
-		if (_boulderExplodeBmp5 != NULL) delete _boulderExplodeBmp5;
-		if (_boulderExplodeBmp6 != NULL) delete _boulderExplodeBmp6;
-		if (_boulderExplodeBmp7 != NULL) delete _boulderExplodeBmp7;
-		if (_soilBmp != NULL) delete _soilBmp;
+		shutdown();
 
 		BoulderBmp boulderBmp;
 		BoulderExplodeBmp1 boulderExplodeBmp1;
@@ -62,62 +54,101 @@ public:
 		_soilBmp = createMutableBitmap(&soilBmp);
 	};
 
+	/**
+	 * Turns the soil bitmap white.
+	 */
 	static void makeSoilWhite() {
 		swapColours(COLOUR_BLUE, COLOUR_WHITE, _soilBmp);
 		swapColours(COLOUR_BLUE_DARK, COLOUR_WHITE_DARK, _soilBmp);
 	};
 
+	/**
+	 * Turns the soil bitmap red.
+	 */
 	static void makeSoilRed() {
 		swapColours(COLOUR_BLUE, COLOUR_RED, _soilBmp);
 		swapColours(COLOUR_BLUE_DARK, COLOUR_RED_DARK, _soilBmp);
 	};
 
+	/**
+	 * Turns the soil bitmap green.
+	 */
 	static void makeSoilGreen() {
 		swapColours(COLOUR_BLUE, COLOUR_GREEN, _soilBmp);
 		swapColours(COLOUR_BLUE_DARK, COLOUR_GREEN_DARK, _soilBmp);
 	};
 
+	/**
+	 * Turns the soil bitmap cyan.
+	 */
 	static void makeSoilCyan() {
 		swapColours(COLOUR_BLUE, COLOUR_CYAN, _soilBmp);
 		swapColours(COLOUR_BLUE_DARK, COLOUR_CYAN_DARK, _soilBmp);
 	};
 
+	/**
+	 * Turns the soil bitmap magenta.
+	 */
 	static void makeSoilMagenta() {
 		swapColours(COLOUR_BLUE, COLOUR_MAGENTA, _soilBmp);
 		swapColours(COLOUR_BLUE_DARK, COLOUR_MAGENTA_DARK, _soilBmp);
 	};
 
+	/**
+	 * Turns the boulder bitmaps blue.
+	 */
 	static void makeBouldersBlue() {
 		changeBoulderColours(COLOUR_BLUE, COLOUR_BLUE_DARK);
 	};
 
+	/**
+	 * Turns the boulder bitmaps cyan.
+	 */
 	static void makeBouldersCyan() {
 		changeBoulderColours(COLOUR_CYAN, COLOUR_CYAN_DARK);
 	};
 
+	/**
+	 * Turns the boulder bitmaps red.
+	 */
 	static void makeBouldersRed() {
 		changeBoulderColours(COLOUR_RED, COLOUR_RED_DARK);
 	};
 
+	/**
+	 * Turns the boulder bitmaps magenta.
+	 */
 	static void makeBouldersMaganta() {
 		changeBoulderColours(COLOUR_MAGENTA, COLOUR_MAGENTA_DARK);
 	};
 
+	/**
+	 * Turns the boulder bitmaps green.
+	 */
 	static void makeBouldersGreen() {
 		changeBoulderColours(COLOUR_GREEN, COLOUR_GREEN_DARK);
 	};
 
+	/**
+	 * Deletes any bitmaps that have been created.  Should only be called when
+	 * no pointers to the bitmaps are being used externally of rhis class.
+	 */
 	static void shutdown() {
-		delete _boulderBmp;
-		delete _boulderExplodeBmp1;
-		delete _boulderExplodeBmp2;
-		delete _boulderExplodeBmp3;
-		delete _boulderExplodeBmp4;
-		delete _boulderExplodeBmp5;
-		delete _boulderExplodeBmp6;
-		delete _boulderExplodeBmp7;
+		if (_boulderBmp != NULL) delete _boulderBmp;
+		if (_boulderExplodeBmp1 != NULL) delete _boulderExplodeBmp1;
+		if (_boulderExplodeBmp2 != NULL) delete _boulderExplodeBmp2;
+		if (_boulderExplodeBmp3 != NULL) delete _boulderExplodeBmp3;
+		if (_boulderExplodeBmp4 != NULL) delete _boulderExplodeBmp4;
+		if (_boulderExplodeBmp5 != NULL) delete _boulderExplodeBmp5;
+		if (_boulderExplodeBmp6 != NULL) delete _boulderExplodeBmp6;
+		if (_boulderExplodeBmp7 != NULL) delete _boulderExplodeBmp7;
+		if (_soilBmp != NULL) delete _soilBmp;
 	};
 
+	/**
+	 * Gets a pointer to the boulder bitmap.
+	 * @return A pointer to the boulder bitmap.
+	 */
 	inline static WoopsiGfx::Bitmap* getBoulderBmp() {
 		return _boulderBmp;
 	};
