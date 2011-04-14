@@ -92,8 +92,13 @@ s32 BlockBase::getY() const {
 	return _y;
 }
 
+bool BlockBase::isFalling() const {
+	return _isFalling;
+}
+
 void BlockBase::squashBlock() {
 	if (!_isHeavyEnoughToKill) return;
+	if (!_isFalling) return;
 
 	BlockBase* block = NULL;
 	LevelBase* level = _game->getLevel();	
@@ -138,7 +143,8 @@ void BlockBase::raise() {
 	if (top == NULL) {
 
 		// If we are at the same x co-ord as the player and below the player, we
-		// give him an iteration's grace period to escape
+		// give him an iteration's grace period to escape if we're not already
+		// falling
 		if (!_isFalling) {
 			_isFalling = true;
 
@@ -151,13 +157,23 @@ void BlockBase::raise() {
 		}
 
 		level->moveBlock(_x, _y, _x, _y - 1);
+
+		// Flip the iteration bit so that we don't iterate twice during a single
+		// iteration of the game object.  This can happen when we move into a
+		// row or column that has not yet been iterated over.
 		_isOddIteration = !_isOddIteration;
 
 		onFall();
 
 		squashBlock();
 	} else {
-		_isFalling = false;
+
+		// Do not stop raising if the block above us is also being raised.
+		// This prevents blocks from settling on top of blocks that are falling
+		// and will fall again during the next iteration.
+		if (!top->isFalling()) {
+			_isFalling = false;
+		}
 	}
 }
 
@@ -174,7 +190,8 @@ void BlockBase::drop() {
 	if (bottom == NULL) {
 
 		// If we are at the same x co-ord as the player and above the player, we
-		// give him an iteration's grace period to escape
+		// give him an iteration's grace period to escape if we're not already
+		// falling
 		if (!_isFalling) {
 			_isFalling = true;
 
@@ -187,13 +204,23 @@ void BlockBase::drop() {
 		}
 
 		level->moveBlock(_x, _y, _x, _y + 1);
+
+		// Flip the iteration bit so that we don't iterate twice during a single
+		// iteration of the game object.  This can happen when we move into a
+		// row or column that has not yet been iterated over.
 		_isOddIteration = !_isOddIteration;
 
 		onFall();
 
 		squashBlock();
 	} else {
-		_isFalling = false;
+
+		// Do not stop raising if the block above us is also being raised.
+		// This prevents blocks from settling on top of blocks that are falling
+		// and will fall again during the next iteration.
+		if (!bottom->isFalling()) {
+			_isFalling = false;
+		}
 	}
 }
 
@@ -202,9 +229,7 @@ void BlockBase::drop() {
 void BlockBase::slideLeft() {
 
 	if (_isOddIteration != _game->isOddIteration()) return;
-
 	if (!_isHeavy) return;
-
 	if (_isFalling) return;
 
 	LevelBase* level = _game->getLevel();
@@ -232,6 +257,7 @@ void BlockBase::slideLeft() {
 			// Slide to the left
 			level->moveBlock(_x, _y, _x - 1, _y);
 			_isOddIteration = !_isOddIteration;
+			_isFalling = true;
 		}
 	}
 }
@@ -268,6 +294,7 @@ void BlockBase::slideRight() {
 			// Slide to the right
 			level->moveBlock(_x, _y, _x + 1, _y);
 			_isOddIteration = !_isOddIteration;
+			_isFalling = true;
 		}
 	}
 }

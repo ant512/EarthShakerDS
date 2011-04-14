@@ -111,6 +111,8 @@ public:
 	 */
 	bool isDestroyed() const;
 
+	bool isFalling() const;
+
 	/**
 	 * Explodes the block.  The block will switch to showing its exploded
 	 * animation and can no longer be interacted with.  Once the animation ends,
