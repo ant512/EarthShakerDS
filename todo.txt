@@ -14,8 +14,8 @@ Todo
    - Green
    - Magenta
  - Need explosion graphics for:
-  - PlayerBlock
-  - Barrier controller
+   - PlayerBlock
+   - Barrier controller
  - Sounds
  - New blocks:
    - Door
