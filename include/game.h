@@ -51,10 +51,23 @@ public:
 	 */
 	bool isRunning() const;
 
+	/**
+	 * Check if the game is currently in an odd iteration or an even iteration.
+	 * We don't want to iterate over the same block twice during a single
+	 * iteration of the game, but this could occur if the block moves to a row
+	 * that hasn't been iterated yet.  To prevent this, each block maintains its
+	 * own odd iteration boolean.  It flips when the block has been iterated.
+	 * If the game and the block's odd iteration bool do not agree when the
+	 * block's iteration methods are called, the block rejects the iteration
+	 * attempt.
+	 * @return True if the game is in an odd iteration; false if it is an even
+	 * iteration.
+	 */
 	bool isOddIteration() const;
 
 	/**
-	 * Inverts gravity.
+	 * Inverts gravity by setting the gravity inversion timer to its maximum
+	 * value.
 	 */
 	void invertGravity();
 
@@ -143,14 +156,12 @@ private:
 	s32 _movementTimer;					/**< Timer used to moderate movement speed. */
 	s32 _levelTimer;					/**< Timer used to decrease remaining level time. */
 	bool _isPlayerDead;					/**< Indicates whether or not the player has been killed. */
-	bool _isOddIteration;
+	bool _isOddIteration;				/**< Indicates whether the game is in an odd or an even iteration. */
 
 	bool _upHeld;						/**< State of the up button. */
 	bool _downHeld;						/**< State of the down button. */
 	bool _leftHeld;						/**< State of the left button. */
 	bool _rightHeld;					/**< State of the right button. */
-
-	LevelBase* createLevel(u8* data, s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name);
 
 	/**
 	 * Decreases the amount of remaining time and redraws the timer bar.

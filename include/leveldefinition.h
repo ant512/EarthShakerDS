@@ -6,7 +6,9 @@
 #include "levelbase.h"
 
 /**
- * Defines the properties of a level.
+ * Defines the properties of a level.  Levels should be created as instances of
+ * this class.  The game uses the LevelFactory to convert from user-defined
+ * level classes into LevelBase classes that can be played.
  */
 class LevelDefinition {
 public:

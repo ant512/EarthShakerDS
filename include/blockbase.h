@@ -241,10 +241,7 @@ protected:
 	virtual void onFall() { };
 
 	/**
-	 * Drops the block from its current position to a free block below.  Will
-	 * drop vertically if the block beneath is empty.  Will drop to the left if
-	 * the left block and the one below that are empty.  Will drop to the right
-	 * if the right block and the one below that are empty.
+	 * Drops the block from its current position to a free block below.
 	 */
 	void drop();
 
