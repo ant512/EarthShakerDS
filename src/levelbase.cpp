@@ -17,6 +17,8 @@ LevelBase::LevelBase(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiS
 
 LevelBase::~LevelBase() {
 
+	deleteRemovedBlocks();
+
 	// Delete all blocks
 	for (s32 i = 0; i < _width * _height; ++i) {
 		if (_data[i] != NULL) delete _data[i];
