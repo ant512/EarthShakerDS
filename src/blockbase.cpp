@@ -6,11 +6,13 @@ BlockBase::BlockBase(s32 x, s32 y, Game* game) {
 	_x = x;
 	_y = y;
 	_game = game;
-	_isSlippy = false;
+	_isSlippy = true;
 	_isHot = false;
 	_isExploding = false;
 	_isOddIteration = true;
 	_isFalling = false;
+	_isHeavyEnoughToKill = false;
+	_isHeavy = false;
 
 	_animation = new WoopsiGfx::Animation(1, WoopsiGfx::Animation::ANIMATION_LOOPTYPE_LOOP, 0);
 	_explodingAnimation = new WoopsiGfx::Animation(1, WoopsiGfx::Animation::ANIMATION_LOOPTYPE_NONE, 0);

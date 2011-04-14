@@ -23,8 +23,8 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	BoulderBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		_isSlippy = true;
 		_isHeavy = true;
+		_isHeavyEnoughToKill = true;
 
 		_animation->addFrame(BitmapServer::getBoulderBmp(), 0);
 

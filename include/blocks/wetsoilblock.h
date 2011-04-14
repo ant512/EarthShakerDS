@@ -22,9 +22,7 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	WetSoilBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		_isSlippy = true;
 		_isHeavy = true;
-		_isHeavyEnoughToKill = false;
 
 		// TODO: Set up animation here
 

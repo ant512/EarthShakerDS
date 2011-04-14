@@ -22,8 +22,6 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	BrickWallBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		_isSlippy = true;
-		
 		_animation->addFrame(&_bmp, 0);
 	};
 
