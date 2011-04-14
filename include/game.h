@@ -199,6 +199,11 @@ private:
 	void drawTimerBarBackground();
 
 	/**
+	 * Draws the gravity direction indicator.
+	 */
+	void drawGravityIndicator();
+
+	/**
 	 * Redraws the level.  Uses a timer system, so calling the method will not
 	 * necessarily produce an effect other than adjusting the _animationTimer
 	 * value.

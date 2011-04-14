@@ -26,6 +26,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	drawScore();
 	drawLifeCounter();
 	drawGravityCounter();
+	drawGravityIndicator();
 }
 
 Game::~Game() {
@@ -76,7 +77,7 @@ void Game::drawLifeCounter() {
 
 	s32 width = _font.getStringWidth(str);
 	s32 height = _font.getHeight();
-	s32 x = 104;
+	s32 x = 96;
 	s32 y = SCREEN_HEIGHT - height - 1;
 
 	_topGfx->drawFilledRect(x, y, width, height, COLOUR_BLACK);
@@ -90,6 +91,19 @@ void Game::drawGravityCounter() {
 	s32 width = _font.getStringWidth(str);
 	s32 height = _font.getHeight();
 	s32 x = 136;
+	s32 y = SCREEN_HEIGHT - height - 1;
+
+	_topGfx->drawFilledRect(x, y, width, height, COLOUR_BLACK);
+	_topGfx->drawText(x, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+}
+
+void Game::drawGravityIndicator() {
+	WoopsiGfx::WoopsiString str;
+	str.setText(isGravityInverted() ? "." : "-");
+
+	s32 width = _font.getStringWidth(str);
+	s32 height = _font.getHeight();
+	s32 x = 120;
 	s32 y = SCREEN_HEIGHT - height - 1;
 
 	_topGfx->drawFilledRect(x, y, width, height, COLOUR_BLACK);
@@ -186,6 +200,10 @@ void Game::move() {
 		if (_remainingGravityTime > 0) {
 			--_remainingGravityTime;
 			drawGravityCounter();
+
+			if (_remainingGravityTime == 0) {
+				drawGravityIndicator();
+			}
 		}
 	}
 }
@@ -249,12 +267,12 @@ void Game::drawDiamondCounters() {
 	s32 y = SCREEN_HEIGHT - height - 1;
 
 	str.format("%02d", _level->getDiamondCount());
-	_topGfx->drawFilledRect(48, y, 16, height, COLOUR_BLACK);
-	_topGfx->drawText(48, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+	_topGfx->drawFilledRect(40, y, 16, height, COLOUR_BLACK);
+	_topGfx->drawText(40, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 
 	str.format("%02d", _collectedDiamonds);
-	_topGfx->drawFilledRect(72, y, 16, height, COLOUR_BLACK);
-	_topGfx->drawText(72, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+	_topGfx->drawFilledRect(64, y, 16, height, COLOUR_BLACK);
+	_topGfx->drawText(64, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 }
 
 void Game::decreaseTime() {
@@ -317,15 +335,21 @@ void Game::drawHUD() {
 	str.format("%02d", _level->getNumber());
 	_topGfx->drawText(8, counterY, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 
-	// TODO: Draw a diamond here
+	// Diamond
+	str.setText("*");
+	_topGfx->drawText(32, counterY, &_font, str, 0, str.getLength(), COLOUR_CYAN);
 
 	// Diamonds
 	str.setText(":");
-	_topGfx->drawText(64, counterY, &_font, str, 0, str.getLength(), COLOUR_CYAN);
+	_topGfx->drawText(56, counterY, &_font, str, 0, str.getLength(), COLOUR_CYAN);
 
-	// TODO: Heart here
+	// Heart
+	str.setText("+");
+	_topGfx->drawText(88, counterY, &_font, str, 0, str.getLength(), COLOUR_RED);
 
-	// TODO: Gravity g here
+	// Gravity
+	str.setText(",");
+	_topGfx->drawText(112, counterY, &_font, str, 0, str.getLength(), COLOUR_GREEN);
 
 	// "SCORE:"
 	str.setText("S");
@@ -365,6 +389,7 @@ void Game::invertGravity() {
 	_remainingGravityTime = GRAVITY_INVERSION_TIME;
 
 	drawGravityCounter();
+	drawGravityIndicator();
 }
 
 void Game::resetLevel() {
