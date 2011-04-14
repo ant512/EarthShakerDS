@@ -111,6 +111,10 @@ public:
 	 */
 	bool isDestroyed() const;
 
+	/**
+	 * Check if the block is currently falling.
+	 * @return True if the block is falling; false if not.
+	 */
 	bool isFalling() const;
 
 	/**
@@ -120,7 +124,18 @@ public:
 	 */
 	void explode();
 
+	/**
+	 * Slides the block to the left if it is not falling, is sat on a slippy
+	 * block, and has an empty space to slide into that also has an empty space
+	 * below it.
+	 */
 	void slideLeft();
+
+	/**
+	 * Slides the block to the right if it is not falling, is sat on a slippy
+	 * block, and has an empty space to slide into that also has an empty space
+	 * below it.
+	 */
 	void slideRight();
 
 	/**
@@ -189,16 +204,19 @@ protected:
 	Game* _game;								/**< Pointer to the game that contains this block. */
 	bool _isSlippy;								/**< If true, blocks sitting on this will slip to
 													 the left or right if this block has empty space
-													 net to it. */
+													 next to it. */
 	bool _isHot;								/**< Indicates whether or not the block is hot; hot
 													 blocks cause boulders to explode. */
 	bool _isExploding;							/**< Indicates whether or not the block is exploding. */
-	bool _isOddIteration;
-
-	bool _isFalling;
-	bool _isHeavyEnoughToKill;			/**< Indicates whether or not having the
-											 block land on the player kills him. */
-	bool _isHeavy;
+	bool _isOddIteration;						/**< Remembers if the block is currently at an odd
+													 or even iteration.  Prevents the block iterating
+													 twice during a single iteration of the game if it
+													 moves. */
+	bool _isFalling;							/**< Indicates whether or not the block is falling. */
+	bool _isHeavyEnoughToKill;					/**< Indicates whether or not having the block land
+													 on the player kills him. */
+	bool _isHeavy;								/**< Indicates whether or not the block falls when
+													 unsupported. */
 
 	/**
 	 * Called when the block's iterate() method runs.
