@@ -98,43 +98,43 @@ public:
 	};
 
 	/**
-	 * Turns the soil bitmap white.
+	 * Turns the soil bitmap blue.
 	 */
-	static void makeSoilWhite() {
-		swapColours(COLOUR_BLUE, COLOUR_WHITE, _soilBmp);
-		swapColours(COLOUR_BLUE_DARK, COLOUR_WHITE_DARK, _soilBmp);
+	static void makeSoilBlue() {
+		swapColours(COLOUR_WHITE, COLOUR_BLUE, _soilBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _soilBmp);
 	};
 
 	/**
 	 * Turns the soil bitmap red.
 	 */
 	static void makeSoilRed() {
-		swapColours(COLOUR_BLUE, COLOUR_RED, _soilBmp);
-		swapColours(COLOUR_BLUE_DARK, COLOUR_RED_DARK, _soilBmp);
+		swapColours(COLOUR_WHITE, COLOUR_RED, _soilBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _soilBmp);
 	};
 
 	/**
 	 * Turns the soil bitmap green.
 	 */
 	static void makeSoilGreen() {
-		swapColours(COLOUR_BLUE, COLOUR_GREEN, _soilBmp);
-		swapColours(COLOUR_BLUE_DARK, COLOUR_GREEN_DARK, _soilBmp);
+		swapColours(COLOUR_WHITE, COLOUR_GREEN, _soilBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _soilBmp);
 	};
 
 	/**
 	 * Turns the soil bitmap cyan.
 	 */
 	static void makeSoilCyan() {
-		swapColours(COLOUR_BLUE, COLOUR_CYAN, _soilBmp);
-		swapColours(COLOUR_BLUE_DARK, COLOUR_CYAN_DARK, _soilBmp);
+		swapColours(COLOUR_WHITE, COLOUR_CYAN, _soilBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _soilBmp);
 	};
 
 	/**
 	 * Turns the soil bitmap magenta.
 	 */
 	static void makeSoilMagenta() {
-		swapColours(COLOUR_BLUE, COLOUR_MAGENTA, _soilBmp);
-		swapColours(COLOUR_BLUE_DARK, COLOUR_MAGENTA_DARK, _soilBmp);
+		swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _soilBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _soilBmp);
 	};
 
 	/**
