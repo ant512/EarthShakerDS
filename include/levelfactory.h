@@ -22,6 +22,7 @@
 #include "playerblock.h"
 #include "rockwallblock.h"
 #include "soilblock.h"
+#include "teleportblock.h"
 #include "wetsoilblock.h"
 
 #include "level0.h"
@@ -156,6 +157,9 @@ private:
 					case 17:
 						block = new BarrierControlBlock(x, y, game);
 						barrierControlBlock = (BarrierControlBlock*)block;
+						break;
+					case 18:
+						block = new TeleportBlock(x, y, game);
 						break;
 				}
 
