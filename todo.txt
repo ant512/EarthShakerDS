@@ -6,8 +6,6 @@ Todo
    - Menu screen - level select, etc.
    - Game over
    - Between level sequence?
- - Add missing dark colours:
-   - Magenta
  - Need explosion graphics for:
    - Barrier controller
  - Sounds
