@@ -36,10 +36,59 @@ public:
 	 */
 	~BarrierBlock() {};
 
+	/**
+	 * Removes time from the player.
+	 * @return False.
+	 */
+	virtual bool pushLeft() {
+		push();
+		return false;
+	};
+
+	/**
+	 * Removes time from the player.
+	 * @return False.
+	 */
+	virtual bool pushRight() {
+		push();
+		return false;
+	};
+
+	/**
+	 * Removes time from the player.
+	 * @return False.
+	 */
+	virtual bool pushUp() {
+		push();
+		return false;
+	};
+
+	/**
+	 * Removes time from the player.
+	 * @return False.
+	 */
+	virtual bool pushDown() {
+		push();
+		return false;
+	};
+
 private:
 	BarrierBmp1 _bmp1;					/**< The first animation frame. */
 	BarrierBmp2 _bmp2;					/**< The second animation frame. */
 	//BarrierBmp3 _bmp3;					/**< The third animation frame. */
+
+	/**
+	 * Removes time from the player.
+	 */
+	void push() {
+
+		if (_isOddIteration != _game->isOddIteration()) return;
+		if (_isExploding) return;
+
+		_isOddIteration = !_isOddIteration;
+
+		_game->decreaseTime();
+	};
 };
 
 #endif

@@ -142,6 +142,11 @@ public:
 	 */
 	void killPlayer();
 
+	/**
+	 * Decreases the amount of remaining time and redraws the timer bar.
+	 */
+	void decreaseTime();
+
 private:
 	LevelBase* _level;					/**< The currently-active level.*/
 	s32 _remainingGravityTime;			/**< The amount of time left until gravity returns to normal. */
@@ -162,11 +167,6 @@ private:
 	bool _downHeld;						/**< State of the down button. */
 	bool _leftHeld;						/**< State of the left button. */
 	bool _rightHeld;					/**< State of the right button. */
-
-	/**
-	 * Decreases the amount of remaining time and redraws the timer bar.
-	 */
-	void decreaseTime();
 
 	/**
 	 * Draws the timer bar.
