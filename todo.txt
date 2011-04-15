@@ -46,4 +46,3 @@ Todo
    - Bubble
    - Diamond
    - Logo
-   - Player
