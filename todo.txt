@@ -42,3 +42,8 @@ Todo
    - Add animation frames
  - Ice wall:
    - Add bitmap
+ - Recolour bitmaps:
+   - Bubble
+   - Diamond
+   - Logo
+   - Player
