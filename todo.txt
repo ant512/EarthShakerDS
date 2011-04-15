@@ -45,4 +45,3 @@ Todo
  - Recolour bitmaps:
    - Bubble
    - Diamond
-   - Logo
