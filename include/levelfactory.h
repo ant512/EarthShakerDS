@@ -1,7 +1,10 @@
 #ifndef _LEVEL_FACTORY_H_
 #define _LEVEL_FACTORY_H_
 
+#include <woopsiarray.h>
+
 #include "barrierblock.h"
+#include "barriercontrolblock.h"
 #include "beanblock.h"
 #include "boulderblock.h"
 #include "brickwallblock.h"
@@ -84,6 +87,10 @@ private:
 	 * @return The new LevelBase object.
 	 */
 	static LevelBase* createLevel(LevelDefinition* data, Game* game) {
+
+		BarrierControlBlock* barrierControlBlock = NULL;
+		WoopsiArray<BarrierBlock*> barrierBlocks;
+
 		BlockBase* block = NULL;
 
 		LevelBase* level = new LevelBase(data->getWidth(), data->getHeight(), data->getNumber(), data->getName());
@@ -144,11 +151,21 @@ private:
 						break;
 					case 16:
 						block = new BarrierBlock(x, y, game);
+						barrierBlocks.push_back((BarrierBlock*)block);
+						break;
+					case 17:
+						block = new BarrierControlBlock(x, y, game);
+						barrierControlBlock = (BarrierControlBlock*)block;
 						break;
 				}
 
 				level->setBlockAt(x, y, block);
 			}
+		}
+
+		// Wire all barrier blocks up to the controller
+		for (s32 i = 0; i < barrierBlocks.size(); ++i) {
+			barrierControlBlock->addBarrierBlock(barrierBlocks[i]);
 		}
 
 		return level;
