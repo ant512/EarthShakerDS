@@ -12,13 +12,15 @@
 #include "gravityinversionblock.h"
 #include "game.h"
 #include "icewallblock.h"
-#include "level0.h"
 #include "levelbase.h"
 #include "leveldefinition.h"
 #include "playerblock.h"
+#include "rockwallblock.h"
 #include "soilblock.h"
 #include "wetsoilblock.h"
-#include "whitewallblock.h"
+
+#include "level0.h"
+#include "level1.h"
 
 /**
  * Creates new instances of LevelBase.
@@ -124,7 +126,7 @@ private:
 						block = new ExtraLifeBlock(x, y, game);
 						break;
 					case 11:
-						block = new WhiteWallBlock(x, y, game);
+						block = new RockWallBlock(x, y, game);
 						break;
 					case 12:
 						block = new IceWallBlock(x, y, game);

@@ -1,5 +1,5 @@
-#ifndef _WHITE_WALL_BLOCK_H_
-#define _WHITE_WALL_BLOCK_H_
+#ifndef _ROCK_WALL_BLOCK_H_
+#define _ROCK_WALL_BLOCK_H_
 
 #include <graphics.h>
 #include <bitmap.h>
@@ -7,14 +7,13 @@
 
 #include "blockbase.h"
 
-// TODO: Add white wall bitmap and uncomment.
-//#include "whitewallbmp.h"
+#include "rockwallbmp.h"
 
 /**
  * Wall blocks are static.  They have no function other than providing
  * obstacles.
  */
-class WhiteWallBlock : public BlockBase {
+class RockWallBlock : public BlockBase {
 public:
 
 	/**
@@ -23,17 +22,17 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	WhiteWallBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		//_animation->addFrame(&_bmp, 0);
+	RockWallBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+		_animation->addFrame(&_bmp, 0);
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~WhiteWallBlock() {};
+	~RockWallBlock() {};
 
 private:
-	//WhiteWallBmp _bmp;					/**< The wall bitmap. */
+	RockWallBmp _bmp;					/**< The wall bitmap. */
 };
 
 #endif

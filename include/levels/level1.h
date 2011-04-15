@@ -1,5 +1,5 @@
-#ifndef _LEVEL_0_H_
-#define _LEVEL_0_H_
+#ifndef _LEVEL_1_H_
+#define _LEVEL_1_H_
 
 #include "leveldefinition.h"
 #include "bitmapserver.h"
@@ -7,13 +7,13 @@
 /**
  * Test level.
  */
-class Level0 : public LevelDefinition {
+class Level1 : public LevelDefinition {
 public:
 
 	/**
 	 * Constructor.
 	 */
-	Level0() : LevelDefinition(30, 20, 1, "Room for Improvement") {
+	Level1() : LevelDefinition(30, 20, 1, "Room for Improvement") {
 		u8 layout[600] = {
 			6,6,6,6,14,1,1,1,1,1,2,1,1,1,1,1,1,1,2,2,1,1,1,1,6,6,6,6,6,6,
 			6,6,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,3,6,3,3,3,6,6,
