@@ -1,6 +1,7 @@
 #ifndef _LEVEL_FACTORY_H_
 #define _LEVEL_FACTORY_H_
 
+#include "barrierblock.h"
 #include "beanblock.h"
 #include "boulderblock.h"
 #include "brickwallblock.h"
@@ -140,6 +141,9 @@ private:
 						break;
 					case 15:
 						block = new MetalWallBlock(x, y, game);
+						break;
+					case 16:
+						block = new BarrierBlock(x, y, game);
 						break;
 				}
 

@@ -20,6 +20,7 @@ Todo
    - Barrier
      - Reduces time when touched
      - Removed when controller is destroyed
+     - Need third frame (green) of animation
    - Barrier controller
      - Do they give a score bonus when squashed?
  - Block bitmaps:
