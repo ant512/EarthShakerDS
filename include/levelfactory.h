@@ -14,6 +14,7 @@
 #include "icewallblock.h"
 #include "levelbase.h"
 #include "leveldefinition.h"
+#include "metalwallblock.h"
 #include "playerblock.h"
 #include "rockwallblock.h"
 #include "soilblock.h"
@@ -136,6 +137,9 @@ private:
 						break;
 					case 14:
 						block = new DoorBlock(x, y, game);
+						break;
+					case 15:
+						block = new MetalWallBlock(x, y, game);
 						break;
 				}
 

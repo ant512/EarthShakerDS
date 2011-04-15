@@ -19,7 +19,6 @@ Todo
    - Barrier controller
      - Do they give a score bonus when squashed?
  - Block bitmaps:
-   - WhiteWallBmp
    - IceWallBmp
    - Wet soil bitmaps
  - Gravity Inversion and Extra Life Blocks:
