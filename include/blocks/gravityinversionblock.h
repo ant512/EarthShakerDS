@@ -7,6 +7,9 @@
 #include "game.h"
 #include "blockbase.h"
 #include "constants.h"
+#include "gravityinversionbmp1.h"
+#include "gravityinversionbmp2.h"
+#include "gravityinversionbmp3.h"
 
 /**
  * Collecting a gravity inversion block switches gravity in the game so that
@@ -22,10 +25,12 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	GravityInversionBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		// TODO: Set up animation here
 
+		_animation->setLoopType(WoopsiGfx::Animation::ANIMATION_LOOPTYPE_PINGPONG);
+		_animation->addFrame(&_bmp1, 0);
+		_animation->addFrame(&_bmp2, 0);
+		_animation->addFrame(&_bmp3, 0);
 		_animation->play();
-
 	};
 
 	/**
@@ -78,6 +83,9 @@ public:
 	};
 
 private:
+	GravityInversionBmp1 _bmp1;		/**< The first animation frame. */
+	GravityInversionBmp2 _bmp2;		/**< The second animation frame. */
+	GravityInversionBmp3 _bmp3;		/**< The third animation frame. */
 };
 
 #endif
