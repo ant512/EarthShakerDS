@@ -1,7 +1,11 @@
 Todo
 ----
 
- - Implement all scoring
+ - Implement all scoring:
+   - Barrier controller destroyed?
+   - Extra life?
+   - Level finished - bonus for completion?  Time remaining bonus?
+   - Moved through teleport?
  - Map screen
  - Suicide button for when player is stuck.  Options:
    - Both shoulder buttons simultaneously
@@ -18,7 +22,6 @@ Todo
    - Teleporter
      - Add in some sort of pointer system to connect teleporters together
    - Barrier
-     - Reduces time when touched
      - Removed when controller is destroyed
      - Need third frame (green) of animation
    - Barrier controller
