@@ -17,9 +17,6 @@ Todo
  - Sounds
  - New blocks:
    - Honeycomb wall
- - Block bitmaps:
-   - IceWallBmp
-   - Wet soil bitmaps
  - Gravity Inversion block:
    - Should the blocks fall?  If so, do they kill when falling on the player?
    - Are the blocks slippy?
@@ -37,8 +34,12 @@ Todo
    - Need third frame (green) of animation
  - Barrier controller:
    - Need explosion bitmap
- - Teleporter
+ - Teleporter:
    - Add in some sort of pointer system to connect teleporters together: pointer
-     in the block itself and wire-up process in the level definition.
-   - Make teleports move the player.
+     in the block itself and wire-up process in the level definition
+   - Make teleports move the player
    - Do they give a score?
+ - Wet soil:
+   - Add animation frames
+ - Ice wall:
+   - Add bitmap
