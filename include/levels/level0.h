@@ -39,6 +39,8 @@ public:
 		setLayout(layout);
 
 		BitmapServer::makeDoorGreen();
+		BitmapServer::makeBouldersYellow();
+		BitmapServer::makeSoilBlue();
 	};
 };
 

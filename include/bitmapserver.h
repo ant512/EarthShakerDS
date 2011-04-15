@@ -138,6 +138,14 @@ public:
 	};
 
 	/**
+	 * Turns the boulder bitmaps yellow.
+	 */
+	static void makeBouldersYellow() {
+		changeBoulderColours(COLOUR_YELLOW, COLOUR_YELLOW_DARK);
+	};
+
+
+	/**
 	 * Turns the boulder bitmaps blue.
 	 */
 	static void makeBouldersBlue() {
@@ -296,29 +304,29 @@ private:
 	 * @param dark New dark colour.
 	 */
 	static void changeBoulderColours(SpectrumColour light, SpectrumColour dark) {
-		swapColours(COLOUR_YELLOW, light, _boulderBmp);
-		swapColours(COLOUR_YELLOW_DARK, dark, _boulderBmp);
+		swapColours(COLOUR_WHITE, light, _boulderBmp);
+		swapColours(COLOUR_WHITE_DARK, dark, _boulderBmp);
 
-		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp1);
-		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp1);
+		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp1);
+		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp1);
 
-		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp2);
-		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp2);
+		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp2);
+		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp2);
 
-		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp3);
+		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp3);
 		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp3);
 
-		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp4);
-		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp4);
+		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp4);
+		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp4);
 
-		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp5);
-		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp5);
+		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp5);
+		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp5);
 
-		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp6);
-		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp6);
+		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp6);
+		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp6);
 
-		swapColours(COLOUR_YELLOW, light, _boulderExplodeBmp7);
-		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp7);
+		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp7);
+		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp7);
 	};
 
 	/**
