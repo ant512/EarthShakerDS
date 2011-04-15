@@ -59,7 +59,18 @@ public:
 	 * @return True.
 	 */
 	virtual bool pushUp() {
-		// TODO: Move player to the linked teleport block
+
+		// Teleport only works if it has been connected up properly
+		if (_link != NULL) {
+
+			// Teleport the player
+			BlockBase* player = _game->getPlayerBlock();
+			LevelBase* level = _game->getLevel();
+
+			level->moveBlock(player->getX(), player->getY(), _link->getX(), _link->getY());
+		}
+
+		// Remove this block from the level
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
@@ -70,7 +81,18 @@ public:
 	 * @return True.
 	 */
 	virtual bool pushDown() {
-		// TODO: Move player to the linked teleport block
+
+		// Teleport only works if it has been connected up properly
+		if (_link != NULL) {
+
+			// Teleport the player
+			BlockBase* player = _game->getPlayerBlock();
+			LevelBase* level = _game->getLevel();
+
+			level->moveBlock(player->getX(), player->getY(), _link->getX(), _link->getY());
+		}
+
+		// Remove this block from the level
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
@@ -81,8 +103,18 @@ public:
 	 * @return True.
 	 */
 	virtual bool pushLeft() {
-		// TODO: Move player to the linked teleport block
-		_game->getLevel()->removeBlockAt(_x, _y);
+
+		// Teleport only works if it has been connected up properly
+		if (_link != NULL) {
+
+			// Teleport the player
+			BlockBase* player = _game->getPlayerBlock();
+			LevelBase* level = _game->getLevel();
+
+			level->moveBlock(player->getX(), player->getY(), _link->getX(), _link->getY());
+		}
+
+		// Remove this block from the level
 		return true;
 	};
 
@@ -92,24 +124,45 @@ public:
 	 * @return True.
 	 */
 	virtual bool pushRight() {
-		// TODO: Move player to the linked teleport block
+
+		// Teleport only works if it has been connected up properly
+		if (_link != NULL) {
+
+			// Teleport the player
+			BlockBase* player = _game->getPlayerBlock();
+			LevelBase* level = _game->getLevel();
+
+			level->moveBlock(player->getX(), player->getY(), _link->getX(), _link->getY());
+		}
+
+		// Remove this block from the level
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
 
+	/**
+	 * Set the remote teleport block that this block links to.
+	 * @param link The block that this teleport links to.
+	 */
+	void setLink(TeleportBlock* link) {
+		_link = link;
+	};
+
 private:
-	TeleportBmp1 _bmp1;				/**< The first animation frame. */
-	TeleportBmp1 _bmp2;				/**< The second animation frame. */
-	TeleportBmp1 _bmp3;				/**< The third animation frame. */
-	TeleportBmp1 _bmp4;				/**< The fourth animation frame. */
-	TeleportBmp1 _bmp5;				/**< The fifth animation frame. */
-	TeleportBmp1 _bmp6;				/**< The sixth animation frame. */
-	TeleportBmp1 _bmp7;				/**< The seventh animation frame. */
-	TeleportBmp1 _bmp8;				/**< The eighth animation frame. */
-	TeleportBmp1 _bmp9;				/**< The ninth animation frame. */
-	TeleportBmp1 _bmp10;			/**< The tenth animation frame. */
-	TeleportBmp1 _bmp11;			/**< The eleventh animation frame. */
-	TeleportBmp1 _bmp12;			/**< The twelth animation frame. */
+	TeleportBmp1 _bmp1;			/**< The first animation frame. */
+	TeleportBmp1 _bmp2;			/**< The second animation frame. */
+	TeleportBmp1 _bmp3;			/**< The third animation frame. */
+	TeleportBmp1 _bmp4;			/**< The fourth animation frame. */
+	TeleportBmp1 _bmp5;			/**< The fifth animation frame. */
+	TeleportBmp1 _bmp6;			/**< The sixth animation frame. */
+	TeleportBmp1 _bmp7;			/**< The seventh animation frame. */
+	TeleportBmp1 _bmp8;			/**< The eighth animation frame. */
+	TeleportBmp1 _bmp9;			/**< The ninth animation frame. */
+	TeleportBmp1 _bmp10;		/**< The tenth animation frame. */
+	TeleportBmp1 _bmp11;		/**< The eleventh animation frame. */
+	TeleportBmp1 _bmp12;		/**< The twelth animation frame. */
+
+	TeleportBlock* _link;		/**< The teleport that this block links to. */
 };
 
 #endif

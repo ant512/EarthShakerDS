@@ -35,10 +35,8 @@ Todo
  - Barrier controller:
    - Need explosion bitmap
  - Teleporter:
-   - Add in some sort of pointer system to connect teleporters together: pointer
-     in the block itself and wire-up process in the level definition
-   - Make teleports move the player
    - Do they give a score?
+   - Have to be manually wired up in the LevelDefinition subclasses
  - Wet soil:
    - Add animation frames
  - Ice wall:
