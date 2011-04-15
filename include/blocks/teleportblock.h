@@ -72,13 +72,13 @@ public:
 
 		// Remove this block from the level
 		_game->getLevel()->removeBlockAt(_x, _y);
-		return true;
+		return false;
 	};
 
 	/**
 	 * Moves the player to the linked teleport block and removes both blocks
 	 * from the level.
-	 * @return True.
+	 * @return False.
 	 */
 	bool pushDown() {
 
@@ -94,7 +94,7 @@ public:
 
 		// Remove this block from the level
 		_game->getLevel()->removeBlockAt(_x, _y);
-		return true;
+		return false;
 	};
 
 	/**
@@ -115,7 +115,7 @@ public:
 		}
 
 		// Remove this block from the level
-		return true;
+		return false;
 	};
 
 	/**
@@ -137,7 +137,7 @@ public:
 
 		// Remove this block from the level
 		_game->getLevel()->removeBlockAt(_x, _y);
-		return true;
+		return false;
 	};
 
 	/**
@@ -150,17 +150,17 @@ public:
 
 private:
 	TeleportBmp1 _bmp1;			/**< The first animation frame. */
-	TeleportBmp1 _bmp2;			/**< The second animation frame. */
-	TeleportBmp1 _bmp3;			/**< The third animation frame. */
-	TeleportBmp1 _bmp4;			/**< The fourth animation frame. */
-	TeleportBmp1 _bmp5;			/**< The fifth animation frame. */
-	TeleportBmp1 _bmp6;			/**< The sixth animation frame. */
-	TeleportBmp1 _bmp7;			/**< The seventh animation frame. */
-	TeleportBmp1 _bmp8;			/**< The eighth animation frame. */
-	TeleportBmp1 _bmp9;			/**< The ninth animation frame. */
-	TeleportBmp1 _bmp10;		/**< The tenth animation frame. */
-	TeleportBmp1 _bmp11;		/**< The eleventh animation frame. */
-	TeleportBmp1 _bmp12;		/**< The twelth animation frame. */
+	TeleportBmp2 _bmp2;			/**< The second animation frame. */
+	TeleportBmp3 _bmp3;			/**< The third animation frame. */
+	TeleportBmp4 _bmp4;			/**< The fourth animation frame. */
+	TeleportBmp5 _bmp5;			/**< The fifth animation frame. */
+	TeleportBmp6 _bmp6;			/**< The sixth animation frame. */
+	TeleportBmp7 _bmp7;			/**< The seventh animation frame. */
+	TeleportBmp8 _bmp8;			/**< The eighth animation frame. */
+	TeleportBmp9 _bmp9;			/**< The ninth animation frame. */
+	TeleportBmp10 _bmp10;		/**< The tenth animation frame. */
+	TeleportBmp11 _bmp11;		/**< The eleventh animation frame. */
+	TeleportBmp12 _bmp12;		/**< The twelth animation frame. */
 
 	TeleportBlock* _link;		/**< The teleport that this block links to. */
 };

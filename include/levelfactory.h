@@ -172,6 +172,16 @@ private:
 			barrierControlBlock->addBarrierBlock(barrierBlocks[i]);
 		}
 
+		// Wire up all teleport links
+		for (s32 i = 0; i < data->getTeleportLinks().size(); ++i) {
+			LevelDefinition::TeleportLink linkData = data->getTeleportLinks().at(i);
+
+			TeleportBlock* local = (TeleportBlock*)level->getBlockAt(linkData.localX, linkData.localY);
+			TeleportBlock* remote = (TeleportBlock*)level->getBlockAt(linkData.remoteX, linkData.remoteY);
+
+			local->setLink(remote);
+		}
+
 		return level;
 	};
 };
