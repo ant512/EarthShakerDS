@@ -14,18 +14,11 @@ Todo
    - Menu screen - level select, etc.
    - Game over
    - Between level sequence?
- - Need explosion graphics for:
-   - Barrier controller
  - Sounds
  - New blocks:
    - Honeycomb wall
    - Teleporter
      - Add in some sort of pointer system to connect teleporters together
-   - Barrier
-     - Removed when controller is destroyed
-     - Need third frame (green) of animation
-   - Barrier controller
-     - Do they give a score bonus when squashed?
  - Block bitmaps:
    - IceWallBmp
    - Wet soil bitmaps
@@ -42,3 +35,7 @@ Todo
    - Changes colour between levels
    - Level ends when touched
    - Activates when all diamonds collected
+ - Barrier:
+   - Need third frame (green) of animation
+ - Barrier controller:
+   - Need explosion bitmap
