@@ -44,6 +44,7 @@ public:
 				data = new Level0();
 				break;
 			case 1:
+				data = new Level1();
 				break;
 			case 2:
 				break;
