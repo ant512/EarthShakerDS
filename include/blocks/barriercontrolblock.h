@@ -41,6 +41,13 @@ public:
 		_barrierBlocks.push_back(barrierBlock);
 	};
 
+	/**
+	 * Explodes the block.  Called when a heavy block lands on it.
+	 */
+	void squash() {
+		explode();
+	};
+
 private:
 	BarrierControlBmp _bmp;						/**< The block bitmap. */
 	WoopsiArray<BarrierBlock*> _barrierBlocks;	/**< List of barrier blocks controlled by this block. */
