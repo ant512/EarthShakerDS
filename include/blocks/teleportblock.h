@@ -58,7 +58,7 @@ public:
 	 * from the level.
 	 * @return True.
 	 */
-	virtual bool pushUp() {
+	bool pushUp() {
 
 		// Teleport only works if it has been connected up properly
 		if (_link != NULL) {
@@ -80,7 +80,7 @@ public:
 	 * from the level.
 	 * @return True.
 	 */
-	virtual bool pushDown() {
+	bool pushDown() {
 
 		// Teleport only works if it has been connected up properly
 		if (_link != NULL) {
@@ -102,7 +102,7 @@ public:
 	 * from the level.
 	 * @return True.
 	 */
-	virtual bool pushLeft() {
+	bool pushLeft() {
 
 		// Teleport only works if it has been connected up properly
 		if (_link != NULL) {
@@ -123,7 +123,7 @@ public:
 	 * from the level.
 	 * @return True.
 	 */
-	virtual bool pushRight() {
+	bool pushRight() {
 
 		// Teleport only works if it has been connected up properly
 		if (_link != NULL) {

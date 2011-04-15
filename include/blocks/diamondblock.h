@@ -47,7 +47,7 @@ public:
 	 * Adds to the player's score and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushUp() {
+	bool pushUp() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->increaseCollectedDiamonds();
 		_game->getLevel()->removeBlockAt(_x, _y);
@@ -58,7 +58,7 @@ public:
 	 * Adds to the player's score and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushDown() {
+	bool pushDown() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->increaseCollectedDiamonds();
 		_game->getLevel()->removeBlockAt(_x, _y);
@@ -69,7 +69,7 @@ public:
 	 * Adds to the player's score and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushLeft() {
+	bool pushLeft() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->increaseCollectedDiamonds();
 		_game->getLevel()->removeBlockAt(_x, _y);
@@ -80,7 +80,7 @@ public:
 	 * Adds to the player's score and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushRight() {
+	bool pushRight() {
 		_game->addScore(DIAMOND_SCORE);
 		_game->increaseCollectedDiamonds();
 		_game->getLevel()->removeBlockAt(_x, _y);

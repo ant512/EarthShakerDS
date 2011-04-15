@@ -42,7 +42,7 @@ public:
 	 * Inverts gravity and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushUp() {
+	bool pushUp() {
 		_game->addScore(GRAVITY_INVERSION_SCORE);
 		_game->invertGravity();
 		_game->getLevel()->removeBlockAt(_x, _y);
@@ -53,7 +53,7 @@ public:
 	 * Inverts gravity and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushDown() {
+	bool pushDown() {
 		_game->addScore(GRAVITY_INVERSION_SCORE);
 		_game->invertGravity();
 		_game->getLevel()->removeBlockAt(_x, _y);
@@ -64,7 +64,7 @@ public:
 	 * Inverts gravity and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushLeft() {
+	bool pushLeft() {
 		_game->addScore(GRAVITY_INVERSION_SCORE);
 		_game->invertGravity();
 		_game->getLevel()->removeBlockAt(_x, _y);
@@ -75,7 +75,7 @@ public:
 	 * Inverts gravity and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushRight() {
+	bool pushRight() {
 		_game->addScore(GRAVITY_INVERSION_SCORE);
 		_game->invertGravity();
 		_game->getLevel()->removeBlockAt(_x, _y);

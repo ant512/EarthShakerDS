@@ -36,7 +36,7 @@ public:
 	 * Adds an extra life and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushUp() {
+	bool pushUp() {
 		_game->increaseLives();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
@@ -46,7 +46,7 @@ public:
 	 * Adds an extra life and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushDown() {
+	bool pushDown() {
 		_game->increaseLives();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
@@ -56,7 +56,7 @@ public:
 	 * Adds an extra life and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushLeft() {
+	bool pushLeft() {
 		_game->increaseLives();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
@@ -66,7 +66,7 @@ public:
 	 * Adds an extra life and removes the block from the level.
 	 * @return True.
 	 */
-	virtual bool pushRight() {
+	bool pushRight() {
 		_game->increaseLives();
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;

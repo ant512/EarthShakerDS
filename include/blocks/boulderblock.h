@@ -46,7 +46,7 @@ public:
 	 * Pushes this block to the left if the block to the left is empty.
 	 * @return True if the block moves; false if not.
 	 */
-	virtual bool pushLeft() {
+	bool pushLeft() {
 
 		if (_isOddIteration != _game->isOddIteration()) return false;
 		if (_x == 0) return false;
@@ -71,7 +71,7 @@ public:
 	 * Pushes this block to the right if the block to the left is empty.
 	 * @return True if the block moves; false if not.
 	 */
-	virtual bool pushRight() {
+	bool pushRight() {
 
 		if (_isOddIteration != _game->isOddIteration()) return false;
 		if (_isExploding) return false;
@@ -98,7 +98,7 @@ public:
 	 * Drops or raises the block depending on gravity.  If the block is sat on
 	 * a hot block it explodes.
 	 */
-	virtual void onIterate() {
+	void onIterate() {
 
 		// If we're sat on a hot tile then explode
 		if (_game->isGravityInverted()) {

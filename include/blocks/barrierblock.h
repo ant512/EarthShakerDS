@@ -40,7 +40,7 @@ public:
 	 * Removes time from the player.
 	 * @return False.
 	 */
-	virtual bool pushLeft() {
+	bool pushLeft() {
 		push();
 		return false;
 	};
@@ -49,7 +49,7 @@ public:
 	 * Removes time from the player.
 	 * @return False.
 	 */
-	virtual bool pushRight() {
+	bool pushRight() {
 		push();
 		return false;
 	};
@@ -58,7 +58,7 @@ public:
 	 * Removes time from the player.
 	 * @return False.
 	 */
-	virtual bool pushUp() {
+	bool pushUp() {
 		push();
 		return false;
 	};
@@ -67,7 +67,7 @@ public:
 	 * Removes time from the player.
 	 * @return False.
 	 */
-	virtual bool pushDown() {
+	bool pushDown() {
 		push();
 		return false;
 	};

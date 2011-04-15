@@ -46,7 +46,7 @@ public:
 	 * works.  If the block becomes vacated, the bubble moves into the block.
 	 * @return True if the bubble moved; false if not.
 	 */
-	virtual bool pushUp() {
+	bool pushUp() {
 		if (_y == 0) return false;
 		if (_isExploding) return false;
 
@@ -92,7 +92,7 @@ public:
 	 * works.  If the block becomes vacated, the bubble moves into the block.
 	 * @return True if the bubble moved; false if not.
 	 */
-	virtual bool pushDown() {
+	bool pushDown() {
 		if (_isExploding) return false;
 
 		LevelBase* level = _game->getLevel();
@@ -141,7 +141,7 @@ public:
 	 * moves into the block.
 	 * @return True if the bubble moved; false if not.
 	 */
-	virtual bool pushLeft() {
+	bool pushLeft() {
 		if (_x == 0) return false;
 		if (_isExploding) return false;
 
@@ -188,7 +188,7 @@ public:
 	 * moves into the block.
 	 * @return True if the bubble moved; false if not.
 	 */
-	virtual bool pushRight() {
+	bool pushRight() {
 		if (_isExploding) return false;
 		
 		LevelBase* level = _game->getLevel();
