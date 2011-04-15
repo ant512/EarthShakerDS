@@ -2,6 +2,10 @@ Todo
 ----
 
  - Implement all scoring
+ - Map screen
+ - Suicide button for when player is stuck.  Options:
+   - Both shoulder buttons simultaneously
+   - Pause menu gives the option
  - New screens:
    - Menu screen - level select, etc.
    - Game over
@@ -21,7 +25,10 @@ Todo
  - Block bitmaps:
    - IceWallBmp
    - Wet soil bitmaps
- - Gravity Inversion and Extra Life Blocks:
+ - Gravity Inversion block:
+   - Should the blocks fall?  If so, do they kill when falling on the player?
+   - Are the blocks slippy?
+ - Extra Life block:
    - Does collecting them raise the score?
    - Should the blocks fall?  If so, do they kill when falling on the player?
    - Are the blocks slippy?
