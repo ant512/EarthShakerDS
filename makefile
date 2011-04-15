@@ -3,8 +3,8 @@
 # needs - options are switched on/off with USE_ constants.
 
 # set the texts that appear in the loader menus
-TEXT1 		:= Demo Project
-TEXT2 		:= using WoopsiGfx
+TEXT1 		:= Earth Shaker DS
+TEXT2 		:= Using WoopsiGfx
 TEXT3 		:= ant.simianzombie.com
 
 # 4-bit-deep bitmap file to use as icon in loader menus
