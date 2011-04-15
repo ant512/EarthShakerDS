@@ -58,43 +58,43 @@ public:
 	};
 
 	/**
-	 * Turns the door bitmap white.
+	 * Turns the door bitmap red.
 	 */
-	static void makeDoorWhite() {
-		swapColours(COLOUR_RED, COLOUR_WHITE, _doorBmp);
-		swapColours(COLOUR_RED_DARK, COLOUR_WHITE_DARK, _doorBmp);
+	static void makeDoorRed() {
+		swapColours(COLOUR_WHITE, COLOUR_RED, _doorBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _doorBmp);
 	};
 
 	/**
 	 * Turns the door bitmap blue.
 	 */
-	static void makeDoorRed() {
-		swapColours(COLOUR_RED, COLOUR_RED, _doorBmp);
-		swapColours(COLOUR_RED_DARK, COLOUR_RED_DARK, _doorBmp);
+	static void makeDoorBlue() {
+		swapColours(COLOUR_WHITE, COLOUR_BLUE, _doorBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _doorBmp);
 	};
 
 	/**
 	 * Turns the door bitmap green.
 	 */
 	static void makeDoorGreen() {
-		swapColours(COLOUR_RED, COLOUR_GREEN, _doorBmp);
-		swapColours(COLOUR_RED_DARK, COLOUR_GREEN_DARK, _doorBmp);
+		swapColours(COLOUR_WHITE, COLOUR_GREEN, _doorBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _doorBmp);
 	};
 
 	/**
 	 * Turns the door bitmap cyan.
 	 */
 	static void makeDoorCyan() {
-		swapColours(COLOUR_RED, COLOUR_CYAN, _doorBmp);
-		swapColours(COLOUR_RED_DARK, COLOUR_CYAN_DARK, _doorBmp);
+		swapColours(COLOUR_WHITE, COLOUR_CYAN, _doorBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _doorBmp);
 	};
 
 	/**
 	 * Turns the door bitmap magenta.
 	 */
 	static void makeDoorMagenta() {
-		swapColours(COLOUR_RED, COLOUR_MAGENTA, _doorBmp);
-		swapColours(COLOUR_RED_DARK, COLOUR_MAGENTA_DARK, _doorBmp);
+		swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _doorBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _doorBmp);
 	};
 
 	/**
