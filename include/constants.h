@@ -71,4 +71,9 @@ const s32 GRAVITY_INVERSION_TIME = 99;
  */
 const s32 GRAVITY_INVERSION_SCORE = 200;
 
+/**
+ * Points for crushing a barrier control block.
+ */
+const s32 BARRIER_CONTROL_SQUASH_SCORE = 250;
+
 #endif

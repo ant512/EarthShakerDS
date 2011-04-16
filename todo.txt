@@ -31,7 +31,7 @@ Todo
    - Level ends when touched
    - Activates when all diamonds collected
  - Barrier:
-   - Need third frame (green) of animation
+   - Need to convert third frame (green) of animation
  - Barrier controller:
    - Need explosion bitmap
  - Teleporter:

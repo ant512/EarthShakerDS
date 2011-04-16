@@ -45,6 +45,7 @@ public:
 	 * Explodes the block.  Called when a heavy block lands on it.
 	 */
 	void squash() {
+		_game->addScore(BARRIER_CONTROL_SQUASH_SCORE);
 		explode();
 	};
 
