@@ -36,7 +36,6 @@ Todo
    - Need explosion bitmap
  - Teleporter:
    - Do they give a score?
-   - Have to be manually wired up in the LevelDefinition subclasses
    - Can they fall?
  - Wet soil:
    - Add animation frames
