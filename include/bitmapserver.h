@@ -6,6 +6,7 @@
 #include <graphics.h>
 #include <mutablebitmapbase.h>
 
+#include <brickwallbmp.h>
 #include "boulderbmp.h"
 #include "boulderexplodebmp1.h"
 #include "boulderexplodebmp2.h"
@@ -42,6 +43,7 @@ public:
 		BoulderExplodeBmp5 boulderExplodeBmp5;
 		BoulderExplodeBmp6 boulderExplodeBmp6;
 		BoulderExplodeBmp7 boulderExplodeBmp7;
+		BrickWallBmp brickWallBmp;
 		DoorBmp doorBmp;
 		SoilBmp soilBmp;
 
@@ -53,6 +55,7 @@ public:
 		_boulderExplodeBmp5 = createMutableBitmap(&boulderExplodeBmp5);
 		_boulderExplodeBmp6 = createMutableBitmap(&boulderExplodeBmp6);
 		_boulderExplodeBmp7 = createMutableBitmap(&boulderExplodeBmp7);
+		_brickWallBmp = createMutableBitmap(&brickWallBmp);
 		_doorBmp = createMutableBitmap(&doorBmp);
 		_soilBmp = createMutableBitmap(&soilBmp);
 	};
@@ -138,6 +141,46 @@ public:
 	};
 
 	/**
+	 * Turns the brick wall bitmap blue.
+	 */
+	static void makeBrickWallBlue() {
+		swapColours(COLOUR_WHITE, COLOUR_BLUE, _brickWallBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _brickWallBmp);
+	};
+
+	/**
+	 * Turns the brick wall bitmap red.
+	 */
+	static void makeBrickWallRed() {
+		swapColours(COLOUR_WHITE, COLOUR_RED, _brickWallBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _brickWallBmp);
+	};
+
+	/**
+	 * Turns the brick wall bitmap green.
+	 */
+	static void makeBrickWallGreen() {
+		swapColours(COLOUR_WHITE, COLOUR_GREEN, _brickWallBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _brickWallBmp);
+	};
+
+	/**
+	 * Turns the brick wall bitmap cyan.
+	 */
+	static void makeBrickWallCyan() {
+		swapColours(COLOUR_WHITE, COLOUR_CYAN, _brickWallBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _brickWallBmp);
+	};
+
+	/**
+	 * Turns the brick wall bitmap magenta.
+	 */
+	static void makeBrickWallMagenta() {
+		swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _brickWallBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _brickWallBmp);
+	};
+
+	/**
 	 * Turns the boulder bitmaps yellow.
 	 */
 	static void makeBouldersYellow() {
@@ -193,7 +236,16 @@ public:
 		if (_boulderExplodeBmp5 != NULL) delete _boulderExplodeBmp5;
 		if (_boulderExplodeBmp6 != NULL) delete _boulderExplodeBmp6;
 		if (_boulderExplodeBmp7 != NULL) delete _boulderExplodeBmp7;
+		if (_brickWallBmp != NULL) delete _brickWallBmp;
 		if (_soilBmp != NULL) delete _soilBmp;
+	};
+
+	/**
+	 * Gets a pointer to the brick wall bitmap.
+	 * @return A pointer to the brick wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getBrickWallBmp() {
+		return _brickWallBmp;
 	};
 
 	/**
@@ -285,6 +337,7 @@ private:
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp5;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp6;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp7;
+	static WoopsiGfx::Bitmap* _brickWallBmp;
 	static WoopsiGfx::Bitmap* _doorBmp;
 	static WoopsiGfx::Bitmap* _soilBmp;
 

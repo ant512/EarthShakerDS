@@ -67,4 +67,3 @@ Todo
  - Recolour bitmaps:
    - Bubble
    - Diamond
- - Brick wall should be white by default and BitmapServer should recolour it.

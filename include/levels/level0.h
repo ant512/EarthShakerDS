@@ -39,6 +39,7 @@ public:
 		setLayout(layout);
 		addTeleportLink(6, 0, 8, 0);
 
+		BitmapServer::makeBrickWallRed();
 		BitmapServer::makeDoorGreen();
 		BitmapServer::makeBouldersYellow();
 		BitmapServer::makeSoilBlue();

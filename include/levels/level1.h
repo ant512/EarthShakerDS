@@ -38,6 +38,7 @@ public:
 
 		setLayout(layout);
 
+		BitmapServer::makeBrickWallRed();
 		BitmapServer::makeDoorGreen();
 		BitmapServer::makeBouldersYellow();
 		BitmapServer::makeSoilBlue();

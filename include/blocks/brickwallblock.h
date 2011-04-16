@@ -3,10 +3,10 @@
 
 #include <graphics.h>
 #include <bitmap.h>
-#include <game.h>
 
+#include "bitmapserver.h"
 #include "blockbase.h"
-#include "brickwallbmp.h"
+#include "game.h"
 
 /**
  * Wall blocks are static.  They have no function other than providing
@@ -22,16 +22,13 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	BrickWallBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		_animation->addFrame(&_bmp, 0);
+		_animation->addFrame(BitmapServer::getBrickWallBmp(), 0);
 	};
 
 	/**
 	 * Destructor.
 	 */
 	~BrickWallBlock() {};
-
-private:
-	BrickWallBmp _bmp;					/**< The wall bitmap. */
 };
 
 #endif
