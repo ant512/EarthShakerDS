@@ -15,10 +15,6 @@
 #include "teleportbmp6.h"
 #include "teleportbmp7.h"
 #include "teleportbmp8.h"
-#include "teleportbmp9.h"
-#include "teleportbmp10.h"
-#include "teleportbmp11.h"
-#include "teleportbmp12.h"
 
 /**
  * Collecting a teleport block moves the player to another teleport block.
@@ -153,13 +149,13 @@ public:
 private:
 	// 1, 5, 2, 4, 2, 5, 7, 8, 9, 10, 9, 8
 	TeleportBmp1 _bmp1;			/**< The first animation frame. */
-	TeleportBmp5 _bmp2;			/**< The second animation frame. */
-	TeleportBmp2 _bmp3;			/**< The third animation frame. */
+	TeleportBmp2 _bmp2;			/**< The second animation frame. */
+	TeleportBmp3 _bmp3;			/**< The third animation frame. */
 	TeleportBmp4 _bmp4;			/**< The fourth animation frame. */
-	TeleportBmp7 _bmp5;			/**< The fifth animation frame. */
-	TeleportBmp8 _bmp6;			/**< The sixth animation frame. */
-	TeleportBmp9 _bmp7;			/**< The seventh animation frame. */
-	TeleportBmp10 _bmp8;		/**< The eighth animation frame. */
+	TeleportBmp5 _bmp5;			/**< The fifth animation frame. */
+	TeleportBmp6 _bmp6;			/**< The sixth animation frame. */
+	TeleportBmp7 _bmp7;			/**< The seventh animation frame. */
+	TeleportBmp8 _bmp8;			/**< The eighth animation frame. */
 
 	TeleportBlock* _link;		/**< The teleport that this block links to. */
 };
