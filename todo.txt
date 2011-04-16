@@ -36,6 +36,9 @@ Todo
    - Add animation frames
  - Ice wall:
    - Convert bitmap
+ - Square wall:
+   - Convert bitmap
+   - Create class.
  - Recolour bitmaps:
    - Bubble
    - Diamond
