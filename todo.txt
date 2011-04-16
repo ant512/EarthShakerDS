@@ -15,9 +15,6 @@ Todo
  - Sounds
  - New blocks:
    - Honeycomb wall
- - Gravity Inversion block:
-   - Should the blocks fall?  If so, do they kill when falling on the player?
-   - Are the blocks slippy?
  - Extra Life block:
    - Does collecting them raise the score?
    - Should the blocks fall?  If so, do they kill when falling on the player?
@@ -36,7 +33,13 @@ Todo
    - Convert bitmap
  - Square wall:
    - Convert bitmap
-   - Create class.
+   - Create class
+ - Heart wall:
+   - Convert bitmap
+   - Create class
+ - Sand wall:
+   - Convert bitmap
+   - Create class
  - Recolour bitmaps:
    - Bubble
    - Diamond
