@@ -50,6 +50,54 @@ public:
 	 */
 	~FireBlock() {};
 
+	bool pushLeft() {
+		// Get the block pushing this
+		BlockBase* block = _game->getLevel()->getBlockAt(_x + 1, _y);
+
+		if (block == NULL) return false;
+		block->explode();
+
+		_game->getLevel()->removeBlockAt(_x, _y);
+
+		return true;
+	};
+
+	bool pushRight() {
+		// Get the block pushing this
+		BlockBase* block = _game->getLevel()->getBlockAt(_x - 1, _y);
+
+		if (block == NULL) return false;
+		block->explode();
+
+		_game->getLevel()->removeBlockAt(_x, _y);
+
+		return true;
+	};
+
+	bool pushUp() {
+		// Get the block pushing this
+		BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
+
+		if (block == NULL) return false;
+		block->explode();
+
+		_game->getLevel()->removeBlockAt(_x, _y);
+
+		return true;
+	};
+
+	bool pushDown() {
+		// Get the block pushing this
+		BlockBase* block = _game->getLevel()->getBlockAt(_x, _y - 1);
+
+		if (block == NULL) return false;
+		block->explode();
+
+		_game->getLevel()->removeBlockAt(_x, _y);
+
+		return true;
+	};
+
 private:
 	FireBmp1 _bmp1;					/**< First animation bitmap. */
 	FireBmp2 _bmp2;					/**< Second animation bitmap. */

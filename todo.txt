@@ -30,8 +30,6 @@ Todo
    - Activates when all diamonds collected
  - Barrier:
    - Need to convert third frame (green) of animation
- - Teleporter:
-   - Can they fall?
  - Wet soil:
    - Add animation frames
  - Ice wall:

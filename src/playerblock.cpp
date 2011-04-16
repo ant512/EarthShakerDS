@@ -29,12 +29,6 @@ bool PlayerBlock::pushLeft() {
 
 	if (block != NULL) {
 
-		// If the block is hot, we've committed suicide
-		if (block->isHot()) {
-			explode();
-			return false;
-		}
-
 		// Attempt to apply a force to the block or, if that fails, attempt to
 		// dig the block
 		if (!block->pushLeft()) block->digFromRight();
@@ -43,7 +37,6 @@ bool PlayerBlock::pushLeft() {
 	// Ensure that pushing the block hasn't put us in a situation where we can't
 	// move; this can happen after teleporting
 	if (_x == 0) return false;
-	if (_isExploding) return false;
 
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x - 1, _y);
@@ -67,12 +60,6 @@ bool PlayerBlock::pushRight() {
 
 	if (block != NULL) {
 
-		// If the block is hot, we've committed suicide
-		if (block->isHot()) {
-			explode();
-			return false;
-		}
-
 		// Attempt to apply a force to the block or, if that fails, attempt to
 		// dig the block
 		if (!block->pushRight()) block->digFromLeft();
@@ -81,7 +68,6 @@ bool PlayerBlock::pushRight() {
 	// Ensure that pushing the block hasn't put us in a situation where we can't
 	// move; this can happen after teleporting
 	if (_x == _game->getLevel()->getWidth() - 1) return false;
-	if (_isExploding) return false;
 
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x + 1, _y);
@@ -105,12 +91,6 @@ bool PlayerBlock::pushUp() {
 
 	if (block != NULL) {
 
-		// If the block is hot, we've committed suicide
-		if (block->isHot()) {
-			explode();
-			return false;
-		}
-
 		// Attempt to apply a force to the block or, if that fails, attempt to
 		// dig the block
 		if (!block->pushUp()) block->digFromBelow();
@@ -119,7 +99,6 @@ bool PlayerBlock::pushUp() {
 	// Ensure that pushing the block hasn't put us in a situation where we can't
 	// move; this can happen after teleporting
 	if (_y == 0) return false;
-	if (_isExploding) return false;
 
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x, _y - 1);
@@ -143,12 +122,6 @@ bool PlayerBlock::pushDown() {
 
 	if (block != NULL) {
 
-		// If the block is hot, we've committed suicide
-		if (block->isHot()) {
-			explode();
-			return false;
-		}
-
 		// Attempt to apply a force to the block or, if that fails, attempt to
 		// dig the block
 		if (!block->pushDown()) block->digFromAbove();
@@ -157,7 +130,6 @@ bool PlayerBlock::pushDown() {
 	// Ensure that pushing the block hasn't put us in a situation where we can't
 	// move; this can happen after teleporting
 	if (_y == _game->getLevel()->getHeight() - 1) return false;
-	if (_isExploding) return false;
 
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x, _y + 1);
