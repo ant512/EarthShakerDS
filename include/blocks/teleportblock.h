@@ -33,18 +33,20 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	TeleportBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+
+		// 1, 2, 3, 4, 3, 2, 5, 6, 7, 8, 7, 6
 		_animation->addFrame(&_bmp1, 0);
 		_animation->addFrame(&_bmp2, 0);
 		_animation->addFrame(&_bmp3, 0);
 		_animation->addFrame(&_bmp4, 0);
+		_animation->addFrame(&_bmp3, 0);
+		_animation->addFrame(&_bmp2, 0);
 		_animation->addFrame(&_bmp5, 0);
 		_animation->addFrame(&_bmp6, 0);
 		_animation->addFrame(&_bmp7, 0);
 		_animation->addFrame(&_bmp8, 0);
-		_animation->addFrame(&_bmp9, 0);
-		_animation->addFrame(&_bmp10, 0);
-		_animation->addFrame(&_bmp11, 0);
-		_animation->addFrame(&_bmp12, 0);
+		_animation->addFrame(&_bmp7, 0);
+		_animation->addFrame(&_bmp6, 0);
 		_animation->play();
 	};
 
@@ -149,18 +151,15 @@ public:
 	};
 
 private:
+	// 1, 5, 2, 4, 2, 5, 7, 8, 9, 10, 9, 8
 	TeleportBmp1 _bmp1;			/**< The first animation frame. */
-	TeleportBmp2 _bmp2;			/**< The second animation frame. */
-	TeleportBmp3 _bmp3;			/**< The third animation frame. */
+	TeleportBmp5 _bmp2;			/**< The second animation frame. */
+	TeleportBmp2 _bmp3;			/**< The third animation frame. */
 	TeleportBmp4 _bmp4;			/**< The fourth animation frame. */
-	TeleportBmp5 _bmp5;			/**< The fifth animation frame. */
-	TeleportBmp6 _bmp6;			/**< The sixth animation frame. */
-	TeleportBmp7 _bmp7;			/**< The seventh animation frame. */
-	TeleportBmp8 _bmp8;			/**< The eighth animation frame. */
-	TeleportBmp9 _bmp9;			/**< The ninth animation frame. */
-	TeleportBmp10 _bmp10;		/**< The tenth animation frame. */
-	TeleportBmp11 _bmp11;		/**< The eleventh animation frame. */
-	TeleportBmp12 _bmp12;		/**< The twelth animation frame. */
+	TeleportBmp7 _bmp5;			/**< The fifth animation frame. */
+	TeleportBmp8 _bmp6;			/**< The sixth animation frame. */
+	TeleportBmp9 _bmp7;			/**< The seventh animation frame. */
+	TeleportBmp10 _bmp8;		/**< The eighth animation frame. */
 
 	TeleportBlock* _link;		/**< The teleport that this block links to. */
 };
