@@ -21,13 +21,76 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	DoorBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		_animation->addFrame(BitmapServer::getDoorBmp(), 0);
+		_animation->addFrame(BitmapServer::getRedDoorBmp(), 0);
+		_animation->addFrame(BitmapServer::getGreenDoorBmp(), 0);
+		_animation->addFrame(BitmapServer::getBlueDoorBmp(), 0);
+		_animation->addFrame(BitmapServer::getCyanDoorBmp(), 0);
+		_animation->addFrame(BitmapServer::getMagentaDoorBmp(), 0);
 	};
 
 	/**
 	 * Destructor.
 	 */
 	~DoorBlock() {};
+
+	/**
+	 * Starts the door animation when there are no diamonds left to collect.
+	 */
+	void onIterate() {
+		if (_game->getRemainingDiamonds() == 0) _animation->play();
+	};
+
+	/**
+	 * Moves to the next level if all diamonds have been collected.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pushLeft() {
+
+		if (_game->getRemainingDiamonds() > 0) return false;
+
+		_game->endLevel();
+
+		return false;
+	};
+
+	/**
+	 * Moves to the next level if all diamonds have been collected.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pushRight() {
+
+		if (_game->getRemainingDiamonds() > 0) return false;
+
+		_game->endLevel();
+
+		return false;
+	};
+
+	/**
+	 * Moves to the next level if all diamonds have been collected.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pushUp() {
+
+		if (_game->getRemainingDiamonds() > 0) return false;
+
+		_game->endLevel();
+
+		return false;
+	};
+
+		/**
+	 * Moves to the next level if all diamonds have been collected.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pushDown() {
+
+		if (_game->getRemainingDiamonds() > 0) return false;
+
+		_game->endLevel();
+
+		return false;
+	};
 };
 
 #endif

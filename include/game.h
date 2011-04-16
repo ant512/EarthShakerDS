@@ -147,6 +147,14 @@ public:
 	 */
 	void decreaseTime();
 
+	/**
+	 * Gets the number of remaining diamonds.
+	 * @return The number of remaining diamonds.
+	 */
+	s32 getRemainingDiamonds() const;
+
+	void endLevel();
+
 private:
 	LevelBase* _level;					/**< The currently-active level.*/
 	s32 _remainingGravityTime;			/**< The amount of time left until gravity returns to normal. */

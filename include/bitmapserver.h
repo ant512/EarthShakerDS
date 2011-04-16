@@ -56,48 +56,28 @@ public:
 		_boulderExplodeBmp6 = createMutableBitmap(&boulderExplodeBmp6);
 		_boulderExplodeBmp7 = createMutableBitmap(&boulderExplodeBmp7);
 		_brickWallBmp = createMutableBitmap(&brickWallBmp);
-		_doorBmp = createMutableBitmap(&doorBmp);
 		_soilBmp = createMutableBitmap(&soilBmp);
-	};
 
-	/**
-	 * Turns the door bitmap red.
-	 */
-	static void makeDoorRed() {
-		swapColours(COLOUR_WHITE, COLOUR_RED, _doorBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _doorBmp);
-	};
+		_redDoorBmp = createMutableBitmap(&doorBmp);
+		_blueDoorBmp = createMutableBitmap(&doorBmp);
+		_greenDoorBmp = createMutableBitmap(&doorBmp);
+		_cyanDoorBmp = createMutableBitmap(&doorBmp);
+		_magentaDoorBmp = createMutableBitmap(&doorBmp);
 
-	/**
-	 * Turns the door bitmap blue.
-	 */
-	static void makeDoorBlue() {
-		swapColours(COLOUR_WHITE, COLOUR_BLUE, _doorBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _doorBmp);
-	};
+		swapColours(COLOUR_WHITE, COLOUR_RED, _redDoorBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _redDoorBmp);
 
-	/**
-	 * Turns the door bitmap green.
-	 */
-	static void makeDoorGreen() {
-		swapColours(COLOUR_WHITE, COLOUR_GREEN, _doorBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _doorBmp);
-	};
+		swapColours(COLOUR_WHITE, COLOUR_BLUE, _blueDoorBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _blueDoorBmp);
 
-	/**
-	 * Turns the door bitmap cyan.
-	 */
-	static void makeDoorCyan() {
-		swapColours(COLOUR_WHITE, COLOUR_CYAN, _doorBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _doorBmp);
-	};
+		swapColours(COLOUR_WHITE, COLOUR_GREEN, _greenDoorBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _greenDoorBmp);
 
-	/**
-	 * Turns the door bitmap magenta.
-	 */
-	static void makeDoorMagenta() {
-		swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _doorBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _doorBmp);
+		swapColours(COLOUR_WHITE, COLOUR_CYAN, _cyanDoorBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _cyanDoorBmp);
+
+		swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _magentaDoorBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _magentaDoorBmp);
 	};
 
 	/**
@@ -237,6 +217,11 @@ public:
 		if (_boulderExplodeBmp6 != NULL) delete _boulderExplodeBmp6;
 		if (_boulderExplodeBmp7 != NULL) delete _boulderExplodeBmp7;
 		if (_brickWallBmp != NULL) delete _brickWallBmp;
+		if (_redDoorBmp != NULL) delete _redDoorBmp;
+		if (_greenDoorBmp != NULL) delete _greenDoorBmp;
+		if (_blueDoorBmp != NULL) delete _blueDoorBmp;
+		if (_cyanDoorBmp != NULL) delete _cyanDoorBmp;
+		if (_magentaDoorBmp != NULL) delete _magentaDoorBmp;
 		if (_soilBmp != NULL) delete _soilBmp;
 	};
 
@@ -313,11 +298,43 @@ public:
 	};
 
 	/**
-	 * Gets a pointer to the door bitmap.
-	 * @return A pointer to the door bitmap.
+	 * Gets a pointer to the red door bitmap.
+	 * @return A pointer to the red door bitmap.
 	 */
-	inline static WoopsiGfx::Bitmap* getDoorBmp() {
-		return _doorBmp;
+	inline static WoopsiGfx::Bitmap* getRedDoorBmp() {
+		return _redDoorBmp;
+	};
+
+	/**
+	 * Gets a pointer to the green door bitmap.
+	 * @return A pointer to the green door bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getGreenDoorBmp() {
+		return _greenDoorBmp;
+	};
+
+	/**
+	 * Gets a pointer to the blue door bitmap.
+	 * @return A pointer to the blue door bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getBlueDoorBmp() {
+		return _blueDoorBmp;
+	};
+
+	/**
+	 * Gets a pointer to the cyan door bitmap.
+	 * @return A pointer to the cyan door bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getCyanDoorBmp() {
+		return _cyanDoorBmp;
+	};
+
+	/**
+	 * Gets a pointer to the magenta door bitmap.
+	 * @return A pointer to the magenta door bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getMagentaDoorBmp() {
+		return _magentaDoorBmp;
 	};
 
 	/**
@@ -338,7 +355,11 @@ private:
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp6;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp7;
 	static WoopsiGfx::Bitmap* _brickWallBmp;
-	static WoopsiGfx::Bitmap* _doorBmp;
+	static WoopsiGfx::Bitmap* _redDoorBmp;
+	static WoopsiGfx::Bitmap* _blueDoorBmp;
+	static WoopsiGfx::Bitmap* _greenDoorBmp;
+	static WoopsiGfx::Bitmap* _cyanDoorBmp;
+	static WoopsiGfx::Bitmap* _magentaDoorBmp;
 	static WoopsiGfx::Bitmap* _soilBmp;
 
 	/**

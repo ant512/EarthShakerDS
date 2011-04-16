@@ -41,6 +41,10 @@ s32 Game::getRemainingTime() const {
 	return _remainingTime;
 }
 
+s32 Game::getRemainingDiamonds() const {
+	return _level->getDiamondCount() - _collectedDiamonds;
+}
+
 LevelBase* Game::getLevel() const {
 	return _level;
 }
@@ -438,4 +442,10 @@ void Game::moveToNextLevel() {
 
 		_level = LevelFactory::newLevel(levelNumber, this);
 	}
+}
+
+void Game::endLevel() {
+
+	// TODO: This will crash everything!
+	moveToNextLevel();
 }

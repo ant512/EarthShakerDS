@@ -13,16 +13,19 @@ Todo
    - Game over
    - Between level sequence?
  - Sounds
+ - End of level code needs to improve - currently the door is deleted whilst
+   its code is running.  Maybe get the door to notify the game that it has
+   ended then the game can deal with the notification later
+ - Need some way of specifying starting door colour - perhaps an extra
+   constructor parameter?
+ - Timer should zip to 0 at level end.
+ - Should player move onto the door block at the end of the level, or stay on
+   the previous block?
  - Extra Life block:
    - Does collecting them raise the score?
    - Should the blocks fall?  If so, do they kill when falling on the player?
    - Are the blocks slippy?
    - Add the block bitmaps
- - Door block:
-   - Colours animate when active
-   - Changes colour between levels
-   - Level ends when touched
-   - Activates when all diamonds collected
  - Barrier:
    - Need to convert third frame (green) of animation
  - Wet soil:
