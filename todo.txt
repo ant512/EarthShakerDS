@@ -2,10 +2,8 @@ Todo
 ----
 
  - Implement all scoring:
-   - Barrier controller destroyed?
    - Extra life?
    - Level finished - bonus for completion?  Time remaining bonus?
-   - Moved through teleport?
  - Map screen
  - Suicide button for when player is stuck.  Options:
    - Both shoulder buttons simultaneously
@@ -32,15 +30,12 @@ Todo
    - Activates when all diamonds collected
  - Barrier:
    - Need to convert third frame (green) of animation
- - Barrier controller:
-   - Need explosion bitmap
  - Teleporter:
-   - Do they give a score?
    - Can they fall?
  - Wet soil:
    - Add animation frames
  - Ice wall:
-   - Add bitmap
+   - Convert bitmap
  - Recolour bitmaps:
    - Bubble
    - Diamond
