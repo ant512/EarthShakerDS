@@ -50,6 +50,21 @@ Todo
  - Honeycomb soil:
    - Convert bitmap
    - Create class
+ - Brain wall:
+   - Convert bitmap
+   - Create class
+ - Pipe wall:
+   - Convert bitmap
+   - Create class
+ - Question soil:
+   - Create class
+ - Pipe wall:
+   - Convert bitmap
+   - Create class
+ - Leafy wall:
+   - Convert bitmap
+   - Create class
  - Recolour bitmaps:
    - Bubble
    - Diamond
+ - Brick wall should be white by default and BitmapServer should recolour it.
