@@ -13,8 +13,6 @@ Todo
    - Game over
    - Between level sequence?
  - Sounds
- - New blocks:
-   - Honeycomb wall
  - Extra Life block:
    - Does collecting them raise the score?
    - Should the blocks fall?  If so, do they kill when falling on the player?
@@ -38,6 +36,18 @@ Todo
    - Convert bitmap
    - Create class
  - Sand wall:
+   - Convert bitmap
+   - Create class
+ - Nuclear wall:
+   - Convert bitmap
+   - Create class
+ - Girder wall:
+   - Convert bitmap
+   - Create class
+ - Honeycomb wall:
+   - Convert bitmap
+   - Create class
+ - Honeycomb soil:
    - Convert bitmap
    - Create class
  - Recolour bitmaps:
