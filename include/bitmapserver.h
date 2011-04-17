@@ -24,6 +24,7 @@
 #include "leafywallbmp.h"
 #include "metalwallbmp.h"
 #include "nuclearwallbmp.h"
+#include "pipewallbmp.h"
 #include "rockwallbmp.h"
 
 #include "honeycombsoilbmp.h"
@@ -67,6 +68,7 @@ public:
 		LeafyWallBmp leafyWallBmp;
 		MetalWallBmp metalWallBmp;
 		NuclearWallBmp nuclearWallBmp;
+		PipeWallBmp pipeWallBmp;
 		RockWallBmp rockWallBmp;
 
 		DoorBmp doorBmp;
@@ -92,6 +94,7 @@ public:
 		_leafyWallBmp = createMutableBitmap(&leafyWallBmp);
 		_metalWallBmp = createMutableBitmap(&metalWallBmp);
 		_nuclearWallBmp = createMutableBitmap(&nuclearWallBmp);
+		_pipeWallBmp = createMutableBitmap(&pipeWallBmp);
 		_rockWallBmp = createMutableBitmap(&rockWallBmp);
 
 		_redSoilBmp = createMutableBitmap(&soilBmp);
@@ -247,6 +250,7 @@ public:
 		if (_leafyWallBmp != NULL) delete _leafyWallBmp;
 		if (_metalWallBmp != NULL) delete _metalWallBmp;
 		if (_nuclearWallBmp != NULL) delete _nuclearWallBmp;
+		if (_pipeWallBmp != NULL) delete _pipeWallBmp;
 		if (_rockWallBmp != NULL) delete _rockWallBmp;
 
 		if (_redDoorBmp != NULL) delete _redDoorBmp;
@@ -335,6 +339,14 @@ public:
 	 */
 	inline static WoopsiGfx::Bitmap* getNuclearWallBmp() {
 		return _nuclearWallBmp;
+	};
+
+	/**
+	 * Gets a pointer to the pipe wall bitmap.
+	 * @return A pointer to the pipe wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getPipeWallBmp() {
+		return _pipeWallBmp;
 	};
 
 	/**
@@ -524,6 +536,7 @@ private:
 	static WoopsiGfx::Bitmap* _leafyWallBmp;
 	static WoopsiGfx::Bitmap* _metalWallBmp;
 	static WoopsiGfx::Bitmap* _nuclearWallBmp;
+	static WoopsiGfx::Bitmap* _pipeWallBmp;
 	static WoopsiGfx::Bitmap* _rockWallBmp;
 
 	static WoopsiGfx::Bitmap* _redDoorBmp;
