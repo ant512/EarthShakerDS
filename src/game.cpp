@@ -42,7 +42,7 @@ s32 Game::getRemainingTime() const {
 }
 
 s32 Game::getRemainingDiamonds() const {
-	return _level->getDiamondCount() - _collectedDiamonds;
+	return 0; //_level->getDiamondCount() - _collectedDiamonds;
 }
 
 LevelBase* Game::getLevel() const {
@@ -187,6 +187,19 @@ void Game::move() {
 		// TODO: Check life count and stop game if no lives are left.
 		decreaseLives();
 		resetLevel();
+		return;
+	}
+
+	if (_isLevelEnded) {
+		_remainingTime -= 2;
+
+		drawTimerBar();
+
+		if (_remainingTime < 1) {
+			moveToNextLevel();
+		}
+
+		return;
 	}
 
 	_movementTimer++;
@@ -428,6 +441,7 @@ void Game::moveToNextLevel() {
 	_remainingTime = STARTING_TIME;
 	_remainingGravityTime = 0;
 	_isPlayerDead = false;
+	_isLevelEnded = false;
 
 	_animationTimer = 0;
 	_movementTimer = 0;
@@ -444,10 +458,10 @@ void Game::moveToNextLevel() {
 
 		_level = LevelFactory::newLevel(levelNumber, this);
 	}
+
+	drawHUD();
 }
 
 void Game::endLevel() {
-
-	// TODO: This will crash everything!
-	moveToNextLevel();
+	_isLevelEnded = true;
 }

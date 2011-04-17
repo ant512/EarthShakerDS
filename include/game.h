@@ -170,6 +170,7 @@ private:
 	s32 _levelTimer;					/**< Timer used to decrease remaining level time. */
 	bool _isPlayerDead;					/**< Indicates whether or not the player has been killed. */
 	bool _isOddIteration;				/**< Indicates whether the game is in an odd or an even iteration. */
+	bool _isLevelEnded;					/**< Indicates that the level has finished. */
 
 	bool _upHeld;						/**< State of the up button. */
 	bool _downHeld;						/**< State of the down button. */

@@ -51,6 +51,8 @@ public:
 	~FireBlock() {};
 
 	bool pushLeft() {
+		if (_isExploding) return false;
+
 		// Get the block pushing this
 		BlockBase* block = _game->getLevel()->getBlockAt(_x + 1, _y);
 
@@ -63,6 +65,8 @@ public:
 	};
 
 	bool pushRight() {
+		if (_isExploding) return false;
+
 		// Get the block pushing this
 		BlockBase* block = _game->getLevel()->getBlockAt(_x - 1, _y);
 
@@ -75,6 +79,8 @@ public:
 	};
 
 	bool pushUp() {
+		if (_isExploding) return false;
+
 		// Get the block pushing this
 		BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
 
@@ -87,6 +93,8 @@ public:
 	};
 
 	bool pushDown() {
+		if (_isExploding) return false;
+		
 		// Get the block pushing this
 		BlockBase* block = _game->getLevel()->getBlockAt(_x, _y - 1);
 
