@@ -21,6 +21,7 @@
 #include "heartwallbmp.h"
 #include "honeycombwallbmp.h"
 #include "icewallbmp.h"
+#include "leafywallbmp.h"
 #include "metalwallbmp.h"
 #include "rockwallbmp.h"
 
@@ -62,6 +63,7 @@ public:
 		HeartWallBmp heartWallBmp;
 		HoneycombWallBmp honeycombWallBmp;
 		IceWallBmp iceWallBmp;
+		LeafyWallBmp leafyWallBmp;
 		MetalWallBmp metalWallBmp;
 		RockWallBmp rockWallBmp;
 
@@ -85,6 +87,7 @@ public:
 		_heartWallBmp = createMutableBitmap(&heartWallBmp);
 		_honeycombWallBmp = createMutableBitmap(&honeycombWallBmp);
 		_iceWallBmp = createMutableBitmap(&iceWallBmp);
+		_leafyWallBmp = createMutableBitmap(&leafyWallBmp);
 		_metalWallBmp = createMutableBitmap(&metalWallBmp);
 		_rockWallBmp = createMutableBitmap(&rockWallBmp);
 
@@ -306,6 +309,14 @@ public:
 	};
 
 	/**
+	 * Gets a pointer to the leafy wall bitmap.
+	 * @return A pointer to the leafy wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getLeafyWallBmp() {
+		return _leafyWallBmp;
+	};
+
+	/**
 	 * Gets a pointer to the metal wall bitmap.
 	 * @return A pointer to the metal wall bitmap.
 	 */
@@ -497,6 +508,7 @@ private:
 	static WoopsiGfx::Bitmap* _heartWallBmp;
 	static WoopsiGfx::Bitmap* _honeycombWallBmp;
 	static WoopsiGfx::Bitmap* _iceWallBmp;
+	static WoopsiGfx::Bitmap* _leafyWallBmp;
 	static WoopsiGfx::Bitmap* _metalWallBmp;
 	static WoopsiGfx::Bitmap* _rockWallBmp;
 

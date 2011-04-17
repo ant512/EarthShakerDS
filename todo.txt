@@ -32,8 +32,6 @@ Todo
    - Convert bitmap
  - Nuclear wall:
    - Convert bitmap
- - Honeycomb wall:
-   - Convert bitmap
  - Question soil/wall:
    - Convert bitmap
  - Pipe wall:
