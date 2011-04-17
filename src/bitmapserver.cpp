@@ -19,7 +19,10 @@ WoopsiGfx::Bitmap* BitmapServer::_leafyWallBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_metalWallBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_nuclearWallBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_pipeWallBmp = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_questionWallBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_rockWallBmp = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_sandWallBmp = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_squareWallBmp = NULL;
 
 WoopsiGfx::Bitmap* BitmapServer::_redDoorBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_greenDoorBmp = NULL;

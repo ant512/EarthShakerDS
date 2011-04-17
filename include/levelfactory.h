@@ -184,6 +184,18 @@ private:
 					case 26:
 						block = new WallBlock(x, y, game, BitmapServer::getPipeWallBmp());
 						break;
+					case 27:
+						block = new WallBlock(x, y, game, BitmapServer::getQuestionWallBmp());
+						break;
+					case 28:
+						block = new SoilBlock(x, y, game, BitmapServer::getQuestionWallBmp());
+						break;
+					case 29:
+						block = new WallBlock(x, y, game, BitmapServer::getSandWallBmp());
+						break;
+					case 30:
+						block = new WallBlock(x, y, game, BitmapServer::getSquareWallBmp());
+						break;
 				}
 
 				level->setBlockAt(x, y, block);

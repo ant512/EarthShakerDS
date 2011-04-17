@@ -25,7 +25,10 @@
 #include "metalwallbmp.h"
 #include "nuclearwallbmp.h"
 #include "pipewallbmp.h"
+#include "questionwallbmp.h"
 #include "rockwallbmp.h"
+#include "sandwallbmp.h"
+#include "squarewallbmp.h"
 
 #include "honeycombsoilbmp.h"
 #include "soilbmp.h"
@@ -69,7 +72,10 @@ public:
 		MetalWallBmp metalWallBmp;
 		NuclearWallBmp nuclearWallBmp;
 		PipeWallBmp pipeWallBmp;
+		QuestionWallBmp questionWallBmp;
 		RockWallBmp rockWallBmp;
+		SandWallBmp sandWallBmp;
+		SquareWallBmp squareWallBmp;
 
 		DoorBmp doorBmp;
 
@@ -95,7 +101,10 @@ public:
 		_metalWallBmp = createMutableBitmap(&metalWallBmp);
 		_nuclearWallBmp = createMutableBitmap(&nuclearWallBmp);
 		_pipeWallBmp = createMutableBitmap(&pipeWallBmp);
+		_questionWallBmp = createMutableBitmap(&questionWallBmp);
 		_rockWallBmp = createMutableBitmap(&rockWallBmp);
+		_sandWallBmp = createMutableBitmap(&sandWallBmp);
+		_squareWallBmp = createMutableBitmap(&squareWallBmp);
 
 		_redSoilBmp = createMutableBitmap(&soilBmp);
 		_blueSoilBmp = createMutableBitmap(&soilBmp);
@@ -251,7 +260,10 @@ public:
 		if (_metalWallBmp != NULL) delete _metalWallBmp;
 		if (_nuclearWallBmp != NULL) delete _nuclearWallBmp;
 		if (_pipeWallBmp != NULL) delete _pipeWallBmp;
+		if (_questionWallBmp != NULL) delete _questionWallBmp;
 		if (_rockWallBmp != NULL) delete _rockWallBmp;
+		if (_sandWallBmp != NULL) delete _sandWallBmp;
+		if (_squareWallBmp != NULL) delete _squareWallBmp;
 
 		if (_redDoorBmp != NULL) delete _redDoorBmp;
 		if (_greenDoorBmp != NULL) delete _greenDoorBmp;
@@ -350,11 +362,35 @@ public:
 	};
 
 	/**
+	 * Gets a pointer to the question wall bitmap.
+	 * @return A pointer to the question wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getQuestionWallBmp() {
+		return _questionWallBmp;
+	};
+
+	/**
 	 * Gets a pointer to the rock wall bitmap.
 	 * @return A pointer to the rock wall bitmap.
 	 */
 	inline static WoopsiGfx::Bitmap* getRockWallBmp() {
 		return _rockWallBmp;
+	};
+
+	/**
+	 * Gets a pointer to the sand wall bitmap.
+	 * @return A pointer to the sand wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getSandWallBmp() {
+		return _sandWallBmp;
+	};
+
+	/**
+	 * Gets a pointer to the square wall bitmap.
+	 * @return A pointer to the square wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getSquareWallBmp() {
+		return _squareWallBmp;
 	};
 
 	/**
@@ -537,7 +573,10 @@ private:
 	static WoopsiGfx::Bitmap* _metalWallBmp;
 	static WoopsiGfx::Bitmap* _nuclearWallBmp;
 	static WoopsiGfx::Bitmap* _pipeWallBmp;
+	static WoopsiGfx::Bitmap* _questionWallBmp;
 	static WoopsiGfx::Bitmap* _rockWallBmp;
+	static WoopsiGfx::Bitmap* _sandWallBmp;
+	static WoopsiGfx::Bitmap* _squareWallBmp;
 
 	static WoopsiGfx::Bitmap* _redDoorBmp;
 	static WoopsiGfx::Bitmap* _blueDoorBmp;
