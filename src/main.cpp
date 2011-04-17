@@ -55,6 +55,11 @@ int main(int argc, char* argv[]) {
 			game->setLeftHeld((keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT));
 			game->setRightHeld((keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT));
 
+			while (((keysDown() & KEY_R) || (keysHeld() & KEY_R)) && ((keysDown() & KEY_L) || (keysHeld() & KEY_L))) {
+				scanKeys();
+				game->killPlayer();
+			}
+
 			game->iterate();
 			swiWaitForVBlank();
 		}

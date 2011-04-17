@@ -1,15 +1,12 @@
 Todo
 ----
 
- - Map screen
- - Suicide button for when player is stuck.  Options:
-   - Both shoulder buttons simultaneously
-   - Pause menu gives the option
  - New screens:
    - Menu screen - level select, etc.
    - Game over
    - Game complete
    - Between level sequence?
+   - Map screen
  - Sounds
  - Change DoorBlock constructor so that it accepts a bitmap.
  - Add all door and soil colours to LevelFactory.
