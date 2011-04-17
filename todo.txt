@@ -47,9 +47,6 @@ Todo
  - Honeycomb soil:
    - Convert bitmap
    - Create class
- - Brain wall:
-   - Convert bitmap
-   - Create class
  - Pipe wall:
    - Convert bitmap
    - Create class

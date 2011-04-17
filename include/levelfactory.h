@@ -7,6 +7,7 @@
 #include "barriercontrolblock.h"
 #include "beanblock.h"
 #include "boulderblock.h"
+#include "brainwallblock.h"
 #include "brickwallblock.h"
 #include "bubbleblock.h"
 #include "diamondblock.h"
@@ -160,6 +161,9 @@ private:
 						break;
 					case 18:
 						block = new TeleportBlock(x, y, game);
+						break;
+					case 19:
+						block = new BrainWallBlock(x, y, game);
 						break;
 				}
 

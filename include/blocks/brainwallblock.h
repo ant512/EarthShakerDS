@@ -1,5 +1,5 @@
-#ifndef _ICE_WALL_BLOCK_H_
-#define _ICE_WALL_BLOCK_H_
+#ifndef _BRAIN_WALL_BLOCK_H_
+#define _BRAIN_WALL_BLOCK_H_
 
 #include <graphics.h>
 #include <bitmap.h>
@@ -7,13 +7,13 @@
 
 #include "blockbase.h"
 
-#include "icewallbmp.h"
+#include "brainwallbmp.h"
 
 /**
  * Wall blocks are static.  They have no function other than providing
  * obstacles.
  */
-class IceWallBlock : public BlockBase {
+class BrainWallBlock : public BlockBase {
 public:
 
 	/**
@@ -22,17 +22,17 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	IceWallBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	BrainWallBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_animation->addFrame(&_bmp, 0);
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~IceWallBlock() {};
+	~BrainWallBlock() {};
 
 private:
-	IceWallBmp _bmp;					/**< The wall bitmap. */
+	BrainWallBmp _bmp;					/**< The wall bitmap. */
 };
 
 #endif
