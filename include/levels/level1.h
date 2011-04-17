@@ -40,7 +40,6 @@ public:
 
 		BitmapServer::makeBrickWallRed();
 		BitmapServer::makeBouldersYellow();
-		BitmapServer::makeSoilBlue();
 	};
 };
 

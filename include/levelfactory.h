@@ -103,7 +103,7 @@ private:
 						block = NULL;
 						break;
 					case 1:
-						block = new SoilBlock(x, y, game, BitmapServer::getSoilBmp());
+						block = new SoilBlock(x, y, game, BitmapServer::getBlueSoilBmp());
 						break;
 					case 2:
 						block = new BoulderBlock(x, y, game);
