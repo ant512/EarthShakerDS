@@ -32,11 +32,11 @@ public:
 
 		// 1, 2, 3, 4, 3, 2, 5, 6, 7, 8, 7, 6
 		_animation->addFrame(&_bmp1, 0);
-		_animation->addFrame(&_bmp2, 0);
-		_animation->addFrame(&_bmp3, 0);
 		_animation->addFrame(&_bmp4, 0);
+		_animation->addFrame(&_bmp2, 0);
 		_animation->addFrame(&_bmp3, 0);
 		_animation->addFrame(&_bmp2, 0);
+		_animation->addFrame(&_bmp4, 0);
 		_animation->addFrame(&_bmp5, 0);
 		_animation->addFrame(&_bmp6, 0);
 		_animation->addFrame(&_bmp7, 0);

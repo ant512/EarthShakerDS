@@ -23,6 +23,7 @@
 #include "icewallbmp.h"
 #include "leafywallbmp.h"
 #include "metalwallbmp.h"
+#include "nuclearwallbmp.h"
 #include "rockwallbmp.h"
 
 #include "honeycombsoilbmp.h"
@@ -65,6 +66,7 @@ public:
 		IceWallBmp iceWallBmp;
 		LeafyWallBmp leafyWallBmp;
 		MetalWallBmp metalWallBmp;
+		NuclearWallBmp nuclearWallBmp;
 		RockWallBmp rockWallBmp;
 
 		DoorBmp doorBmp;
@@ -89,6 +91,7 @@ public:
 		_iceWallBmp = createMutableBitmap(&iceWallBmp);
 		_leafyWallBmp = createMutableBitmap(&leafyWallBmp);
 		_metalWallBmp = createMutableBitmap(&metalWallBmp);
+		_nuclearWallBmp = createMutableBitmap(&nuclearWallBmp);
 		_rockWallBmp = createMutableBitmap(&rockWallBmp);
 
 		_redSoilBmp = createMutableBitmap(&soilBmp);
@@ -325,6 +328,14 @@ public:
 	};
 
 	/**
+	 * Gets a pointer to the nuclear wall bitmap.
+	 * @return A pointer to the nuclear wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getNuclearWallBmp() {
+		return _nuclearWallBmp;
+	};
+
+	/**
 	 * Gets a pointer to the rock wall bitmap.
 	 * @return A pointer to the rock wall bitmap.
 	 */
@@ -510,6 +521,7 @@ private:
 	static WoopsiGfx::Bitmap* _iceWallBmp;
 	static WoopsiGfx::Bitmap* _leafyWallBmp;
 	static WoopsiGfx::Bitmap* _metalWallBmp;
+	static WoopsiGfx::Bitmap* _nuclearWallBmp;
 	static WoopsiGfx::Bitmap* _rockWallBmp;
 
 	static WoopsiGfx::Bitmap* _redDoorBmp;
