@@ -3,12 +3,12 @@
 
 #include <woopsiarray.h>
 
+#include "bitmapserver.h"
+
 #include "barrierblock.h"
 #include "barriercontrolblock.h"
 #include "beanblock.h"
 #include "boulderblock.h"
-#include "brainwallblock.h"
-#include "brickwallblock.h"
 #include "bubbleblock.h"
 #include "diamondblock.h"
 #include "doorblock.h"
@@ -16,14 +16,12 @@
 #include "fireblock.h"
 #include "gravityinversionblock.h"
 #include "game.h"
-#include "icewallblock.h"
 #include "levelbase.h"
 #include "leveldefinition.h"
-#include "metalwallblock.h"
 #include "playerblock.h"
-#include "rockwallblock.h"
 #include "soilblock.h"
 #include "teleportblock.h"
+#include "wallblock.h"
 #include "wetsoilblock.h"
 
 #include "level0.h"
@@ -122,7 +120,7 @@ private:
 						block = new BubbleBlock(x, y, game);
 						break;
 					case 6:
-						block = new BrickWallBlock(x, y, game);
+						block = new WallBlock(x, y, game, BitmapServer::getBrickWallBmp());
 						break;
 					case 7:
 						block = new FireBlock(x, y, game);
@@ -137,10 +135,10 @@ private:
 						block = new ExtraLifeBlock(x, y, game);
 						break;
 					case 11:
-						block = new RockWallBlock(x, y, game);
+						block = new WallBlock(x, y, game, BitmapServer::getRockWallBmp());
 						break;
 					case 12:
-						block = new IceWallBlock(x, y, game);
+						block = new WallBlock(x, y, game, BitmapServer::getIceWallBmp());
 						break;
 					case 13:
 						block = new WetSoilBlock(x, y, game);
@@ -149,7 +147,7 @@ private:
 						block = new DoorBlock(x, y, game);
 						break;
 					case 15:
-						block = new MetalWallBlock(x, y, game);
+						block = new WallBlock(x, y, game, BitmapServer::getMetalWallBmp());
 						break;
 					case 16:
 						block = new BarrierBlock(x, y, game);
@@ -163,7 +161,10 @@ private:
 						block = new TeleportBlock(x, y, game);
 						break;
 					case 19:
-						block = new BrainWallBlock(x, y, game);
+						block = new WallBlock(x, y, game, BitmapServer::getBrainWallBmp());
+						break;
+					case 20:
+						block = new WallBlock(x, y, game, BitmapServer::getGirderWallBmp());
 						break;
 				}
 

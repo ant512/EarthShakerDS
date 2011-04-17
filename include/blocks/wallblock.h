@@ -1,19 +1,17 @@
-#ifndef _BRAIN_WALL_BLOCK_H_
-#define _BRAIN_WALL_BLOCK_H_
+#ifndef _WALL_BLOCK_H_
+#define _WALL_BLOCK_H_
 
 #include <graphics.h>
-#include <bitmap.h>
-#include <game.h>
+#include <bitmapbase.h>
 
+#include "game.h"
 #include "blockbase.h"
-
-#include "brainwallbmp.h"
 
 /**
  * Wall blocks are static.  They have no function other than providing
  * obstacles.
  */
-class BrainWallBlock : public BlockBase {
+class WallBlock : public BlockBase {
 public:
 
 	/**
@@ -21,18 +19,17 @@ public:
 	 * @param x The x co-ordinate within the level map of the block.
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
+	 * @param bitmap The bitmap to use as the visual representation of the
+	 * block.
 	 */
-	BrainWallBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		_animation->addFrame(&_bmp, 0);
+	WallBlock(s32 x, s32 y, Game* game, WoopsiGfx::BitmapBase* bitmap) : BlockBase(x, y, game) {
+		_animation->addFrame(bitmap, 0);
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~BrainWallBlock() {};
-
-private:
-	BrainWallBmp _bmp;					/**< The wall bitmap. */
+	~WallBlock() {};
 };
 
 #endif

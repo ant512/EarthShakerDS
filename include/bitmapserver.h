@@ -6,7 +6,6 @@
 #include <graphics.h>
 #include <mutablebitmapbase.h>
 
-#include <brickwallbmp.h>
 #include "boulderbmp.h"
 #include "boulderexplodebmp1.h"
 #include "boulderexplodebmp2.h"
@@ -15,8 +14,18 @@
 #include "boulderexplodebmp5.h"
 #include "boulderexplodebmp6.h"
 #include "boulderexplodebmp7.h"
-#include "doorbmp.h"
+
+#include "brainwallbmp.h"
+#include "brickwallbmp.h"
+#include "girderwallbmp.h"
+#include "icewallbmp.h"
+#include "metalwallbmp.h"
+#include "rockwallbmp.h"
+
 #include "soilbmp.h"
+
+#include "doorbmp.h"
+
 #include "spectrumcolours.h"
 
 /**
@@ -43,8 +52,16 @@ public:
 		BoulderExplodeBmp5 boulderExplodeBmp5;
 		BoulderExplodeBmp6 boulderExplodeBmp6;
 		BoulderExplodeBmp7 boulderExplodeBmp7;
+
+		BrainWallBmp brainWallBmp;
 		BrickWallBmp brickWallBmp;
+		GirderWallBmp girderWallBmp;
+		IceWallBmp iceWallBmp;
+		MetalWallBmp metalWallBmp;
+		RockWallBmp rockWallBmp;
+
 		DoorBmp doorBmp;
+
 		SoilBmp soilBmp;
 
 		_boulderBmp = createMutableBitmap(&boulderBmp);
@@ -55,7 +72,14 @@ public:
 		_boulderExplodeBmp5 = createMutableBitmap(&boulderExplodeBmp5);
 		_boulderExplodeBmp6 = createMutableBitmap(&boulderExplodeBmp6);
 		_boulderExplodeBmp7 = createMutableBitmap(&boulderExplodeBmp7);
+
+		_brainWallBmp = createMutableBitmap(&brainWallBmp);
 		_brickWallBmp = createMutableBitmap(&brickWallBmp);
+		_girderWallBmp = createMutableBitmap(&girderWallBmp);
+		_iceWallBmp = createMutableBitmap(&iceWallBmp);
+		_metalWallBmp = createMutableBitmap(&metalWallBmp);
+		_rockWallBmp = createMutableBitmap(&rockWallBmp);
+
 		_soilBmp = createMutableBitmap(&soilBmp);
 
 		_redDoorBmp = createMutableBitmap(&doorBmp);
@@ -167,7 +191,6 @@ public:
 		changeBoulderColours(COLOUR_YELLOW, COLOUR_YELLOW_DARK);
 	};
 
-
 	/**
 	 * Turns the boulder bitmaps blue.
 	 */
@@ -216,13 +239,29 @@ public:
 		if (_boulderExplodeBmp5 != NULL) delete _boulderExplodeBmp5;
 		if (_boulderExplodeBmp6 != NULL) delete _boulderExplodeBmp6;
 		if (_boulderExplodeBmp7 != NULL) delete _boulderExplodeBmp7;
+
+		if (_brainWallBmp != NULL) delete _brainWallBmp;
 		if (_brickWallBmp != NULL) delete _brickWallBmp;
+		if (_girderWallBmp != NULL) delete _girderWallBmp;
+		if (_iceWallBmp != NULL) delete _iceWallBmp;
+		if (_metalWallBmp != NULL) delete _metalWallBmp;
+		if (_rockWallBmp != NULL) delete _rockWallBmp;
+
 		if (_redDoorBmp != NULL) delete _redDoorBmp;
 		if (_greenDoorBmp != NULL) delete _greenDoorBmp;
 		if (_blueDoorBmp != NULL) delete _blueDoorBmp;
 		if (_cyanDoorBmp != NULL) delete _cyanDoorBmp;
 		if (_magentaDoorBmp != NULL) delete _magentaDoorBmp;
+
 		if (_soilBmp != NULL) delete _soilBmp;
+	};
+
+	/**
+	 * Gets a pointer to the brain wall bitmap.
+	 * @return A pointer to the brain wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getBrainWallBmp() {
+		return _brainWallBmp;
 	};
 
 	/**
@@ -231,6 +270,38 @@ public:
 	 */
 	inline static WoopsiGfx::Bitmap* getBrickWallBmp() {
 		return _brickWallBmp;
+	};
+
+	/**
+	 * Gets a pointer to the girder wall bitmap.
+	 * @return A pointer to the girder wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getGirderWallBmp() {
+		return _girderWallBmp;
+	};
+
+	/**
+	 * Gets a pointer to the ice wall bitmap.
+	 * @return A pointer to the ice wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getIceWallBmp() {
+		return _iceWallBmp;
+	};
+
+	/**
+	 * Gets a pointer to the metal wall bitmap.
+	 * @return A pointer to the metal wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getMetalWallBmp() {
+		return _metalWallBmp;
+	};
+
+	/**
+	 * Gets a pointer to the rock wall bitmap.
+	 * @return A pointer to the rock wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getRockWallBmp() {
+		return _rockWallBmp;
 	};
 
 	/**
@@ -354,7 +425,14 @@ private:
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp5;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp6;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp7;
+
+	static WoopsiGfx::Bitmap* _brainWallBmp;
 	static WoopsiGfx::Bitmap* _brickWallBmp;
+	static WoopsiGfx::Bitmap* _girderWallBmp;
+	static WoopsiGfx::Bitmap* _iceWallBmp;
+	static WoopsiGfx::Bitmap* _metalWallBmp;
+	static WoopsiGfx::Bitmap* _rockWallBmp;
+
 	static WoopsiGfx::Bitmap* _redDoorBmp;
 	static WoopsiGfx::Bitmap* _blueDoorBmp;
 	static WoopsiGfx::Bitmap* _greenDoorBmp;
