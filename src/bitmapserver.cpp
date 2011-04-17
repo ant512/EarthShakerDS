@@ -29,3 +29,5 @@ WoopsiGfx::Bitmap* BitmapServer::_blueSoilBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_magentaSoilBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_cyanSoilBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_whiteSoilBmp = NULL;
+
+WoopsiGfx::Bitmap* BitmapServer::_honeycombSoilBmp = NULL;

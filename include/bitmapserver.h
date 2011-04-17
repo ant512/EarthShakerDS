@@ -23,6 +23,7 @@
 #include "metalwallbmp.h"
 #include "rockwallbmp.h"
 
+#include "honeycombsoilbmp.h"
 #include "soilbmp.h"
 
 #include "doorbmp.h"
@@ -64,6 +65,7 @@ public:
 
 		DoorBmp doorBmp;
 
+		HoneycombSoilBmp honeycombSoilBmp;
 		SoilBmp soilBmp;
 
 		_boulderBmp = createMutableBitmap(&boulderBmp);
@@ -89,6 +91,8 @@ public:
 		_cyanSoilBmp = createMutableBitmap(&soilBmp);
 		_magentaSoilBmp = createMutableBitmap(&soilBmp);
 		_whiteSoilBmp = createMutableBitmap(&soilBmp);
+
+		_honeycombSoilBmp = createMutableBitmap(&honeycombSoilBmp);
 
 		_redDoorBmp = createMutableBitmap(&doorBmp);
 		_blueDoorBmp = createMutableBitmap(&doorBmp);
@@ -245,6 +249,8 @@ public:
 		if (_cyanSoilBmp != NULL) delete _cyanSoilBmp;
 		if (_magentaSoilBmp != NULL) delete _magentaSoilBmp;
 		if (_whiteSoilBmp != NULL) delete _whiteSoilBmp;
+
+		if (_honeycombSoilBmp != NULL) delete _honeycombSoilBmp;
 	};
 
 	/**
@@ -455,6 +461,14 @@ public:
 		return _whiteSoilBmp;
 	};
 
+	/**
+	 * Gets a pointer to the honeycomb soil bitmap.
+	 * @return A pointer to the honeycomb soil bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getHoneycombSoilBmp() {
+		return _honeycombSoilBmp;
+	};
+
 private:
 	static WoopsiGfx::Bitmap* _boulderBmp;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp1;
@@ -485,6 +499,8 @@ private:
 	static WoopsiGfx::Bitmap* _cyanSoilBmp;
 	static WoopsiGfx::Bitmap* _magentaSoilBmp;
 	static WoopsiGfx::Bitmap* _whiteSoilBmp;
+
+	static WoopsiGfx::Bitmap* _honeycombSoilBmp;
 
 	/**
 	 * Constructor is private to prevent creation.

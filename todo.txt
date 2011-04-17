@@ -34,13 +34,8 @@ Todo
    - Convert bitmap
  - Honeycomb wall:
    - Convert bitmap
- - Honeycomb soil:
+ - Question soil/wall:
    - Convert bitmap
-   - Create class
- - Pipe wall:
-   - Convert bitmap
- - Question soil:
-   - Create class
  - Pipe wall:
    - Convert bitmap
  - Leafy wall:
