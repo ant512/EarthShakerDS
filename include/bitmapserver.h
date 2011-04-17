@@ -19,6 +19,7 @@
 #include "brickwallbmp.h"
 #include "girderwallbmp.h"
 #include "heartwallbmp.h"
+#include "honeycombwallbmp.h"
 #include "icewallbmp.h"
 #include "metalwallbmp.h"
 #include "rockwallbmp.h"
@@ -59,6 +60,7 @@ public:
 		BrickWallBmp brickWallBmp;
 		GirderWallBmp girderWallBmp;
 		HeartWallBmp heartWallBmp;
+		HoneycombWallBmp honeycombWallBmp;
 		IceWallBmp iceWallBmp;
 		MetalWallBmp metalWallBmp;
 		RockWallBmp rockWallBmp;
@@ -81,6 +83,7 @@ public:
 		_brickWallBmp = createMutableBitmap(&brickWallBmp);
 		_girderWallBmp = createMutableBitmap(&girderWallBmp);
 		_heartWallBmp = createMutableBitmap(&heartWallBmp);
+		_honeycombWallBmp = createMutableBitmap(&honeycombWallBmp);
 		_iceWallBmp = createMutableBitmap(&iceWallBmp);
 		_metalWallBmp = createMutableBitmap(&metalWallBmp);
 		_rockWallBmp = createMutableBitmap(&rockWallBmp);
@@ -233,6 +236,7 @@ public:
 		if (_brickWallBmp != NULL) delete _brickWallBmp;
 		if (_girderWallBmp != NULL) delete _girderWallBmp;
 		if (_heartWallBmp != NULL) delete _heartWallBmp;
+		if (_honeycombWallBmp != NULL) delete _honeycombWallBmp;
 		if (_iceWallBmp != NULL) delete _iceWallBmp;
 		if (_metalWallBmp != NULL) delete _metalWallBmp;
 		if (_rockWallBmp != NULL) delete _rockWallBmp;
@@ -283,6 +287,14 @@ public:
 	 */
 	inline static WoopsiGfx::Bitmap* getHeartWallBmp() {
 		return _heartWallBmp;
+	};
+
+	/**
+	 * Gets a pointer to the honeycomb wall bitmap.
+	 * @return A pointer to the honeycomb wall bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getHoneycombWallBmp() {
+		return _honeycombWallBmp;
 	};
 
 	/**
@@ -483,6 +495,7 @@ private:
 	static WoopsiGfx::Bitmap* _brickWallBmp;
 	static WoopsiGfx::Bitmap* _girderWallBmp;
 	static WoopsiGfx::Bitmap* _heartWallBmp;
+	static WoopsiGfx::Bitmap* _honeycombWallBmp;
 	static WoopsiGfx::Bitmap* _iceWallBmp;
 	static WoopsiGfx::Bitmap* _metalWallBmp;
 	static WoopsiGfx::Bitmap* _rockWallBmp;

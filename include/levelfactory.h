@@ -170,7 +170,10 @@ private:
 						block = new WallBlock(x, y, game, BitmapServer::getHeartWallBmp());
 						break;
 					case 22:
-						block = new WallBlock(x, y, game, BitmapServer::getHoneycombSoilBmp());
+						block = new SoilBlock(x, y, game, BitmapServer::getHoneycombSoilBmp());
+						break;
+					case 23:
+						block = new WallBlock(x, y, game, BitmapServer::getHoneycombWallBmp());
 						break;
 				}
 
