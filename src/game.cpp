@@ -35,7 +35,7 @@ s32 Game::getRemainingTime() const {
 }
 
 s32 Game::getRemainingDiamonds() const {
-	return 0; //_level->getDiamondCount() - _collectedDiamonds;
+	return _level->getDiamondCount() - _collectedDiamonds;
 }
 
 LevelBase* Game::getLevel() const {
