@@ -38,6 +38,7 @@ public:
 	 */
 	bool pushUp() {
 		_game->increaseLives();
+		_game->addScore(EXTRA_LIFE_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
@@ -48,6 +49,7 @@ public:
 	 */
 	bool pushDown() {
 		_game->increaseLives();
+		_game->addScore(EXTRA_LIFE_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
@@ -58,6 +60,7 @@ public:
 	 */
 	bool pushLeft() {
 		_game->increaseLives();
+		_game->addScore(EXTRA_LIFE_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};
@@ -68,6 +71,7 @@ public:
 	 */
 	bool pushRight() {
 		_game->increaseLives();
+		_game->addScore(EXTRA_LIFE_SCORE);
 		_game->getLevel()->removeBlockAt(_x, _y);
 		return true;
 	};

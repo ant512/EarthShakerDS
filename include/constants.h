@@ -40,6 +40,11 @@ const s32 DIAMOND_SCORE = 10;
 const s32 FIRE_EXTINGUISH_SCORE = 100;
 
 /**
+ * Points for collecting an extra life.
+ */
+const s32 EXTRA_LIFE_SCORE = 20;
+
+/**
  * Points for collecting a bean.
  */
 const s32 BEAN_SCORE = 64;

@@ -2,7 +2,6 @@ Todo
 ----
 
  - Implement all scoring:
-   - Extra life?
    - Level finished - bonus for completion?  Time remaining bonus?
  - Map screen
  - Suicide button for when player is stuck.  Options:
@@ -22,7 +21,6 @@ Todo
  - Should player move onto the door block at the end of the level, or stay on
    the previous block?
  - Extra Life block:
-   - Does collecting them raise the score?
    - Should the blocks fall?  If so, do they kill when falling on the player?
    - Are the blocks slippy?
    - Add the block bitmaps
