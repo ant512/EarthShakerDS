@@ -7,8 +7,7 @@
 
 #include "blockbase.h"
 
-// TODO: Add white wall bitmap and uncomment.
-//#include "icewallbmp.h"
+#include "icewallbmp.h"
 
 /**
  * Wall blocks are static.  They have no function other than providing
@@ -33,7 +32,7 @@ public:
 	~IceWallBlock() {};
 
 private:
-	//IceWallBmp _bmp;					/**< The wall bitmap. */
+	IceWallBmp _bmp;					/**< The wall bitmap. */
 };
 
 #endif
