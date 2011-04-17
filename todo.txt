@@ -8,10 +8,12 @@ Todo
  - New screens:
    - Menu screen - level select, etc.
    - Game over
+   - Game complete
    - Between level sequence?
  - Sounds
- - Need some way of specifying starting door colour - perhaps an extra
-   constructor parameter?
+ - Change DoorBlock constructor so that it accepts a bitmap.
+ - Add all door and soil colours to LevelFactory.
+ - Re-order LevelFactory switch statement so that similar blocks are grouped.
  - Extra Life block:
    - Should the blocks fall?  If so, do they kill when falling on the player?
    - Are the blocks slippy?
