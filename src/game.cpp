@@ -20,13 +20,6 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_level = NULL;
 
 	moveToNextLevel();
-
-	drawHUD();
-	drawDiamondCounters();
-	drawScore();
-	drawLifeCounter();
-	drawGravityCounter();
-	drawGravityIndicator();
 }
 
 Game::~Game() {
@@ -155,6 +148,32 @@ void Game::render() {
 }
 
 void Game::iterate() {
+
+	if (_isPlayerDead) {
+		decreaseLives();
+
+		if (_lives > -1) {
+			resetLevel();
+		} else {
+			// TODO: Stop game
+		}
+
+		return;
+	}
+
+	if (_isLevelEnded) {
+		_remainingTime -= 2;
+		addScore(2);		// One point per second
+
+		drawTimerBar();
+
+		if (_remainingTime < 1) {
+			moveToNextLevel();
+		}
+
+		return;
+	}
+
 	animate();
 	timer();
 	move();
@@ -181,27 +200,6 @@ void Game::animate() {
 }
 
 void Game::move() {
-
-	if (_isPlayerDead) {
-
-		// TODO: Check life count and stop game if no lives are left.
-		decreaseLives();
-		resetLevel();
-		return;
-	}
-
-	if (_isLevelEnded) {
-		_remainingTime -= 2;
-
-		drawTimerBar();
-
-		if (_remainingTime < 1) {
-			moveToNextLevel();
-		}
-
-		return;
-	}
-
 	_movementTimer++;
 
 	if (_movementTimer == MOVEMENT_TIME) {
@@ -403,9 +401,10 @@ void Game::drawTimerBar() {
 
 	s32 barY = 178;
 	s32 width = STARTING_TIME - _remainingTime;
+	s32 barX = SCREEN_WIDTH - width;
 
 	// Draw new bar graphic
-	_topGfx->drawFilledRect(SCREEN_WIDTH - width, barY, width, 4, COLOUR_BLACK);
+	_topGfx->drawFilledRect(barX, barY, width, 4, COLOUR_BLACK);
 }
 
 void Game::invertGravity() {
@@ -420,6 +419,7 @@ void Game::resetLevel() {
 	_remainingTime = STARTING_TIME;
 	_remainingGravityTime = 0;
 	_isPlayerDead = false;
+	_isLevelEnded = false;
 
 	_animationTimer = 0;
 	_movementTimer = 0;
@@ -433,6 +433,13 @@ void Game::resetLevel() {
 	}
 
 	_level = LevelFactory::newLevel(levelNumber, this);
+
+	drawHUD();
+	drawDiamondCounters();
+	drawScore();
+	drawLifeCounter();
+	drawGravityCounter();
+	drawGravityIndicator();
 }
 
 
@@ -460,6 +467,11 @@ void Game::moveToNextLevel() {
 	}
 
 	drawHUD();
+	drawDiamondCounters();
+	drawScore();
+	drawLifeCounter();
+	drawGravityCounter();
+	drawGravityIndicator();
 }
 
 void Game::endLevel() {

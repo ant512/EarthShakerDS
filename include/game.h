@@ -153,6 +153,10 @@ public:
 	 */
 	s32 getRemainingDiamonds() const;
 
+	/**
+	 * Marks the level as ended.  On the next game iteration, remaining time
+	 * will be scored and the next level will be created.
+	 */
 	void endLevel();
 
 private:

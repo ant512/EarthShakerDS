@@ -63,7 +63,7 @@ const s32 STARTING_LIVES = 5;
  * Amount of time each level starts with.  Starting time value is the same as
  * the screen width, which makes drawing the timer bar simple.
  */
-const s32 STARTING_TIME = 192;
+const s32 STARTING_TIME = 256;
 
 /**
  * Amount of time gravity is inverted for on picking up the gravity switch
