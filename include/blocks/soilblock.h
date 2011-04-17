@@ -21,10 +21,12 @@ public:
 	 * @param x The x co-ordinate within the level map of the block.
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
+	 * @param bitmap The bitmap to use as the visual representation of the
+	 * block.
 	 */
-	SoilBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	SoilBlock(s32 x, s32 y, Game* game, WoopsiGfx::BitmapBase* bitmap) : BlockBase(x, y, game) {
 		_isSlippy = false;
-		_animation->addFrame(BitmapServer::getSoilBmp(), 0);
+		_animation->addFrame(bitmap, 0);
 	};
 
 	/**
