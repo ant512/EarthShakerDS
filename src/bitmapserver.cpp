@@ -12,6 +12,7 @@ WoopsiGfx::Bitmap* BitmapServer::_boulderExplodeBmp7 = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_brainWallBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_brickWallBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_girderWallBmp = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_heartWallBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_iceWallBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_metalWallBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_rockWallBmp = NULL;

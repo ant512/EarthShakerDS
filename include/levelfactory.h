@@ -166,6 +166,9 @@ private:
 					case 20:
 						block = new WallBlock(x, y, game, BitmapServer::getGirderWallBmp());
 						break;
+					case 21:
+						block = new WallBlock(x, y, game, BitmapServer::getHeartWallBmp());
+						break;
 				}
 
 				level->setBlockAt(x, y, block);
