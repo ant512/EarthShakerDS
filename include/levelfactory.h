@@ -178,6 +178,9 @@ private:
 					case 24:
 						block = new WallBlock(x, y, game, BitmapServer::getLeafyWallBmp());
 						break;
+					case 25:
+						block = new WallBlock(x, y, game, BitmapServer::getNuclearWallBmp());
+						break;
 				}
 
 				level->setBlockAt(x, y, block);

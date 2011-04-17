@@ -244,7 +244,9 @@ public:
 		if (_heartWallBmp != NULL) delete _heartWallBmp;
 		if (_honeycombWallBmp != NULL) delete _honeycombWallBmp;
 		if (_iceWallBmp != NULL) delete _iceWallBmp;
+		if (_leafyWallBmp != NULL) delete _leafyWallBmp;
 		if (_metalWallBmp != NULL) delete _metalWallBmp;
+		if (_nuclearWallBmp != NULL) delete _nuclearWallBmp;
 		if (_rockWallBmp != NULL) delete _rockWallBmp;
 
 		if (_redDoorBmp != NULL) delete _redDoorBmp;
