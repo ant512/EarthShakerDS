@@ -26,8 +26,6 @@ Todo
    - Should the blocks fall?  If so, do they kill when falling on the player?
    - Are the blocks slippy?
    - Add the block bitmaps
- - Barrier:
-   - Need to convert third frame (green) of animation
  - Wet soil:
    - Add animation frames
  - Ice wall:
