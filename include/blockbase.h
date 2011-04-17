@@ -65,6 +65,11 @@ public:
 	virtual void render(s32 x, s32 y, WoopsiGfx::Graphics* gfx);
 
 	/**
+	 * Moves to the next frame of animation.
+	 */
+	void animate();
+
+	/**
 	 * The block examines the level and based on its layout acts appropriately.
 	 * @return True if the block performs an action that changes the layout of
 	 * the map; false if not.

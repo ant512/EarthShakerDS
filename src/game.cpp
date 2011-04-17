@@ -124,6 +124,8 @@ PlayerBlock* Game::getPlayerBlock() const {
 
 void Game::render() {
 
+	_level->animate();
+
 	// Get the size of the display measured in blocks
 	s32 displayWidth = GAME_WIDTH / BlockBase::BLOCK_SIZE;
 	s32 displayHeight = GAME_HEIGHT / BlockBase::BLOCK_SIZE;

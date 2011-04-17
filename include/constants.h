@@ -17,7 +17,7 @@ const s32 MOVEMENT_TIME = 8;
  * Number of frames before remaining time decreases.  The DS runs at 60hz, so we
  * decrease the time once per second.
  */
-const s32 TIMER_TIME = 60;
+const s32 TIMER_TIME = 30;
 
 /**
  * Width of the game display.

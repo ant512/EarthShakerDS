@@ -122,6 +122,11 @@ public:
 	void render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, WoopsiGfx::Graphics* gfx);
 
 	/**
+	 * Animates all blocks in the level.
+	 */
+	void animate();
+
+	/**
 	 * Iterates all blocks in the level.  The gravity state determines the order
 	 * in which blocks are iterated.
 	 * @param isGravityInverted True for inverted gravity; false for normal

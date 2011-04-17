@@ -28,18 +28,22 @@ void BlockBase::render(s32 x, s32 y, WoopsiGfx::Graphics* gfx) {
 	const WoopsiGfx::BitmapBase* bitmap = NULL;
 
 	if (!_isExploding) {
-		_animation->run();
-
 		bitmap = _animation->getCurrentBitmap();
 	} else {
-		_explodingAnimation->run();
-
 		bitmap = _explodingAnimation->getCurrentBitmap();
 	}
 
 	if (bitmap == NULL) return;
 
 	gfx->drawBitmap(x, y, bitmap->getWidth(), bitmap->getHeight(), bitmap, 0, 0);
+}
+
+void BlockBase::animate() {
+	if (!_isExploding) {
+		_animation->run();
+	} else {
+		_explodingAnimation->run();
+	}
 }
 
 void BlockBase::iterate() {

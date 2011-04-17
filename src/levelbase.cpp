@@ -27,6 +27,12 @@ LevelBase::~LevelBase() {
 	delete[] _data;
 }
 
+void LevelBase::animate() {
+	for (s32 i = 0; i < _width * _height; ++i) {
+		if (_data[i] != NULL) _data[i]->animate();
+	}
+}
+
 void LevelBase::render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, WoopsiGfx::Graphics* gfx) {
 
 	// Ensure we don't try to draw more blocks than exist
