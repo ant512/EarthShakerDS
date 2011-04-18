@@ -61,10 +61,8 @@ public:
 			// If we're pushing the bubble onto fire, explode this and the fire
 			// block
 			if (block->isHot()) {
-				if (_isExploding) return false;
-
-				explode();
 				block->explode();
+				explode();
 
 				_game->addScore(FIRE_EXTINGUISH_SCORE);
 
@@ -109,10 +107,8 @@ public:
 			// If we're pushing the bubble onto fire, explode this and the fire
 			// block
 			if (block->isHot()) {
-				if (_isExploding) return false;
-
-				explode();
 				block->explode();
+				explode();
 
 				_game->addScore(FIRE_EXTINGUISH_SCORE);
 
@@ -156,10 +152,8 @@ public:
 			// If we're pushing the bubble onto fire, explode this and the fire
 			// block
 			if (block->isHot()) {
-				if (_isExploding) return false;
-
-				explode();
 				block->explode();
+				explode();
 
 				_game->addScore(FIRE_EXTINGUISH_SCORE);
 
@@ -205,10 +199,8 @@ public:
 			// If we're pushing the bubble onto fire, explode this and the fire
 			// block
 			if (block->isHot()) {
-				if (_isExploding) return false;
-
-				explode();
 				block->explode();
+				explode();
 
 				_game->addScore(FIRE_EXTINGUISH_SCORE);
 				
