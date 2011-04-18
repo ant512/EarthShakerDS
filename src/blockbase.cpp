@@ -130,8 +130,8 @@ void BlockBase::squashBlock() {
 
 void BlockBase::fall() {
 	if (_isOddIteration != _game->isOddIteration()) return;
-
 	if (!_isHeavy) return;
+	if (_isExploding) return;
 
 	if (_game->isGravityInverted()) {
 		raise();
@@ -239,6 +239,7 @@ void BlockBase::slideLeft() {
 	if (_isOddIteration != _game->isOddIteration()) return;
 	if (!_isHeavy) return;
 	if (_isFalling) return;
+	if (_isExploding) return;
 
 	LevelBase* level = _game->getLevel();
 	BlockBase* restingOn = NULL;
@@ -283,6 +284,7 @@ void BlockBase::slideRight() {
 	if (_isOddIteration != _game->isOddIteration()) return;
 	if (!_isHeavy) return;
 	if (_isFalling) return;
+	if (_isExploding) return;
 
 	LevelBase* level = _game->getLevel();
 	BlockBase* restingOn = NULL;
