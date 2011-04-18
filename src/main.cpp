@@ -5,6 +5,7 @@
 #include "constants.h"
 #include "bitmapserver.h"
 #include "logobmp.h"
+#include "gameoverscreen.h"
 
 void initGfxMode() {
 	powerOn(POWER_ALL_2D);
@@ -18,6 +19,40 @@ void initGfxMode() {
 	// Initialise backgrounds
 	bgInit(3, BgType_Bmp16, BgSize_B16_256x256, 0, 0);
 	bgInitSub(3, BgType_Bmp16, BgSize_B16_256x256, 0, 0);
+}
+
+void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32& score, s32& level) {
+	Game* game = new Game(topGfx, bottomGfx);
+
+	while(game->isRunning()) {
+		scanKeys();
+		game->setUpHeld((keysDown() & KEY_UP) || (keysHeld() & KEY_UP));
+		game->setDownHeld((keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN));
+		game->setLeftHeld((keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT));
+		game->setRightHeld((keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT));
+
+		while (((keysDown() & KEY_R) || (keysHeld() & KEY_R)) && ((keysDown() & KEY_L) || (keysHeld() & KEY_L))) {
+			scanKeys();
+			game->killPlayer();
+		}
+
+		game->iterate();
+		swiWaitForVBlank();
+	}
+
+	score = game->getScore();
+	level = game->getLevel()->getNumber();
+
+	delete game;
+}
+
+void showGameOver(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32 score, s32 level) {
+	GameOverScreen screen(topGfx, bottomGfx, 1, 2);
+	
+	while (screen.isRunning()) {
+		screen.iterate();
+		swiWaitForVBlank();
+	}
 }
 
 int main(int argc, char* argv[]) {
@@ -43,30 +78,13 @@ int main(int argc, char* argv[]) {
 
 	while (1) {
 
+
 		// TODO: Menu screen here
+		s32 level;
+		s32 score;
 
-		// Create a new game and run it
-		Game* game = new Game(topGfx, bottomGfx);
-
-		while(game->isRunning()) {
-			scanKeys();
-			game->setUpHeld((keysDown() & KEY_UP) || (keysHeld() & KEY_UP));
-			game->setDownHeld((keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN));
-			game->setLeftHeld((keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT));
-			game->setRightHeld((keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT));
-
-			while (((keysDown() & KEY_R) || (keysHeld() & KEY_R)) && ((keysDown() & KEY_L) || (keysHeld() & KEY_L))) {
-				scanKeys();
-				game->killPlayer();
-			}
-
-			game->iterate();
-			swiWaitForVBlank();
-		}
-
-		// TODO: Game over screen here
-
-		delete game;
+		runGame(topGfx, bottomGfx, score, level);
+		showGameOver(topGfx, bottomGfx, score, level);
 	}
 
 	BitmapServer::shutdown();
