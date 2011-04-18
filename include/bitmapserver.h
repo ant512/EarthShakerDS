@@ -248,7 +248,7 @@ public:
 	/**
 	 * Turns the boulder bitmaps magenta.
 	 */
-	static void makeBouldersMaganta() {
+	static void makeBouldersMagenta() {
 		changeBoulderColours(COLOUR_MAGENTA, COLOUR_MAGENTA_DARK);
 	};
 

@@ -26,6 +26,7 @@
 
 #include "level0.h"
 #include "level1.h"
+#include "level2.h"
 
 /**
  * Creates new instances of LevelBase.
@@ -54,6 +55,7 @@ public:
 				data = new Level1();
 				break;
 			case 2:
+				data = new Level2();
 				break;
 		}
 
