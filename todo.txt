@@ -14,5 +14,3 @@ Todo
    - Add the block bitmaps
  - Wet soil:
    - Add animation frames
- - Recolour bitmaps:
-   - Diamond
