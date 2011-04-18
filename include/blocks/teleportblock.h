@@ -29,8 +29,6 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	TeleportBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-
-		// 1, 2, 3, 4, 3, 2, 5, 6, 7, 8, 7, 6
 		_animation->addFrame(&_bmp1, 0);
 		_animation->addFrame(&_bmp4, 0);
 		_animation->addFrame(&_bmp2, 0);
@@ -147,7 +145,6 @@ public:
 	};
 
 private:
-	// 1, 5, 2, 4, 2, 5, 7, 8, 9, 10, 9, 8
 	TeleportBmp1 _bmp1;			/**< The first animation frame. */
 	TeleportBmp2 _bmp2;			/**< The second animation frame. */
 	TeleportBmp3 _bmp3;			/**< The third animation frame. */
