@@ -106,20 +106,16 @@ public:
 		_sandWallBmp = createMutableBitmap(&sandWallBmp);
 		_squareWallBmp = createMutableBitmap(&squareWallBmp);
 
-		_redSoilBmp = createMutableBitmap(&soilBmp);
-		_blueSoilBmp = createMutableBitmap(&soilBmp);
-		_greenSoilBmp = createMutableBitmap(&soilBmp);
-		_cyanSoilBmp = createMutableBitmap(&soilBmp);
-		_magentaSoilBmp = createMutableBitmap(&soilBmp);
-		_whiteSoilBmp = createMutableBitmap(&soilBmp);
+		_soilBmp = createMutableBitmap(&soilBmp);
 
 		_honeycombSoilBmp = createMutableBitmap(&honeycombSoilBmp);
 
-		_redDoorBmp = createMutableBitmap(&doorBmp);
 		_blueDoorBmp = createMutableBitmap(&doorBmp);
-		_greenDoorBmp = createMutableBitmap(&doorBmp);
 		_cyanDoorBmp = createMutableBitmap(&doorBmp);
+		_greenDoorBmp = createMutableBitmap(&doorBmp);
 		_magentaDoorBmp = createMutableBitmap(&doorBmp);
+		_redDoorBmp = createMutableBitmap(&doorBmp);
+		_yellowDoorBmp = createMutableBitmap(&doorBmp);
 
 		// Recolour door bitmaps
 		swapColours(COLOUR_WHITE, COLOUR_RED, _redDoorBmp);
@@ -136,22 +132,9 @@ public:
 
 		swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _magentaDoorBmp);
 		swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _magentaDoorBmp);
-	
-		// Recolour soil bitmaps
-		swapColours(COLOUR_WHITE, COLOUR_RED, _redSoilBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _redSoilBmp);
 
-		swapColours(COLOUR_WHITE, COLOUR_BLUE, _blueSoilBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _blueSoilBmp);
-
-		swapColours(COLOUR_WHITE, COLOUR_GREEN, _greenSoilBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _greenSoilBmp);
-
-		swapColours(COLOUR_WHITE, COLOUR_CYAN, _cyanDoorBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _cyanSoilBmp);
-
-		swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _magentaDoorBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _magentaSoilBmp);
+		swapColours(COLOUR_WHITE, COLOUR_YELLOW, _yellowDoorBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_YELLOW_DARK, _yellowDoorBmp);
 	};
 
 	/**
@@ -192,6 +175,46 @@ public:
 	static void makeBrickWallMagenta() {
 		swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _brickWallBmp);
 		swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _brickWallBmp);
+	};
+
+	/**
+	 * Turns the soil bitmap blue.
+	 */
+	static void makeSoilBlue() {
+		swapColours(COLOUR_WHITE, COLOUR_BLUE, _soilBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _soilBmp);
+	};
+
+	/**
+	 * Turns the soil bitmap red.
+	 */
+	static void makeSoilRed() {
+		swapColours(COLOUR_WHITE, COLOUR_RED, _soilBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _soilBmp);
+	};
+
+	/**
+	 * Turns the soil bitmap green.
+	 */
+	static void makeSoilGreen() {
+		swapColours(COLOUR_WHITE, COLOUR_GREEN, _soilBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _soilBmp);
+	};
+
+	/**
+	 * Turns the soil bitmap cyan.
+	 */
+	static void makSoilCyan() {
+		swapColours(COLOUR_WHITE, COLOUR_CYAN, _soilBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _soilBmp);
+	};
+
+	/**
+	 * Turns the soil bitmap magenta.
+	 */
+	static void makeSoilMagenta() {
+		swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _soilBmp);
+		swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _soilBmp);
 	};
 
 	/**
@@ -270,13 +293,9 @@ public:
 		if (_blueDoorBmp != NULL) delete _blueDoorBmp;
 		if (_cyanDoorBmp != NULL) delete _cyanDoorBmp;
 		if (_magentaDoorBmp != NULL) delete _magentaDoorBmp;
+		if (_yellowDoorBmp != NULL) delete _yellowDoorBmp;
 
-		if (_redSoilBmp != NULL) delete _redSoilBmp;
-		if (_greenSoilBmp != NULL) delete _greenSoilBmp;
-		if (_blueSoilBmp != NULL) delete _blueSoilBmp;
-		if (_cyanSoilBmp != NULL) delete _cyanSoilBmp;
-		if (_magentaSoilBmp != NULL) delete _magentaSoilBmp;
-		if (_whiteSoilBmp != NULL) delete _whiteSoilBmp;
+		if (_soilBmp != NULL) delete _soilBmp;
 
 		if (_honeycombSoilBmp != NULL) delete _honeycombSoilBmp;
 	};
@@ -498,51 +517,19 @@ public:
 	};
 
 	/**
-	 * Gets a pointer to the red soil bitmap.
-	 * @return A pointer to the red soil bitmap.
+	 * Gets a pointer to the yellow door bitmap.
+	 * @return A pointer to the yellow door bitmap.
 	 */
-	inline static WoopsiGfx::Bitmap* getRedSoilBmp() {
-		return _redSoilBmp;
+	inline static WoopsiGfx::Bitmap* getYellowDoorBmp() {
+		return _yellowDoorBmp;
 	};
 
 	/**
-	 * Gets a pointer to the green soil bitmap.
-	 * @return A pointer to the green soil bitmap.
+	 * Gets a pointer to the soil bitmap.
+	 * @return A pointer to the soil bitmap.
 	 */
-	inline static WoopsiGfx::Bitmap* getGreenSoilBmp() {
-		return _greenSoilBmp;
-	};
-
-	/**
-	 * Gets a pointer to the blue door bitmap.
-	 * @return A pointer to the blue soil bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getBlueSoilBmp() {
-		return _blueSoilBmp;
-	};
-
-	/**
-	 * Gets a pointer to the cyan soil bitmap.
-	 * @return A pointer to the cyan soil bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getCyanSoilBmp() {
-		return _cyanSoilBmp;
-	};
-
-	/**
-	 * Gets a pointer to the magenta soil bitmap.
-	 * @return A pointer to the magenta soil bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getMagentaSoilBmp() {
-		return _magentaSoilBmp;
-	};
-
-	/**
-	 * Gets a pointer to the white soil bitmap.
-	 * @return A pointer to the white soil bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getWhiteSoilBmp() {
-		return _whiteSoilBmp;
+	inline static WoopsiGfx::Bitmap* getSoilBmp() {
+		return _soilBmp;
 	};
 
 	/**
@@ -583,13 +570,9 @@ private:
 	static WoopsiGfx::Bitmap* _greenDoorBmp;
 	static WoopsiGfx::Bitmap* _cyanDoorBmp;
 	static WoopsiGfx::Bitmap* _magentaDoorBmp;
+	static WoopsiGfx::Bitmap* _yellowDoorBmp;
 
-	static WoopsiGfx::Bitmap* _redSoilBmp;
-	static WoopsiGfx::Bitmap* _blueSoilBmp;
-	static WoopsiGfx::Bitmap* _greenSoilBmp;
-	static WoopsiGfx::Bitmap* _cyanSoilBmp;
-	static WoopsiGfx::Bitmap* _magentaSoilBmp;
-	static WoopsiGfx::Bitmap* _whiteSoilBmp;
+	static WoopsiGfx::Bitmap* _soilBmp;
 
 	static WoopsiGfx::Bitmap* _honeycombSoilBmp;
 

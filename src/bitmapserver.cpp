@@ -24,17 +24,13 @@ WoopsiGfx::Bitmap* BitmapServer::_rockWallBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_sandWallBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_squareWallBmp = NULL;
 
-WoopsiGfx::Bitmap* BitmapServer::_redDoorBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_greenDoorBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_blueDoorBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_magentaDoorBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_cyanDoorBmp = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_greenDoorBmp = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_magentaDoorBmp = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_redDoorBmp = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_yellowDoorBmp = NULL;
 
-WoopsiGfx::Bitmap* BitmapServer::_redSoilBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_greenSoilBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_blueSoilBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_magentaSoilBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_cyanSoilBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_whiteSoilBmp = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_soilBmp = NULL;
 
 WoopsiGfx::Bitmap* BitmapServer::_honeycombSoilBmp = NULL;

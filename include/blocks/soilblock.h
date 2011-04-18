@@ -3,10 +3,10 @@
 
 #include <graphics.h>
 #include <bitmap.h>
-#include <game.h>
 
 #include "blockbase.h"
 #include "bitmapserver.h"
+#include "game.h"
 
 /**
  * Soil can be removed from the map by calling its dig methods.  It provides

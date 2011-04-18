@@ -8,9 +8,6 @@ Todo
    - Between level sequence?
    - Map screen
  - Sounds
- - Change DoorBlock constructor so that it accepts a bitmap.
- - Add all door and soil colours to LevelFactory.
- - Re-order LevelFactory switch statement so that similar blocks are grouped.
  - Extra Life block:
    - Should the blocks fall?  If so, do they kill when falling on the player?
    - Are the blocks slippy?

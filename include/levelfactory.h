@@ -103,98 +103,119 @@ private:
 						block = NULL;
 						break;
 					case 1:
-						block = new SoilBlock(x, y, game, BitmapServer::getBlueSoilBmp());
-						break;
-					case 2:
-						block = new BoulderBlock(x, y, game);
-						break;
-					case 3:
-						block = new DiamondBlock(x, y, game);
-						level->increaseDiamondCount();
-						break;
-					case 4:
 						block = new PlayerBlock(x, y, game);
 						level->setPlayerBlock((PlayerBlock*)block);
 						break;
-					case 5:
+					case 2:
+						block = new DiamondBlock(x, y, game);
+						level->increaseDiamondCount();
+						break;
+					case 3:
 						block = new BubbleBlock(x, y, game);
 						break;
-					case 6:
-						block = new WallBlock(x, y, game, BitmapServer::getBrickWallBmp());
-						break;
-					case 7:
+					case 4:
 						block = new FireBlock(x, y, game);
 						break;
-					case 8:
+					case 5:
 						block = new BeanBlock(x, y, game);
 						break;
-					case 9:
+					case 6:
 						block = new GravityInversionBlock(x, y, game);
 						break;
-					case 10:
+					case 7:
 						block = new ExtraLifeBlock(x, y, game);
 						break;
-					case 11:
-						block = new WallBlock(x, y, game, BitmapServer::getRockWallBmp());
-						break;
-					case 12:
-						block = new WallBlock(x, y, game, BitmapServer::getIceWallBmp());
-						break;
-					case 13:
-						block = new WetSoilBlock(x, y, game);
-						break;
-					case 14:
-						block = new DoorBlock(x, y, game);
-						break;
-					case 15:
-						block = new WallBlock(x, y, game, BitmapServer::getMetalWallBmp());
-						break;
-					case 16:
+					case 8:
 						block = new BarrierBlock(x, y, game);
 						barrierBlocks.push_back((BarrierBlock*)block);
 						break;
-					case 17:
+					case 9:
 						block = new BarrierControlBlock(x, y, game);
 						barrierControlBlock = (BarrierControlBlock*)block;
 						break;
-					case 18:
+					case 10:
 						block = new TeleportBlock(x, y, game);
 						break;
+
+					case 11:
+						block = new DoorBlock(x, y, game, BitmapServer::getBlueDoorBmp());
+						break;
+					case 12:
+						block = new DoorBlock(x, y, game, BitmapServer::getCyanDoorBmp());
+						break;
+					case 13:
+						block = new DoorBlock(x, y, game, BitmapServer::getGreenDoorBmp());
+						break;
+					case 14:
+						block = new DoorBlock(x, y, game, BitmapServer::getMagentaDoorBmp());
+						break;
+					case 15:
+						block = new DoorBlock(x, y, game, BitmapServer::getRedDoorBmp());
+						break;
+					case 16:
+						block = new DoorBlock(x, y, game, BitmapServer::getYellowDoorBmp());
+						break;
+
+					case 17:
+						block = new BoulderBlock(x, y, game);
+						break;
+
+					case 18:
+						block = new WallBlock(x, y, game, BitmapServer::getBrickWallBmp());
+						break;
 					case 19:
-						block = new WallBlock(x, y, game, BitmapServer::getBrainWallBmp());
+						block = new WallBlock(x, y, game, BitmapServer::getRockWallBmp());
 						break;
 					case 20:
-						block = new WallBlock(x, y, game, BitmapServer::getGirderWallBmp());
+						block = new WallBlock(x, y, game, BitmapServer::getIceWallBmp());
 						break;
 					case 21:
-						block = new WallBlock(x, y, game, BitmapServer::getHeartWallBmp());
+						block = new WallBlock(x, y, game, BitmapServer::getMetalWallBmp());
 						break;
 					case 22:
-						block = new SoilBlock(x, y, game, BitmapServer::getHoneycombSoilBmp());
+						block = new WallBlock(x, y, game, BitmapServer::getBrainWallBmp());
 						break;
 					case 23:
-						block = new WallBlock(x, y, game, BitmapServer::getHoneycombWallBmp());
+						block = new WallBlock(x, y, game, BitmapServer::getGirderWallBmp());
 						break;
 					case 24:
-						block = new WallBlock(x, y, game, BitmapServer::getLeafyWallBmp());
+						block = new WallBlock(x, y, game, BitmapServer::getHeartWallBmp());
 						break;
 					case 25:
-						block = new WallBlock(x, y, game, BitmapServer::getNuclearWallBmp());
+						block = new WallBlock(x, y, game, BitmapServer::getHoneycombWallBmp());
 						break;
 					case 26:
-						block = new WallBlock(x, y, game, BitmapServer::getPipeWallBmp());
+						block = new WallBlock(x, y, game, BitmapServer::getLeafyWallBmp());
 						break;
 					case 27:
-						block = new WallBlock(x, y, game, BitmapServer::getQuestionWallBmp());
+						block = new WallBlock(x, y, game, BitmapServer::getNuclearWallBmp());
 						break;
 					case 28:
-						block = new SoilBlock(x, y, game, BitmapServer::getQuestionWallBmp());
+						block = new WallBlock(x, y, game, BitmapServer::getPipeWallBmp());
 						break;
 					case 29:
+						block = new WallBlock(x, y, game, BitmapServer::getQuestionWallBmp());
+						break;				
+					case 30:
 						block = new WallBlock(x, y, game, BitmapServer::getSandWallBmp());
 						break;
-					case 30:
+					case 31:
 						block = new WallBlock(x, y, game, BitmapServer::getSquareWallBmp());
+						break;
+
+					case 32:
+						block = new SoilBlock(x, y, game, BitmapServer::getSoilBmp());
+						break;
+
+					case 33:
+						block = new SoilBlock(x, y, game, BitmapServer::getHoneycombSoilBmp());
+						break;
+					case 34:
+						block = new SoilBlock(x, y, game, BitmapServer::getQuestionWallBmp());
+						break;
+
+					case 35:
+						block = new WetSoilBlock(x, y, game);
 						break;
 				}
 

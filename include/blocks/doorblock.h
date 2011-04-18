@@ -1,11 +1,12 @@
 #ifndef _DOOR_BLOCK_H_
 #define _DOOR_BLOCK_H_
 
-#include <graphics.h>
 #include <bitmap.h>
-#include <game.h>
+#include <bitmapbase.h>
+#include <graphics.h>
 
 #include "blockbase.h"
+#include "game.h"
 
 /**
  * Door blocks are static.  They become active when all diamonds in a level are
@@ -20,12 +21,15 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	DoorBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		_animation->addFrame(BitmapServer::getRedDoorBmp(), 0);
-		_animation->addFrame(BitmapServer::getGreenDoorBmp(), 0);
-		_animation->addFrame(BitmapServer::getBlueDoorBmp(), 0);
-		_animation->addFrame(BitmapServer::getCyanDoorBmp(), 0);
-		_animation->addFrame(BitmapServer::getMagentaDoorBmp(), 0);
+	DoorBlock(s32 x, s32 y, Game* game, WoopsiGfx::BitmapBase* bitmap) : BlockBase(x, y, game) {
+		_animation->addFrame(bitmap, 0);
+
+		_explodingAnimation->addFrame(BitmapServer::getRedDoorBmp(), 0);
+		_explodingAnimation->addFrame(BitmapServer::getGreenDoorBmp(), 0);
+		_explodingAnimation->addFrame(BitmapServer::getBlueDoorBmp(), 0);
+		_explodingAnimation->addFrame(BitmapServer::getCyanDoorBmp(), 0);
+		_explodingAnimation->addFrame(BitmapServer::getMagentaDoorBmp(), 0);
+		_explodingAnimation->setLoopType(WoopsiGfx::Animation::ANIMATION_LOOPTYPE_LOOP);
 	};
 
 	/**
@@ -34,10 +38,12 @@ public:
 	~DoorBlock() {};
 
 	/**
-	 * Starts the door animation when there are no diamonds left to collect.
+	 * Explodes the door when there are no diamonds left to collect.  This
+	 * causes the door to start its colour cycling explosion animation.  We're
+	 * abusing the explosion system somewhat...
 	 */
 	void onIterate() {
-		if (_game->getRemainingDiamonds() == 0) _animation->play();
+		if (_game->getRemainingDiamonds() == 0) explode();
 	};
 
 	/**
