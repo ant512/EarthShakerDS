@@ -3,11 +3,11 @@
 
 #include <graphics.h>
 #include <bitmap.h>
-#include <game.h>
 #include <woopsiarray.h>
 
 #include "barrierblock.h"
 #include "blockbase.h"
+#include "game.h"
 
 #include "barriercontrolbmp.h"
 

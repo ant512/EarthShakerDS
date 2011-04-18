@@ -3,9 +3,9 @@
 
 #include <graphics.h>
 #include <bitmap.h>
-#include <game.h>
 
 #include "blockbase.h"
+#include "game.h"
 
 #include "barrierbmp1.h"
 #include "barrierbmp2.h"
