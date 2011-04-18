@@ -11,12 +11,6 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_topGfx = topGfx;
 	_bottomGfx = bottomGfx;
 	_isOddIteration = true;
-
-	_upHeld = false;
-	_downHeld = false;
-	_leftHeld = false;
-	_rightHeld = false;
-
 	_level = NULL;
 
 	moveToNextLevel();
@@ -147,7 +141,7 @@ void Game::render() {
 	_level->render(x, y, displayWidth, displayHeight, _topGfx);
 }
 
-void Game::iterate() {
+void Game::iterate(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld) {
 
 	if (_isPlayerDead) {
 		decreaseLives();
@@ -176,7 +170,7 @@ void Game::iterate() {
 
 	animate();
 	timer();
-	move();
+	move(upHeld, downHeld, leftHeld, rightHeld);
 }
 
 void Game::timer() {
@@ -199,19 +193,19 @@ void Game::animate() {
 	}
 }
 
-void Game::move() {
+void Game::move(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld) {
 	_movementTimer++;
 
 	if (_movementTimer == MOVEMENT_TIME) {
 		_movementTimer = 0;
 
-		if (_upHeld) {
+		if (upHeld) {
 			getPlayerBlock()->pushUp();
-		} else if (_downHeld) {
+		} else if (downHeld) {
 			getPlayerBlock()->pushDown();
-		} else if (_leftHeld) {
+		} else if (leftHeld) {
 			getPlayerBlock()->pushLeft();
-		} else if (_rightHeld) {
+		} else if (rightHeld) {
 			getPlayerBlock()->pushRight();
 		}
 
@@ -227,22 +221,6 @@ void Game::move() {
 			}
 		}
 	}
-}
-
-void Game::setUpHeld(bool upHeld) {
-	_upHeld = upHeld;
-}
-
-void Game::setDownHeld(bool downHeld) {
-	_downHeld = downHeld;
-}
-
-void Game::setLeftHeld(bool leftHeld) {
-	_leftHeld = leftHeld;
-}
-
-void Game::setRightHeld(bool rightHeld) {
-	_rightHeld = rightHeld;
 }
 
 bool Game::isGravityInverted() const {

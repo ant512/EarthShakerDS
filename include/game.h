@@ -89,36 +89,16 @@ public:
 	void addScore(s32 score);
 
 	/**
-	 * Sets the held state of the up button.
-	 * @param upHeld The held state of the up button.
-	 */
-	void setUpHeld(bool upHeld);
-
-	/**
-	 * Sets the held state of the down button.
-	 * @param downHeld The held state of the down button.
-	 */
-	void setDownHeld(bool downHeld);
-
-	/**
-	 * Sets the held state of the left button.
-	 * @param downHeld The held state of the left button.
-	 */
-	void setLeftHeld(bool leftHeld);
-
-	/**
-	 * Sets the held state of the right button.
-	 * @param downHeld The held state of the right button.
-	 */
-	void setRightHeld(bool rightHeld);
-
-	/**
 	 * Updates the game state.  This will redraw the level and move any objects
 	 * around.  Redrawing and moving work on a timer system, so calling this
 	 * method will not necessarily produce an observable effect if the timers
 	 * have not reached the required values.
+	 * @param upHeld True if the up button is pressed; false if not.
+	 * @param downHeld True if the down button is pressed; false if not.
+	 * @param leftHeld True if the left button is pressed; false if not.
+	 * @param rightHeld True if the right button is pressed; false if not.
 	 */
-	void iterate();
+	void iterate(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld);
 
 	/**
 	 * Increase the number of diamonds collected in the level by one.
@@ -176,11 +156,6 @@ private:
 	bool _isOddIteration;				/**< Indicates whether the game is in an odd or an even iteration. */
 	bool _isLevelEnded;					/**< Indicates that the level has finished. */
 
-	bool _upHeld;						/**< State of the up button. */
-	bool _downHeld;						/**< State of the down button. */
-	bool _leftHeld;						/**< State of the left button. */
-	bool _rightHeld;					/**< State of the right button. */
-
 	/**
 	 * Draws the timer bar.
 	 */
@@ -227,8 +202,12 @@ private:
 	 * Moves level blocks.  Uses a timer system, so calling the method will not
 	 * necessarily produce an effect other than adjusting the _movementTimer
 	 * value.
+	 * @param upHeld True if the up button is pressed; false if not.
+	 * @param downHeld True if the down button is pressed; false if not.
+	 * @param leftHeld True if the left button is pressed; false if not.
+	 * @param rightHeld True if the right button is pressed; false if not.
 	 */
-	void move();
+	void move(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld);
 
 	/**
 	 * Decreases remaining time.  Uses a timer system, so calling the method

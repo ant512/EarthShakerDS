@@ -24,19 +24,24 @@ void initGfxMode() {
 void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32& score, s32& level) {
 	Game* game = new Game(topGfx, bottomGfx);
 
+	bool upHeld;
+	bool downHeld;
+	bool rightHeld;
+	bool leftHeld;
+
 	while(game->isRunning()) {
 		scanKeys();
-		game->setUpHeld((keysDown() & KEY_UP) || (keysHeld() & KEY_UP));
-		game->setDownHeld((keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN));
-		game->setLeftHeld((keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT));
-		game->setRightHeld((keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT));
+		upHeld = (keysDown() & KEY_UP) || (keysHeld() & KEY_UP);
+		downHeld = (keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN);
+		leftHeld = (keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT);
+		rightHeld = (keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT);
 
 		while (((keysDown() & KEY_R) || (keysHeld() & KEY_R)) && ((keysDown() & KEY_L) || (keysHeld() & KEY_L))) {
 			scanKeys();
 			game->killPlayer();
 		}
 
-		game->iterate();
+		game->iterate(upHeld, downHeld, leftHeld, rightHeld);
 		swiWaitForVBlank();
 	}
 
@@ -47,7 +52,7 @@ void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32& s
 }
 
 void showGameOver(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32 score, s32 level) {
-	GameOverScreen screen(topGfx, bottomGfx, 1, 2);
+	GameOverScreen screen(topGfx, bottomGfx, score, level);
 	
 	while (screen.isRunning()) {
 		screen.iterate();
@@ -80,8 +85,8 @@ int main(int argc, char* argv[]) {
 
 
 		// TODO: Menu screen here
-		s32 level;
-		s32 score;
+		s32 level = 0;
+		s32 score = 0;
 
 		runGame(topGfx, bottomGfx, score, level);
 		showGameOver(topGfx, bottomGfx, score, level);

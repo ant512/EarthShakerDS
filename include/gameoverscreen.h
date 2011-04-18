@@ -10,18 +10,28 @@
 
 class GameOverScreen : public ScreenBase {
 public:
-	GameOverScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32 score, s32 lives) : ScreenBase(topGfx, bottomGfx) {
+	GameOverScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32 score, s32 level) : ScreenBase(topGfx, bottomGfx) {
 		_score = score;
-		_lives = lives;
+		_level = level;
 		_timer = 200;
 
 		topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 		bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 
-		WoopsiGfx::WoopsiString str;
-		str.format("Lives: %02d", lives);
+		WoopsiGfx::WoopsiString str = "Game Over";
+		topGfx->drawText(92, 80, &_font, str, 0, str.getLength(), COLOUR_GREEN);
 
-		topGfx->drawText(0, 0, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+		str = "You scored";
+		topGfx->drawText(60, 96, &_font, str, 0, str.getLength(), COLOUR_CYAN);
+
+		str.format("%06d", score);
+		topGfx->drawText(148, 96, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+		str = "And reached level";
+		topGfx->drawText(54, 110, &_font, str, 0, str.getLength(), COLOUR_CYAN);
+
+		str.format("%02d", level);
+		topGfx->drawText(196, 110, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 	};
 
 	~GameOverScreen() {};
@@ -38,7 +48,7 @@ private:
 	WoopsiGfx::Graphics* _topGfx;
 	WoopsiGfx::Graphics* _bottomGfx;
 	s32 _score;
-	s32 _lives;
+	s32 _level;
 	s32 _timer;
 	GameFont _font;
 };
