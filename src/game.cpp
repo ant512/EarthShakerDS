@@ -435,7 +435,7 @@ void Game::moveToNextLevel() {
 	BitmapServer::init();
 
 	if (_level == NULL) {
-		_level = LevelFactory::newLevel(2, this);
+		_level = LevelFactory::newLevel(1, this);
 	} else {
 		s32 levelNumber = _level->getNumber() + 1;
 

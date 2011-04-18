@@ -14,4 +14,4 @@ Todo
    - Add the block bitmaps
  - Wet soil:
    - Add animation frames
- - Add missing barrier animation frames.
+ - Add missing barrier animation frames
