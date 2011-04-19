@@ -76,10 +76,10 @@ int main(int argc, char* argv[]) {
 
 	// Copyrights
 	WoopsiGfx::WoopsiString	str = "ZX (c) 1990 Michael Batty";
-	bottomGfx->drawText((SCREEN_WIDTH - font.getStringWidth(str)) / 2, 176, &font, str, 0, str.getLength(), COLOUR_WHITE);
+	bottomGfx->drawText((SCREEN_WIDTH - font.getStringWidth(str)) / 2, 160, &font, str, 0, str.getLength(), COLOUR_WHITE);
 
 	str.setText("DS (c) 2011 Antony Dzeryn");
-	bottomGfx->drawText((SCREEN_WIDTH - font.getStringWidth(str)) / 2, 184, &font, str, 0, str.getLength(), COLOUR_WHITE);
+	bottomGfx->drawText((SCREEN_WIDTH - font.getStringWidth(str)) / 2, 168, &font, str, 0, str.getLength(), COLOUR_WHITE);
 
 	while (1) {
 

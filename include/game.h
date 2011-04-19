@@ -7,6 +7,7 @@
 #include "blockbase.h"
 #include "playerblock.h"
 #include "gamefont.h"
+#include "scroller.h"
 
 /**
  * Game class ultimately controls everything in the game.
@@ -155,6 +156,7 @@ private:
 	bool _isPlayerDead;					/**< Indicates whether or not the player has been killed. */
 	bool _isOddIteration;				/**< Indicates whether the game is in an odd or an even iteration. */
 	bool _isLevelEnded;					/**< Indicates that the level has finished. */
+	Scroller* _scroller;
 
 	/**
 	 * Draws the timer bar.
