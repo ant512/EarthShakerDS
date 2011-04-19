@@ -37,7 +37,7 @@ LevelBase* Game::getLevel() const {
 }
 
 bool Game::isRunning() const {
-	return _lives > -1;
+	return _lives > 0;
 }
 
 bool Game::isOddIteration() const {
@@ -146,10 +146,8 @@ void Game::iterate(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld) {
 	if (_isPlayerDead) {
 		decreaseLives();
 
-		if (_lives > -1) {
+		if (_lives > 0) {
 			resetLevel();
-		} else {
-			// TODO: Stop game
 		}
 
 		return;
