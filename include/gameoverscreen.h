@@ -44,9 +44,7 @@ public:
 		return _timer > 0;
 	};
 
-private:
-	WoopsiGfx::Graphics* _topGfx;
-	WoopsiGfx::Graphics* _bottomGfx;
+private:;
 	s32 _score;
 	s32 _level;
 	s32 _timer;

@@ -2,6 +2,8 @@ Todo
 ----
 
  - New screens:
+   - Title screen
+     - Move scroller to title screen
    - Menu screen - level select, etc.
    - Game complete
    - Between level sequence?

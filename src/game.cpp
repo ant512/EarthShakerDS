@@ -13,21 +13,11 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	_isOddIteration = true;
 	_level = NULL;
 
-	_scroller = new Scroller(".... Earth Shaker DS - Featuring anti-gravity, "
-							 "4D teleport, forcefields, bubbles, elixirs, "
-							 "jumping jelly beans and much much more .... Can "
-							 "you survive 32 deadly diamond mines ? .... Well "
-							 "- it depends if you are sly enough. But watch out "
-							 "you don't bang your head, burn yourself or take "
-							 "too long .... Coding (c) 2011 Antony Dzeryn .... "
-							 "Artwork (c) 1990 Michael Batty ....");
-
 	moveToNextLevel();
 }
 
 Game::~Game() {
 	delete _level;
-	delete _scroller;
 }
 
 s32 Game::getScore() const {
@@ -175,8 +165,6 @@ void Game::iterate(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld) {
 
 		return;
 	}
-
-	_scroller->render(184, _bottomGfx);
 
 	animate();
 	timer();
@@ -327,6 +315,16 @@ void Game::drawHUD() {
 	drawTimerBarBackground();
 	drawLevelName();
 
+	// Logo
+	_bottomGfx->drawBitmap(0, 0, 256, 64, &_logoBmp, 0, 0);
+
+	// Copyrights
+	WoopsiGfx::WoopsiString	str = "ZX (c) 1990 Michael Batty";
+	_bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 160, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+	str.setText("DS (c) 2011 Antony Dzeryn");
+	_bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 168, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
 	// Erase region for counters
 	s32 counterHeight = _font.getHeight();
 	s32 counterY = SCREEN_HEIGHT - counterHeight - 1;
@@ -334,7 +332,7 @@ void Game::drawHUD() {
 	_topGfx->drawFilledRect(0, counterY, SCREEN_WIDTH, counterHeight, COLOUR_BLACK);
 
 	// Level display
-	WoopsiGfx::WoopsiString str("L");
+	str.setText("L");
 
 	// Here we abandon calculated text co-ordinates and hard-code everything
 	// with magic numbers, because it's quicker for both the computer and the

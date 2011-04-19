@@ -4,7 +4,7 @@
 #include "game.h"
 #include "constants.h"
 #include "bitmapserver.h"
-#include "logobmp.h"
+#include "titlescreen.h"
 #include "gameoverscreen.h"
 
 void initGfxMode() {
@@ -60,6 +60,15 @@ void showGameOver(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s
 	}
 }
 
+void showTitle(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
+	TitleScreen title(topGfx, bottomGfx);
+
+	while (title.isRunning()) {
+		title.iterate();
+		swiWaitForVBlank();
+	}
+}
+
 int main(int argc, char* argv[]) {
 	initGfxMode();
 
@@ -69,25 +78,12 @@ int main(int argc, char* argv[]) {
 	WoopsiGfx::Graphics* topGfx = topBuffer.newGraphics();
 	WoopsiGfx::Graphics* bottomGfx = bottomBuffer.newGraphics();
 
-	LogoBmp logoBmp;
-	GameFont font;
-
-	bottomGfx->drawBitmap(0, 0, 256, 64, &logoBmp, 0, 0);
-
-	// Copyrights
-	WoopsiGfx::WoopsiString	str = "ZX (c) 1990 Michael Batty";
-	bottomGfx->drawText((SCREEN_WIDTH - font.getStringWidth(str)) / 2, 160, &font, str, 0, str.getLength(), COLOUR_WHITE);
-
-	str.setText("DS (c) 2011 Antony Dzeryn");
-	bottomGfx->drawText((SCREEN_WIDTH - font.getStringWidth(str)) / 2, 168, &font, str, 0, str.getLength(), COLOUR_WHITE);
-
 	while (1) {
 
-
-		// TODO: Menu screen here
 		s32 level = 0;
 		s32 score = 0;
 
+		showTitle(topGfx, bottomGfx);
 		runGame(topGfx, bottomGfx, score, level);
 		showGameOver(topGfx, bottomGfx, score, level);
 	}
