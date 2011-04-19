@@ -312,6 +312,10 @@ void Game::drawLevelName() {
 
 void Game::drawHUD() {
 
+	// Wipe everything
+	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
+	_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
+
 	drawTimerBarBackground();
 	drawLevelName();
 
