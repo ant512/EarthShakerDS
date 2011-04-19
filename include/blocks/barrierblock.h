@@ -10,6 +10,8 @@
 #include "barrierbmp1.h"
 #include "barrierbmp2.h"
 #include "barrierbmp3.h"
+#include "barrierbmp4.h"
+#include "barrierbmp5.h"
 
 /**
  * Barrier blocks can be destroyed by dropping something onto their controller.
@@ -24,10 +26,11 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	BarrierBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		_animation->setLoopType(WoopsiGfx::Animation::ANIMATION_LOOPTYPE_PINGPONG);
 		_animation->addFrame(&_bmp1, 0);
 		_animation->addFrame(&_bmp2, 0);
 		_animation->addFrame(&_bmp3, 0);
+		_animation->addFrame(&_bmp4, 0);
+		_animation->addFrame(&_bmp5, 0);
 		_animation->play();
 	};
 
@@ -76,6 +79,8 @@ private:
 	BarrierBmp1 _bmp1;					/**< The first animation frame. */
 	BarrierBmp2 _bmp2;					/**< The second animation frame. */
 	BarrierBmp3 _bmp3;					/**< The third animation frame. */
+	BarrierBmp4 _bmp4;					/**< The fourth animation frame. */
+	BarrierBmp5 _bmp5;					/**< The fifth animation frame. */
 
 	/**
 	 * Removes time from the player.

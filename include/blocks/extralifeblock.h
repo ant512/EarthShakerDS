@@ -8,6 +8,11 @@
 #include "blockbase.h"
 #include "constants.h"
 
+#include "extralifebmp1.h"
+#include "extralifebmp2.h"
+#include "extralifebmp3.h"
+#include "extralifebmp4.h"
+
 /**
  * Gives the player an extra life when collected.
  */
@@ -21,8 +26,10 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	ExtraLifeBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
-		// TODO: Set up animation here
-
+		_animation->addFrame(&_bmp1, 0);
+		_animation->addFrame(&_bmp2, 0);
+		_animation->addFrame(&_bmp3, 0);
+		_animation->addFrame(&_bmp4, 0);
 		_animation->play();
 
 	};
@@ -77,6 +84,10 @@ public:
 	};
 
 private:
+	ExtraLifeBmp1 _bmp1;		/**< The first animation frame. */
+	ExtraLifeBmp2 _bmp2;		/**< The second animation frame. */
+	ExtraLifeBmp3 _bmp3;		/**< The third animation frame. */
+	ExtraLifeBmp4 _bmp4;		/**< The fourth animation frame. */
 };
 
 #endif
