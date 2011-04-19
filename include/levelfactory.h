@@ -90,9 +90,6 @@ private:
 	 */
 	static LevelBase* createLevel(LevelDefinition* data, Game* game) {
 
-		BarrierControlBlock* barrierControlBlock = NULL;
-		WoopsiArray<BarrierBlock*> barrierBlocks;
-
 		BlockBase* block = NULL;
 
 		LevelBase* level = new LevelBase(data->getWidth(), data->getHeight(), data->getNumber(), data->getName());
@@ -129,11 +126,9 @@ private:
 						break;
 					case 8:
 						block = new BarrierBlock(x, y, game);
-						barrierBlocks.push_back((BarrierBlock*)block);
 						break;
 					case 9:
 						block = new BarrierControlBlock(x, y, game);
-						barrierControlBlock = (BarrierControlBlock*)block;
 						break;
 					case 10:
 						block = new TeleportBlock(x, y, game);
@@ -223,11 +218,6 @@ private:
 
 				level->setBlockAt(x, y, block);
 			}
-		}
-
-		// Wire all barrier blocks up to the controller
-		for (s32 i = 0; i < barrierBlocks.size(); ++i) {
-			barrierControlBlock->addBarrierBlock(barrierBlocks[i]);
 		}
 
 		return level;

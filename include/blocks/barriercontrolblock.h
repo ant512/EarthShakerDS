@@ -34,14 +34,6 @@ public:
 	~BarrierControlBlock() {};
 
 	/**
-	 * Connect the supplied barrier block to this controller.
-	 * @param barrierBlock The block that this controller should control.
-	 */
-	void addBarrierBlock(BarrierBlock* barrierBlock) {
-		_barrierBlocks.push_back(barrierBlock);
-	};
-
-	/**
 	 * Explodes the block.  Called when a heavy block lands on it.
 	 */
 	void squash() {
@@ -51,19 +43,23 @@ public:
 
 private:
 	BarrierControlBmp _bmp;						/**< The block bitmap. */
-	WoopsiArray<BarrierBlock*> _barrierBlocks;	/**< List of barrier blocks controlled by this block. */
 
 	/**
 	 * Removes all barrier blocks from the level.
 	 */
 	void onDestroyed() {
 		LevelBase* level = _game->getLevel();
+		BarrierBlock* barrier = NULL;
 
-		for (s32 i = 0; i < _barrierBlocks.size(); ++i) {
-			level->removeBlockAt(_barrierBlocks[i]->getX(), _barrierBlocks[i]->getY());
+		for (s32 y = 0; y < level->getHeight(); ++y) {
+			for (s32 x = 0; x < level->getWidth(); ++x) {
+				barrier = dynamic_cast<BarrierBlock*>(level->getBlockAt(x, y));
+
+				if (barrier != NULL) {
+					level->removeBlockAt(x, y);
+				}
+			}
 		}
-
-		_barrierBlocks.clear();
 	};
 };
 
