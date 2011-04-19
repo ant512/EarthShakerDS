@@ -14,3 +14,4 @@ Todo
  - Should actions that pause the original game pause the remake, even though
    they only pause because the Speccy couldn't play complex sounds as well as do
    anything else simultaneously?
+ - Time should be limited to 256.
