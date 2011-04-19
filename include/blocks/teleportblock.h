@@ -50,98 +50,39 @@ public:
 	~TeleportBlock() {};
 
 	/**
-	 * Moves the player to the linked teleport block and removes both blocks
+	 * Moves the player to the next teleport block and removes both blocks
 	 * from the level.
 	 * @return True.
 	 */
 	bool pushUp() {
-
-		// Teleport only works if it has been connected up properly
-		if (_link != NULL) {
-
-			// Teleport the player
-			BlockBase* player = _game->getPlayerBlock();
-			LevelBase* level = _game->getLevel();
-
-			level->moveBlock(player->getX(), player->getY(), _link->getX(), _link->getY());
-		}
-
-		// Remove this block from the level
-		_game->getLevel()->removeBlockAt(_x, _y);
-		return false;
+		return teleportPlayer();
 	};
 
 	/**
-	 * Moves the player to the linked teleport block and removes both blocks
+	 * Moves the player to the next teleport block and removes both blocks
 	 * from the level.
 	 * @return False.
 	 */
 	bool pushDown() {
-
-		// Teleport only works if it has been connected up properly
-		if (_link != NULL) {
-
-			// Teleport the player
-			BlockBase* player = _game->getPlayerBlock();
-			LevelBase* level = _game->getLevel();
-
-			level->moveBlock(player->getX(), player->getY(), _link->getX(), _link->getY());
-		}
-
-		// Remove this block from the level
-		_game->getLevel()->removeBlockAt(_x, _y);
-		return false;
+		return teleportPlayer();
 	};
 
 	/**
-	 * Moves the player to the linked teleport block and removes both blocks
+	 * Moves the player to the next teleport block and removes both blocks
 	 * from the level.
 	 * @return True.
 	 */
 	bool pushLeft() {
-
-		// Teleport only works if it has been connected up properly
-		if (_link != NULL) {
-
-			// Teleport the player
-			BlockBase* player = _game->getPlayerBlock();
-			LevelBase* level = _game->getLevel();
-
-			level->moveBlock(player->getX(), player->getY(), _link->getX(), _link->getY());
-		}
-
-		// Remove this block from the level
-		return false;
+		return teleportPlayer();
 	};
 
 	/**
-	 * Moves the player to the linked teleport block and removes both blocks
+	 * Moves the player to the next teleport block and removes both blocks
 	 * from the level.
 	 * @return True.
 	 */
 	bool pushRight() {
-
-		// Teleport only works if it has been connected up properly
-		if (_link != NULL) {
-
-			// Teleport the player
-			BlockBase* player = _game->getPlayerBlock();
-			LevelBase* level = _game->getLevel();
-
-			level->moveBlock(player->getX(), player->getY(), _link->getX(), _link->getY());
-		}
-
-		// Remove this block from the level
-		_game->getLevel()->removeBlockAt(_x, _y);
-		return false;
-	};
-
-	/**
-	 * Set the remote teleport block that this block links to.
-	 * @param link The block that this teleport links to.
-	 */
-	void setLink(TeleportBlock* link) {
-		_link = link;
+		return teleportPlayer();
 	};
 
 private:
@@ -154,7 +95,51 @@ private:
 	TeleportBmp7 _bmp7;			/**< The seventh animation frame. */
 	TeleportBmp8 _bmp8;			/**< The eighth animation frame. */
 
-	TeleportBlock* _link;		/**< The teleport that this block links to. */
+	/**
+	 * Finds the next teleport block in the level.  Search starts from the top-
+	 * left and proceeds to the bottom-right in rows.
+	 * @return The next teleport block in the level, or NULL if none is found.
+	 */
+	TeleportBlock* getNextTeleport() {
+		LevelBase* level = _game->getLevel();
+		TeleportBlock* teleport = NULL;
+
+		for (s32 y = 0; y < level->getHeight(); ++y) {
+			for (s32 x = 0; x < level->getWidth(); ++x) {
+
+				// Yuck - RTTI, but there's no practical way around this
+				teleport = dynamic_cast<TeleportBlock*>(level->getBlockAt(x, y));
+
+				if (teleport != NULL) {
+					if (teleport != this) {
+						return teleport;
+					}
+				}
+			}
+		}
+
+		return NULL;
+	}
+
+	/**
+	 * Teleports the player from this block to the next teleporter.
+	 */
+	bool teleportPlayer() {
+		TeleportBlock* destination = getNextTeleport();
+
+		// Teleport only works if there is an end point
+		if (destination == NULL) return false;
+
+		// Teleport the player
+		BlockBase* player = _game->getPlayerBlock();
+		LevelBase* level = _game->getLevel();
+
+		level->moveBlock(player->getX(), player->getY(), destination->getX(), destination->getY());
+
+		// Remove this block from the level
+		_game->getLevel()->removeBlockAt(_x, _y);
+		return false;
+	}
 };
 
 #endif
