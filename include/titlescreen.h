@@ -19,6 +19,32 @@ public:
 
 		topGfx->drawBitmap(0, 0, 256, 64, &_logoBmp, 0, 0);
 
+		// Copyrights
+		WoopsiGfx::WoopsiString	str = "ZX (c) 1990 Michael Batty";
+		topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 160, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+		str.setText("DS (c) 2011 Antony Dzeryn");
+		topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 168, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+		// High scores
+		str.setText("High Scores");
+		bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 16, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+		str.setText("020000  M. Batty");
+		bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 32, &_font, str, 0, str.getLength(), COLOUR_YELLOW);
+
+		str.setText("016000  M. Batty");
+		bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 48, &_font, str, 0, str.getLength(), COLOUR_CYAN);
+
+		str.setText("012000  M. Batty");
+		bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 64, &_font, str, 0, str.getLength(), COLOUR_GREEN);
+
+		str.setText("008000  M. Batty");
+		bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 80, &_font, str, 0, str.getLength(), COLOUR_MAGENTA);
+
+		str.setText("004000  M. Batty");
+		bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 96, &_font, str, 0, str.getLength(), COLOUR_RED);
+
 		_scroller = new Scroller(".... Earth Shaker DS - Featuring anti-gravity, "
 								 "4D teleport, forcefields, bubbles, elixirs, "
 								 "jumping jelly beans and much much more .... Can "

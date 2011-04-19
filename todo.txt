@@ -2,12 +2,11 @@ Todo
 ----
 
  - New screens:
-   - Title screen
-     - Move scroller to title screen
    - Menu screen - level select, etc.
    - Game complete
    - Between level sequence?
    - Map screen
+ - Finish title screen
  - Sounds
    - What should the makefile do to get the soundbank built?
  - Levels
