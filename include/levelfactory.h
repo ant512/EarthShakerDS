@@ -24,11 +24,13 @@
 #include "wallblock.h"
 #include "wetsoilblock.h"
 
+#include "emptylevel.h"
 #include "level0.h"
 #include "level1.h"
 #include "level2.h"
 #include "level3.h"
 #include "level4.h"
+#include "level5.h"
 
 /**
  * Creates new instances of LevelBase.
@@ -64,6 +66,12 @@ public:
 				break;
 			case 4:
 				data = new Level4();
+				break;
+			case 5:
+				data = new Level5();
+				break;
+			default:
+				data = new EmptyLevel();
 				break;
 		}
 
