@@ -11,5 +11,3 @@ Todo
  - Extra Life block:
    - Should the blocks fall?  If so, do they kill when falling on the player?
    - Are the blocks slippy?
- - Wet soil:
-   - Add animation frames

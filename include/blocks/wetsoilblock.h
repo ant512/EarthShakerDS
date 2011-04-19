@@ -8,6 +8,11 @@
 #include "blockbase.h"
 #include "constants.h"
 
+#include "wetsoilbmp1.h"
+#include "wetsoilbmp2.h"
+#include "wetsoilbmp3.h"
+#include "wetsoilbmp4.h"
+
 /**
  * Wet soil works the same way as ordinary soil, except it falls like boulders
  * whenever possible.
@@ -24,8 +29,10 @@ public:
 	WetSoilBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isHeavy = true;
 
-		// TODO: Set up animation here
-
+		_animation->addFrame(&_bmp1, 0);
+		_animation->addFrame(&_bmp2, 0);
+		_animation->addFrame(&_bmp3, 0);
+		_animation->addFrame(&_bmp4, 0);
 		_animation->play();
 
 	};
@@ -72,6 +79,10 @@ public:
 	};
 
 private:
+	WetSoilBmp1 _bmp1;			/**< The first animation frame. */
+	WetSoilBmp2 _bmp2;			/**< The second animation frame. */
+	WetSoilBmp3 _bmp3;			/**< The third animation frame. */
+	WetSoilBmp4 _bmp4;			/**< The fourth animation frame. */
 };
 
 #endif
