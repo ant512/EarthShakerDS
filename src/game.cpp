@@ -245,6 +245,8 @@ bool Game::isGravityInverted() const {
 void Game::increaseTime(s32 time) {
 	_remainingTime += time;
 
+	if (_remainingTime > STARTING_TIME) _remainingTime = STARTING_TIME;
+
 	// We have to redraw the background and then redraw the black overlay to
 	// correctly show the state of the timer bar
 	drawTimerBarBackground();
