@@ -141,6 +141,19 @@ public:
 	void endLevel();
 
 private:
+
+	/**
+	 * List of all possible states the game can be in.
+	 */
+	enum GameState {
+		GAME_STATE_RUNNING = 1,			/**< Normal gameplay. */
+		GAME_STATE_LEVEL_COMPLETE = 2,	/**< Player has completed the level. */
+		GAME_STATE_GAME_COMPLETE = 3,	/**< Player has completed the game. */
+		GAME_STATE_PLAYER_DEAD = 4,		/**< Player has died. */
+		GAME_STATE_PLAYER_SUICIDE = 5,	/**< Player has committed suicide. */
+		GAME_STATE_GAME_OVER = 6		/**< Player has lost all lives. */
+	};
+
 	LevelBase* _level;					/**< The currently-active level.*/
 	s32 _remainingGravityTime;			/**< The amount of time left until gravity returns to normal. */
 	s32 _score;							/**< The current score. */
@@ -151,13 +164,9 @@ private:
 	s32 _animationTimer;				/**< Timer used to moderate animation speed. */
 	s32 _movementTimer;					/**< Timer used to moderate movement speed. */
 	s32 _levelTimer;					/**< Timer used to decrease remaining level time. */
-	bool _isPlayerDead;					/**< Indicates whether or not the player has been killed. */
 	bool _isOddIteration;				/**< Indicates whether the game is in an odd or an even iteration. */
-	bool _isLevelEnded;					/**< Indicates that the level has finished. */
-	bool _hasCommittedSuicide;			/**< Indicates that the player has committed suicide. */
 	LogoBmp _logoBmp;					/**< The game's logo. */
-
-	
+	GameState _state;					/**< Current state of the game. */
 
 	/**
 	 * Draws the timer bar.

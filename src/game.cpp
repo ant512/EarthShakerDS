@@ -35,7 +35,7 @@ LevelBase* Game::getLevel() const {
 }
 
 bool Game::isRunning() const {
-	return _lives > 0;
+	return (_state != GAME_STATE_GAME_OVER) && (_state != GAME_STATE_GAME_COMPLETE);
 }
 
 bool Game::isOddIteration() const {
@@ -141,50 +141,60 @@ void Game::render() {
 
 void Game::iterate(PadState pad) {
 
-	// Handle the situation in which the player has been killed
-	if (_isPlayerDead) {
-		decreaseLives();
+	switch (_state) {
+		case GAME_STATE_RUNNING:
+			animate();
+			timer();
+			move(pad);
+			break;
 
-		if (_lives > 0) {
-			resetLevel();
-		}
+		case GAME_STATE_PLAYER_DEAD:
 
-		return;
+			// Handle the situation in which the player has been killed
+			decreaseLives();
+
+			if (_lives > 0) {
+				resetLevel();
+			} else {
+				_state = GAME_STATE_GAME_OVER;
+			}
+
+			break;
+
+		case GAME_STATE_LEVEL_COMPLETE:
+
+			// Handle the situation in which the player has finished the level
+			_remainingTime -= 2;
+			addScore(2);		// One point per second
+
+			drawTimerBar();
+
+			if (_remainingTime < 1) {
+				_state = GAME_STATE_RUNNING;
+				moveToNextLevel();
+			}
+
+			break;
+
+		case GAME_STATE_PLAYER_SUICIDE:
+
+			// Handle the situation in which the player has committed suicide
+
+			_remainingTime -= 2;
+
+			drawTimerBar();
+
+			if (_remainingTime < 1) {
+				killPlayer();
+			}
+
+			break;
+
+		case GAME_STATE_GAME_OVER:
+			break;
+		case GAME_STATE_GAME_COMPLETE:
+			break;
 	}
-
-	// Handle the situation in which the player has finished the level
-	if (_isLevelEnded) {
-		_remainingTime -= 2;
-		addScore(2);		// One point per second
-
-		drawTimerBar();
-
-		if (_remainingTime < 1) {
-			moveToNextLevel();
-		}
-
-		return;
-	}
-
-	// Handle the situation in which the player is committing suicide
-	if (pad.r && pad.l) {
-		_hasCommittedSuicide = true;
-	}
-
-	// Handle the situation in which the player has committed suicide
-	if (_hasCommittedSuicide) {
-		_remainingTime -= 2;
-
-		drawTimerBar();
-
-		if (_remainingTime < 1) {
-			killPlayer();
-		}
-	}
-
-	animate();
-	timer();
-	move(pad);
 }
 
 void Game::timer() {
@@ -212,6 +222,12 @@ void Game::move(PadState pad) {
 
 	if (_movementTimer == MOVEMENT_TIME) {
 		_movementTimer = 0;
+
+		// Suicide check
+		if (pad.r && pad.l) {
+			_state = GAME_STATE_PLAYER_SUICIDE;
+			return;
+		}
 
 		if (pad.up) {
 			getPlayerBlock()->pushUp();
@@ -271,7 +287,7 @@ void Game::decreaseLives() {
 }
 
 void Game::killPlayer() {
-	_isPlayerDead = true;
+	_state = GAME_STATE_PLAYER_DEAD;
 }
 
 void Game::drawDiamondCounters() {
@@ -423,12 +439,10 @@ void Game::invertGravity() {
 }
 
 void Game::resetLevel() {
+	_state = GAME_STATE_RUNNING;
 	_collectedDiamonds = 0;
 	_remainingTime = STARTING_TIME;
 	_remainingGravityTime = 0;
-	_isPlayerDead = false;
-	_isLevelEnded = false;
-	_hasCommittedSuicide = false;
 
 	_animationTimer = 0;
 	_movementTimer = 0;
@@ -453,12 +467,10 @@ void Game::resetLevel() {
 
 
 void Game::moveToNextLevel() {
+	_state = GAME_STATE_RUNNING;
 	_collectedDiamonds = 0;
 	_remainingTime = STARTING_TIME;
 	_remainingGravityTime = 0;
-	_isPlayerDead = false;
-	_isLevelEnded = false;
-	_hasCommittedSuicide = false;
 
 	_animationTimer = 0;
 	_movementTimer = 0;
@@ -485,5 +497,5 @@ void Game::moveToNextLevel() {
 }
 
 void Game::endLevel() {
-	_isLevelEnded = true;
+	_state = GAME_STATE_LEVEL_COMPLETE;
 }
