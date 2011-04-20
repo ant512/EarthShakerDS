@@ -148,15 +148,17 @@ private:
 	 * List of all possible states the game can be in.
 	 */
 	enum GameState {
-		GAME_STATE_RUNNING = 1,			/**< Normal gameplay. */
-		GAME_STATE_LEVEL_COMPLETE = 2,	/**< Player has completed the level. */
-		GAME_STATE_GAME_COMPLETE = 3,	/**< Player has completed the game. */
-		GAME_STATE_PLAYER_DEAD = 4,		/**< Player has died. */
-		GAME_STATE_PLAYER_SUICIDE = 5,	/**< Player has committed suicide. */
-		GAME_STATE_GAME_OVER = 6,		/**< Player has lost all lives. */
-		GAME_STATE_GAME_OVER_SCREEN = 7,/**< Game over screen is displayed. */
-		GAME_STATE_TITLE_SCREEN = 8,	/**< Title screen shown. */
-		GAME_STATE_STARTUP = 9			/**< Game is initialising. */
+		GAME_STATE_RUNNING = 1,				/**< Normal gameplay. */
+		GAME_STATE_LEVEL_COMPLETE = 2,		/**< Player has completed the level. */
+		GAME_STATE_GAME_COMPLETE = 3,		/**< Player has completed the game. */
+		GAME_STATE_PLAYER_DEAD = 4,			/**< Player has died. */
+		GAME_STATE_PLAYER_SUICIDE = 5,		/**< Player has committed suicide. */
+		GAME_STATE_GAME_OVER = 6,			/**< Player has lost all lives. */
+		GAME_STATE_GAME_OVER_SCREEN = 7,	/**< Game over screen is displayed. */
+		GAME_STATE_TITLE_SCREEN = 8,		/**< Title screen shown. */
+		GAME_STATE_STARTUP = 9,				/**< Game is initialising. */
+		GAME_STATE_LEVEL_TITLE_SETUP = 10,	/**< Setting up the next level title screen */
+		GAME_STATE_LEVEL_TITLE_SCREEN = 11	/**< Level title screen is displayed. */
 	};
 
 	LevelBase* _level;					/**< The currently-active level.*/

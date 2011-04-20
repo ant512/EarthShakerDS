@@ -203,9 +203,19 @@ void Game::iterate(PadState pad) {
 			drawTimerBar();
 
 			if (_remainingTime < 1) {
-				moveToNextLevel();
+				_state = GAME_STATE_LEVEL_TITLE_SETUP;
 			}
 
+			break;
+
+		case GAME_STATE_LEVEL_TITLE_SETUP:
+			
+			// TODO: Create screen here
+
+		case GAME_STATE_LEVEL_TITLE_SCREEN:
+
+			// TODO: Show screen here
+			moveToNextLevel();
 			break;
 
 		case GAME_STATE_GAME_OVER:
