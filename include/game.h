@@ -125,6 +125,12 @@ public:
 	void killPlayer();
 
 	/**
+	 * Player wants to commit suicide, typically because they've screwed up the
+	 * level.  Runs the timer down to 0 before killing the player.
+	 */
+	void commitSuicide();
+
+	/**
 	 * Decreases the amount of remaining time and redraws the timer bar.
 	 */
 	void decreaseTime();
@@ -157,6 +163,7 @@ private:
 	bool _isPlayerDead;					/**< Indicates whether or not the player has been killed. */
 	bool _isOddIteration;				/**< Indicates whether the game is in an odd or an even iteration. */
 	bool _isLevelEnded;					/**< Indicates that the level has finished. */
+	bool _hasCommittedSuicide;			/**< Indicates that the player has committed suicide. */
 	LogoBmp _logoBmp;					/**< The game's logo. */
 
 	/**

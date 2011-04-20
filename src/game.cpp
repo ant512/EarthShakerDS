@@ -141,8 +141,13 @@ void Game::render() {
 	_level->render(x, y, displayWidth, displayHeight, _topGfx);
 }
 
+void Game::commitSuicide() {
+	_hasCommittedSuicide = true;
+}
+
 void Game::iterate(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld) {
 
+	// Handle the situation in which the player has been killed
 	if (_isPlayerDead) {
 		decreaseLives();
 
@@ -153,6 +158,7 @@ void Game::iterate(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld) {
 		return;
 	}
 
+	// Handle the situation in which the player has finished the level
 	if (_isLevelEnded) {
 		_remainingTime -= 2;
 		addScore(2);		// One point per second
@@ -164,6 +170,17 @@ void Game::iterate(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld) {
 		}
 
 		return;
+	}
+
+	// Handle the situation in which the player has committed suicide
+	if (_hasCommittedSuicide) {
+		_remainingTime -= 2;
+
+		drawTimerBar();
+
+		if (_remainingTime < 1) {
+			killPlayer();
+		}
 	}
 
 	animate();
@@ -410,6 +427,7 @@ void Game::resetLevel() {
 	_remainingGravityTime = 0;
 	_isPlayerDead = false;
 	_isLevelEnded = false;
+	_hasCommittedSuicide = false;
 
 	_animationTimer = 0;
 	_movementTimer = 0;
@@ -439,6 +457,7 @@ void Game::moveToNextLevel() {
 	_remainingGravityTime = 0;
 	_isPlayerDead = false;
 	_isLevelEnded = false;
+	_hasCommittedSuicide = false;
 
 	_animationTimer = 0;
 	_movementTimer = 0;

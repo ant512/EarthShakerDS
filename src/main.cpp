@@ -28,6 +28,8 @@ void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32& s
 	bool downHeld;
 	bool rightHeld;
 	bool leftHeld;
+	bool lHeld;
+	bool rHeld;
 
 	while(game->isRunning()) {
 		scanKeys();
@@ -35,10 +37,11 @@ void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32& s
 		downHeld = (keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN);
 		leftHeld = (keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT);
 		rightHeld = (keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT);
+		lHeld = ((keysDown() & KEY_L) || (keysHeld() & KEY_L));
+		rHeld = ((keysDown() & KEY_R) || (keysHeld() & KEY_R));
 
-		while (((keysDown() & KEY_R) || (keysHeld() & KEY_R)) && ((keysDown() & KEY_L) || (keysHeld() & KEY_L))) {
-			scanKeys();
-			game->killPlayer();
+		if (lHeld && rHeld) {
+			game->commitSuicide();
 		}
 
 		game->iterate(upHeld, downHeld, leftHeld, rightHeld);
