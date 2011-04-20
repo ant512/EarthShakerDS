@@ -5,15 +5,17 @@
 
 #include "levelbase.h"
 #include "blockbase.h"
+#include "padstate.h"
 #include "playerblock.h"
 #include "gamefont.h"
+#include "screenbase.h"
 #include "scroller.h"
 #include "logobmp.h"
 
 /**
  * Game class ultimately controls everything in the game.
  */
-class Game {
+class Game : public ScreenBase {
 public:
 
 	/**
@@ -95,12 +97,9 @@ public:
 	 * around.  Redrawing and moving work on a timer system, so calling this
 	 * method will not necessarily produce an observable effect if the timers
 	 * have not reached the required values.
-	 * @param upHeld True if the up button is pressed; false if not.
-	 * @param downHeld True if the down button is pressed; false if not.
-	 * @param leftHeld True if the left button is pressed; false if not.
-	 * @param rightHeld True if the right button is pressed; false if not.
+	 * @param pad State of the DS keypad.
 	 */
-	void iterate(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld);
+	void iterate(PadState pad);
 
 	/**
 	 * Increase the number of diamonds collected in the level by one.
@@ -154,8 +153,6 @@ private:
 	s32 _remainingTime;					/**< The amount of time remaining. */
 	s32 _lives;							/**< The number of lives remaining. */
 	s32 _collectedDiamonds;				/**< Number of diamonds collected in the level. */
-	WoopsiGfx::Graphics* _topGfx;		/**< The graphics object for the top display. */
-	WoopsiGfx::Graphics* _bottomGfx;	/**< The graphics object for the bottom display. */
 	GameFont _font;						/**< Font used for text output. */
 	s32 _animationTimer;				/**< Timer used to moderate animation speed. */
 	s32 _movementTimer;					/**< Timer used to moderate movement speed. */
@@ -212,12 +209,9 @@ private:
 	 * Moves level blocks.  Uses a timer system, so calling the method will not
 	 * necessarily produce an effect other than adjusting the _movementTimer
 	 * value.
-	 * @param upHeld True if the up button is pressed; false if not.
-	 * @param downHeld True if the down button is pressed; false if not.
-	 * @param leftHeld True if the left button is pressed; false if not.
-	 * @param rightHeld True if the right button is pressed; false if not.
+	 * @param pad State of the DS' keypad.
 	 */
-	void move(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld);
+	void move(PadState pad);
 
 	/**
 	 * Decreases remaining time.  Uses a timer system, so calling the method

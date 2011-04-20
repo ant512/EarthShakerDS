@@ -59,7 +59,7 @@ public:
 		delete _scroller;
 	};
 
-	void iterate() {
+	void iterate(PadState pad) {
 		--_timer;
 
 		_scroller->render(184, _topGfx);

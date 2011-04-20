@@ -21,30 +21,35 @@ void initGfxMode() {
 	bgInitSub(3, BgType_Bmp16, BgSize_B16_256x256, 0, 0);
 }
 
+PadState getPadState() {
+
+	PadState pad;
+
+	scanKeys();
+	pad.up = (keysDown() & KEY_UP) || (keysHeld() & KEY_UP);
+	pad.down = (keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN);
+	pad.left = (keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT);
+	pad.right = (keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT);
+	pad.l = ((keysDown() & KEY_L) || (keysHeld() & KEY_L));
+	pad.r = ((keysDown() & KEY_R) || (keysHeld() & KEY_R));
+
+	return pad;
+}
+
 void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32& score, s32& level) {
 	Game* game = new Game(topGfx, bottomGfx);
 
-	bool upHeld;
-	bool downHeld;
-	bool rightHeld;
-	bool leftHeld;
-	bool lHeld;
-	bool rHeld;
+	PadState pad;
 
 	while(game->isRunning()) {
-		scanKeys();
-		upHeld = (keysDown() & KEY_UP) || (keysHeld() & KEY_UP);
-		downHeld = (keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN);
-		leftHeld = (keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT);
-		rightHeld = (keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT);
-		lHeld = ((keysDown() & KEY_L) || (keysHeld() & KEY_L));
-		rHeld = ((keysDown() & KEY_R) || (keysHeld() & KEY_R));
 
-		if (lHeld && rHeld) {
+		pad = getPadState();
+
+		if (pad.l && pad.r) {
 			game->commitSuicide();
 		}
 
-		game->iterate(upHeld, downHeld, leftHeld, rightHeld);
+		game->iterate(pad);
 		swiWaitForVBlank();
 	}
 
@@ -56,18 +61,22 @@ void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32& s
 
 void showGameOver(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32 score, s32 level) {
 	GameOverScreen screen(topGfx, bottomGfx, score, level);
-	
+	PadState pad;
+
 	while (screen.isRunning()) {
-		screen.iterate();
+		pad = getPadState();
+		screen.iterate(pad);
 		swiWaitForVBlank();
 	}
 }
 
 void showTitle(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
-	TitleScreen title(topGfx, bottomGfx);
+	TitleScreen screen(topGfx, bottomGfx);
+	PadState pad;
 
-	while (title.isRunning()) {
-		title.iterate();
+	while (screen.isRunning()) {
+		pad = getPadState();
+		screen.iterate(pad);
 		swiWaitForVBlank();
 	}
 }

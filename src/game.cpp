@@ -5,11 +5,9 @@
 #include "bitmapserver.h"
 #include "levelfactory.h"
 
-Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
+Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : ScreenBase(topGfx, bottomGfx) {
 	_score = 0;
 	_lives = STARTING_LIVES;
-	_topGfx = topGfx;
-	_bottomGfx = bottomGfx;
 	_isOddIteration = true;
 	_level = NULL;
 
@@ -145,7 +143,7 @@ void Game::commitSuicide() {
 	_hasCommittedSuicide = true;
 }
 
-void Game::iterate(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld) {
+void Game::iterate(PadState pad) {
 
 	// Handle the situation in which the player has been killed
 	if (_isPlayerDead) {
@@ -185,7 +183,7 @@ void Game::iterate(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld) {
 
 	animate();
 	timer();
-	move(upHeld, downHeld, leftHeld, rightHeld);
+	move(pad);
 }
 
 void Game::timer() {
@@ -208,19 +206,19 @@ void Game::animate() {
 	}
 }
 
-void Game::move(bool upHeld, bool downHeld, bool leftHeld, bool rightHeld) {
+void Game::move(PadState pad) {
 	_movementTimer++;
 
 	if (_movementTimer == MOVEMENT_TIME) {
 		_movementTimer = 0;
 
-		if (upHeld) {
+		if (pad.up) {
 			getPlayerBlock()->pushUp();
-		} else if (downHeld) {
+		} else if (pad.down) {
 			getPlayerBlock()->pushDown();
-		} else if (leftHeld) {
+		} else if (pad.left) {
 			getPlayerBlock()->pushLeft();
-		} else if (rightHeld) {
+		} else if (pad.right) {
 			getPlayerBlock()->pushRight();
 		}
 

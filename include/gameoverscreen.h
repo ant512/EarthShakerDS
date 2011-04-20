@@ -36,7 +36,7 @@ public:
 
 	~GameOverScreen() {};
 
-	void iterate() {
+	void iterate(PadState pad) {
 		--_timer;
 	};
 

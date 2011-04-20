@@ -3,6 +3,9 @@
 
 #include <graphics.h>
 
+#include "padstate.h"
+
+
 class ScreenBase {
 public:
 	ScreenBase(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
@@ -12,7 +15,7 @@ public:
 
 	virtual ~ScreenBase() {};
 
-	virtual void iterate() = 0;
+	virtual void iterate(PadState pad) = 0;
 
 	virtual bool isRunning() const = 0;
 
