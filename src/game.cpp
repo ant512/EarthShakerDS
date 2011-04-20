@@ -170,7 +170,6 @@ void Game::iterate(PadState pad) {
 			drawTimerBar();
 
 			if (_remainingTime < 1) {
-				_state = GAME_STATE_RUNNING;
 				moveToNextLevel();
 			}
 
