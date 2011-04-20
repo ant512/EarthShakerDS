@@ -11,6 +11,7 @@
 #include "screenbase.h"
 #include "scroller.h"
 #include "logobmp.h"
+#include "gameoverscreen.h"
 
 /**
  * Game class ultimately controls everything in the game.
@@ -151,7 +152,9 @@ private:
 		GAME_STATE_GAME_COMPLETE = 3,	/**< Player has completed the game. */
 		GAME_STATE_PLAYER_DEAD = 4,		/**< Player has died. */
 		GAME_STATE_PLAYER_SUICIDE = 5,	/**< Player has committed suicide. */
-		GAME_STATE_GAME_OVER = 6		/**< Player has lost all lives. */
+		GAME_STATE_GAME_OVER = 6,		/**< Player has lost all lives. */
+		GAME_STATE_GAME_OVER_SCREEN = 7,/**< Game over screen is displayed. */
+		GAME_STATE_TITLE_SCREEN = 8		/**< Title screen shown. */
 	};
 
 	LevelBase* _level;					/**< The currently-active level.*/
@@ -167,6 +170,8 @@ private:
 	bool _isOddIteration;				/**< Indicates whether the game is in an odd or an even iteration. */
 	LogoBmp _logoBmp;					/**< The game's logo. */
 	GameState _state;					/**< Current state of the game. */
+
+	GameOverScreen* _gameOverScreen;
 
 	/**
 	 * Draws the timer bar.

@@ -10,8 +10,8 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : Screen
 	_lives = STARTING_LIVES;
 	_isOddIteration = true;
 	_level = NULL;
-
-	moveToNextLevel();
+	_gameOverScreen= NULL;
+	_state = GAME_STATE_TITLE_SCREEN;
 }
 
 Game::~Game() {
@@ -35,7 +35,7 @@ LevelBase* Game::getLevel() const {
 }
 
 bool Game::isRunning() const {
-	return (_state != GAME_STATE_GAME_OVER) && (_state != GAME_STATE_GAME_COMPLETE);
+	return (_state != GAME_STATE_GAME_COMPLETE);
 }
 
 bool Game::isOddIteration() const {
@@ -190,8 +190,31 @@ void Game::iterate(PadState pad) {
 			break;
 
 		case GAME_STATE_GAME_OVER:
+			_gameOverScreen = new GameOverScreen(_topGfx, _bottomGfx, _score, _level->getNumber());
+			_state = GAME_STATE_GAME_OVER_SCREEN;
+
+			delete _level;
+			_level = NULL;
+
 			break;
+		
+		case GAME_STATE_GAME_OVER_SCREEN:
+			_gameOverScreen->iterate(pad);
+
+			if (!_gameOverScreen->isRunning()) {
+				delete _gameOverScreen;
+				_gameOverScreen = NULL;
+
+				_state = GAME_STATE_TITLE_SCREEN;
+			}
+
+			break;
+
 		case GAME_STATE_GAME_COMPLETE:
+			break;
+			
+		case GAME_STATE_TITLE_SCREEN:
+			moveToNextLevel();
 			break;
 	}
 }

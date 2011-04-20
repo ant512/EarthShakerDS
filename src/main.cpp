@@ -5,7 +5,6 @@
 #include "constants.h"
 #include "bitmapserver.h"
 #include "titlescreen.h"
-#include "gameoverscreen.h"
 
 void initGfxMode() {
 	powerOn(POWER_ALL_2D);
@@ -36,7 +35,7 @@ PadState getPadState() {
 	return pad;
 }
 
-void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32& score, s32& level) {
+void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
 	Game* game = new Game(topGfx, bottomGfx);
 
 	PadState pad;
@@ -49,21 +48,7 @@ void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32& s
 		swiWaitForVBlank();
 	}
 
-	score = game->getScore();
-	level = game->getLevel()->getNumber();
-
 	delete game;
-}
-
-void showGameOver(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32 score, s32 level) {
-	GameOverScreen screen(topGfx, bottomGfx, score, level);
-	PadState pad;
-
-	while (screen.isRunning()) {
-		pad = getPadState();
-		screen.iterate(pad);
-		swiWaitForVBlank();
-	}
 }
 
 void showTitle(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
@@ -90,12 +75,8 @@ int main(int argc, char* argv[]) {
 
 	while (1) {
 
-		s32 level = 0;
-		s32 score = 0;
-
 		showTitle(topGfx, bottomGfx);
-		runGame(topGfx, bottomGfx, score, level);
-		showGameOver(topGfx, bottomGfx, score, level);
+		runGame(topGfx, bottomGfx);
 	}
 
 	BitmapServer::shutdown();
