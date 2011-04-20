@@ -10,7 +10,6 @@ Todo
  - Sounds
    - What should the makefile do to get the soundbank built?
  - Levels
- - Suicide button should decrease timer until it expires
  - Should actions that pause the original game pause the remake, even though
    they only pause because the Speccy couldn't play complex sounds as well as do
    anything else simultaneously?
