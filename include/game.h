@@ -3,15 +3,16 @@
 
 #include <graphics.h>
 
-#include "levelbase.h"
 #include "blockbase.h"
+#include "gamefont.h"
+#include "gameoverscreen.h"
+#include "levelbase.h"
+#include "logobmp.h"
 #include "padstate.h"
 #include "playerblock.h"
-#include "gamefont.h"
 #include "screenbase.h"
 #include "scroller.h"
-#include "logobmp.h"
-#include "gameoverscreen.h"
+#include "titlescreen.h"
 
 /**
  * Game class ultimately controls everything in the game.
@@ -154,7 +155,8 @@ private:
 		GAME_STATE_PLAYER_SUICIDE = 5,	/**< Player has committed suicide. */
 		GAME_STATE_GAME_OVER = 6,		/**< Player has lost all lives. */
 		GAME_STATE_GAME_OVER_SCREEN = 7,/**< Game over screen is displayed. */
-		GAME_STATE_TITLE_SCREEN = 8		/**< Title screen shown. */
+		GAME_STATE_TITLE_SCREEN = 8,	/**< Title screen shown. */
+		GAME_STATE_STARTUP = 9			/**< Game is initialising. */
 	};
 
 	LevelBase* _level;					/**< The currently-active level.*/
@@ -171,7 +173,8 @@ private:
 	LogoBmp _logoBmp;					/**< The game's logo. */
 	GameState _state;					/**< Current state of the game. */
 
-	GameOverScreen* _gameOverScreen;
+	GameOverScreen* _gameOverScreen;	/**< The screen displayed when the game ends. */
+	TitleScreen* _titleScreen;			/**< The screen displayed when the game starts. */
 
 	/**
 	 * Draws the timer bar.

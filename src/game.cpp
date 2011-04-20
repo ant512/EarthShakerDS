@@ -10,8 +10,9 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : Screen
 	_lives = STARTING_LIVES;
 	_isOddIteration = true;
 	_level = NULL;
-	_gameOverScreen= NULL;
-	_state = GAME_STATE_TITLE_SCREEN;
+	_gameOverScreen = NULL;
+	_titleScreen = NULL;
+	_state = GAME_STATE_STARTUP;
 }
 
 Game::~Game() {
@@ -142,6 +143,24 @@ void Game::render() {
 void Game::iterate(PadState pad) {
 
 	switch (_state) {
+
+		case GAME_STATE_STARTUP:
+			_titleScreen = new TitleScreen(_topGfx, _bottomGfx);
+			_state = GAME_STATE_TITLE_SCREEN;
+
+		case GAME_STATE_TITLE_SCREEN:
+
+			_titleScreen->iterate(pad);
+
+			if (!_titleScreen->isRunning()) {
+				delete _titleScreen;
+				_titleScreen = NULL;
+
+				moveToNextLevel();
+			}
+
+			break;
+
 		case GAME_STATE_RUNNING:
 			animate();
 			timer();
@@ -161,20 +180,6 @@ void Game::iterate(PadState pad) {
 
 			break;
 
-		case GAME_STATE_LEVEL_COMPLETE:
-
-			// Handle the situation in which the player has finished the level
-			_remainingTime -= 2;
-			addScore(2);		// One point per second
-
-			drawTimerBar();
-
-			if (_remainingTime < 1) {
-				moveToNextLevel();
-			}
-
-			break;
-
 		case GAME_STATE_PLAYER_SUICIDE:
 
 			// Handle the situation in which the player has committed suicide
@@ -189,32 +194,44 @@ void Game::iterate(PadState pad) {
 
 			break;
 
+		case GAME_STATE_LEVEL_COMPLETE:
+
+			// Handle the situation in which the player has finished the level
+			_remainingTime -= 2;
+			addScore(2);		// One point per second
+
+			drawTimerBar();
+
+			if (_remainingTime < 1) {
+				moveToNextLevel();
+			}
+
+			break;
+
 		case GAME_STATE_GAME_OVER:
+
+			// Game has ended; set up a new game over screen and kill the level
 			_gameOverScreen = new GameOverScreen(_topGfx, _bottomGfx, _score, _level->getNumber());
 			_state = GAME_STATE_GAME_OVER_SCREEN;
 
 			delete _level;
 			_level = NULL;
-
-			break;
 		
 		case GAME_STATE_GAME_OVER_SCREEN:
+
+			// Run the game over screen
 			_gameOverScreen->iterate(pad);
 
 			if (!_gameOverScreen->isRunning()) {
 				delete _gameOverScreen;
 				_gameOverScreen = NULL;
 
-				_state = GAME_STATE_TITLE_SCREEN;
+				_state = GAME_STATE_STARTUP;
 			}
 
 			break;
 
 		case GAME_STATE_GAME_COMPLETE:
-			break;
-			
-		case GAME_STATE_TITLE_SCREEN:
-			moveToNextLevel();
 			break;
 	}
 }

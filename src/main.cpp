@@ -4,7 +4,6 @@
 #include "game.h"
 #include "constants.h"
 #include "bitmapserver.h"
-#include "titlescreen.h"
 
 void initGfxMode() {
 	powerOn(POWER_ALL_2D);
@@ -35,33 +34,6 @@ PadState getPadState() {
 	return pad;
 }
 
-void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
-	Game* game = new Game(topGfx, bottomGfx);
-
-	PadState pad;
-
-	while(game->isRunning()) {
-
-		pad = getPadState();
-
-		game->iterate(pad);
-		swiWaitForVBlank();
-	}
-
-	delete game;
-}
-
-void showTitle(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) {
-	TitleScreen screen(topGfx, bottomGfx);
-	PadState pad;
-
-	while (screen.isRunning()) {
-		pad = getPadState();
-		screen.iterate(pad);
-		swiWaitForVBlank();
-	}
-}
-
 int main(int argc, char* argv[]) {
 	initGfxMode();
 
@@ -73,16 +45,23 @@ int main(int argc, char* argv[]) {
 	WoopsiGfx::Graphics* topGfx = topBuffer.newGraphics();
 	WoopsiGfx::Graphics* bottomGfx = bottomBuffer.newGraphics();
 
-	while (1) {
+	PadState pad;
 
-		showTitle(topGfx, bottomGfx);
-		runGame(topGfx, bottomGfx);
+	Game* game = new Game(topGfx, bottomGfx);
+
+	while(game->isRunning()) {
+
+		pad = getPadState();
+
+		game->iterate(pad);
+		swiWaitForVBlank();
 	}
 
-	BitmapServer::shutdown();
-
+	delete game;
 	delete topGfx;
 	delete bottomGfx;
+
+	BitmapServer::shutdown();
 
 	return 0;
 }
