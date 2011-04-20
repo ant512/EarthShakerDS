@@ -11,8 +11,6 @@
 class GameOverScreen : public ScreenBase {
 public:
 	GameOverScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32 score, s32 level) : ScreenBase(topGfx, bottomGfx) {
-		_score = score;
-		_level = level;
 		_timer = 200;
 
 		topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
@@ -45,8 +43,6 @@ public:
 	};
 
 private:;
-	s32 _score;
-	s32 _level;
 	s32 _timer;
 	GameFont _font;
 };
