@@ -476,8 +476,6 @@ void Game::moveToNextLevel() {
 	_movementTimer = 0;
 	_levelTimer = 0;
 
-	BitmapServer::init();
-
 	if (_level == NULL) {
 		_level = LevelFactory::newLevel(5, this);
 	} else {

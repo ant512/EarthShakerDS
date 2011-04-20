@@ -141,80 +141,110 @@ public:
 	 * Turns the brick wall bitmap blue.
 	 */
 	static void makeBrickWallBlue() {
-		swapColours(COLOUR_WHITE, COLOUR_BLUE, _brickWallBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _brickWallBmp);
+		swapColours(_brickWallColour, COLOUR_BLUE, _brickWallBmp);
+		swapColours(_brickWallDarkColour, COLOUR_BLUE_DARK, _brickWallBmp);
+
+		_brickWallColour = COLOUR_BLUE;
+		_brickWallDarkColour = COLOUR_BLUE_DARK;
 	};
 
 	/**
 	 * Turns the brick wall bitmap red.
 	 */
 	static void makeBrickWallRed() {
-		swapColours(COLOUR_WHITE, COLOUR_RED, _brickWallBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _brickWallBmp);
+		swapColours(_brickWallColour, COLOUR_RED, _brickWallBmp);
+		swapColours(_brickWallDarkColour, COLOUR_RED_DARK, _brickWallBmp);
+
+		_brickWallColour = COLOUR_RED;
+		_brickWallDarkColour = COLOUR_RED_DARK;
 	};
 
 	/**
 	 * Turns the brick wall bitmap green.
 	 */
 	static void makeBrickWallGreen() {
-		swapColours(COLOUR_WHITE, COLOUR_GREEN, _brickWallBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _brickWallBmp);
+		swapColours(_brickWallColour, COLOUR_GREEN, _brickWallBmp);
+		swapColours(_brickWallDarkColour, COLOUR_GREEN_DARK, _brickWallBmp);
+
+		_brickWallColour = COLOUR_GREEN;
+		_brickWallDarkColour = COLOUR_GREEN_DARK;
 	};
 
 	/**
 	 * Turns the brick wall bitmap cyan.
 	 */
 	static void makeBrickWallCyan() {
-		swapColours(COLOUR_WHITE, COLOUR_CYAN, _brickWallBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _brickWallBmp);
+		swapColours(_brickWallColour, COLOUR_CYAN, _brickWallBmp);
+		swapColours(_brickWallDarkColour, COLOUR_CYAN_DARK, _brickWallBmp);
+
+		_brickWallColour = COLOUR_CYAN;
+		_brickWallDarkColour = COLOUR_CYAN_DARK;
 	};
 
 	/**
 	 * Turns the brick wall bitmap magenta.
 	 */
 	static void makeBrickWallMagenta() {
-		swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _brickWallBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _brickWallBmp);
+		swapColours(_brickWallColour, COLOUR_MAGENTA, _brickWallBmp);
+		swapColours(_brickWallDarkColour, COLOUR_MAGENTA_DARK, _brickWallBmp);
+
+		_brickWallColour = COLOUR_MAGENTA;
+		_brickWallDarkColour = COLOUR_MAGENTA_DARK;
 	};
 
 	/**
 	 * Turns the soil bitmap blue.
 	 */
 	static void makeSoilBlue() {
-		swapColours(COLOUR_WHITE, COLOUR_BLUE, _soilBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _soilBmp);
+		swapColours(_soilColour, COLOUR_BLUE, _soilBmp);
+		swapColours(_soilDarkColour, COLOUR_BLUE_DARK, _soilBmp);
+
+		_soilColour = COLOUR_BLUE;
+		_soilDarkColour = COLOUR_BLUE_DARK;
 	};
 
 	/**
 	 * Turns the soil bitmap red.
 	 */
 	static void makeSoilRed() {
-		swapColours(COLOUR_WHITE, COLOUR_RED, _soilBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _soilBmp);
+		swapColours(_soilColour, COLOUR_RED, _soilBmp);
+		swapColours(_soilDarkColour, COLOUR_RED_DARK, _soilBmp);
+
+		_soilColour = COLOUR_RED;
+		_soilDarkColour = COLOUR_RED_DARK;
 	};
 
 	/**
 	 * Turns the soil bitmap green.
 	 */
 	static void makeSoilGreen() {
-		swapColours(COLOUR_WHITE, COLOUR_GREEN, _soilBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _soilBmp);
+		swapColours(_soilColour, COLOUR_GREEN, _soilBmp);
+		swapColours(_soilDarkColour, COLOUR_GREEN_DARK, _soilBmp);
+
+		_soilColour = COLOUR_GREEN;
+		_soilDarkColour = COLOUR_GREEN_DARK;
 	};
 
 	/**
 	 * Turns the soil bitmap cyan.
 	 */
 	static void makSoilCyan() {
-		swapColours(COLOUR_WHITE, COLOUR_CYAN, _soilBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _soilBmp);
+		swapColours(_soilColour, COLOUR_CYAN, _soilBmp);
+		swapColours(_soilDarkColour, COLOUR_CYAN_DARK, _soilBmp);
+
+		_soilColour = COLOUR_CYAN;
+		_soilDarkColour = COLOUR_CYAN_DARK;
 	};
 
 	/**
 	 * Turns the soil bitmap magenta.
 	 */
 	static void makeSoilMagenta() {
-		swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _soilBmp);
-		swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _soilBmp);
+		swapColours(_soilColour, COLOUR_MAGENTA, _soilBmp);
+		swapColours(_soilDarkColour, COLOUR_MAGENTA_DARK, _soilBmp);
+
+		_soilColour = COLOUR_MAGENTA;
+		_soilDarkColour = COLOUR_MAGENTA_DARK;
 	};
 
 	/**
@@ -576,6 +606,13 @@ private:
 
 	static WoopsiGfx::Bitmap* _honeycombSoilBmp;
 
+	static SpectrumColour _soilColour;
+	static SpectrumColour _soilDarkColour;
+	static SpectrumColour _boulderColour;
+	static SpectrumColour _boulderDarkColour;
+	static SpectrumColour _brickWallColour;
+	static SpectrumColour _brickWallDarkColour;
+
 	/**
 	 * Constructor is private to prevent creation.
 	 */
@@ -592,29 +629,32 @@ private:
 	 * @param dark New dark colour.
 	 */
 	static void changeBoulderColours(SpectrumColour light, SpectrumColour dark) {
-		swapColours(COLOUR_WHITE, light, _boulderBmp);
-		swapColours(COLOUR_WHITE_DARK, dark, _boulderBmp);
+		swapColours(_boulderColour, light, _boulderBmp);
+		swapColours(_boulderDarkColour, dark, _boulderBmp);
 
-		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp1);
-		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp1);
+		swapColours(_boulderColour, light, _boulderExplodeBmp1);
+		swapColours(_boulderDarkColour, dark, _boulderExplodeBmp1);
 
-		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp2);
-		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp2);
+		swapColours(_boulderColour, light, _boulderExplodeBmp2);
+		swapColours(_boulderDarkColour, dark, _boulderExplodeBmp2);
 
-		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp3);
-		swapColours(COLOUR_YELLOW_DARK, dark, _boulderExplodeBmp3);
+		swapColours(_boulderColour, light, _boulderExplodeBmp3);
+		swapColours(_boulderDarkColour, dark, _boulderExplodeBmp3);
 
-		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp4);
-		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp4);
+		swapColours(_boulderColour, light, _boulderExplodeBmp4);
+		swapColours(_boulderDarkColour, dark, _boulderExplodeBmp4);
 
-		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp5);
-		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp5);
+		swapColours(_boulderColour, light, _boulderExplodeBmp5);
+		swapColours(_boulderDarkColour, dark, _boulderExplodeBmp5);
 
-		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp6);
-		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp6);
+		swapColours(_boulderColour, light, _boulderExplodeBmp6);
+		swapColours(_boulderDarkColour, dark, _boulderExplodeBmp6);
 
-		swapColours(COLOUR_WHITE, light, _boulderExplodeBmp7);
-		swapColours(COLOUR_WHITE_DARK, dark, _boulderExplodeBmp7);
+		swapColours(_boulderColour, light, _boulderExplodeBmp7);
+		swapColours(_boulderDarkColour, dark, _boulderExplodeBmp7);
+
+		_boulderColour = light;
+		_boulderDarkColour = dark;
 	};
 
 	/**

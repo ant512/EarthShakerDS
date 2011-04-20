@@ -34,3 +34,10 @@ WoopsiGfx::Bitmap* BitmapServer::_yellowDoorBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_soilBmp = NULL;
 
 WoopsiGfx::Bitmap* BitmapServer::_honeycombSoilBmp = NULL;
+
+SpectrumColour BitmapServer::_soilColour = COLOUR_WHITE;
+SpectrumColour BitmapServer::_soilDarkColour = COLOUR_WHITE;
+SpectrumColour BitmapServer::_boulderColour = COLOUR_WHITE;
+SpectrumColour BitmapServer::_boulderDarkColour = COLOUR_WHITE;
+SpectrumColour BitmapServer::_brickWallColour = COLOUR_WHITE;
+SpectrumColour BitmapServer::_brickWallDarkColour = COLOUR_WHITE;
