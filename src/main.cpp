@@ -45,10 +45,6 @@ void runGame(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32& s
 
 		pad = getPadState();
 
-		if (pad.l && pad.r) {
-			game->commitSuicide();
-		}
-
 		game->iterate(pad);
 		swiWaitForVBlank();
 	}

@@ -139,10 +139,6 @@ void Game::render() {
 	_level->render(x, y, displayWidth, displayHeight, _topGfx);
 }
 
-void Game::commitSuicide() {
-	_hasCommittedSuicide = true;
-}
-
 void Game::iterate(PadState pad) {
 
 	// Handle the situation in which the player has been killed
@@ -168,6 +164,11 @@ void Game::iterate(PadState pad) {
 		}
 
 		return;
+	}
+
+	// Handle the situation in which the player is committing suicide
+	if (pad.r && pad.l) {
+		_hasCommittedSuicide = true;
 	}
 
 	// Handle the situation in which the player has committed suicide
