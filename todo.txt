@@ -4,7 +4,7 @@ Todo
  - New screens:
    - Menu screen - level select, etc.
    - Game complete
-   - Between level sequence?
+   - Between level screen
    - Map screen
  - Finish title screen
  - Sounds
