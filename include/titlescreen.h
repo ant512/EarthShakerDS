@@ -6,6 +6,7 @@
 #include <woopsistring.h>
 #include <leveldefinition.h>
 
+#include "blockdisplayscreen.h"
 #include "gamefont.h"
 #include "logobmp.h"
 #include "screenbase.h"
@@ -32,6 +33,7 @@ private:
 	WoopsiArray<LevelDefinition*>* _levelDefinitions;
 	s32 _selectedLevelIndex;
 	LevelDefinition* _chosenLevel;
+	BlockDisplayScreen* _blockDisplayScreen;
 
 	void drawLevelNames();
 
