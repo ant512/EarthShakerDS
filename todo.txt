@@ -3,7 +3,6 @@ Todo
 
  - New screens:
    - Game complete
-   - Between level screen
    - Map screen
  - High scores:
    - If we allow high scores we have to allow high score entry, which means a
@@ -14,7 +13,6 @@ Todo
    - What could we replace them with on the title screen?
      - Animated display of all interesting blocks, along with their names and
        what they do?
- - Screen transition animations?
  - Pause button?
  - High scores?
  - Save high scores?
