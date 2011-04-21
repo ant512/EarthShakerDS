@@ -257,12 +257,24 @@ void Game::iterate(PadState pad) {
 
 		case GAME_STATE_GAME_OVER:
 
-			// Game has ended; set up a new game over screen and kill the level
-			_gameOverScreen = new GameOverScreen(_topGfx, _bottomGfx, _score, _level->getNumber());
-			_state = GAME_STATE_GAME_OVER_SCREEN;
+			_transition->reset();
+			_state = GAME_STATE_GAME_OVER_TRANSITION;
 
-			delete _level;
-			_level = NULL;
+		case GAME_STATE_GAME_OVER_TRANSITION:
+
+			_transition->iterate();
+
+			if (!_transition->isRunning()) {
+
+				// Game has ended; set up a new game over screen and kill the level
+				_gameOverScreen = new GameOverScreen(_topGfx, _bottomGfx, _score, _level->getNumber());
+				_state = GAME_STATE_GAME_OVER_SCREEN;
+
+				delete _level;
+				_level = NULL;
+			}
+
+			break;
 		
 		case GAME_STATE_GAME_OVER_SCREEN:
 
