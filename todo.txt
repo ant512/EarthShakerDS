@@ -25,7 +25,3 @@ Todo
    they only pause because the Speccy couldn't play complex sounds as well as do
    anything else simultaneously?
  - Does timer turn blue when player commits suicide?
- - Split into .cpp files:
-   - LevelDefinition
-   - LevelFactory
-   - TitleScreen
