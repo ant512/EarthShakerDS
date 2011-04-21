@@ -291,6 +291,8 @@ void Game::iterate(PadState pad) {
 			break;
 
 		case GAME_STATE_GAME_COMPLETE:
+
+			// TODO: Show game complete screen here
 			break;
 	}
 }
