@@ -4,18 +4,9 @@ Todo
  - New screens:
    - Game complete
    - Map screen
- - High scores:
-   - If we allow high scores we have to allow high score entry, which means a
-     keyboard or at least d-pad driven character selection.
-   - We should also save them to disk
-   - High score tables are rubbish (especially for this game as scoring really
-     isn't an objective).
-   - What could we replace them with on the title screen?
-     - Animated display of all interesting blocks, along with their names and
-       what they do?
+   - Animated display of all interesting blocks on title screen bottom display,
+     along with their names and what they do
  - Pause button?
- - High scores?
- - Save high scores?
  - Sounds
    - What should the makefile do to get the soundbank built?
  - Levels

@@ -24,25 +24,6 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	str.setText("DS (c) 2011 Antony Dzeryn");
 	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 168, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 
-	// High scores
-	str.setText("High Scores");
-	bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 40, &_font, str, 0, str.getLength(), COLOUR_WHITE);
-
-	str.setText("020000  M. Batty");
-	bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 56, &_font, str, 0, str.getLength(), COLOUR_YELLOW);
-
-	str.setText("016000  M. Batty");
-	bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 72, &_font, str, 0, str.getLength(), COLOUR_CYAN);
-
-	str.setText("012000  M. Batty");
-	bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 88, &_font, str, 0, str.getLength(), COLOUR_GREEN);
-
-	str.setText("008000  M. Batty");
-	bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 104, &_font, str, 0, str.getLength(), COLOUR_MAGENTA);
-
-	str.setText("004000  M. Batty");
-	bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 120, &_font, str, 0, str.getLength(), COLOUR_RED);
-
 	_scroller = new Scroller(".... Earth Shaker DS - Featuring anti-gravity, "
 							 "4D teleport, forcefields, bubbles, elixirs, "
 							 "jumping jelly beans and much much more .... Can "
