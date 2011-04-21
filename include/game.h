@@ -7,6 +7,7 @@
 #include "blockbase.h"
 #include "gamefont.h"
 #include "gameoverscreen.h"
+#include "gatetransition.h"
 #include "levelbase.h"
 #include "leveldefinition.h"
 #include "logobmp.h"
@@ -159,8 +160,8 @@ private:
 		GAME_STATE_GAME_OVER_SCREEN = 7,	/**< Game over screen is displayed. */
 		GAME_STATE_TITLE_SCREEN = 8,		/**< Title screen shown. */
 		GAME_STATE_STARTUP = 9,				/**< Game is initialising. */
-		GAME_STATE_LEVEL_TITLE_SETUP = 10,	/**< Setting up the next level title screen */
-		GAME_STATE_LEVEL_TITLE_SCREEN = 11	/**< Level title screen is displayed. */
+		GAME_STATE_LEVEL_TRANSITION = 10,	/**< Level is transitioning out ready for next level. */
+		GAME_STATE_TITLE_SCREEN_TRANSITION = 12	/**< Title screen is transitioning out. */
 	};
 
 	LevelBase* _level;						/**< The currently-active level.*/
@@ -176,6 +177,7 @@ private:
 	bool _isOddIteration;					/**< Indicates whether the game is in an odd or an even iteration. */
 	LogoBmp _logoBmp;						/**< The game's logo. */
 	GameState _state;						/**< Current state of the game. */
+	GateTransition* _transition;			/**< Transition that plays between game screens. */
 
 	WoopsiArray<LevelDefinition*> _levelDefinitions;
 

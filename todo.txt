@@ -5,8 +5,15 @@ Todo
    - Game complete
    - Between level screen
    - Map screen
- - Finish title screen
-   - Hi scores should work
+ - High scores:
+   - If we allow high scores we have to allow high score entry, which means a
+     keyboard or at least d-pad driven character selection.
+   - We should also save them to disk
+   - High score tables are rubbish (especially for this game as scoring really
+     isn't an objective).
+   - What could we replace them with on the title screen?
+     - Animated display of all interesting blocks, along with their names and
+       what they do?
  - Screen transition animations?
  - Pause button?
  - High scores?

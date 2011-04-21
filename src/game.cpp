@@ -19,6 +19,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : Screen
 	_gameOverScreen = NULL;
 	_titleScreen = NULL;
 	_state = GAME_STATE_STARTUP;
+	_transition = new GateTransition(topGfx, bottomGfx);
 
 	_levelDefinitions.push_back(new Level1());
 	_levelDefinitions.push_back(new Level2());
@@ -29,6 +30,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : Screen
 
 Game::~Game() {
 	delete _level;
+	delete _transition;
 
 	for (s32 i = 0; i < _levelDefinitions.size(); ++i) {
 		delete _levelDefinitions[i];
@@ -169,6 +171,17 @@ void Game::iterate(PadState pad) {
 			_titleScreen->iterate(pad);
 
 			if (!_titleScreen->isRunning()) {
+				_transition->reset();
+				_state = GAME_STATE_TITLE_SCREEN_TRANSITION;
+			}
+
+			break;
+
+		case GAME_STATE_TITLE_SCREEN_TRANSITION:
+
+			_transition->iterate();
+
+			if (!_transition->isRunning()) {
 				LevelDefinition* chosenLevel = _titleScreen->getChosenLevel();
 
 				delete _titleScreen;
@@ -221,23 +234,23 @@ void Game::iterate(PadState pad) {
 			drawTimerBar();
 
 			if (_remainingTime < 1) {
-				_state = GAME_STATE_LEVEL_TITLE_SETUP;
+				_transition->reset();
+				_state = GAME_STATE_LEVEL_TRANSITION;
 			}
 
 			break;
 
-		case GAME_STATE_LEVEL_TITLE_SETUP:
+		case GAME_STATE_LEVEL_TRANSITION:
 			
-			// TODO: Create screen here
+			_transition->iterate();
 
-		case GAME_STATE_LEVEL_TITLE_SCREEN:
+			if (!_transition->isRunning()) {
 
-			// TODO: Show screen here
-
-			if (_level->getNumber() < _levelDefinitions.size() - 1) {
-				startLevel(_levelDefinitions[_level->getNumber()]);
-			} else {
-				_state = GAME_STATE_GAME_COMPLETE;
+				if (_level->getNumber() < _levelDefinitions.size() - 1) {
+					startLevel(_levelDefinitions[_level->getNumber()]);
+				} else {
+					_state = GAME_STATE_GAME_COMPLETE;
+				}
 			}
 
 			break;
