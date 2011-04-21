@@ -30,6 +30,7 @@ PadState getPadState() {
 	pad.right = (keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT);
 	pad.l = ((keysDown() & KEY_L) || (keysHeld() & KEY_L));
 	pad.r = ((keysDown() & KEY_R) || (keysHeld() & KEY_R));
+	pad.a = ((keysDown() & KEY_A) || (keysHeld() & KEY_A));
 
 	return pad;
 }

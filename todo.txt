@@ -6,14 +6,7 @@ Todo
    - Between level screen
    - Map screen
  - Finish title screen
-   - Level select - all levels available from the start
-     - Put all level definitions in a WoopsiArray
-     - Show list of all levels
-     - When level is selected, send it to the LevelFactory and have it build us
-       a level
-     - When the level is complete, get the next definition in the list and send
-       that to the LevelFactory for creation
-     - Etc
+   - Hi scores should work
  - Screen transition animations?
  - Pause button?
  - High scores?

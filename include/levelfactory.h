@@ -39,65 +39,6 @@ class LevelFactory {
 public:
 
 	/**
-	 * Creates and returns a new LevelBase object representing the specified
-	 * level number.
-	 * @param number The level to create.
-	 * @param game Pointer to the overall game object.
-	 * @return A new LevelBase object containing the specified level definition
-	 * if a level for that number exists.  Otherwise, returns NULL.  It is the
-	 * responsibility of the caller to delete the level once it is no longer
-	 * required.
-	 */
-	static LevelBase* newLevel(s32 number, Game* game) {
-		LevelDefinition* data = NULL;
-
-		switch (number) {
-			case 0:
-				data = new Level0();
-				break;
-			case 1:
-				data = new Level1();
-				break;
-			case 2:
-				data = new Level2();
-				break;
-			case 3:
-				data = new Level3();
-				break;
-			case 4:
-				data = new Level4();
-				break;
-			case 5:
-				data = new Level5();
-				break;
-			default:
-				data = new EmptyLevel();
-				break;
-		}
-
-		LevelBase* level = NULL;
-
-		if (data != NULL) {
-			level = createLevel(data, game);
-			delete data;
-		}
-
-		return level;
-	};
-
-private:
-
-	/**
-	 * Constructor is private to prevent creation.
-	 */
-	LevelFactory();
-
-	/**
-	 * Destructor.
-	 */
-	~LevelFactory();
-
-	/**
 	 * Creates a new LevelBase object and populates it with data drawn from the
 	 * supplied definition.
 	 * @param data The level definition to use as a data source for the level.
@@ -238,6 +179,18 @@ private:
 
 		return level;
 	};
+
+private:
+
+	/**
+	 * Constructor is private to prevent creation.
+	 */
+	LevelFactory();
+
+	/**
+	 * Destructor.
+	 */
+	~LevelFactory();
 };
 
 #endif

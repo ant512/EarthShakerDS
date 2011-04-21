@@ -2,11 +2,13 @@
 #define _GAME_H_
 
 #include <graphics.h>
+#include <woopsiarray.h>
 
 #include "blockbase.h"
 #include "gamefont.h"
 #include "gameoverscreen.h"
 #include "levelbase.h"
+#include "leveldefinition.h"
 #include "logobmp.h"
 #include "padstate.h"
 #include "playerblock.h"
@@ -161,22 +163,24 @@ private:
 		GAME_STATE_LEVEL_TITLE_SCREEN = 11	/**< Level title screen is displayed. */
 	};
 
-	LevelBase* _level;					/**< The currently-active level.*/
-	s32 _remainingGravityTime;			/**< The amount of time left until gravity returns to normal. */
-	s32 _score;							/**< The current score. */
-	s32 _remainingTime;					/**< The amount of time remaining. */
-	s32 _lives;							/**< The number of lives remaining. */
-	s32 _collectedDiamonds;				/**< Number of diamonds collected in the level. */
-	GameFont _font;						/**< Font used for text output. */
-	s32 _animationTimer;				/**< Timer used to moderate animation speed. */
-	s32 _movementTimer;					/**< Timer used to moderate movement speed. */
-	s32 _levelTimer;					/**< Timer used to decrease remaining level time. */
-	bool _isOddIteration;				/**< Indicates whether the game is in an odd or an even iteration. */
-	LogoBmp _logoBmp;					/**< The game's logo. */
-	GameState _state;					/**< Current state of the game. */
+	LevelBase* _level;						/**< The currently-active level.*/
+	s32 _remainingGravityTime;				/**< The amount of time left until gravity returns to normal. */
+	s32 _score;								/**< The current score. */
+	s32 _remainingTime;						/**< The amount of time remaining. */
+	s32 _lives;								/**< The number of lives remaining. */
+	s32 _collectedDiamonds;					/**< Number of diamonds collected in the level. */
+	GameFont _font;							/**< Font used for text output. */
+	s32 _animationTimer;					/**< Timer used to moderate animation speed. */
+	s32 _movementTimer;						/**< Timer used to moderate movement speed. */
+	s32 _levelTimer;						/**< Timer used to decrease remaining level time. */
+	bool _isOddIteration;					/**< Indicates whether the game is in an odd or an even iteration. */
+	LogoBmp _logoBmp;						/**< The game's logo. */
+	GameState _state;						/**< Current state of the game. */
 
-	GameOverScreen* _gameOverScreen;	/**< The screen displayed when the game ends. */
-	TitleScreen* _titleScreen;			/**< The screen displayed when the game starts. */
+	WoopsiArray<LevelDefinition*> _levelDefinitions;
+
+	GameOverScreen* _gameOverScreen;		/**< The screen displayed when the game ends. */
+	TitleScreen* _titleScreen;				/**< The screen displayed when the game starts. */
 
 	/**
 	 * Draws the timer bar.
@@ -248,9 +252,10 @@ private:
 	void drawHUD();
 
 	/**
-	 * Moves the game to the next level.
+	 * Starts the specified level.
+	 * @param levelDefinition The level to start.
 	 */
-	void moveToNextLevel();
+	void startLevel(LevelDefinition* levelDefinition);
 
 	/**
 	 * Resets the current level to its default state.

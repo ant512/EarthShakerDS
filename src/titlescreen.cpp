@@ -1,15 +1,24 @@
 #include "titlescreen.h"
+#include "constants.h"
 
-TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : ScreenBase(topGfx, bottomGfx) {
-	_timer = 200;
+TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinition*>* levelDefinitions) : ScreenBase(topGfx, bottomGfx) {
+	_timer = 0;
+	_selectedLevelIndex = 0;
+	_chosenLevel = NULL;
+
+	_levelDefinitions = levelDefinitions;
 
 	topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 	bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 
 	topGfx->drawBitmap(0, 0, 256, 64, &_logoBmp, 0, 0);
 
+	// Level select
+	WoopsiGfx::WoopsiString	str = "Select Level";
+	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 72, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
 	// Copyrights
-	WoopsiGfx::WoopsiString	str = "ZX (c) 1990 Michael Batty";
+	str.setText("ZX (c) 1990 Michael Batty");
 	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 160, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 
 	str.setText("DS (c) 2011 Antony Dzeryn");
@@ -42,6 +51,8 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 "you don't bang your head, burn yourself or take "
 							 "too long .... Coding (c) 2011 Antony Dzeryn .... "
 							 "Artwork (c) 1990 Michael Batty ....");
+
+	drawLevelNames();
 }
 
 TitleScreen::~TitleScreen() {
@@ -49,11 +60,60 @@ TitleScreen::~TitleScreen() {
 }
 
 void TitleScreen::iterate(PadState pad) {
-	--_timer;
+	++_timer;
 
 	_scroller->render(184, _topGfx);
+
+	if (_timer < MOVEMENT_TIME) return;
+
+	_timer = 0;
+
+	if (pad.up) {
+		if (_selectedLevelIndex > 0) {
+			--_selectedLevelIndex;
+			drawLevelNames();
+		}
+	} else if (pad.down) {
+		if (_selectedLevelIndex < _levelDefinitions->size() - 1) {
+			++_selectedLevelIndex;
+			drawLevelNames();
+		}
+	} else if (pad.a) {
+		_chosenLevel = _levelDefinitions->at(_selectedLevelIndex);
+	}
 }
 
 bool TitleScreen::isRunning() const {
-	return _timer > 0;
+	return _chosenLevel == NULL;
+}
+
+LevelDefinition* TitleScreen::getChosenLevel() const {
+	return _chosenLevel;
+}
+
+void TitleScreen::drawLevelNames() {
+
+	WoopsiGfx::WoopsiString str;
+	s32 y = 88;
+	SpectrumColour colour = COLOUR_WHITE;
+
+	s32 firstOption = _selectedLevelIndex - 3;
+	s32 lastOption = _selectedLevelIndex + 3;
+
+	_topGfx->drawFilledRect(0, y, SCREEN_WIDTH, _font.getHeight() * 7, COLOUR_BLACK);
+
+	for (s32 i = firstOption; i <= lastOption; ++i) {
+		if ((i >= 0) && (i < _levelDefinitions->size())) {
+			if (i == _selectedLevelIndex) {
+				colour = COLOUR_YELLOW;
+			} else {
+				colour = COLOUR_CYAN;
+			}
+
+			str = _levelDefinitions->at(i)->getName();
+			_topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, y, &_font, str, 0, str.getLength(), colour);
+		}
+
+		y += _font.getHeight();
+	}
 }

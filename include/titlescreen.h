@@ -4,6 +4,7 @@
 #include <nds.h>
 #include <graphics.h>
 #include <woopsistring.h>
+#include <leveldefinition.h>
 
 #include "gamefont.h"
 #include "logobmp.h"
@@ -13,7 +14,7 @@
 
 class TitleScreen : public ScreenBase {
 public:
-	TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx);
+	TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinition*>* levelDefinitions);
 
 	~TitleScreen();
 
@@ -21,11 +22,19 @@ public:
 
 	bool isRunning() const;
 
+	LevelDefinition* getChosenLevel() const;
+
 private:
 	s32 _timer;
 	GameFont _font;
 	Scroller* _scroller;
 	LogoBmp _logoBmp;
+	WoopsiArray<LevelDefinition*>* _levelDefinitions;
+	s32 _selectedLevelIndex;
+	LevelDefinition* _chosenLevel;
+
+	void drawLevelNames();
+
 };
 
 #endif

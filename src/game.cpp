@@ -3,7 +3,13 @@
 #include "game.h"
 #include "constants.h"
 #include "bitmapserver.h"
+
 #include "levelfactory.h"
+#include "level1.h"
+#include "level2.h"
+#include "level3.h"
+#include "level4.h"
+#include "level5.h"
 
 Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : ScreenBase(topGfx, bottomGfx) {
 	_score = 0;
@@ -13,10 +19,20 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : Screen
 	_gameOverScreen = NULL;
 	_titleScreen = NULL;
 	_state = GAME_STATE_STARTUP;
+
+	_levelDefinitions.push_back(new Level1());
+	_levelDefinitions.push_back(new Level2());
+	_levelDefinitions.push_back(new Level3());
+	_levelDefinitions.push_back(new Level4());
+	_levelDefinitions.push_back(new Level5());
 }
 
 Game::~Game() {
 	delete _level;
+
+	for (s32 i = 0; i < _levelDefinitions.size(); ++i) {
+		delete _levelDefinitions[i];
+	}
 }
 
 s32 Game::getScore() const {
@@ -145,7 +161,7 @@ void Game::iterate(PadState pad) {
 	switch (_state) {
 
 		case GAME_STATE_STARTUP:
-			_titleScreen = new TitleScreen(_topGfx, _bottomGfx);
+			_titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
 			_state = GAME_STATE_TITLE_SCREEN;
 
 		case GAME_STATE_TITLE_SCREEN:
@@ -153,10 +169,12 @@ void Game::iterate(PadState pad) {
 			_titleScreen->iterate(pad);
 
 			if (!_titleScreen->isRunning()) {
+				LevelDefinition* chosenLevel = _titleScreen->getChosenLevel();
+
 				delete _titleScreen;
 				_titleScreen = NULL;
 
-				moveToNextLevel();
+				startLevel(chosenLevel);
 			}
 
 			break;
@@ -215,7 +233,13 @@ void Game::iterate(PadState pad) {
 		case GAME_STATE_LEVEL_TITLE_SCREEN:
 
 			// TODO: Show screen here
-			moveToNextLevel();
+
+			if (_level->getNumber() < _levelDefinitions.size() - 1) {
+				startLevel(_levelDefinitions[_level->getNumber()]);
+			} else {
+				_state = GAME_STATE_GAME_COMPLETE;
+			}
+
 			break;
 
 		case GAME_STATE_GAME_OVER:
@@ -504,7 +528,7 @@ void Game::resetLevel() {
 		delete _level;
 	}
 
-	_level = LevelFactory::newLevel(levelNumber, this);
+	_level = LevelFactory::createLevel(_levelDefinitions[levelNumber - 1], this);
 
 	drawHUD();
 	drawDiamondCounters();
@@ -515,7 +539,7 @@ void Game::resetLevel() {
 }
 
 
-void Game::moveToNextLevel() {
+void Game::startLevel(LevelDefinition* levelDefinition) {
 	_state = GAME_STATE_RUNNING;
 	_collectedDiamonds = 0;
 	_remainingTime = STARTING_TIME;
@@ -525,15 +549,11 @@ void Game::moveToNextLevel() {
 	_movementTimer = 0;
 	_levelTimer = 0;
 
-	if (_level == NULL) {
-		_level = LevelFactory::newLevel(5, this);
-	} else {
-		s32 levelNumber = _level->getNumber() + 1;
-
+	if (_level != NULL) {
 		delete _level;
-
-		_level = LevelFactory::newLevel(levelNumber, this);
 	}
+
+	_level = LevelFactory::createLevel(levelDefinition, this);
 
 	drawHUD();
 	drawDiamondCounters();
