@@ -171,6 +171,10 @@ public:
 					case 35:
 						block = new WetSoilBlock(x, y, game);
 						break;
+
+					case 36:
+						block = new DoorBlock(x, y, game, BitmapServer::getWhiteDoorBmp());
+						break;
 				}
 
 				level->setBlockAt(x, y, block);

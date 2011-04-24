@@ -29,6 +29,7 @@ WoopsiGfx::Bitmap* BitmapServer::_cyanDoorBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_greenDoorBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_magentaDoorBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_redDoorBmp = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_whiteDoorBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_yellowDoorBmp = NULL;
 
 WoopsiGfx::Bitmap* BitmapServer::_soilBmp = NULL;
@@ -109,6 +110,7 @@ void BitmapServer::init() {
 	_greenDoorBmp = createMutableBitmap(&doorBmp);
 	_magentaDoorBmp = createMutableBitmap(&doorBmp);
 	_redDoorBmp = createMutableBitmap(&doorBmp);
+	_whiteDoorBmp = createMutableBitmap(&doorBmp);
 	_yellowDoorBmp = createMutableBitmap(&doorBmp);
 
 	// Recolour door bitmaps

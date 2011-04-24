@@ -358,6 +358,14 @@ public:
 	};
 
 	/**
+	 * Gets a pointer to the white door bitmap.
+	 * @return A pointer to the white door bitmap.
+	 */
+	inline static WoopsiGfx::Bitmap* getWhiteDoorBmp() {
+		return _whiteDoorBmp;
+	};
+
+	/**
 	 * Gets a pointer to the yellow door bitmap.
 	 * @return A pointer to the yellow door bitmap.
 	 */
@@ -411,6 +419,7 @@ private:
 	static WoopsiGfx::Bitmap* _greenDoorBmp;
 	static WoopsiGfx::Bitmap* _cyanDoorBmp;
 	static WoopsiGfx::Bitmap* _magentaDoorBmp;
+	static WoopsiGfx::Bitmap* _whiteDoorBmp;
 	static WoopsiGfx::Bitmap* _yellowDoorBmp;
 
 	static WoopsiGfx::Bitmap* _soilBmp;
