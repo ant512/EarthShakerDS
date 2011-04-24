@@ -74,10 +74,16 @@ public:
 	 * Turns the brick wall bitmap magenta.
 	 */
 	static void makeBrickWallMagenta();
+
 	/**
 	 * Turns the soil bitmap blue.
 	 */
 	static void makeSoilBlue();
+
+	/**
+	 * Turns the soil bitmap cyan.
+	 */
+	static void makeSoilCyan();
 
 	/**
 	 * Turns the soil bitmap red.
