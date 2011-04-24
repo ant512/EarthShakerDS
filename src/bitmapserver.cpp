@@ -205,12 +205,12 @@ void BitmapServer::makeSoilGreen() {
 	_soilDarkColour = COLOUR_GREEN_DARK;
 }
 
-void BitmapServer::makSoilCyan() {
-	swapColours(_soilColour, COLOUR_CYAN, _soilBmp);
-	swapColours(_soilDarkColour, COLOUR_CYAN_DARK, _soilBmp);
+void BitmapServer::makeSoilYellow() {
+	swapColours(_soilColour, COLOUR_YELLOW, _soilBmp);
+	swapColours(_soilDarkColour, COLOUR_YELLOW_DARK, _soilBmp);
 
-	_soilColour = COLOUR_CYAN;
-	_soilDarkColour = COLOUR_CYAN_DARK;
+	_soilColour = COLOUR_YELLOW;
+	_soilDarkColour = COLOUR_YELLOW_DARK;
 }
 
 void BitmapServer::makeSoilMagenta() {

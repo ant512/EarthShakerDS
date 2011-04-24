@@ -26,6 +26,8 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 */
 	BarrierBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+
+		_animation->setLoopType(WoopsiGfx::Animation::ANIMATION_LOOPTYPE_PINGPONG);
 		_animation->addFrame(&_bmp1, 0);
 		_animation->addFrame(&_bmp2, 0);
 		_animation->addFrame(&_bmp3, 0);

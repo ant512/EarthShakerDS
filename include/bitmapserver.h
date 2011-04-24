@@ -96,9 +96,9 @@ public:
 	static void makeSoilGreen();
 
 	/**
-	 * Turns the soil bitmap cyan.
+	 * Turns the soil bitmap yellow.
 	 */
-	static void makSoilCyan();
+	static void makeSoilYellow();
 
 	/**
 	 * Turns the soil bitmap magenta.
