@@ -10,6 +10,9 @@
 #include "screenbase.h"
 #include "spectrumcolours.h"
 
+
+const s32 BLOCK_DISPLAY_TIME = 100;
+
 class BlockDisplayScreen : public ScreenBase {
 public:
 	BlockDisplayScreen(WoopsiGfx::Graphics* bottomGfx);
@@ -21,11 +24,31 @@ public:
 	bool isRunning() const;
 
 private:
+
+	enum ScreenState {
+		SCREEN_STATE_TELEPORT = 0,
+		SCREEN_STATE_TELEPORT_ERASE = 1,
+		SCREEN_STATE_BEAN = 2,
+		SCREEN_STATE_BEAN_ERASE = 3,
+		SCREEN_STATE_EXTRA_LIFE = 4,
+		SCREEN_STATE_EXTRA_LIFE_ERASE = 5,
+		SCREEN_STATE_DIAMOND = 6,
+		SCREEN_STATE_DIAMOND_ERASE = 7,
+		SCREEN_STATE_BUBBLE = 8,
+		SCREEN_STATE_BUBBLE_ERASE = 9,
+		SCREEN_STATE_FIRE = 10,
+		SCREEN_STATE_FIRE_ERASE = 11,
+		SCREEN_STATE_GRAVITY = 12,
+		SCREEN_STATE_GRAVITY_ERASE = 13
+	};
+
 	s32 _timer;
 	s32 _blockX;
 	s32 _blockY;
 	GameFont _font;
 	BlockBase* _block;
+	ScreenState _state;
+
 };
 
 #endif

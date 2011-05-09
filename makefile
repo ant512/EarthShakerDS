@@ -300,7 +300,4 @@ endif
 # $(DEVKITPRO) points to your devkitPro environment
 # $(DEVKITARM) points to the ARM toolset
 #
-# and
-#
-# Woopsi is installed in $(DEVKITPRO)/libwoopsi
 ################################################################################
