@@ -49,6 +49,7 @@ private:
 	BlockBase* _block;
 	ScreenState _state;
 	WoopsiGfx::WoopsiString _blockName;
+	WoopsiGfx::WoopsiString _blockDescription;
 
 	void getNextBlock();
 	void moveToNextState();
