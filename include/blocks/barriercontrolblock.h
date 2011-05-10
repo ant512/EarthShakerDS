@@ -7,6 +7,7 @@
 
 #include "barrierblock.h"
 #include "blockbase.h"
+#include "constants.h"
 #include "game.h"
 
 #include "barriercontrolbmp.h"

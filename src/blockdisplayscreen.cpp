@@ -1,7 +1,12 @@
+#include "barrierblock.h"
+#include "barriercontrolblock.h"
 #include "beanblock.h"
+#include "bitmapserver.h"
 #include "blockdisplayscreen.h"
+#include "boulderblock.h"
 #include "bubbleblock.h"
 #include "diamondblock.h"
+#include "doorblock.h"
 #include "extralifeblock.h"
 #include "fireblock.h"
 #include "gravityinversionblock.h"
@@ -14,7 +19,7 @@ BlockDisplayScreen::BlockDisplayScreen(WoopsiGfx::Graphics* bottomGfx) : ScreenB
 	_timer = 0;
 	_blockX = 120;
 	_blockY = 88;
-	_state = SCREEN_STATE_GRAVITY_ERASE;
+	_state = SCREEN_STATE_DOOR_ERASE;
 }
 
 BlockDisplayScreen::~BlockDisplayScreen() {
@@ -63,6 +68,30 @@ void BlockDisplayScreen::moveToNextState() {
 			_state = SCREEN_STATE_GRAVITY_ERASE;
 			break;
 		case SCREEN_STATE_GRAVITY_ERASE:
+			_state = SCREEN_STATE_BARRIER;
+			break;
+		case SCREEN_STATE_BARRIER:
+			_state = SCREEN_STATE_BARRIER_ERASE;
+			break;
+		case SCREEN_STATE_BARRIER_ERASE:
+			_state = SCREEN_STATE_BARRIER_CONTROLLER;
+			break;
+		case SCREEN_STATE_BARRIER_CONTROLLER:
+			_state = SCREEN_STATE_BARRIER_CONTROLLER_ERASE;
+			break;
+		case SCREEN_STATE_BARRIER_CONTROLLER_ERASE:
+			_state = SCREEN_STATE_BOULDER;
+			break;
+		case SCREEN_STATE_BOULDER:
+			_state = SCREEN_STATE_BOULDER_ERASE;
+			break;
+		case SCREEN_STATE_BOULDER_ERASE:
+			_state = SCREEN_STATE_DOOR;
+			break;
+		case SCREEN_STATE_DOOR:
+			_state = SCREEN_STATE_DOOR_ERASE;
+			break;
+		case SCREEN_STATE_DOOR_ERASE:
 			_state = SCREEN_STATE_TELEPORT;
 			break;
 	}
@@ -76,10 +105,25 @@ void BlockDisplayScreen::getNextBlock() {
 	}
 
 	switch (_state) {
+		case SCREEN_STATE_BARRIER:
+			_block = new BarrierBlock(0, 0, NULL);
+			_blockName.setText("Forcefield");
+			_blockDescription.setText("Blocks the path");
+			break;
+		case SCREEN_STATE_BARRIER_CONTROLLER:
+			_block = new BarrierControlBlock(0, 0, NULL);
+			_blockName.setText("Forcefield Controller");
+			_blockDescription.setText("Crush to disable forcefields");
+			break;
 		case SCREEN_STATE_BEAN:
 			_block = new BeanBlock(0, 0, NULL);
 			_blockName.setText("Jelly Bean");
 			_blockDescription.setText("Collect for extra time");
+			break;
+		case SCREEN_STATE_BOULDER:
+			_block = new BoulderBlock(0, 0, NULL);
+			_blockName.setText("Boulder");
+			_blockDescription.setText("Dangerous when falling");
 			break;
 		case SCREEN_STATE_BUBBLE:
 			_block = new BubbleBlock(0, 0, NULL);
@@ -91,9 +135,14 @@ void BlockDisplayScreen::getNextBlock() {
 			_blockName.setText("Diamond");
 			_blockDescription.setText("Collect to progress");
 			break;
+		case SCREEN_STATE_DOOR:
+			_block = new DoorBlock(0, 0, NULL, BitmapServer::getRedDoorBmp());
+			_blockName.setText("Door");
+			_blockDescription.setText("Enter here to exit level");
+			break;
 		case SCREEN_STATE_EXTRA_LIFE:
 			_block = new ExtraLifeBlock(0, 0, NULL);
-			_blockName.setText("Extra Life");
+			_blockName.setText("Elixir");
 			_blockDescription.setText("Collect for an extra life");
 			break;
 		case SCREEN_STATE_FIRE:
@@ -126,6 +175,10 @@ void BlockDisplayScreen::iterate(PadState pad) {
 		case SCREEN_STATE_BUBBLE_ERASE:
 		case SCREEN_STATE_FIRE_ERASE:
 		case SCREEN_STATE_GRAVITY_ERASE:
+		case SCREEN_STATE_BARRIER_ERASE:
+		case SCREEN_STATE_BARRIER_CONTROLLER_ERASE:
+		case SCREEN_STATE_BOULDER_ERASE:
+		case SCREEN_STATE_DOOR_ERASE:
 			_bottomGfx->drawFilledRect(0, 0, 256, 192, COLOUR_BLACK);
 			_timer = 0;
 			moveToNextState();
