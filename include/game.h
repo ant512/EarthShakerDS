@@ -5,6 +5,7 @@
 #include <woopsiarray.h>
 
 #include "blockbase.h"
+#include "gamecompletescreen.h"
 #include "gamefont.h"
 #include "gameoverscreen.h"
 #include "gatetransition.h"
@@ -151,18 +152,20 @@ private:
 	 * List of all possible states the game can be in.
 	 */
 	enum GameState {
-		GAME_STATE_RUNNING = 1,					/**< Normal gameplay. */
-		GAME_STATE_LEVEL_COMPLETE = 2,			/**< Player has completed the level. */
-		GAME_STATE_GAME_COMPLETE = 3,			/**< Player has completed the game. */
-		GAME_STATE_PLAYER_DEAD = 4,				/**< Player has died. */
-		GAME_STATE_PLAYER_SUICIDE = 5,			/**< Player has committed suicide. */
-		GAME_STATE_GAME_OVER = 6,				/**< Player has lost all lives. */
-		GAME_STATE_GAME_OVER_TRANSITION = 7,	/** Game is transitioning to game over screen. */
-		GAME_STATE_GAME_OVER_SCREEN = 8,		/**< Game over screen is displayed. */
-		GAME_STATE_TITLE_SCREEN = 9,			/**< Title screen shown. */
-		GAME_STATE_STARTUP = 10,				/**< Game is initialising. */
-		GAME_STATE_LEVEL_TRANSITION = 11,		/**< Level is transitioning out ready for next level. */
-		GAME_STATE_TITLE_SCREEN_TRANSITION = 12	/**< Title screen is transitioning out. */
+		GAME_STATE_RUNNING = 1,						/**< Normal gameplay. */
+		GAME_STATE_LEVEL_COMPLETE = 2,				/**< Player has completed the level. */
+		GAME_STATE_PLAYER_DEAD = 3,					/**< Player has died. */
+		GAME_STATE_PLAYER_SUICIDE = 4,				/**< Player has committed suicide. */
+		GAME_STATE_GAME_OVER = 5,					/**< Player has lost all lives. */
+		GAME_STATE_GAME_OVER_TRANSITION = 6,		/**< Game is transitioning to game over screen. */
+		GAME_STATE_GAME_OVER_SCREEN = 7,			/**< Game over screen is displayed. */
+		GAME_STATE_TITLE_SCREEN = 8,				/**< Title screen shown. */
+		GAME_STATE_STARTUP = 9,						/**< Game is initialising. */
+		GAME_STATE_LEVEL_TRANSITION = 10,			/**< Level is transitioning out ready for next level. */
+		GAME_STATE_TITLE_SCREEN_TRANSITION = 11,	/**< Title screen is transitioning out. */
+		GAME_STATE_GAME_COMPLETE = 12,				/**< Player has completed all levels. */
+		GAME_STATE_GAME_COMPLETE_TRANSITION = 13,	/**< Game is transitioning to game complete screen. */
+		GAME_STATE_GAME_COMPLETE_SCREEN = 14		/**< Game complete screen is displayed. */
 	};
 
 	LevelBase* _level;						/**< The currently-active level.*/
@@ -180,10 +183,11 @@ private:
 	GameState _state;						/**< Current state of the game. */
 	GateTransition* _transition;			/**< Transition that plays between game screens. */
 
-	WoopsiArray<LevelDefinition*> _levelDefinitions;
+	WoopsiArray<LevelDefinition*> _levelDefinitions;	/**< List of all level definitions. */
 
-	GameOverScreen* _gameOverScreen;		/**< The screen displayed when the game ends. */
-	TitleScreen* _titleScreen;				/**< The screen displayed when the game starts. */
+	GameOverScreen* _gameOverScreen;			/**< The screen displayed when the game ends. */
+	GameCompleteScreen* _gameCompleteScreen;	/**< The screen displayed when the game is complete. */
+	TitleScreen* _titleScreen;					/**< The screen displayed when the game starts. */
 
 	/**
 	 * Draws the timer bar.

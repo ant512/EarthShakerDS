@@ -20,6 +20,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : Screen
 	_isOddIteration = true;
 	_level = NULL;
 	_gameOverScreen = NULL;
+	_gameCompleteScreen = NULL;
 	_titleScreen = NULL;
 	_state = GAME_STATE_STARTUP;
 	_transition = new GateTransition(topGfx, bottomGfx);
@@ -35,7 +36,6 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : Screen
 }
 
 Game::~Game() {
-	delete _level;
 	delete _transition;
 
 	for (s32 i = 0; i < _levelDefinitions.size(); ++i) {
@@ -298,7 +298,37 @@ void Game::iterate(PadState pad) {
 
 		case GAME_STATE_GAME_COMPLETE:
 
-			// TODO: Show game complete screen here
+			_transition->reset();
+			_state = GAME_STATE_GAME_COMPLETE_TRANSITION;
+
+		case GAME_STATE_GAME_COMPLETE_TRANSITION:
+
+			_transition->iterate();
+
+			if (!_transition->isRunning()) {
+
+				// Game is complete; set up a new game complete screen and kill the level
+				_gameCompleteScreen = new GameCompleteScreen(_topGfx, _bottomGfx, _score);
+				_state = GAME_STATE_GAME_COMPLETE_SCREEN;
+
+				delete _level;
+				_level = NULL;
+			}
+
+			break;
+
+		case GAME_STATE_GAME_COMPLETE_SCREEN:
+
+			// Run the game complete screen
+			_gameCompleteScreen->iterate(pad);
+
+			if (!_gameCompleteScreen->isRunning()) {
+				delete _gameCompleteScreen;
+				_gameCompleteScreen = NULL;
+
+				_state = GAME_STATE_STARTUP;
+			}
+
 			break;
 	}
 }

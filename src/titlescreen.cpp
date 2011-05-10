@@ -33,7 +33,8 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 "- it depends if you are sly enough. But watch out "
 							 "you don't bang your head, burn yourself or take "
 							 "too long .... Coding (c) 2011 Antony Dzeryn .... "
-							 "Artwork (c) 1990 Michael Batty ....");
+							 "Original game (c) 1990 Michael Batty .... Written "
+							 "for the 2011 GBATemp Homebrew Bounty competition ");
 
 	drawLevelNames();
 }
