@@ -48,6 +48,10 @@ private:
 	GameFont _font;
 	BlockBase* _block;
 	ScreenState _state;
+	WoopsiGfx::WoopsiString _blockName;
+
+	void getNextBlock();
+	void moveToNextState();
 
 };
 
