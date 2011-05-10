@@ -34,7 +34,15 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 "you don't bang your head, burn yourself or take "
 							 "too long .... Coding (c) 2011 Antony Dzeryn .... "
 							 "Original game (c) 1990 Michael Batty .... Written "
-							 "for the 2011 GBATemp Homebrew Bounty competition ");
+							 "for the 2011 GBATemp Homebrew Bounty competition "
+							 ".... Many thanks to Michael Batty for permission "
+							 "to distribute his original graphics and other "
+							 "assets with this remake .... This is a demo "
+							 "version that includes only 7.5 of the original "
+							 "32 levels - more levels will be coming in future "
+							 "releases .... This release was made on 10.05.2011 "
+							 );
+
 
 	drawLevelNames();
 }
