@@ -4,8 +4,6 @@ Todo
  - New screens:
    - Game complete
    - Map screen
-   - Animated display of all interesting blocks on title screen bottom display,
-     along with their names and what they do
  - Pause button?
  - Sounds
    - What should the makefile do to get the soundbank built?
