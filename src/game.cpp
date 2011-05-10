@@ -60,7 +60,7 @@ LevelBase* Game::getLevel() const {
 }
 
 bool Game::isRunning() const {
-	return (_state != GAME_STATE_GAME_COMPLETE);
+	return (_state != GAME_STATE_NOT_RUNNING);
 }
 
 bool Game::isOddIteration() const {
@@ -168,6 +168,9 @@ void Game::iterate(PadState pad) {
 
 	switch (_state) {
 
+		case GAME_STATE_NOT_RUNNING:
+			return;
+
 		case GAME_STATE_STARTUP:
 			_titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
 			_state = GAME_STATE_TITLE_SCREEN;
@@ -198,7 +201,7 @@ void Game::iterate(PadState pad) {
 
 			break;
 
-		case GAME_STATE_RUNNING:
+		case GAME_STATE_GAMEPLAY:
 			animate();
 			timer();
 			move(pad);
@@ -575,7 +578,7 @@ void Game::invertGravity() {
 }
 
 void Game::resetLevel() {
-	_state = GAME_STATE_RUNNING;
+	_state = GAME_STATE_GAMEPLAY;
 	_collectedDiamonds = 0;
 	_remainingTime = STARTING_TIME;
 	_remainingGravityTime = 0;
@@ -603,7 +606,7 @@ void Game::resetLevel() {
 
 
 void Game::startLevel(LevelDefinition* levelDefinition) {
-	_state = GAME_STATE_RUNNING;
+	_state = GAME_STATE_GAMEPLAY;
 	_collectedDiamonds = 0;
 	_remainingTime = STARTING_TIME;
 	_remainingGravityTime = 0;

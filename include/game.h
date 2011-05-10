@@ -152,7 +152,8 @@ private:
 	 * List of all possible states the game can be in.
 	 */
 	enum GameState {
-		GAME_STATE_RUNNING = 1,						/**< Normal gameplay. */
+		GAME_STATE_NOT_RUNNING = 0,					/**< Game has stopped for some reason. */
+		GAME_STATE_GAMEPLAY = 1,					/**< Normal gameplay. */
 		GAME_STATE_LEVEL_COMPLETE = 2,				/**< Player has completed the level. */
 		GAME_STATE_PLAYER_DEAD = 3,					/**< Player has died. */
 		GAME_STATE_PLAYER_SUICIDE = 4,				/**< Player has committed suicide. */

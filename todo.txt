@@ -2,7 +2,6 @@ Todo
 ----
 
  - New screens:
-   - Game complete
    - Map screen
  - Pause button?
  - Sounds

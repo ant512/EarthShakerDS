@@ -1,19 +1,22 @@
 #include "gamecompletescreen.h"
 
 GameCompleteScreen::GameCompleteScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32 score) : ScreenBase(topGfx, bottomGfx) {
-	_timer = 200;
+	_timer = 400;
 
 	topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 	bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 
-	WoopsiGfx::WoopsiString str = "Well done! Game complete!";
-	topGfx->drawText(92, 80, &_font, str, 0, str.getLength(), COLOUR_GREEN);
+	WoopsiGfx::WoopsiString str = "Game complete";
+	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 80, &_font, str, 0, str.getLength(), COLOUR_GREEN);
+
+	str = "Congratulations";
+	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 96, &_font, str, 0, str.getLength(), COLOUR_RED);
 
 	str = "You scored";
-	topGfx->drawText(60, 96, &_font, str, 0, str.getLength(), COLOUR_CYAN);
+	topGfx->drawText(60, 112, &_font, str, 0, str.getLength(), COLOUR_CYAN);
 
 	str.format("%06d", score);
-	topGfx->drawText(148, 96, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+	topGfx->drawText(148, 112, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 }
 
 void GameCompleteScreen::iterate(PadState pad) {
