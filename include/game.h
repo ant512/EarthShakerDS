@@ -166,7 +166,10 @@ private:
 		GAME_STATE_TITLE_SCREEN_TRANSITION = 11,	/**< Title screen is transitioning out. */
 		GAME_STATE_GAME_COMPLETE = 12,				/**< Player has completed all levels. */
 		GAME_STATE_GAME_COMPLETE_TRANSITION = 13,	/**< Game is transitioning to game complete screen. */
-		GAME_STATE_GAME_COMPLETE_SCREEN = 14		/**< Game complete screen is displayed. */
+		GAME_STATE_GAME_COMPLETE_SCREEN = 14,		/**< Game complete screen is displayed. */
+		GAME_STATE_GAME_PAUSING = 15,
+		GAME_STATE_GAME_PAUSED = 16,
+		GAME_STATE_GAME_UNPAUSING = 17
 	};
 
 	LevelBase* _level;						/**< The currently-active level.*/

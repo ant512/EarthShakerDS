@@ -3,7 +3,6 @@ Todo
 
  - New screens:
    - Map screen
- - Pause button?
  - Sounds
    - What should the makefile do to get the soundbank built?
  - Levels
