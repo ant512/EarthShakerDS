@@ -11,7 +11,7 @@
 #include "spectrumcolours.h"
 
 
-const s32 BLOCK_DISPLAY_TIME = 100;
+const s32 BLOCK_DISPLAY_TIME = 200;
 
 class BlockDisplayScreen : public ScreenBase {
 public:
