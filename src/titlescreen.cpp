@@ -71,8 +71,19 @@ void TitleScreen::iterate(PadState pad) {
 			++_selectedLevelIndex;
 			drawLevelNames();
 		}
-	} else if (pad.a) {
+	} else if (pad.a || pad.start) {
 		_chosenLevel = _levelDefinitions->at(_selectedLevelIndex);
+	} else if (pad.select) {
+
+		// Select button moves down the list until the end, whereupon it jumps
+		// back to the top of the list
+		if (_selectedLevelIndex < _levelDefinitions->size() - 1) {
+			++_selectedLevelIndex;
+			drawLevelNames();
+		} else {
+			_selectedLevelIndex = 0;
+			drawLevelNames();
+		}
 	}
 }
 

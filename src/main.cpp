@@ -31,6 +31,8 @@ PadState getPadState() {
 	pad.l = ((keysDown() & KEY_L) || (keysHeld() & KEY_L));
 	pad.r = ((keysDown() & KEY_R) || (keysHeld() & KEY_R));
 	pad.a = ((keysDown() & KEY_A) || (keysHeld() & KEY_A));
+	pad.start = ((keysDown() & KEY_START) || (keysHeld() & KEY_START));
+	pad.select = ((keysDown() & KEY_SELECT) || (keysHeld() & KEY_SELECT));
 
 	return pad;
 }
