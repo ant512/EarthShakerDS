@@ -4,7 +4,6 @@
 #include "game.h"
 #include "constants.h"
 #include "bitmapserver.h"
-
 #include "soundplayer.h"
 
 void initGfxMode() {
@@ -44,8 +43,6 @@ int main(int argc, char* argv[]) {
 
 	SoundPlayer::init();
 	BitmapServer::init();
-
-	SoundPlayer::test();
 
 	WoopsiGfx::FrameBuffer topBuffer((u16*)BG_BMP_RAM(0), SCREEN_WIDTH, SCREEN_HEIGHT);
 	WoopsiGfx::FrameBuffer bottomBuffer((u16*)BG_BMP_RAM_SUB(0), SCREEN_WIDTH, SCREEN_HEIGHT);

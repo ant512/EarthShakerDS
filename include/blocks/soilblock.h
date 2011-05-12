@@ -7,6 +7,7 @@
 #include "blockbase.h"
 #include "bitmapserver.h"
 #include "game.h"
+#include "soundplayer.h"
 
 /**
  * Soil can be removed from the map by calling its dig methods.  It provides
@@ -40,6 +41,7 @@ public:
 	 */
 	bool digFromBelow() {
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playSoilDig();
 		return true;
 	};
 
@@ -49,6 +51,7 @@ public:
 	 */
 	bool digFromAbove() {
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playSoilDig();
 		return true;
 	};
 
@@ -58,6 +61,7 @@ public:
 	 */
 	bool digFromLeft() {
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playSoilDig();
 		return true;
 	};
 
@@ -67,6 +71,7 @@ public:
 	 */
 	bool digFromRight() {
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playSoilDig();
 		return true;
 	};
 };

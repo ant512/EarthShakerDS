@@ -11,30 +11,29 @@ class SoundPlayer {
 public:
 	static void init() {
 		mmInitDefaultMem((mm_addr)soundbank_bin);
-		mmLoadEffect(SFX_BOOM);
+		mmLoadEffect(SFX_SOILDIG);
+		mmLoadEffect(SFX_TIME);
 	};
 
-	static void test() {
-		mmEffectEx(&_boom);
+	static void playTime() {
+		mmEffectEx(&_time);
+	};
+
+	static void playSoilDig() {
+		mmEffectEx(&_soilDig);
 	};
 
 	static void shutdown() {
-		mmUnloadEffect(SFX_BOOM);
+		mmUnloadEffect(SFX_TIME);
+		mmUnloadEffect(SFX_SOILDIG);
 	};
 
 private:
-	static mm_sound_effect _boom;
+	static mm_sound_effect _time;
+	static mm_sound_effect _soilDig;
 
 	SoundPlayer();
 	~SoundPlayer();
-};
-
-mm_sound_effect SoundPlayer::_boom = {
-	{ SFX_BOOM } ,			// id
-	(int)(1.0f * (1<<10)),	// rate
-	0,		// handle
-	255,	// volume
-	255,	// panning
 };
 
 #endif

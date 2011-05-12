@@ -3,6 +3,7 @@
 #include "game.h"
 #include "constants.h"
 #include "bitmapserver.h"
+#include "soundplayer.h"
 
 #include "levelfactory.h"
 #include "level1.h"
@@ -375,6 +376,8 @@ void Game::timer() {
 		_levelTimer = 0;
 
 		decreaseTime();
+
+		SoundPlayer::playTime();
 	}
 }
 
