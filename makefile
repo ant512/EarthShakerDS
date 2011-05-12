@@ -9,12 +9,12 @@ endif
 include $(DEVKITARM)/ds_rules
 
 # set the texts that appear in the loader menus
-TEXT1 		:= Earth Shaker DS
-TEXT2 		:= Using WoopsiGfx
-TEXT3 		:= ant.simianzombie.com
+GAME_TITLE		:= Earth Shaker DS
+GAME_SUBTITLE1	:= Using WoopsiGfx
+GAME_SUBTITLE2	:= ant.simianzombie.com
 
 # 4-bit-deep bitmap file to use as icon in loader menus
-ICON 		:= $(DEVKITPRO)/libwoopsigfx/icon/logo.bmp
+GAME_ICON 		:= $(DEVKITPRO)/libwoopsigfx/icon/logo.bmp
 
 #-------------------------------------------------------------------------------
 # TARGET is the name of the output file
@@ -102,10 +102,7 @@ BINFILES		:=	soundbank.bin
 export AUDIOFILES	:=   $(foreach dir,$(notdir $(wildcard $(MUSIC)/*.*)),$(CURDIR)/$(MUSIC)/$(dir))
 
 # build list of .o filenames 
-export OFILES	:=	$(MAPFILES:.map=.o) $(RAWFILES:.raw=.o) $(PALFILES:.pal=.o)\
-					$(BINFILES:.bin=.o) $(PCXFILES:.pcx=.o) $(JPEGFILES:.jpg=.o)\
-					$(MODFILES:.mod=.o) $(GIFFILES:.gif=.o) $(BMPFILES:.bmp=.o)\
-					$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(SFILES:.s=.o)
+export OFILES	:=	$(BINFILES:.bin=.o) $(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(SFILES:.s=.o)
  
 #-------------------------------------------------------------------------------
 # standard magic to run the build from a build directory - this works because
@@ -176,7 +173,7 @@ _LIBS		+= -L$(DEVKITPRO)/libwoopsigfx/lib -lwoopsigfx
 _LIBS		+= -lnds9 -lmm9
 
 # this makes it easier to type the ndstool command line
-_BANNER 		:= -b $(ICON) "$(TEXT1);$(TEXT2);$(TEXT3)"
+_BANNER 		:= -b $(GAME_ICON) "$(GAME_TITLE);$(GAME_SUBTITLE1);$(GAME_SUBTITLE2)"
 
 #-------------------------------------------------------------------------------
 # rule to build a .nds binary - forces the link every time because we don't have proper
