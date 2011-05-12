@@ -1,6 +1,12 @@
-# WoopsiGfx Makefile 										ex:set ts=4 sw=4:
-# builds the WoopsiGfx test applications, and should be sufficient for most
-# needs - options are switched on/off with USE_ constants.
+#---------------------------------------------------------------------------------
+.SUFFIXES:
+#---------------------------------------------------------------------------------
+
+ifeq ($(strip $(DEVKITARM)),)
+$(error "Please set DEVKITARM in your environment. export DEVKITARM=<path to>devkitARM")
+endif
+
+include $(DEVKITARM)/ds_rules
 
 # set the texts that appear in the loader menus
 TEXT1 		:= Earth Shaker DS
@@ -21,10 +27,11 @@ ICON 		:= $(DEVKITPRO)/libwoopsigfx/icon/logo.bmp
 
 TARGET		:=	$(shell basename $(CURDIR))
 BUILD		:=	build
-RELEASE     :=  Release
-SOURCES		:=	src src/bmp data gfx
+RELEASE		:=	Release
+SOURCES		:=	src src/bmp
 INCLUDES	:=	include include/bmp include/blocks include/levels
 DEFINES		:=
+MUSIC		:=	sfx
 
 # we do *not* do -o thing - WinterMute points out that this stops our
 # resultant .nds from working on some loaders.  By default, ndstool puts boot
@@ -90,15 +97,9 @@ export LD		:=	$(CXX)
 CFILES			:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
 CPPFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
 SFILES			:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
-PCXFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.pcx)))
-BINFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.bin)))
-PALFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.pal)))
-RAWFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.raw)))
-MAPFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.map)))
-JPEGFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.jpg)))
-MODFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.mod)))
-GIFFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.gif)))
-BMPFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.bmp)))
+BINFILES		:=	soundbank.bin
+
+export AUDIOFILES	:=   $(foreach dir,$(notdir $(wildcard $(MUSIC)/*.*)),$(CURDIR)/$(MUSIC)/$(dir))
 
 # build list of .o filenames 
 export OFILES	:=	$(MAPFILES:.map=.o) $(RAWFILES:.raw=.o) $(PALFILES:.pal=.o)\
@@ -172,7 +173,7 @@ _INCS		+= -I$(DEVKITPRO)/libwoopsigfx/include
 _LIBS		+= -L$(DEVKITPRO)/libwoopsigfx/lib -lwoopsigfx
 
 # and of course we need libnds
-_LIBS		+= -lnds9
+_LIBS		+= -lnds9 -lmm9
 
 # this makes it easier to type the ndstool command line
 _BANNER 		:= -b $(ICON) "$(TEXT1);$(TEXT2);$(TEXT3)"
@@ -207,79 +208,16 @@ _BANNER 		:= -b $(ICON) "$(TEXT1);$(TEXT2);$(TEXT3)"
 %.o : %.s
 	@echo Assembling $(notdir $<)
 	@$(CC) -MMD -MF $*.d -MP $(ASFLAGS) $(_DEFS) $(_INCS) -c $< -o$@
-
-#-------------------------------------------------------------------------------
-# utility function to convert arbitrary data file to .o
-#
-define bin2o
-	cp $(<) $(*).tmp
-	$(OBJCOPY) -I binary -O elf32-littlearm -B arm \
-		--rename-section .data=.rodata \
-		--redefine-sym _binary_$*_tmp_start=$*\
-		--redefine-sym _binary_$*_tmp_end=$*_end\
-		--redefine-sym _binary_$*_tmp_size=$*_size\
-		$(*).tmp $(@)
-	echo "extern const u8" $(*)"[];" > $(*).h
-	echo "extern const u32" $(*)_size[]";" >> $(*).h
-	rm $(*).tmp
-endef
- 
-#-------------------------------------------------------------------------------
-%.o	:	%.pcx
-#-------------------------------------------------------------------------------
-	@echo Converting $(notdir $<)
-	@$(bin2o)
+	
+#--------------------------------------------------------------------------------- 
+# rule to build soundbank from music files 
+#--------------------------------------------------------------------------------- 
+soundbank.bin : $(AUDIOFILES) 
+#--------------------------------------------------------------------------------- 
+	@mmutil $^ -d -osoundbank.bin -hsoundbank.h 
  
 #-------------------------------------------------------------------------------
 %.o	:	%.bin
-#-------------------------------------------------------------------------------
-	@echo Converting $(notdir $<)
-	@$(bin2o)
- 
-#-------------------------------------------------------------------------------
-%.o	:	%.raw
-#-------------------------------------------------------------------------------
-	@echo Converting $(notdir $<)
-	@$(bin2o)
- 
-#-------------------------------------------------------------------------------
-%.o	:	%.pal
-#-------------------------------------------------------------------------------
-	@echo Converting $(notdir $<)
-	@$(bin2o)
- 
-#-------------------------------------------------------------------------------
-%.o	:	%.map
-#-------------------------------------------------------------------------------
-	@echo Converting $(notdir $<)
-	@$(bin2o)
-
-#-------------------------------------------------------------------------------
-%.o	:	%.mdl
-#-------------------------------------------------------------------------------
-	@echo Converting $(notdir $<)
-	@$(bin2o)
-
-#-------------------------------------------------------------------------------
-%.o	:	%.jpg
-#-------------------------------------------------------------------------------
-	@echo Converting $(notdir $<)
-	@$(bin2o)
-
-#-------------------------------------------------------------------------------
-%.o	:	%.mod
-#-------------------------------------------------------------------------------
-	@echo Converting $(notdir $<)
-	@$(bin2o)
-
-#-------------------------------------------------------------------------------
-%.o	:	%.gif
-#-------------------------------------------------------------------------------
-	@echo Converting $(notdir $<)
-	@$(bin2o)
-
-#-------------------------------------------------------------------------------
-%.o	:	%.bmp
 #-------------------------------------------------------------------------------
 	@echo Converting $(notdir $<)
 	@$(bin2o)
@@ -294,10 +232,3 @@ DEPENDS	:= $(OFILES:.o=.d)
 
 endif
 
-################################################################################
-# This makefile the following environment variables
-#
-# $(DEVKITPRO) points to your devkitPro environment
-# $(DEVKITARM) points to the ARM toolset
-#
-################################################################################
