@@ -6,7 +6,7 @@
  permission.
 
  If you want to release your own version of this game, you will need to either
- get Michael Batty's permission to distribute the game assests, or:
+ get Michael Batty's permission to distribute the game assets, or:
 
   - Redesign the levels;
   - Redraw the graphics;
