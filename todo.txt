@@ -1,8 +1,7 @@
 Todo
 ----
 
- - New screens:
-   - Map screen
+ - Map screen
  - Sounds
  - Levels
  - Should actions that pause the original game pause the remake, even though
