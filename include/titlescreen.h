@@ -4,10 +4,10 @@
 #include <nds.h>
 #include <graphics.h>
 #include <woopsistring.h>
-#include <leveldefinition.h>
 
 #include "blockdisplayscreen.h"
 #include "gamefont.h"
+#include "leveldefinition.h"
 #include "logobmp.h"
 #include "screenbase.h"
 #include "scroller.h"

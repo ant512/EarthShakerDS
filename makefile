@@ -29,7 +29,7 @@ TARGET		:=	$(shell basename $(CURDIR))
 BUILD		:=	build
 RELEASE		:=	Release
 SOURCES		:=	src src/bmp
-INCLUDES	:=	include include/bmp include/blocks include/levels
+INCLUDES	:=	include include/bmp include/blocks include/levels build
 DEFINES		:=
 MUSIC		:=	sfx
 

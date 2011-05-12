@@ -5,6 +5,8 @@
 #include "constants.h"
 #include "bitmapserver.h"
 
+#include "soundplayer.h"
+
 void initGfxMode() {
 	powerOn(POWER_ALL_2D);
 
@@ -39,6 +41,8 @@ PadState getPadState() {
 
 int main(int argc, char* argv[]) {
 	initGfxMode();
+
+	SoundPlayer::test();
 
 	BitmapServer::init();
 
