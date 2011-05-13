@@ -610,6 +610,8 @@ void Game::drawTimerBar() {
 void Game::invertGravity() {
 	_remainingGravityTime = GRAVITY_INVERSION_TIME;
 
+	SoundPlayer::playGravityInversion();
+
 	drawGravityCounter();
 	drawGravityIndicator();
 }

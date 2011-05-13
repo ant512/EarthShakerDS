@@ -19,6 +19,7 @@ public:
 		mmLoadEffect(SFX_BUBBLEEXPLODE);
 		mmLoadEffect(SFX_DIAMONDCOLLECT);
 		mmLoadEffect(SFX_DOOROPEN);
+		mmLoadEffect(SFX_GRAVITYINVERSION);
 		mmLoadEffect(SFX_LEVELCOMPLETE);
 		mmLoadEffect(SFX_PAUSE);
 		mmLoadEffect(SFX_PLAYEREXPLODE);
@@ -58,6 +59,10 @@ public:
 
 	static void playDoorOpen() {
 		mmEffect(SFX_DOOROPEN);
+	};
+
+		static void playGravityInversion() {
+		mmEffect(SFX_GRAVITYINVERSION);
 	};
 
 	static void playLevelComplete() {
@@ -101,6 +106,7 @@ public:
 		mmUnloadEffect(SFX_BUBBLEEXPLODE);
 		mmUnloadEffect(SFX_DIAMONDCOLLECT);
 		mmUnloadEffect(SFX_DOOROPEN);
+		mmUnloadEffect(SFX_GRAVITYINVERSION);
 		mmUnloadEffect(SFX_LEVELCOMPLETE);
 		mmUnloadEffect(SFX_PAUSE);
 		mmUnloadEffect(SFX_PLAYEREXPLODE);

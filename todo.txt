@@ -3,9 +3,7 @@ Todo
 
  - Map screen
  - Sounds:
-   - Gravity inversion
    - Extra life
-   - Teleport
    - Touch barrier
  - Levels
  - Teleport effect
