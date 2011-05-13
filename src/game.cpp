@@ -344,6 +344,8 @@ void Game::iterate(PadState pad) {
 			_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 16, COLOUR_BLACK);
 			_topGfx->drawText(104, 84, &_font, "Paused", 0, 6, COLOUR_YELLOW);
 
+			SoundPlayer::playPause();
+
 			if (!pad.start) {
 				_state = GAME_STATE_GAME_PAUSED;
 			}

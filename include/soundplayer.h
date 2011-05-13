@@ -17,6 +17,7 @@ public:
 		mmLoadEffect(SFX_BOULDEREXPLODE);
 		mmLoadEffect(SFX_BUBBLEEXPLODE);
 		mmLoadEffect(SFX_DIAMONDCOLLECT);
+		mmLoadEffect(SFX_PAUSE);
 		mmLoadEffect(SFX_PLAYEREXPLODE);
 		mmLoadEffect(SFX_SOILDIG);
 		mmLoadEffect(SFX_TIME);
@@ -46,6 +47,10 @@ public:
 		mmEffect(SFX_DIAMONDCOLLECT);
 	};
 
+	static void playPause() {
+		mmEffect(SFX_PAUSE);
+	};
+
 	static void playPlayerExplode() {
 		mmEffect(SFX_PLAYEREXPLODE);
 	};
@@ -65,6 +70,7 @@ public:
 		mmUnloadEffect(SFX_BOULDEREXPLODE);
 		mmUnloadEffect(SFX_BUBBLEEXPLODE);
 		mmUnloadEffect(SFX_DIAMONDCOLLECT);
+		mmUnloadEffect(SFX_PAUSE);
 		mmUnloadEffect(SFX_PLAYEREXPLODE);
 		mmUnloadEffect(SFX_SOILDIG);
 		mmUnloadEffect(SFX_TIME);
