@@ -61,7 +61,7 @@ public:
 		mmEffect(SFX_DOOROPEN);
 	};
 
-		static void playGravityInversion() {
+	static void playGravityInversion() {
 		mmEffect(SFX_GRAVITYINVERSION);
 	};
 
