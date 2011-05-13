@@ -11,6 +11,7 @@ class SoundPlayer {
 public:
 	static void init() {
 		mmInitDefaultMem((mm_addr)soundbank_bin);
+		mmLoadEffect(SFX_BARRIEREXPLODE);
 		mmLoadEffect(SFX_BEANCOLLECT);
 		mmLoadEffect(SFX_BLOCKFALL);
 		mmLoadEffect(SFX_BLOCKLAND);
@@ -21,6 +22,10 @@ public:
 		mmLoadEffect(SFX_PLAYEREXPLODE);
 		mmLoadEffect(SFX_SOILDIG);
 		mmLoadEffect(SFX_TIME);
+	};
+
+	static void playBarrierExplode() {
+		mmEffect(SFX_BARRIEREXPLODE);
 	};
 
 	static void playBeanCollect() {
@@ -64,6 +69,7 @@ public:
 	};
 
 	static void shutdown() {
+		mmUnloadEffect(SFX_BARRIEREXPLODE);
 		mmUnloadEffect(SFX_BEANCOLLECT);
 		mmUnloadEffect(SFX_BLOCKFALL);
 		mmUnloadEffect(SFX_BLOCKLAND);

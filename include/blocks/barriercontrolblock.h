@@ -9,6 +9,7 @@
 #include "blockbase.h"
 #include "constants.h"
 #include "game.h"
+#include "soundplayer.h"
 
 #include "barriercontrolbmp.h"
 
@@ -61,6 +62,13 @@ private:
 				}
 			}
 		}
+	};
+
+	/**
+	 * Plays the explode sound.
+	 */
+	void onExplode() {
+		SoundPlayer::playBarrierExplode();
 	};
 };
 
