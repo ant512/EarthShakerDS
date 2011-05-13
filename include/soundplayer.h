@@ -67,7 +67,8 @@ public:
 	};
 
 	static void playGravityInversion() {
-		mmEffect(SFX_GRAVITYINVERSION);
+		mmEffectCancel(_gravityHandle);
+		_gravityHandle = mmEffect(SFX_GRAVITYINVERSION);
 	};
 
 	static void playLevelComplete() {
@@ -124,6 +125,7 @@ public:
 
 private:
 	static mm_sfxhand _titleHandle;
+	static mm_sfxhand _gravityHandle;
 
 	SoundPlayer();
 	~SoundPlayer();
