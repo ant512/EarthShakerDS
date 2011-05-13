@@ -488,7 +488,7 @@ void Game::decreaseTime() {
 	drawTimerBar();
 
 	if (_remainingTime == 0) {
-		killPlayer();
+		getPlayerBlock()->explode();
 	}
 }
 

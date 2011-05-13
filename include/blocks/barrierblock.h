@@ -6,6 +6,7 @@
 
 #include "blockbase.h"
 #include "game.h"
+#include "soundplayer.h"
 
 #include "barrierbmp1.h"
 #include "barrierbmp2.h"
@@ -94,6 +95,9 @@ private:
 
 		_isOddIteration = !_isOddIteration;
 
+		SoundPlayer::playBarrierPush();
+
+		_game->decreaseTime();
 		_game->decreaseTime();
 	};
 };

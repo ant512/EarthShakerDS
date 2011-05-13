@@ -12,6 +12,7 @@ public:
 	static void init() {
 		mmInitDefaultMem((mm_addr)soundbank_bin);
 		mmLoadEffect(SFX_BARRIEREXPLODE);
+		mmLoadEffect(SFX_BARRIERPUSH);
 		mmLoadEffect(SFX_BEANCOLLECT);
 		mmLoadEffect(SFX_BLOCKFALL);
 		mmLoadEffect(SFX_BLOCKLAND);
@@ -31,6 +32,10 @@ public:
 
 	static void playBarrierExplode() {
 		mmEffect(SFX_BARRIEREXPLODE);
+	};
+
+	static void playBarrierPush() {
+		mmEffect(SFX_BARRIERPUSH);
 	};
 
 	static void playBeanCollect() {
@@ -99,6 +104,7 @@ public:
 
 	static void shutdown() {
 		mmUnloadEffect(SFX_BARRIEREXPLODE);
+		mmUnloadEffect(SFX_BARRIERPUSH);
 		mmUnloadEffect(SFX_BEANCOLLECT);
 		mmUnloadEffect(SFX_BLOCKFALL);
 		mmUnloadEffect(SFX_BLOCKLAND);
