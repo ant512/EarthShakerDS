@@ -4,7 +4,7 @@ Todo
  - Map screen
  - Sounds:
    - Extra life
-   - Touch barrier
+   - Suicide
  - Levels
  - Teleport effect
  - Timer increase animation when bean is collected
