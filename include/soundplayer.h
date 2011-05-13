@@ -11,19 +11,19 @@ class SoundPlayer {
 public:
 	static void init() {
 		mmInitDefaultMem((mm_addr)soundbank_bin);
-		mmLoadEffect(SFX_SOILDIG);
-		mmLoadEffect(SFX_TIME);
+		mmLoadEffect(SFX_BEANCOLLECT);
 		mmLoadEffect(SFX_BLOCKFALL);
 		mmLoadEffect(SFX_BLOCKLAND);
+		mmLoadEffect(SFX_BOULDEREXPLODE);
+		mmLoadEffect(SFX_BUBBLEEXPLODE);
 		mmLoadEffect(SFX_DIAMONDCOLLECT);
+		mmLoadEffect(SFX_PLAYEREXPLODE);
+		mmLoadEffect(SFX_SOILDIG);
+		mmLoadEffect(SFX_TIME);
 	};
 
-	static void playTime() {
-		mmEffectEx(&_time);
-	};
-
-	static void playSoilDig() {
-		mmEffectEx(&_soilDig);
+	static void playBeanCollect() {
+		mmEffect(SFX_BEANCOLLECT);
 	};
 
 	static void playBlockFall() {
@@ -34,19 +34,43 @@ public:
 		mmEffect(SFX_BLOCKLAND);
 	};
 
+	static void playBoulderExplode() {
+		mmEffect(SFX_BOULDEREXPLODE);
+	};
+
+	static void playBubbleExplode() {
+		mmEffect(SFX_BUBBLEEXPLODE);
+	};
+
 	static void playDiamondCollect() {
 		mmEffect(SFX_DIAMONDCOLLECT);
 	};
 
+	static void playPlayerExplode() {
+		mmEffect(SFX_PLAYEREXPLODE);
+	};
+
+	static void playSoilDig() {
+		mmEffect(SFX_SOILDIG);
+	};
+
+	static void playTime() {
+		mmEffect(SFX_TIME);
+	};
+
 	static void shutdown() {
-		mmUnloadEffect(SFX_TIME);
+		mmUnloadEffect(SFX_BEANCOLLECT);
+		mmUnloadEffect(SFX_BLOCKFALL);
+		mmUnloadEffect(SFX_BLOCKLAND);
+		mmUnloadEffect(SFX_BOULDEREXPLODE);
+		mmUnloadEffect(SFX_BUBBLEEXPLODE);
+		mmUnloadEffect(SFX_DIAMONDCOLLECT);
+		mmUnloadEffect(SFX_PLAYEREXPLODE);
 		mmUnloadEffect(SFX_SOILDIG);
+		mmUnloadEffect(SFX_TIME);
 	};
 
 private:
-	static mm_sound_effect _time;
-	static mm_sound_effect _soilDig;
-
 	SoundPlayer();
 	~SoundPlayer();
 };

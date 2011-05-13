@@ -279,8 +279,6 @@ void BlockBase::slideLeft() {
 			level->moveBlock(_x, _y, _x - 1, _y);
 			_isOddIteration = !_isOddIteration;
 			_isFalling = true;
-
-			if (!_game->isGravityInverted()) SoundPlayer::playBlockFall();
 		}
 	}
 }
@@ -326,8 +324,6 @@ void BlockBase::slideRight() {
 			level->moveBlock(_x, _y, _x + 1, _y);
 			_isOddIteration = !_isOddIteration;
 			_isFalling = true;
-
-			if (!_game->isGravityInverted()) SoundPlayer::playBlockFall();
 		}
 	}
 }

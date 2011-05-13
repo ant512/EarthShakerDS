@@ -89,6 +89,11 @@ private:
 	 * Notifies the game that the player is dead.
 	 */
 	void onDestroyed();
+
+	/**
+	 * Plays the explode sound.
+	 */
+	void onExplode();
 };
 
 #endif

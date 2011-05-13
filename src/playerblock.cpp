@@ -1,9 +1,10 @@
 #include <bitmap.h>
 #include <graphics.h>
 
+#include "blockbase.h"
 #include "game.h"
 #include "playerblock.h"
-#include "blockbase.h"
+#include "soundplayer.h"
 
 PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 	_isSlippy = false;
@@ -141,6 +142,10 @@ bool PlayerBlock::pushDown() {
 	}
 
 	return false;
+}
+
+void PlayerBlock::onExplode() {
+	SoundPlayer::playPlayerExplode();
 }
 
 void PlayerBlock::onDestroyed() {

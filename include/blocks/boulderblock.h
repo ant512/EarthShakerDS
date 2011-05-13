@@ -4,10 +4,11 @@
 #include <graphics.h>
 #include <bitmap.h>
 
-#include "game.h"
-#include "blockbase.h"
-#include "playerblock.h"
 #include "bitmapserver.h"
+#include "blockbase.h"
+#include "game.h"
+#include "playerblock.h"
+#include "soundplayer.h"
 
 /**
  * Boulders fall if not sitting on anything and can be pushed horizontally.
@@ -123,6 +124,15 @@ public:
 		if (block == NULL) return;
 
 		if (block->isHot()) explode();
+	};
+
+private:
+	
+	/**
+	 * Plays explode sound.
+	 */
+	void onExplode() {
+		SoundPlayer::playBoulderExplode();
 	};
 };
 

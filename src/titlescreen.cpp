@@ -65,7 +65,7 @@ void TitleScreen::iterate(PadState pad) {
 	if (pad.up) {
 		if (_selectedLevelIndex > 0) {
 			--_selectedLevelIndex;
-			
+
 			SoundPlayer::playBlockFall();
 			drawLevelNames();
 		} else {
@@ -88,6 +88,7 @@ void TitleScreen::iterate(PadState pad) {
 		}
 	} else if (pad.a || pad.start) {
 		_chosenLevel = _levelDefinitions->at(_selectedLevelIndex);
+		SoundPlayer::playBubbleExplode();
 	}
 }
 

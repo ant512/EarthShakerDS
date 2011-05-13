@@ -4,12 +4,13 @@
 #include <graphics.h>
 #include <bitmap.h>
 
-#include "game.h"
-#include "blockbase.h"
 #include "beanbmp1.h"
 #include "beanbmp2.h"
 #include "beanbmp3.h"
+#include "blockbase.h"
 #include "constants.h"
+#include "game.h"
+#include "soundplayer.h"
 
 /**
  * BeanBlocks give a time extension and points when collected.
@@ -45,9 +46,7 @@ public:
 	 * @return True.
 	 */
 	bool pushUp() {
-		_game->addScore(BEAN_SCORE);
-		_game->increaseTime(BEAN_TIME);
-		_game->getLevel()->removeBlockAt(_x, _y);
+		collect();
 		return true;
 	};
 
@@ -56,9 +55,7 @@ public:
 	 * @return True.
 	 */
 	bool pushDown() {
-		_game->addScore(BEAN_SCORE);
-		_game->increaseTime(BEAN_TIME);
-		_game->getLevel()->removeBlockAt(_x, _y);
+		collect();
 		return true;
 	};
 
@@ -67,9 +64,7 @@ public:
 	 * @return True.
 	 */
 	bool pushLeft() {
-		_game->addScore(BEAN_SCORE);
-		_game->increaseTime(BEAN_TIME);
-		_game->getLevel()->removeBlockAt(_x, _y);
+		collect();
 		return true;
 	};
 
@@ -78,9 +73,7 @@ public:
 	 * @return True.
 	 */
 	bool pushRight() {
-		_game->addScore(BEAN_SCORE);
-		_game->increaseTime(BEAN_TIME);
-		_game->getLevel()->removeBlockAt(_x, _y);
+		collect();
 		return true;
 	};
 
@@ -88,6 +81,17 @@ private:
 	BeanBmp1 _bmp1;		/**< First animation bitmap. */
 	BeanBmp2 _bmp2;		/**< Second animation bitmap. */
 	BeanBmp3 _bmp3;		/**< Third animation bitmap. */
+
+	/**
+	 * Collect the bean.  Adds to the player's score and time and removes the
+	 * bean from the level.
+	 */
+	void collect() {
+		_game->addScore(BEAN_SCORE);
+		_game->increaseTime(BEAN_TIME);
+		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playBeanCollect();
+	};
 };
 
 #endif

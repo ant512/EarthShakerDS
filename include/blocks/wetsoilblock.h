@@ -4,9 +4,10 @@
 #include <graphics.h>
 #include <bitmap.h>
 
-#include "game.h"
 #include "blockbase.h"
 #include "constants.h"
+#include "game.h"
+#include "soundplayer.h"
 
 #include "wetsoilbmp1.h"
 #include "wetsoilbmp2.h"
@@ -48,6 +49,7 @@ public:
 	 */
 	bool digFromBelow() {
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playSoilDig();
 		return true;
 	};
 
@@ -57,6 +59,7 @@ public:
 	 */
 	bool digFromAbove() {
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playSoilDig();
 		return true;
 	};
 
@@ -66,6 +69,7 @@ public:
 	 */
 	bool digFromLeft() {
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playSoilDig();
 		return true;
 	};
 
@@ -75,6 +79,7 @@ public:
 	 */
 	bool digFromRight() {
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playSoilDig();
 		return true;
 	};
 

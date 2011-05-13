@@ -226,6 +226,15 @@ private:
 	BubbleBmp2 _bmp2;		/**< Second animation bitmap. */
 	BubbleBmp3 _bmp3;		/**< Third animation bitmap. */
 	BubbleBmp4 _bmp4;		/**< Fourth animation bitmap. */
+
+private:
+	
+	/**
+	 * Plays explode sound.
+	 */
+	void onExplode() {
+		SoundPlayer::playBubbleExplode();
+	};
 };
 
 #endif
