@@ -2,7 +2,13 @@ Todo
 ----
 
  - Map screen
- - Sounds
+ - Sounds:
+   - Collected all diamonds
+   - Level end
+   - Gravity inversion
+   - Extra life
+   - Teleport
+   - Touch barrier
  - Levels
  - Should actions that pause the original game pause the remake, even though
    they only pause because the Speccy couldn't play complex sounds as well as do

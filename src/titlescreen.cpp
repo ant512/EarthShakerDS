@@ -46,6 +46,8 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 
 
 	drawLevelNames();
+
+	SoundPlayer::playTitleTheme();
 }
 
 TitleScreen::~TitleScreen() {
@@ -88,6 +90,7 @@ void TitleScreen::iterate(PadState pad) {
 		}
 	} else if (pad.a || pad.start) {
 		_chosenLevel = _levelDefinitions->at(_selectedLevelIndex);
+		SoundPlayer::stopTitleTheme();
 		SoundPlayer::playBubbleExplode();
 	}
 }

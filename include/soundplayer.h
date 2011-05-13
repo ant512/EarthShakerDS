@@ -22,6 +22,7 @@ public:
 		mmLoadEffect(SFX_PLAYEREXPLODE);
 		mmLoadEffect(SFX_SOILDIG);
 		mmLoadEffect(SFX_TIME);
+		mmLoadEffect(SFX_TITLETHEME);
 	};
 
 	static void playBarrierExplode() {
@@ -68,6 +69,14 @@ public:
 		mmEffect(SFX_TIME);
 	};
 
+	static void playTitleTheme() {
+		_titleHandle = mmEffect(SFX_TITLETHEME);
+	};
+
+	static void stopTitleTheme() {
+		mmEffectCancel(_titleHandle);
+	};
+
 	static void shutdown() {
 		mmUnloadEffect(SFX_BARRIEREXPLODE);
 		mmUnloadEffect(SFX_BEANCOLLECT);
@@ -80,9 +89,12 @@ public:
 		mmUnloadEffect(SFX_PLAYEREXPLODE);
 		mmUnloadEffect(SFX_SOILDIG);
 		mmUnloadEffect(SFX_TIME);
+		mmUnloadEffect(SFX_TITLETHEME);
 	};
 
 private:
+	static mm_sfxhand _titleHandle;
+
 	SoundPlayer();
 	~SoundPlayer();
 };

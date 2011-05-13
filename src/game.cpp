@@ -16,8 +16,6 @@
 #include "level8.h"
 
 Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : ScreenBase(topGfx, bottomGfx) {
-	_score = 0;
-	_lives = STARTING_LIVES;
 	_isOddIteration = true;
 	_level = NULL;
 	_gameOverScreen = NULL;
@@ -196,6 +194,9 @@ void Game::iterate(PadState pad) {
 
 				delete _titleScreen;
 				_titleScreen = NULL;
+
+				_score = 0;
+				_lives = STARTING_LIVES;
 
 				startLevel(chosenLevel);
 			}
