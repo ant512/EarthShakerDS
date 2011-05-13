@@ -6,6 +6,8 @@
 #include "bitmapserver.h"
 #include "soundplayer.h"
 
+#include "hardware.h"
+
 void initGfxMode() {
 	powerOn(POWER_ALL_2D);
 
@@ -18,24 +20,6 @@ void initGfxMode() {
 	// Initialise backgrounds
 	bgInit(3, BgType_Bmp16, BgSize_B16_256x256, 0, 0);
 	bgInitSub(3, BgType_Bmp16, BgSize_B16_256x256, 0, 0);
-}
-
-PadState getPadState() {
-
-	PadState pad;
-
-	scanKeys();
-	pad.up = (keysDown() & KEY_UP) || (keysHeld() & KEY_UP);
-	pad.down = (keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN);
-	pad.left = (keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT);
-	pad.right = (keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT);
-	pad.l = ((keysDown() & KEY_L) || (keysHeld() & KEY_L));
-	pad.r = ((keysDown() & KEY_R) || (keysHeld() & KEY_R));
-	pad.a = ((keysDown() & KEY_A) || (keysHeld() & KEY_A));
-	pad.start = ((keysDown() & KEY_START) || (keysHeld() & KEY_START));
-	pad.select = ((keysDown() & KEY_SELECT) || (keysHeld() & KEY_SELECT));
-
-	return pad;
 }
 
 int main(int argc, char* argv[]) {
@@ -55,11 +39,12 @@ int main(int argc, char* argv[]) {
 	Game* game = new Game(topGfx, bottomGfx);
 
 	while(game->isRunning()) {
+		Hardware::updateState();
 
-		pad = getPadState();
+		pad = Hardware::getPadState();
 
 		game->iterate(pad);
-		swiWaitForVBlank();
+		Hardware::waitForVBlank();
 	}
 
 	delete game;

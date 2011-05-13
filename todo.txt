@@ -8,3 +8,4 @@ Todo
  - Levels
  - Teleport effect
  - Timer increase animation when bean is collected
+ - Readme
