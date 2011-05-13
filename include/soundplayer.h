@@ -19,6 +19,7 @@ public:
 		mmLoadEffect(SFX_BUBBLEEXPLODE);
 		mmLoadEffect(SFX_DIAMONDCOLLECT);
 		mmLoadEffect(SFX_DOOROPEN);
+		mmLoadEffect(SFX_LEVELCOMPLETE);
 		mmLoadEffect(SFX_PAUSE);
 		mmLoadEffect(SFX_PLAYEREXPLODE);
 		mmLoadEffect(SFX_SOILDIG);
@@ -59,6 +60,10 @@ public:
 		mmEffect(SFX_DOOROPEN);
 	};
 
+	static void playLevelComplete() {
+		mmEffect(SFX_LEVELCOMPLETE);
+	};
+
 	static void playPause() {
 		mmEffect(SFX_PAUSE);
 	};
@@ -96,6 +101,7 @@ public:
 		mmUnloadEffect(SFX_BUBBLEEXPLODE);
 		mmUnloadEffect(SFX_DIAMONDCOLLECT);
 		mmUnloadEffect(SFX_DOOROPEN);
+		mmUnloadEffect(SFX_LEVELCOMPLETE);
 		mmUnloadEffect(SFX_PAUSE);
 		mmUnloadEffect(SFX_PLAYEREXPLODE);
 		mmUnloadEffect(SFX_SOILDIG);

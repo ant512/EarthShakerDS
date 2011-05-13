@@ -244,8 +244,8 @@ void Game::iterate(PadState pad) {
 		case GAME_STATE_LEVEL_COMPLETE:
 
 			// Handle the situation in which the player has finished the level
-			_remainingTime -= 2;
-			addScore(2);		// One point per second
+			_remainingTime -= _remainingTime >= 4 ? 4 : _remainingTime;
+			addScore(_remainingTime >= 4 ? 4 : _remainingTime);		// One point per second
 
 			drawTimerBar();
 
@@ -669,4 +669,5 @@ void Game::startLevel(LevelDefinition* levelDefinition) {
 
 void Game::endLevel() {
 	_state = GAME_STATE_LEVEL_COMPLETE;
+	SoundPlayer::playLevelComplete();
 }
