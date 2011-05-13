@@ -4,13 +4,14 @@
 #include <graphics.h>
 #include <bitmap.h>
 
-#include "game.h"
 #include "blockbase.h"
+#include "constants.h"
 #include "diamondbmp1.h"
 #include "diamondbmp2.h"
 #include "diamondbmp3.h"
 #include "diamondbmp4.h"
-#include "constants.h"
+#include "game.h"
+#include "soundplayer.h"
 
 /**
  * Diamonds can be collected for points.  They fall if not sitting on anything.
@@ -51,6 +52,7 @@ public:
 		_game->addScore(DIAMOND_SCORE);
 		_game->increaseCollectedDiamonds();
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playDiamondCollect();
 		return true;
 	};
 
@@ -62,6 +64,7 @@ public:
 		_game->addScore(DIAMOND_SCORE);
 		_game->increaseCollectedDiamonds();
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playDiamondCollect();
 		return true;
 	};
 
@@ -73,6 +76,7 @@ public:
 		_game->addScore(DIAMOND_SCORE);
 		_game->increaseCollectedDiamonds();
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playDiamondCollect();
 		return true;
 	};
 
@@ -84,6 +88,7 @@ public:
 		_game->addScore(DIAMOND_SCORE);
 		_game->increaseCollectedDiamonds();
 		_game->getLevel()->removeBlockAt(_x, _y);
+		SoundPlayer::playDiamondCollect();
 		return true;
 	};
 

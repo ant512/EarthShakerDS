@@ -1,6 +1,8 @@
 #ifndef _CONSTANTS_H_
 #define _CONSTANTS_H_
 
+#include <nds.h>
+
 /**
  * Number of frames before the screen is redrawn and block animations are
  * cycled.

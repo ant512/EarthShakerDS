@@ -1,5 +1,6 @@
-#include "titlescreen.h"
 #include "constants.h"
+#include "soundplayer.h"
+#include "titlescreen.h"
 
 TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinition*>* levelDefinitions) : ScreenBase(topGfx, bottomGfx) {
 	_timer = 0;
@@ -64,26 +65,29 @@ void TitleScreen::iterate(PadState pad) {
 	if (pad.up) {
 		if (_selectedLevelIndex > 0) {
 			--_selectedLevelIndex;
+			
+			SoundPlayer::playBlockFall();
+			drawLevelNames();
+		} else {
+			_selectedLevelIndex = _levelDefinitions->size() - 1;
+
+			SoundPlayer::playBlockFall();
 			drawLevelNames();
 		}
-	} else if (pad.down) {
+	} else if (pad.down || pad.select) {
 		if (_selectedLevelIndex < _levelDefinitions->size() - 1) {
 			++_selectedLevelIndex;
+
+			SoundPlayer::playBlockFall();
+			drawLevelNames();
+		} else {
+			_selectedLevelIndex = 0;
+
+			SoundPlayer::playBlockFall();
 			drawLevelNames();
 		}
 	} else if (pad.a || pad.start) {
 		_chosenLevel = _levelDefinitions->at(_selectedLevelIndex);
-	} else if (pad.select) {
-
-		// Select button moves down the list until the end, whereupon it jumps
-		// back to the top of the list
-		if (_selectedLevelIndex < _levelDefinitions->size() - 1) {
-			++_selectedLevelIndex;
-			drawLevelNames();
-		} else {
-			_selectedLevelIndex = 0;
-			drawLevelNames();
-		}
 	}
 }
 

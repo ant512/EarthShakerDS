@@ -13,6 +13,9 @@ public:
 		mmInitDefaultMem((mm_addr)soundbank_bin);
 		mmLoadEffect(SFX_SOILDIG);
 		mmLoadEffect(SFX_TIME);
+		mmLoadEffect(SFX_BLOCKFALL);
+		mmLoadEffect(SFX_BLOCKLAND);
+		mmLoadEffect(SFX_DIAMONDCOLLECT);
 	};
 
 	static void playTime() {
@@ -21,6 +24,18 @@ public:
 
 	static void playSoilDig() {
 		mmEffectEx(&_soilDig);
+	};
+
+	static void playBlockFall() {
+		mmEffect(SFX_BLOCKFALL);
+	};
+
+	static void playBlockLand() {
+		mmEffect(SFX_BLOCKLAND);
+	};
+
+	static void playDiamondCollect() {
+		mmEffect(SFX_DIAMONDCOLLECT);
 	};
 
 	static void shutdown() {

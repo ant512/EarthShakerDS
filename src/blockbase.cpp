@@ -1,6 +1,7 @@
 #include "blockbase.h"
-#include "levelbase.h"
 #include "game.h"
+#include "levelbase.h"
+#include "soundplayer.h"
 
 BlockBase::BlockBase(s32 x, s32 y, Game* game) {
 	_x = x;
@@ -176,7 +177,7 @@ void BlockBase::raise() {
 		onFall();
 
 		// Note that we don't squash blocks when raising.
-	} else {
+	} else if (_isFalling) {
 
 		// Do not stop raising if the block above us is also being raised.
 		// This prevents blocks from settling on top of blocks that are falling
@@ -222,14 +223,17 @@ void BlockBase::drop() {
 
 		onFall();
 
+		SoundPlayer::playBlockFall();
+
 		squashBlock();
-	} else {
+	} else if (_isFalling) {
 
 		// Do not stop raising if the block above us is also being raised.
 		// This prevents blocks from settling on top of blocks that are falling
 		// and will fall again during the next iteration.
 		if (!bottom->isFalling()) {
 			_isFalling = false;
+			SoundPlayer::playBlockLand();
 		}
 	}
 }
@@ -275,6 +279,8 @@ void BlockBase::slideLeft() {
 			level->moveBlock(_x, _y, _x - 1, _y);
 			_isOddIteration = !_isOddIteration;
 			_isFalling = true;
+
+			if (!_game->isGravityInverted()) SoundPlayer::playBlockFall();
 		}
 	}
 }
@@ -320,6 +326,8 @@ void BlockBase::slideRight() {
 			level->moveBlock(_x, _y, _x + 1, _y);
 			_isOddIteration = !_isOddIteration;
 			_isFalling = true;
+
+			if (!_game->isGravityInverted()) SoundPlayer::playBlockFall();
 		}
 	}
 }
