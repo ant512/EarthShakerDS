@@ -37,7 +37,9 @@ public:
 			18,18,17,32,32,32,18,18,18,4 ,4 ,4 ,4 ,4 ,4 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 };
 
 		setLayout(layout);
+	};
 
+	void recolourBitmaps() {
 		BitmapServer::makeSoilYellow();
 		BitmapServer::makeBrickWallRed();
 		BitmapServer::makeBouldersCyan();

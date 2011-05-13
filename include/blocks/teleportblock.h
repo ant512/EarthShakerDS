@@ -7,6 +7,7 @@
 #include "game.h"
 #include "blockbase.h"
 #include "constants.h"
+#include "soundplayer.h"
 #include "teleportbmp1.h"
 #include "teleportbmp2.h"
 #include "teleportbmp3.h"
@@ -138,6 +139,9 @@ private:
 
 		// Remove this block from the level
 		_game->getLevel()->removeBlockAt(_x, _y);
+
+		SoundPlayer::playTeleportCollect();
+
 		return false;
 	}
 };

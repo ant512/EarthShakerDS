@@ -657,6 +657,7 @@ void Game::startLevel(LevelDefinition* levelDefinition) {
 	}
 
 	_level = LevelFactory::createLevel(levelDefinition, this);
+	levelDefinition->recolourBitmaps();
 
 	drawHUD();
 	drawDiamondCounters();

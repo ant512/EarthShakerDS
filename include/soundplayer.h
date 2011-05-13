@@ -21,6 +21,7 @@ public:
 		mmLoadEffect(SFX_PAUSE);
 		mmLoadEffect(SFX_PLAYEREXPLODE);
 		mmLoadEffect(SFX_SOILDIG);
+		mmLoadEffect(SFX_TELEPORTCOLLECT);
 		mmLoadEffect(SFX_TIME);
 		mmLoadEffect(SFX_TITLETHEME);
 	};
@@ -65,6 +66,10 @@ public:
 		mmEffect(SFX_SOILDIG);
 	};
 
+	static void playTeleportCollect() {
+		mmEffect(SFX_TELEPORTCOLLECT);
+	};
+
 	static void playTime() {
 		mmEffect(SFX_TIME);
 	};
@@ -88,6 +93,7 @@ public:
 		mmUnloadEffect(SFX_PAUSE);
 		mmUnloadEffect(SFX_PLAYEREXPLODE);
 		mmUnloadEffect(SFX_SOILDIG);
+		mmUnloadEffect(SFX_TELEPORTCOLLECT);
 		mmUnloadEffect(SFX_TIME);
 		mmUnloadEffect(SFX_TITLETHEME);
 	};

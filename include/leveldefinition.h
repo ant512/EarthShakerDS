@@ -66,6 +66,8 @@ public:
 	 */
 	const WoopsiGfx::WoopsiString& getName() const { return _name; };
 
+	inline virtual void recolourBitmaps() { };
+
 protected:
 	u8* _layout;								/**< Level map stored as a 1 dimensional array of bytes. */
 	s32 _width;									/**< Width of the level in blocks. */

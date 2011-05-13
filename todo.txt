@@ -10,6 +10,8 @@ Todo
    - Teleport
    - Touch barrier
  - Levels
+ - Teleport effect
+ - Timer increase animation when bean is collected
  - Should actions that pause the original game pause the remake, even though
    they only pause because the Speccy couldn't play complex sounds as well as do
    anything else simultaneously?

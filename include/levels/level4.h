@@ -37,7 +37,9 @@ public:
 			4 ,32,4 ,1 ,10,19,19,19,4 ,2 ,32,32,32,2 ,32,32,32,10,19,32,17,32,17,32,19,10,32,4 ,4 ,4 };
 
 		setLayout(layout);
+	};
 
+	void recolourBitmaps() {
 		BitmapServer::makeSoilGreen();
 		BitmapServer::makeBouldersCyan();
 	};
