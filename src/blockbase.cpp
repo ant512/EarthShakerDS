@@ -233,7 +233,7 @@ void BlockBase::drop() {
 		// and will fall again during the next iteration.
 		if (!bottom->isFalling()) {
 			_isFalling = false;
-			SoundPlayer::playBlockLand();
+			onLand();
 		}
 	}
 }

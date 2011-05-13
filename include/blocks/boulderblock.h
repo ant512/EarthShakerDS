@@ -134,6 +134,13 @@ private:
 	void onExplode() {
 		SoundPlayer::playBoulderExplode();
 	};
+
+	/**
+	 * Plays landing sound.
+	 */
+	void onLand() {
+		SoundPlayer::playBlockLand();
+	}
 };
 
 #endif

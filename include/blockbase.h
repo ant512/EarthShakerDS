@@ -246,6 +246,11 @@ protected:
 	virtual void onFall() { };
 
 	/**
+	 * Called when a falling block lands.
+	 */
+	virtual void onLand() { };
+
+	/**
 	 * Drops the block from its current position to a free block below.
 	 */
 	void drop();
