@@ -3,10 +3,48 @@
 
 #include <nds.h>
 
+#include "framebuffer.h"
+#include "graphics.h"
 #include "padstate.h"
 
 class Hardware {
 public:
+
+	static void init() {
+		powerOn(POWER_ALL_2D);
+
+		videoSetMode( MODE_5_2D | DISPLAY_BG3_ACTIVE );
+		videoSetModeSub( MODE_5_2D | DISPLAY_BG3_ACTIVE );
+
+		vramSetBankA( VRAM_A_MAIN_BG );
+		vramSetBankC( VRAM_C_SUB_BG );
+
+		// Initialise backgrounds
+		bgInit(3, BgType_Bmp16, BgSize_B16_256x256, 0, 0);
+		bgInitSub(3, BgType_Bmp16, BgSize_B16_256x256, 0, 0);
+
+		_topBuffer = new WoopsiGfx::FrameBuffer((u16*)BG_BMP_RAM(0), SCREEN_WIDTH, SCREEN_HEIGHT);
+		_bottomBuffer = new WoopsiGfx::FrameBuffer((u16*)BG_BMP_RAM_SUB(0), SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		_topGfx = _topBuffer->newGraphics();
+		_bottomGfx = _bottomBuffer->newGraphics();
+	};
+
+	static void shutdown() {
+		delete _topGfx;
+		delete _bottomGfx;
+		delete _topBuffer;
+		delete _bottomBuffer;
+	};
+
+	static WoopsiGfx::Graphics* getTopGfx() {
+		return _topGfx;
+	};
+
+	static WoopsiGfx::Graphics* getBottomGfx() {
+		return _bottomGfx;
+	};
+
 	static const PadState& getPadState() {
 		return _pad;
 	};
@@ -33,6 +71,10 @@ public:
 
 private:
 	static PadState _pad;
+	static WoopsiGfx::FrameBuffer* _topBuffer;
+	static WoopsiGfx::FrameBuffer* _bottomBuffer;
+	static WoopsiGfx::Graphics* _topGfx;
+	static WoopsiGfx::Graphics* _bottomGfx;
 
 	Hardware();
 	~Hardware();
