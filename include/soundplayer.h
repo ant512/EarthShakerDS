@@ -18,6 +18,7 @@ public:
 		mmLoadEffect(SFX_BOULDEREXPLODE);
 		mmLoadEffect(SFX_BUBBLEEXPLODE);
 		mmLoadEffect(SFX_DIAMONDCOLLECT);
+		mmLoadEffect(SFX_DOOROPEN);
 		mmLoadEffect(SFX_PAUSE);
 		mmLoadEffect(SFX_PLAYEREXPLODE);
 		mmLoadEffect(SFX_SOILDIG);
@@ -52,6 +53,10 @@ public:
 
 	static void playDiamondCollect() {
 		mmEffect(SFX_DIAMONDCOLLECT);
+	};
+
+	static void playDoorOpen() {
+		mmEffect(SFX_DOOROPEN);
 	};
 
 	static void playPause() {
@@ -90,6 +95,7 @@ public:
 		mmUnloadEffect(SFX_BOULDEREXPLODE);
 		mmUnloadEffect(SFX_BUBBLEEXPLODE);
 		mmUnloadEffect(SFX_DIAMONDCOLLECT);
+		mmUnloadEffect(SFX_DOOROPEN);
 		mmUnloadEffect(SFX_PAUSE);
 		mmUnloadEffect(SFX_PLAYEREXPLODE);
 		mmUnloadEffect(SFX_SOILDIG);

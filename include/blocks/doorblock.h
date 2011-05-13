@@ -7,6 +7,7 @@
 
 #include "blockbase.h"
 #include "game.h"
+#include "soundplayer.h"
 
 /**
  * Door blocks are static.  They become active when all diamonds in a level are
@@ -51,11 +52,8 @@ public:
 	 * @return True if the block moves; false if not.
 	 */
 	bool pushLeft() {
-
 		if (_game->getRemainingDiamonds() > 0) return false;
-
 		_game->endLevel();
-
 		return false;
 	};
 
@@ -64,11 +62,8 @@ public:
 	 * @return True if the block moves; false if not.
 	 */
 	bool pushRight() {
-
 		if (_game->getRemainingDiamonds() > 0) return false;
-
 		_game->endLevel();
-
 		return false;
 	};
 
@@ -77,11 +72,8 @@ public:
 	 * @return True if the block moves; false if not.
 	 */
 	bool pushUp() {
-
 		if (_game->getRemainingDiamonds() > 0) return false;
-
 		_game->endLevel();
-
 		return false;
 	};
 
@@ -90,12 +82,14 @@ public:
 	 * @return True if the block moves; false if not.
 	 */
 	bool pushDown() {
-
 		if (_game->getRemainingDiamonds() > 0) return false;
-
 		_game->endLevel();
-
 		return false;
+	};
+
+private:
+	void onExplode() {
+		SoundPlayer::playDoorOpen();
 	};
 };
 
