@@ -6,6 +6,11 @@ Todo
    - Extra life
    - Suicide
  - Levels
+ - Readme
+
+Future Version
+--------------
+
  - Teleport effect
  - Timer increase animation when bean is collected
- - Readme
+ - Level editor
