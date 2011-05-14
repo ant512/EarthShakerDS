@@ -116,7 +116,7 @@ void Game::drawGravityCounter() {
 
 void Game::drawGravityIndicator() {
 	WoopsiGfx::WoopsiString str;
-	str.setText(isGravityInverted() ? "%%" : "&");
+	str.setText(isGravityInverted() ? "&" : "%");
 
 	s32 width = _font.getStringWidth(str);
 	s32 height = _font.getHeight();
