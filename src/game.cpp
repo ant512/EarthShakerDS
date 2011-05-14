@@ -16,6 +16,7 @@
 #include "level8.h"
 #include "level9.h"
 #include "level10.h"
+#include "level11.h"
 
 Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : ScreenBase(topGfx, bottomGfx) {
 	_isOddIteration = true;
@@ -36,6 +37,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : Screen
 	_levelDefinitions.push_back(new Level8());
 	_levelDefinitions.push_back(new Level9());
 	_levelDefinitions.push_back(new Level10());
+	_levelDefinitions.push_back(new Level11());
 }
 
 Game::~Game() {
