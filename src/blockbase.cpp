@@ -146,7 +146,10 @@ void BlockBase::raise() {
 	LevelBase* level = _game->getLevel();	
 
 	// Abort if we're already at the top of the grid
-	if (_y == 0) return;
+	if (_y == 0) {
+		if (_isFalling) _isFalling = false;
+		return;
+	}
 
 	// Try to drop straight upwards
 	BlockBase* top = level->getBlockAt(_x, _y - 1);
@@ -193,7 +196,15 @@ void BlockBase::drop() {
 	LevelBase* level = _game->getLevel();	
 
 	// Abort if we're already at the bottom of the grid
-	if (_y == level->getHeight() - 1) return;
+	if (_y == level->getHeight() - 1) {
+		
+		if (_isFalling) {
+			_isFalling = false;
+			onLand();
+		}
+
+		return;
+	}
 
 	// Try to drop straight downwards
 	BlockBase* bottom = level->getBlockAt(_x, _y + 1);
