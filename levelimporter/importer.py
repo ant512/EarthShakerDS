@@ -32,9 +32,18 @@ def loadBlockBitmaps():
 	return bmps
 
 def printLevel(level, width, height):
+	print("\t\tu8 layout[600] = {")
+
 	for y in range(0, height):
+		print("\t\t\t", end="")
+
 		for x in range(0, width):
-			print(level[(y * width) + x], end="")
+			print("{0}".format(level[(y * width) + x]).ljust(2), end="")
+
+			if (y * width) + x < ((height - 1) * width) + (width - 1):
+				print(",", end="")
+			else:
+				print("};", end="")
 
 		print('')
 
