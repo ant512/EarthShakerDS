@@ -99,14 +99,14 @@ def compareGridSquareWithBlock(level, block, gridX, gridY):
 	return True
 
 parser = argparse.ArgumentParser(description="converts screenshots of Earth Shaker maps into level definition classes")
-parser.add_argument('levelbmp', help='bmp file containing level layout')
-parser.add_argument('levelnumber', help='number of the level')
-parser.add_argument('levelname', help='name of the level')
+parser.add_argument('bmp', help='bmp file containing level layout')
+parser.add_argument('number', help='number of the level')
+parser.add_argument('name', help='name of the level')
 
 args = parser.parse_args()
 
 # Load the level bitmap
-levelBmp = Bitmap(args.levelbmp)
+levelBmp = Bitmap(args.bmp)
 validateBitmapSize(gridSize * levelWidth, gridSize * levelHeight, levelBmp)
 
 # Load the block bitmaps
@@ -133,4 +133,4 @@ for gridY in range(0, levelHeight):
 		if not foundBlock:
 			sys.exit("error: block does not exist for grid {0}, {1}".format(gridX, gridY))
 		
-saveLevel(levelLayout, levelWidth, levelHeight, args.levelnumber, args.levelname)
+saveLevel(levelLayout, levelWidth, levelHeight, args.number, args.name)
