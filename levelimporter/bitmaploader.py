@@ -125,6 +125,11 @@ class Bitmap:
 		"""Parse a version 3 DIB header and extract data."""
 		self.width = str_to_integer(data[0:4])
 		self.height = str_to_integer(data[4:8])
+
+		# We have to convert the height from an unsigned value to a signed
+		# value or we get the complement version
+		self.height = abs((self.height + 2**31) % 2**32 - 2**31)
+
 		self.__color_planes = str_to_integer(data[8:10])
 		self.__bits_per_pixel = str_to_integer(data[10:12])
 		self.__compression_method = str_to_integer(data[12:16])
@@ -157,6 +162,9 @@ class Bitmap:
 		
 			# Get the color of the pixel as a single integer
 			return self.__get_pixel_color24(x, y)
+		
+		else:
+			raise ValueError("32 bpp BMPs are not supported")
 			
 	def __get_pixel_color1(self, x, y):
 		"""Get colour of specified pixel from a monochrome bitmap."""
