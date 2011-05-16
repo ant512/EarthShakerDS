@@ -31,21 +31,55 @@ def loadBlockBitmaps():
 
 	return bmps
 
-def printLevel(level, width, height):
-	print("\t\tu8 layout[600] = {")
+def saveLevel(level, width, height, number, name):
+	with open(os.path.join(os.getcwd(), "level{0}.h".format(number)), "w") as f:
 
-	for y in range(0, height):
-		print("\t\t\t", end="")
+		f.write("#ifndef _LEVEL{0}_H_\n".format(number))
+		f.write("#define _LEVEL{0}_H_\n".format(number))
+		f.write("\n")
 
-		for x in range(0, width):
-			print("{0}".format(level[(y * width) + x]).ljust(2), end="")
+		f.write("#include \"leveldefinition.h\"\n")
+		f.write("#include \"bitmapserver.h\"\n")
+		f.write("\n")
 
-			if (y * width) + x < ((height - 1) * width) + (width - 1):
-				print(",", end="")
-			else:
-				print("};", end="")
+		f.write("/**\n")
+		f.write(" * Level {0}.\n".format(number))
+		f.write(" */\n")
+		f.write("class Level{0} : public LevelDefinition ".format(number))
+		f.write("{\n")
+		f.write("public:\n")
+		f.write("\n")
 
-		print('')
+		f.write("\t/**\n")
+		f.write("\t * Constructor.\n")
+		f.write("\t */\n")
+		f.write("\tLevel{0}() : LevelDefinition(30, 20, {0}, \"{1}\") ".format(number, name))
+		f.write("{\n")
+
+		f.write("\t\tu8 layout[600] = {\n")
+
+		for y in range(0, height):
+			f.write("\t\t\t")
+
+			for x in range(0, width):
+				f.write("{0}".format(level[(y * width) + x]).ljust(2))
+
+				if (y * width) + x < ((height - 1) * width) + (width - 1):
+					f.write(",")
+				else:
+					f.write("};")
+
+			f.write("\n")
+
+		f.write("\n")
+
+		f.write("\t\tsetLayout(layout);\n")
+		f.write("\t};\n")
+		f.write("};\n")
+		f.write("\n")
+
+		f.write("#endif\n")
+		f.write("\n")
 
 def compareGridSquareWithBlock(level, block, gridX, gridY):
 
@@ -66,6 +100,8 @@ def compareGridSquareWithBlock(level, block, gridX, gridY):
 
 parser = argparse.ArgumentParser(description="BitBucket-backed bug tracker")
 parser.add_argument('levelbmp', help='bmp file containing level layout')
+parser.add_argument('levelnumber', help='number of the level')
+parser.add_argument('levelname', help='name of the level')
 
 args = parser.parse_args()
 
@@ -97,4 +133,4 @@ for gridY in range(0, levelHeight):
 		if not foundBlock:
 			sys.exit("error: block does not exist for grid {0}, {1}".format(gridX, gridY))
 		
-printLevel(levelLayout, levelWidth, levelHeight)
+saveLevel(levelLayout, levelWidth, levelHeight, args.levelnumber, args.levelname)
