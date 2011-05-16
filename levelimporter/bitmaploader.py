@@ -133,7 +133,9 @@ class Bitmap:
 		self.__color_planes = str_to_integer(data[8:10])
 		self.__bits_per_pixel = str_to_integer(data[10:12])
 		self.__compression_method = str_to_integer(data[12:16])
-		self.__image_size = str_to_integer(data[16:20])
+
+		# Ignore the size value because many Mac programs seem to screw this up
+		self.__image_size = self.width * self.height # str_to_integer(data[16:20])
 		self.__horizontal_resolution = str_to_integer(data[20:24])
 		self.__vertical_resolution = str_to_integer(data[24:28])
 		self.__colors_in_palette = str_to_integer(data[28:32])
@@ -164,7 +166,7 @@ class Bitmap:
 			return self.__get_pixel_color24(x, y)
 		
 		else:
-			raise ValueError("32 bpp BMPs are not supported")
+			return self.__get_pixel_color32(x, y)
 			
 	def __get_pixel_color1(self, x, y):
 		"""Get colour of specified pixel from a monochrome bitmap."""
@@ -290,6 +292,42 @@ class Bitmap:
 		# calculated by finding the difference between the size of the data and
 		# the dimensions of the file.
 		data_padding = (self.__offset + self.__image_size) - ((self.width * self.height * 3) + self.__offset)
+
+		# Calculate the offset of the pixel from the start of the data.
+		# Rows of pixels are stored upside down, so the offset is calculated
+		# from the end of the data backwards
+		pixel_offset = self.__offset + (self.__image_size - ((y + 1) * aligned_width)) + (x * pixel_byte_width) - data_padding
+
+		# Extract the bytes of data comprising the pixel
+		return self.__data[pixel_offset:pixel_offset + pixel_byte_width]
+
+	def __get_pixel_color32(self, x, y):
+		"""Get the colour of the specified pixel from a 32-bit bitmap."""
+
+		if x >= self.width:
+			raise ValueError("x co-ordinate exceeds dimensions of bitmap")
+
+		if y >= self.height:
+			raise ValueError("y co-ordinate exceeds dimensions of bitmap")
+		
+		# Calculate the number of bytes in each pixel
+		pixel_byte_width = self.__bits_per_pixel // 8
+		
+		# Calculate the width of each row in bytes including the padding added to align
+		# to 4-byte boundaries
+		aligned_width = self.width * pixel_byte_width
+		mod_width = aligned_width % 4
+
+		if mod_width != 0:
+			aligned_width += 4 - mod_width
+
+		# Calculate the amount of padding added to the end of the file.  This is
+		# calculated by finding the difference between the size of the data and
+		# the dimensions of the file.
+		data_padding = 0
+
+		if self.__image_size > 0:
+			data_padding = (self.__offset + self.__image_size) - ((self.width * self.height * 3) + self.__offset)
 
 		# Calculate the offset of the pixel from the start of the data.
 		# Rows of pixels are stored upside down, so the offset is calculated

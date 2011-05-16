@@ -109,6 +109,10 @@ args = parser.parse_args()
 levelBmp = Bitmap(args.bmp)
 validateBitmapSize(gridSize * levelWidth, gridSize * levelHeight, levelBmp)
 
+print(levelBmp.output())
+
+print(levelBmp.get_pixel_color(3, 3))
+
 # Load the block bitmaps
 blockBmps = loadBlockBitmaps()
 
