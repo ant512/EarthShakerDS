@@ -98,7 +98,7 @@ def compareGridSquareWithBlock(level, block, gridX, gridY):
 
 	return True
 
-parser = argparse.ArgumentParser(description="BitBucket-backed bug tracker")
+parser = argparse.ArgumentParser(description="converts screenshots of Earth Shaker maps into level definition classes")
 parser.add_argument('levelbmp', help='bmp file containing level layout')
 parser.add_argument('levelnumber', help='number of the level')
 parser.add_argument('levelname', help='name of the level')
