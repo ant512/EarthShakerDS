@@ -14,3 +14,5 @@ libwoopsi.a
 *.nds
 AgentRestart.dat
 .DS_Store
+__pycache__
+*.pyc
