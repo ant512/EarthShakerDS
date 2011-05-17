@@ -88,6 +88,26 @@ void TitleScreen::iterate(PadState pad) {
 			SoundPlayer::playBlockFall();
 			drawLevelNames();
 		}
+	} else if (pad.right) {
+		if (_selectedLevelIndex < _levelDefinitions->size() - 4) {
+			_selectedLevelIndex += 3;
+		} else {
+			_selectedLevelIndex = _levelDefinitions->size() - 1;
+		}
+
+		SoundPlayer::playBlockFall();
+		drawLevelNames();
+
+	} else if (pad.left) {
+		if (_selectedLevelIndex > 3) {
+			_selectedLevelIndex -= 3;
+		} else {
+			_selectedLevelIndex = 0;
+		}
+
+		SoundPlayer::playBlockFall();
+		drawLevelNames();
+
 	} else if (pad.a || pad.start) {
 		_chosenLevel = _levelDefinitions->at(_selectedLevelIndex);
 		SoundPlayer::stopTitleTheme();
