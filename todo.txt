@@ -6,7 +6,6 @@ Todo
    - Extra life
    - Suicide
    - Game over music
- - Levels
 
 Future Version
 --------------
