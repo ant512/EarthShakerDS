@@ -221,6 +221,14 @@ void BitmapServer::makeSoilMagenta() {
 	_soilDarkColour = COLOUR_MAGENTA_DARK;
 }
 
+void BitmapServer::makeSoilWhite() {
+	swapColours(_soilColour, COLOUR_WHITE, _soilBmp);
+	swapColours(_soilDarkColour, COLOUR_WHITE_DARK, _soilBmp);
+
+	_soilColour = COLOUR_WHITE;
+	_soilDarkColour = COLOUR_WHITE_DARK;
+}
+
 void BitmapServer::makeBouldersYellow() {
 	changeBoulderColours(COLOUR_YELLOW, COLOUR_YELLOW_DARK);
 }

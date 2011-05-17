@@ -153,15 +153,7 @@ void LevelBase::iterateBlocks(bool isGravityInverted) {
 	// afterwards - the second call won't cause it to slide back to its original
 	// position.
 	for (s32 y = start; y != stop; y += increment) {
-		for (s32 x = 0; x < _width; ++x) {
-			block = getBlockAt(x, y);
-			if (block == NULL) continue;
-			block->slideRight();
-		}
-	}
-
-	for (s32 y = start; y != stop; y += increment) {
-		for (s32 x = 0; x < _width; ++x) {
+		for (s32 x = _width - 1; x > -1; --x) {
 			block = getBlockAt(x, y);
 			if (block == NULL) continue;
 			block->slideLeft();
@@ -169,7 +161,15 @@ void LevelBase::iterateBlocks(bool isGravityInverted) {
 	}
 
 	for (s32 y = start; y != stop; y += increment) {
-		for (s32 x = 0; x < _width; ++x) {
+		for (s32 x = _width - 1; x > -1; --x) {
+			block = getBlockAt(x, y);
+			if (block == NULL) continue;
+			block->slideRight();
+		}
+	}
+
+	for (s32 y = start; y != stop; y += increment) {
+		for (s32 x = _width - 1; x > -1; --x) {
 			block = getBlockAt(x, y);
 			if (block == NULL) continue;
 			block->fall();
@@ -177,7 +177,7 @@ void LevelBase::iterateBlocks(bool isGravityInverted) {
 	}
 
 	for (s32 y = start; y != stop; y += increment) {
-		for (s32 x = 0; x < _width; ++x) {
+		for (s32 x = _width - 1; x > -1; --x) {
 			block = getBlockAt(x, y);
 			if (block == NULL) continue;
 			block->iterate();

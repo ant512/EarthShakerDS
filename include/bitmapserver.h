@@ -106,6 +106,11 @@ public:
 	static void makeSoilMagenta();
 
 	/**
+	 * Turns the soil bitmap white.
+	 */
+	static void makeSoilWhite();
+
+	/**
 	 * Turns the boulder bitmaps yellow.
 	 */
 	static void makeBouldersYellow();
