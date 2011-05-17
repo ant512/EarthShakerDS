@@ -11,8 +11,9 @@ Level Select
 ------------
 
 When the game starts, the available levels are listed.  Choose the starting
-level using the up and down buttons (or Select button).  When the correct level
-is highlighted, press A or Start to start the game.
+level using the up and down buttons (or Select button).  You can page through
+the levels faster using the left and right buttons.  When the correct level is
+highlighted, press A or Start to start the game.
 
 
 Controls
