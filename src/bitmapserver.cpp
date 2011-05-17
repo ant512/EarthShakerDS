@@ -173,6 +173,14 @@ void BitmapServer::makeBrickWallMagenta() {
 	_brickWallDarkColour = COLOUR_MAGENTA_DARK;
 }
 
+void BitmapServer::makeBrickWallYellow() {
+	swapColours(_brickWallColour, COLOUR_YELLOW, _brickWallBmp);
+	swapColours(_brickWallDarkColour, COLOUR_YELLOW_DARK, _brickWallBmp);
+
+	_brickWallColour = COLOUR_MAGENTA;
+	_brickWallDarkColour = COLOUR_MAGENTA_DARK;
+}
+
 void BitmapServer::makeSoilBlue() {
 	swapColours(_soilColour, COLOUR_BLUE, _soilBmp);
 	swapColours(_soilDarkColour, COLOUR_BLUE_DARK, _soilBmp);

@@ -76,6 +76,11 @@ public:
 	static void makeBrickWallMagenta();
 
 	/**
+	 * Turns the brick wall bitmap magenta.
+	 */
+	static void makeBrickWallYellow();
+
+	/**
 	 * Turns the soil bitmap blue.
 	 */
 	static void makeSoilBlue();
