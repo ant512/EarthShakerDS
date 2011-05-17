@@ -65,6 +65,10 @@ class Bitmap:
 	__vertical_resolution = 0
 	__colors_in_palette = 0
 	__important_colors_used = 0
+
+	# Negative height indicates that rows are stored top-down unstead of bottom-
+	# up
+	__negativeHeight = False
 	
 	# Palette
 	__palette_offset = 0
@@ -128,14 +132,20 @@ class Bitmap:
 
 		# We have to convert the height from an unsigned value to a signed
 		# value or we get the complement version
-		self.height = abs((self.height + 2**31) % 2**32 - 2**31)
+		self.height = (self.height + 2**31) % 2**32 - 2**31
+
+		if self.height < 0:
+			self.height = abs(self.height)
+			self.__negativeHeight = True
 
 		self.__color_planes = str_to_integer(data[8:10])
 		self.__bits_per_pixel = str_to_integer(data[10:12])
 		self.__compression_method = str_to_integer(data[12:16])
 
-		# Ignore the size value because many Mac programs seem to screw this up
-		self.__image_size = self.width * self.height # str_to_integer(data[16:20])
+		# Ignore the size value because many Mac programs seem to screw this up.
+		# Instead we calculate the image size by subtracting the size of the
+		# header from the size of the data
+		self.__image_size = len(self.__data) - self.__offset # str_to_integer(data[16:20])
 		self.__horizontal_resolution = str_to_integer(data[20:24])
 		self.__vertical_resolution = str_to_integer(data[24:28])
 		self.__colors_in_palette = str_to_integer(data[28:32])
@@ -246,9 +256,16 @@ class Bitmap:
 			aligned_width += 4 - mod_width
 		
 		# Calculate the offset of the pixel from the start of the data.
-		# Rows of pixels are stored upside down, so the offset is calculated
-		# from the end of the data backwards
-		pixel_offset = self.__offset + (self.__image_size - ((y + 1) * aligned_width)) + (x * pixel_byte_width)
+		pixel_offset = self.__offset
+
+		if self.__negativeHeight:
+			# Rows are stored top-down
+			pixel_offset += (y* aligned_width) + (x * pixel_byte_width)
+
+		else:
+			# Rows of pixels are stored upside down, so the offset is calculated
+			# from the end of the data backwards
+			pixel_offset += (self.__image_size - ((y + 1) * aligned_width)) + (x * pixel_byte_width)
 
 		# Extract the bytes of data comprising the pixel
 		bytes = self.__data[pixel_offset:pixel_offset + pixel_byte_width]
@@ -291,12 +308,19 @@ class Bitmap:
 		# Calculate the amount of padding added to the end of the file.  This is
 		# calculated by finding the difference between the size of the data and
 		# the dimensions of the file.
-		data_padding = (self.__offset + self.__image_size) - ((self.width * self.height * 3) + self.__offset)
+		data_padding = (self.__offset + self.__image_size) - ((self.width * self.height * pixel_byte_width) + self.__offset)
 
 		# Calculate the offset of the pixel from the start of the data.
-		# Rows of pixels are stored upside down, so the offset is calculated
-		# from the end of the data backwards
-		pixel_offset = self.__offset + (self.__image_size - ((y + 1) * aligned_width)) + (x * pixel_byte_width) - data_padding
+		pixel_offset = self.__offset
+
+		if self.__negativeHeight:
+			# Rows are stored top-down
+			pixel_offset += (y* aligned_width) + (x * pixel_byte_width)
+
+		else:
+			# Rows of pixels are stored upside down, so the offset is calculated
+			# from the end of the data backwards
+			pixel_offset += (self.__image_size - ((y + 1) * aligned_width)) + (x * pixel_byte_width) - data_padding
 
 		# Extract the bytes of data comprising the pixel
 		return self.__data[pixel_offset:pixel_offset + pixel_byte_width]
@@ -321,18 +345,20 @@ class Bitmap:
 		if mod_width != 0:
 			aligned_width += 4 - mod_width
 
-		# Calculate the amount of padding added to the end of the file.  This is
-		# calculated by finding the difference between the size of the data and
-		# the dimensions of the file.
-		data_padding = 0
-
-		if self.__image_size > 0:
-			data_padding = (self.__offset + self.__image_size) - ((self.width * self.height * 3) + self.__offset)
+		# Calculate the amount of padding added to the end of the file
+		data_padding = self.__image_size - (self.width * self.height * pixel_byte_width)
 
 		# Calculate the offset of the pixel from the start of the data.
-		# Rows of pixels are stored upside down, so the offset is calculated
-		# from the end of the data backwards
-		pixel_offset = self.__offset + (self.__image_size - ((y + 1) * aligned_width)) + (x * pixel_byte_width) - data_padding
+		pixel_offset = self.__offset
+
+		if self.__negativeHeight:
+			# Rows are stored top-down
+			pixel_offset += (y* aligned_width) + (x * pixel_byte_width)
+
+		else:
+			# Rows of pixels are stored upside down, so the offset is calculated
+			# from the end of the data backwards
+			pixel_offset += (self.__image_size - ((y + 1) * aligned_width)) + (x * pixel_byte_width) - data_padding
 
 		# Extract the bytes of data comprising the pixel
 		return self.__data[pixel_offset:pixel_offset + pixel_byte_width]
