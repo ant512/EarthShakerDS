@@ -413,14 +413,25 @@ void Game::move(PadState pad) {
 			return;
 		}
 
+		bool moved = false;
+
 		if (pad.up) {
-			getPlayerBlock()->pushUp();
+			moved = getPlayerBlock()->pushUp();
 		} else if (pad.down) {
-			getPlayerBlock()->pushDown();
-		} else if (pad.left) {
-			getPlayerBlock()->pushLeft();
-		} else if (pad.right) {
-			getPlayerBlock()->pushRight();
+			moved = getPlayerBlock()->pushDown();
+		}
+
+		// Deviate from the original game slightly here and allow horizontal
+		// movement even if a vertical button is also pressed, but only if the
+		// player hasn't already moved.  This should reduce the frustration of
+		// need super-speedy fingers to let go of one direction and then press
+		// the next within a couple of VBLs.
+		if (!moved) {
+			if (pad.left) {
+				getPlayerBlock()->pushLeft();
+			} else if (pad.right) {
+				getPlayerBlock()->pushRight();
+			}
 		}
 
 		_level->iterate(_remainingGravityTime > 0);
