@@ -270,6 +270,7 @@ void BlockBase::slideLeft() {
 
 	if (restingOn == NULL) return;
 	if (!restingOn->isSlippy()) return;
+	if (restingOn->isFalling()) return;
 
 	// At this point, we can slide if the block immediately to our left is NULL
 	// and the block below that is also NULL.
@@ -315,6 +316,7 @@ void BlockBase::slideRight() {
 
 	if (restingOn == NULL) return;
 	if (!restingOn->isSlippy()) return;
+	if (restingOn->isFalling()) return;
 
 	// At this point, we can slide if the block immediately to our left is NULL
 	// and the block below that is also NULL.
