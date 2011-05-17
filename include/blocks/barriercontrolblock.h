@@ -47,18 +47,32 @@ private:
 	BarrierControlBmp _bmp;						/**< The block bitmap. */
 
 	/**
-	 * Removes all barrier blocks from the level.
+	 * Removes all barrier blocks and barrier control blocks from the level.
 	 */
 	void onDestroyed() {
 		LevelBase* level = _game->getLevel();
 		BarrierBlock* barrier = NULL;
+		BarrierControlBlock* control = NULL;
 
 		for (s32 y = 0; y < level->getHeight(); ++y) {
 			for (s32 x = 0; x < level->getWidth(); ++x) {
+
+				// Skip the current block
+				if ((x == getX() && (y == getY()))) continue;
+
+				// If the block is a barrier, remove it
 				barrier = dynamic_cast<BarrierBlock*>(level->getBlockAt(x, y));
 
 				if (barrier != NULL) {
 					level->removeBlockAt(x, y);
+				} else {
+
+					// If the block is a controller, remove it
+					control = dynamic_cast<BarrierControlBlock*>(level->getBlockAt(x, y));
+
+					if (control != NULL) {
+						level->removeBlockAt(x, y);
+					}
 				}
 			}
 		}
