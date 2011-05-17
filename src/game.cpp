@@ -32,8 +32,8 @@
 #include "level24.h"
 #include "level25.h"
 #include "level26.h"
-/*
 #include "level27.h"
+/*
 #include "level28.h"
 #include "level29.h"
 #include "level30.h"
@@ -76,8 +76,8 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : Screen
 	_levelDefinitions.push_back(new Level24());
 	_levelDefinitions.push_back(new Level25());
 	_levelDefinitions.push_back(new Level26());
-	/*
 	_levelDefinitions.push_back(new Level27());
+	/*
 	_levelDefinitions.push_back(new Level28());
 	_levelDefinitions.push_back(new Level29());
 	_levelDefinitions.push_back(new Level30());
