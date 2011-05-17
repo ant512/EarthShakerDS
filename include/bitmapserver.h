@@ -141,6 +141,11 @@ public:
 	static void makeBouldersGreen();
 
 	/**
+	 * Turns the boulder bitmaps white.
+	 */
+	static void makeBouldersWhite();
+
+	/**
 	 * Deletes any bitmaps that have been created.  Should only be called when
 	 * no pointers to the bitmaps are being used externally of rhis class.
 	 */

@@ -253,6 +253,10 @@ void BitmapServer::makeBouldersGreen() {
 	changeBoulderColours(COLOUR_GREEN, COLOUR_GREEN_DARK);
 }
 
+void BitmapServer::makeBouldersWhite() {
+	changeBoulderColours(COLOUR_WHITE, COLOUR_WHITE_DARK);
+}
+
 void BitmapServer::shutdown() {
 	if (_boulderBmp != NULL) delete _boulderBmp;
 	if (_boulderExplodeBmp1 != NULL) delete _boulderExplodeBmp1;
