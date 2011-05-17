@@ -27,8 +27,8 @@
 #include "level19.h"
 #include "level20.h"
 #include "level21.h"
-/*
 #include "level22.h"
+/*
 #include "level23.h"
 #include "level24.h"
 #include "level25.h"
@@ -71,8 +71,8 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : Screen
 	_levelDefinitions.push_back(new Level19());
 	_levelDefinitions.push_back(new Level20());
 	_levelDefinitions.push_back(new Level21());
-	/*
 	_levelDefinitions.push_back(new Level22());
+	/*
 	_levelDefinitions.push_back(new Level23());
 	_levelDefinitions.push_back(new Level24());
 	_levelDefinitions.push_back(new Level25());
