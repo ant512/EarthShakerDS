@@ -4,7 +4,6 @@ Todo
  - Sounds:
    - Extra life
    - Suicide
-   - Game over music
    - Map screen music
 
 
@@ -13,7 +12,8 @@ Optional
 
  - Tidy up menu system code so that the menu is a real hierarchy.
  - Should be possible to exit the game over/complete screens by pressing A or
-   Start.
+   Start; otherwise screen should remain in place.
+ - Map should be on screen only whilst music is playing.
 
 
 Future Version
