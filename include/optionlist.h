@@ -11,8 +11,8 @@
 #include "padstate.h"
 #include "spectrumcolours.h"
 
-const s32 OPTION_LIST_Y = 72;
-const s32 OPTION_LIST_TITLE_LIST_GAP = 16;
+const s32 OPTION_LIST_Y = 72;				/**< Y co-ordinate of menu. */
+const s32 OPTION_LIST_TITLE_LIST_GAP = 16;	/**< Distance between menu title and options. */
 
 class OptionList {
 public:
