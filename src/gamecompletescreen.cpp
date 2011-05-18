@@ -1,4 +1,5 @@
 #include "gamecompletescreen.h"
+#include "soundplayer.h"
 
 GameCompleteScreen::GameCompleteScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32 score) : ScreenBase(topGfx, bottomGfx) {
 	_timer = 400;
@@ -17,10 +18,25 @@ GameCompleteScreen::GameCompleteScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::G
 
 	str.format("%06d", score);
 	topGfx->drawText(148, 112, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+	SoundPlayer::playGameOverTheme();
 }
 
 void GameCompleteScreen::iterate() {
 	--_timer;
+
+	const PadState& pad = Hardware::getPadState();
+
+	if (pad.a) {
+
+		// Wait for A to be released so that it doesn't start a new game
+		while (pad.a) {
+			Hardware::waitForVBlank();
+		}
+
+		SoundPlayer::stopGameOverTheme();
+		_timer = 0;
+	}
 }
 
 bool GameCompleteScreen::isRunning() const {

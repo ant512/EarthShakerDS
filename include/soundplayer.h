@@ -105,7 +105,14 @@ public:
 	 * Plays the game over music.
 	 */
 	static void playGameOverTheme() {
-		mmEffect(SFX_GAMEOVERTHEME);
+		_gameOverHandle = mmEffect(SFX_GAMEOVERTHEME);
+	};
+
+	/**
+	 * Stops the game over music.
+	 */
+	static void stopGameOverTheme() {
+		mmEffectCancel(_gameOverHandle);
 	};
 
 	/**
@@ -199,6 +206,7 @@ public:
 private:
 	static mm_sfxhand _titleHandle;		/**< Handle for the title music. */
 	static mm_sfxhand _gravityHandle;	/**< Handle for the gravity inversion sound. */
+	static mm_sfxhand _gameOverHandle;	/**< Handle for the game over music. */
 
 	/**
 	 * Constructor.

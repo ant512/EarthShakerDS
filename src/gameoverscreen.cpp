@@ -27,6 +27,19 @@ GameOverScreen::GameOverScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics*
 
 void GameOverScreen::iterate() {
 	--_timer;
+
+	const PadState& pad = Hardware::getPadState();
+
+	if (pad.a) {
+
+		// Wait for A to be released so that it doesn't start a new game
+		while (pad.a) {
+			Hardware::waitForVBlank();
+		}
+
+		SoundPlayer::stopGameOverTheme();
+		_timer = 0;
+	}
 }
 
 bool GameOverScreen::isRunning() const {
