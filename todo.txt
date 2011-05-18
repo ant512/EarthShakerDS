@@ -3,7 +3,6 @@ Todo
 
  - Sounds:
    - Extra life
-   - Suicide
    - Map screen music
 
 

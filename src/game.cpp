@@ -286,7 +286,7 @@ void Game::iterate() {
 
 			// Handle the situation in which the player has committed suicide
 
-			_remainingTime -= 2;
+			_remainingTime -= 4;
 
 			drawTimerBar();
 
@@ -507,6 +507,7 @@ void Game::move(const PadState& pad) {
 		// Suicide check
 		if (pad.r && pad.l) {
 			_state = GAME_STATE_PLAYER_SUICIDE;
+			SoundPlayer::playSuicide();
 			return;
 		}
 

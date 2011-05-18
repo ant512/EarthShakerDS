@@ -36,6 +36,7 @@ public:
 		mmLoadEffect(SFX_TIME);
 		mmLoadEffect(SFX_TITLETHEME);
 		mmLoadEffect(SFX_GAMEOVERTHEME);
+		mmLoadEffect(SFX_SUICIDE);
 	};
 
 	/**
@@ -152,6 +153,13 @@ public:
 	};
 
 	/**
+	 * Plays the suicide sound.
+	 */
+	static void playSuicide() {
+		mmEffect(SFX_SUICIDE);
+	};
+
+	/**
 	 * Plays the teleport collection sound.
 	 */
 	static void playTeleportCollect() {
@@ -201,6 +209,7 @@ public:
 		mmUnloadEffect(SFX_TIME);
 		mmUnloadEffect(SFX_TITLETHEME);
 		mmUnloadEffect(SFX_GAMEOVERTHEME);
+		mmUnloadEffect(SFX_SUICIDE);
 	};
 
 private:
