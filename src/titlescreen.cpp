@@ -6,6 +6,7 @@
 TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinition*>* levelDefinitions) : ScreenBase(topGfx, bottomGfx) {
 	_timer = 0;
 	_chosenLevel = NULL;
+	_state = STATE_NORMAL;
 
 	_levelDefinitions = levelDefinitions;
 
@@ -58,6 +59,8 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	_activeMenuIndex = 0;
 
 	_menu[_activeMenuIndex]->render();
+
+	SoundPlayer::playTitleTheme();
 }
 
 TitleScreen::~TitleScreen() {
@@ -71,10 +74,34 @@ TitleScreen::~TitleScreen() {
 
 void TitleScreen::iterate() {
 
-	const PadState& pad = Hardware::getPadState();
-
 	_scroller->render(184, _topGfx);
 	_blockSlideshowScreen->iterate();
+
+	const PadState& pad = Hardware::getPadState();
+
+	switch (_state) {
+		case STATE_NORMAL:
+			iterateMenu();
+			break;
+		case STATE_NEXT_MENU:
+
+			// Wait for buttons to be released so we don't immediately choose an
+			// option on the next menu
+			if (!pad.a && !pad.start) {
+				_state = STATE_NORMAL;
+			}
+			break;
+		case STATE_PREVIOUS_MENU:
+			if (!pad.b) {
+				_state = STATE_NORMAL;
+			}
+			break;
+	}
+}
+
+void TitleScreen::iterateMenu() {
+
+	const PadState& pad = Hardware::getPadState();
 
 	++_timer;
 
@@ -94,6 +121,8 @@ void TitleScreen::iterate() {
 
 						// Start at beginning of game
 						_chosenLevel = _levelDefinitions->at(0);
+						SoundPlayer::stopTitleTheme();
+						SoundPlayer::playBubbleExplode();
 						break;
 
 					case 1:
@@ -103,12 +132,8 @@ void TitleScreen::iterate() {
 						_menu[1]->setSelectedIndex(0);
 						_menu[1]->render();
 
-						// Wait until the button is released before continuing
-						// so that we don't select the top item in the next
-						// menu automatically
-						while (pad.a || pad.start) {
-							Hardware::waitForVBlank();
-						}
+						SoundPlayer::playDiamondCollect();
+						_state = STATE_NEXT_MENU;
 
 						break;
 				}
@@ -132,12 +157,8 @@ void TitleScreen::iterate() {
 				_menu[0]->setSelectedIndex(0);
 				_menu[0]->render();
 
-				// Wait until the button is released before continuing
-				// so that we don't select the top item in the next
-				// menu automatically
-				while (pad.b) {
-					Hardware::waitForVBlank();
-				}
+				SoundPlayer::playBlockLand();
+				_state = STATE_PREVIOUS_MENU;
 
 				break;
 		}

@@ -53,6 +53,12 @@ public:
 	LevelDefinition* getChosenLevel() const;
 
 private:
+	enum ScreenState {
+		STATE_NORMAL = 1,
+		STATE_NEXT_MENU = 2,
+		STATE_PREVIOUS_MENU = 3
+	};
+
 	s32 _timer;											/**< Timer to control speed of user input. */
 	GameFont _font;										/**< Font used to draw text. */
 	Scroller* _scroller;								/**< Scrolling text message. */
@@ -62,6 +68,9 @@ private:
 	BlockSlideshowScreen* _blockSlideshowScreen;		/**< Block slideshow on bottom display. */
 	WoopsiArray<Menu*> _menu;							/**< Menu system on top display. */
 	s32 _activeMenuIndex;								/**< Currently active menu index. */
+	ScreenState _state;
+
+	void iterateMenu();
 };
 
 #endif
