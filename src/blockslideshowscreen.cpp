@@ -2,7 +2,7 @@
 #include "barriercontrolblock.h"
 #include "beanblock.h"
 #include "bitmapserver.h"
-#include "blockdisplayscreen.h"
+#include "blockslideshowscreen.h"
 #include "boulderblock.h"
 #include "bubbleblock.h"
 #include "constants.h"
@@ -15,17 +15,17 @@
 #include "teleportblock.h"
 #include "wetsoilblock.h"
 
-BlockDisplayScreen::BlockDisplayScreen(WoopsiGfx::Graphics* gfx) : ScreenBase(NULL, gfx) {
+BlockSlideshowScreen::BlockSlideshowScreen(WoopsiGfx::Graphics* gfx) : ScreenBase(NULL, gfx) {
 	_block = new TeleportBlock(0, 0, NULL);
 	_timer = 0;
 	_state = SCREEN_STATE_DOOR_ERASE;
 }
 
-BlockDisplayScreen::~BlockDisplayScreen() {
+BlockSlideshowScreen::~BlockSlideshowScreen() {
 	delete _block;
 }
 
-void BlockDisplayScreen::moveToNextState() {
+void BlockSlideshowScreen::moveToNextState() {
 	switch (_state) {
 		case SCREEN_STATE_TELEPORT:
 			_state = SCREEN_STATE_TELEPORT_ERASE;
@@ -102,7 +102,7 @@ void BlockDisplayScreen::moveToNextState() {
 	}
 }
 		
-void BlockDisplayScreen::getNextBlock() {
+void BlockSlideshowScreen::getNextBlock() {
 
 	if (_block != NULL) {
 		delete _block;
@@ -175,7 +175,7 @@ void BlockDisplayScreen::getNextBlock() {
 	}
 }
 
-void BlockDisplayScreen::iterate() {
+void BlockSlideshowScreen::iterate() {
 	switch (_state) {
 		case SCREEN_STATE_TELEPORT_ERASE:
 		case SCREEN_STATE_BEAN_ERASE:
@@ -211,6 +211,6 @@ void BlockDisplayScreen::iterate() {
 	}
 }
 
-bool BlockDisplayScreen::isRunning() const {
+bool BlockSlideshowScreen::isRunning() const {
 	return true;
 }

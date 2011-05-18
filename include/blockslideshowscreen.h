@@ -1,5 +1,5 @@
-#ifndef _BLOCK_DISPLAY_SCREEN_H_
-#define _BLOCK_DISPLAY_SCREEN_H_
+#ifndef _BLOCK_SLIDESHOW_SCREEN_H_
+#define _BLOCK_SLIDESHOW_SCREEN_H_
 
 #include <nds.h>
 #include <graphics.h>
@@ -18,19 +18,19 @@ const s32 BLOCK_DISPLAY_Y = 88;			/**< Y co-ord that blocks are displayed at. */
 /**
  * Slideshow of different block types.
  */
-class BlockDisplayScreen : public ScreenBase {
+class BlockSlideshowScreen : public ScreenBase {
 public:
 
 	/**
 	 * Constructor.
 	 * @param gfx Graphics object to draw to.
 	 */
-	BlockDisplayScreen(WoopsiGfx::Graphics* gfx);
+	BlockSlideshowScreen(WoopsiGfx::Graphics* gfx);
 
 	/**
 	 * Destructor.
 	 */
-	~BlockDisplayScreen();
+	~BlockSlideshowScreen();
 
 	/**
 	 * Runs the screen.

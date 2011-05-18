@@ -21,7 +21,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	str.setText("DS (c) 2011 Antony Dzeryn");
 	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 168, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 
-	_blockDisplayScreen = new BlockDisplayScreen(bottomGfx);
+	_blockSlideshowScreen = new BlockSlideshowScreen(bottomGfx);
 
 	_scroller = new Scroller(".... Earth Shaker DS - Featuring anti-gravity, "
 							 "4D teleport, forcefields, bubbles, elixirs, "
@@ -57,7 +57,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 
 TitleScreen::~TitleScreen() {
 	delete _scroller;
-	delete _blockDisplayScreen;
+	delete _blockSlideshowScreen;
 
 	for (s32 i = 0; i < _menu.size(); ++i) {
 		delete _menu[i];
@@ -69,7 +69,7 @@ void TitleScreen::iterate() {
 	const PadState& pad = Hardware::getPadState();
 
 	_scroller->render(184, _topGfx);
-	_blockDisplayScreen->iterate();
+	_blockSlideshowScreen->iterate();
 
 	++_timer;
 

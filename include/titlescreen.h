@@ -5,7 +5,7 @@
 #include <graphics.h>
 #include <woopsistring.h>
 
-#include "blockdisplayscreen.h"
+#include "blockslideshowscreen.h"
 #include "gamefont.h"
 #include "leveldefinition.h"
 #include "logobmp.h"
@@ -59,7 +59,7 @@ private:
 	LogoBmp _logoBmp;									/**< Logo drawn on top display. */
 	WoopsiArray<LevelDefinition*>* _levelDefinitions;	/**< List of all level definitions. */
 	LevelDefinition* _chosenLevel;						/**< Level selected by the player. */
-	BlockDisplayScreen* _blockDisplayScreen;			/**< Block slideshow on bottom display. */
+	BlockSlideshowScreen* _blockSlideshowScreen;		/**< Block slideshow on bottom display. */
 	WoopsiArray<Menu*> _menu;							/**< Menu system on top display. */
 	s32 _activeMenuIndex;								/**< Currently active menu index. */
 };
