@@ -6,15 +6,32 @@
 #include "spectrumcolours.h"
 #include "transitionbase.h"
 
+/**
+ * Simple transition to black that draws lines down the screen.
+ */
 class GateTransition : public TransitionBase {
 public:
+
+	/**
+	 * Constructor.
+	 * @param topGfx Pointer to the graphics object that draws on the top
+	 * physical display.
+	 * @param bottomGfx Pointer to the graphics object that draws on the bottom
+	 * physical display.
+	 */
 	GateTransition(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : TransitionBase(topGfx, bottomGfx) {
 		_gateSize = 16;
 		_iterations = 0;
 	}
 
+	/**
+	 * Destructor.
+	 */
 	~GateTransition() { };
 
+	/**
+	 * Runs the transition logic.
+	 */
 	void iterate() {
 		s32 x = 0;
 
@@ -28,17 +45,26 @@ public:
 		++_iterations;
 	};
 
+	/**
+	 * Resets the transition to its initial state.
+	 */
 	void reset() {
 		_iterations = 0;
 	};
 
+	/**
+	 * Indicates whether or not the transition is running.  If not, calling its
+	 * iterate() method should be futile.  The program should move on to the
+	 * next section and give up on this transition.
+	 * @return True if the transition is running; false if not.
+	 */
 	bool isRunning() {
 		return _iterations < _gateSize;
 	};
 
 protected:
-	s32 _gateSize;
-	s32 _iterations;
+	s32 _gateSize;		/**< Size of the gates that are drawn. */
+	s32 _iterations;	/**< Number of iterations processed so far. */
 };
 
 #endif
