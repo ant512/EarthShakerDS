@@ -67,6 +67,10 @@ const WoopsiGfx::WoopsiString& Menu::getSelectedOption() const {
 }
 
 void Menu::setSelectedIndex(s32 index) {
+
+	if (index < 0) index = 0;
+	if (index > _options.size() - 1) index = _options.size() - 1;
+
 	_selectedIndex = index;
 }
 
@@ -84,14 +88,14 @@ void Menu::render() {
 }
 
 void Menu::renderTitle() {
-	_gfx->drawFilledRect(0, OPTION_LIST_Y, SCREEN_WIDTH, _font.getHeight() * 7, COLOUR_BLACK);
-	_gfx->drawText((SCREEN_WIDTH - _font.getStringWidth(_title)) / 2, OPTION_LIST_Y, &_font, _title, 0, _title.getLength(), COLOUR_WHITE);
+	_gfx->drawFilledRect(0, MENU_Y, SCREEN_WIDTH, _font.getHeight() * 7, COLOUR_BLACK);
+	_gfx->drawText((SCREEN_WIDTH - _font.getStringWidth(_title)) / 2, MENU_Y, &_font, _title, 0, _title.getLength(), COLOUR_WHITE);
 }
 
 void Menu::renderOptions() {
 
 	WoopsiGfx::WoopsiString str;
-	s32 y = OPTION_LIST_Y + OPTION_LIST_TITLE_LIST_GAP;
+	s32 y = MENU_Y + MENU_TITLE_LIST_GAP;
 	SpectrumColour colour = COLOUR_WHITE;
 
 	s32 firstOption = _selectedIndex - 3;
