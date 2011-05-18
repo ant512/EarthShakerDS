@@ -196,6 +196,7 @@ private:
 	GameOverScreen* _gameOverScreen;			/**< The screen displayed when the game ends. */
 	GameCompleteScreen* _gameCompleteScreen;	/**< The screen displayed when the game is complete. */
 	TitleScreen* _titleScreen;					/**< The screen displayed when the game starts. */
+	bool _isMapAvailable;
 
 	/**
 	 * Draws the timer bar.

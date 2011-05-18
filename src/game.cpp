@@ -260,8 +260,11 @@ void Game::iterate() {
 
 			if (pad.start) {
 				_state = GAME_STATE_GAME_PAUSING;
-			} else if (pad.x) {
+			} else if (pad.x && _isMapAvailable) {
 				_state = GAME_STATE_ENTERING_MAP;
+
+				// Map is only visible once per level per life
+				_isMapAvailable = false;
 			}
 
 			break;
@@ -734,6 +737,7 @@ void Game::resetLevel() {
 	_collectedDiamonds = 0;
 	_remainingTime = STARTING_TIME;
 	_remainingGravityTime = 0;
+	_isMapAvailable = true;
 
 	_animationTimer = 0;
 	_movementTimer = 0;
@@ -762,6 +766,7 @@ void Game::startLevel(LevelDefinition* levelDefinition) {
 	_collectedDiamonds = 0;
 	_remainingTime = STARTING_TIME;
 	_remainingGravityTime = 0;
+	_isMapAvailable = true;
 
 	_animationTimer = 0;
 	_movementTimer = 0;
