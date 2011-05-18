@@ -16,8 +16,6 @@ int main(int argc, char* argv[]) {
 
 	Game* game = new Game(Hardware::getTopGfx(), Hardware::getBottomGfx());
 
-	Hardware::updateState();
-
 	while(game->isRunning()) {
 		game->iterate();
 		Hardware::waitForVBlank();

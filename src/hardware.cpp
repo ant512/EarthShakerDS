@@ -24,6 +24,8 @@ void Hardware::init() {
 
 	_topGfx = _topBuffer->newGraphics();
 	_bottomGfx = _bottomBuffer->newGraphics();
+
+	updatePadState();
 }
 
 void Hardware::shutdown() {
@@ -33,7 +35,7 @@ void Hardware::shutdown() {
 	delete _bottomBuffer;
 }
 
-void Hardware::updateState() {
+void Hardware::updatePadState() {
 	scanKeys();
 	_pad.up = (keysDown() & KEY_UP) || (keysHeld() & KEY_UP);
 	_pad.down = (keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN);
@@ -51,5 +53,5 @@ void Hardware::updateState() {
 
 void Hardware::waitForVBlank() {
 	swiWaitForVBlank();
-	updateState();
+	updatePadState();
 }
