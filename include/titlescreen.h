@@ -39,7 +39,9 @@ public:
 	void iterate();
 
 	/**
-	 * Check if the screen is running.
+	 * Indicates whether or not the screen is running.  If not, calling its
+	 * iterate() method should be futile.  The program should move on to the
+	 * next section and give up on this screen.
 	 * @return True if the screen is running; false if not.
 	 */
 	bool isRunning() const;

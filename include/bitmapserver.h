@@ -451,12 +451,12 @@ private:
 	/**
 	 * Constructor is private to prevent creation.
 	 */
-	BitmapServer();
+	BitmapServer() { };
 
 	/**
 	 * Destructor.
 	 */
-	~BitmapServer();
+	~BitmapServer() { };
 
 	/**
 	 * Changes all boulder bitmaps to use the specified colours.

@@ -14,7 +14,7 @@
 #include "teleportblock.h"
 #include "constants.h"
 
-BlockDisplayScreen::BlockDisplayScreen(WoopsiGfx::Graphics* bottomGfx) : ScreenBase(NULL, bottomGfx) {
+BlockDisplayScreen::BlockDisplayScreen(WoopsiGfx::Graphics* gfx) : ScreenBase(NULL, gfx) {
 	_block = new TeleportBlock(0, 0, NULL);
 	_timer = 0;
 	_blockX = 120;

@@ -37,6 +37,7 @@ public:
 	 * Indicates whether or not the screen is running.  If not, calling its
 	 * iterate() method should be futile.  The program should move on to the
 	 * next section and give up on this screen.
+	 * @return True if the screen is running; false if not.
 	 */
 	virtual bool isRunning() const = 0;
 
