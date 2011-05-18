@@ -17,6 +17,7 @@ BlockBase::BlockBase(s32 x, s32 y, Game* game) {
 
 	_animation = new WoopsiGfx::Animation(1, WoopsiGfx::Animation::ANIMATION_LOOPTYPE_LOOP, 0);
 	_explodingAnimation = new WoopsiGfx::Animation(1, WoopsiGfx::Animation::ANIMATION_LOOPTYPE_NONE, 0);
+	_mapBitmap = NULL;
 }
 
 BlockBase::~BlockBase() {
@@ -37,6 +38,12 @@ void BlockBase::render(s32 x, s32 y, WoopsiGfx::Graphics* gfx) {
 	if (bitmap == NULL) return;
 
 	gfx->drawBitmap(x, y, bitmap->getWidth(), bitmap->getHeight(), bitmap, 0, 0);
+}
+
+void BlockBase::renderMap(s32 x, s32 y, WoopsiGfx::Graphics* gfx) {
+	if (_mapBitmap == NULL) return;
+	
+	gfx->drawBitmap(x, y, _mapBitmap->getWidth(), _mapBitmap->getHeight(), _mapBitmap, 0, 0);
 }
 
 void BlockBase::animate() {

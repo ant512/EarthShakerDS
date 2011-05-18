@@ -13,6 +13,7 @@
 #include "barrierbmp3.h"
 #include "barrierbmp4.h"
 #include "barrierbmp5.h"
+#include "barriermapbmp.h"
 
 /**
  * Barrier blocks can be destroyed by dropping something onto their controller.
@@ -35,12 +36,16 @@ public:
 		_animation->addFrame(&_bmp4, 0);
 		_animation->addFrame(&_bmp5, 0);
 		_animation->play();
+
+		_mapBitmap = new BarrierMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~BarrierBlock() {};
+	~BarrierBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Removes time from the player.

@@ -6,6 +6,7 @@
 
 #include "game.h"
 #include "blockbase.h"
+#include "brickwallmapbmp.h"
 
 /**
  * Wall blocks are static.  They have no function other than providing
@@ -24,12 +25,16 @@ public:
 	 */
 	WallBlock(s32 x, s32 y, Game* game, WoopsiGfx::BitmapBase* bitmap) : BlockBase(x, y, game) {
 		_animation->addFrame(bitmap, 0);
+
+		_mapBitmap = new BrickWallMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~WallBlock() {};
+	~WallBlock() {
+		delete _mapBitmap;
+	};
 };
 
 #endif

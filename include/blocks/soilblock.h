@@ -8,6 +8,7 @@
 #include "bitmapserver.h"
 #include "game.h"
 #include "soundplayer.h"
+#include "soilmapbmp.h"
 
 /**
  * Soil can be removed from the map by calling its dig methods.  It provides
@@ -28,12 +29,16 @@ public:
 	SoilBlock(s32 x, s32 y, Game* game, WoopsiGfx::BitmapBase* bitmap) : BlockBase(x, y, game) {
 		_isSlippy = false;
 		_animation->addFrame(bitmap, 0);
+
+		_mapBitmap = new SoilMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~SoilBlock() {};
+	~SoilBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Removes the block.

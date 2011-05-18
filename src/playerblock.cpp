@@ -4,6 +4,7 @@
 #include "blockbase.h"
 #include "game.h"
 #include "playerblock.h"
+#include "playermapbmp.h"
 #include "soundplayer.h"
 
 PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
@@ -16,9 +17,13 @@ PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 	_animation->play();
 
 	_explodingAnimation->addFrame(&_explodeBmp, 20);
+
+	_mapBitmap = new PlayerMapBmp();
 }
 
-PlayerBlock::~PlayerBlock() { }
+PlayerBlock::~PlayerBlock() {
+	delete _mapBitmap;
+}
 
 bool PlayerBlock::pushLeft() {
 

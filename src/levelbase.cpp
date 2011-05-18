@@ -59,6 +59,25 @@ void LevelBase::render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, W
 	}
 }
 
+void LevelBase::renderMap(WoopsiGfx::Graphics* gfx) {
+
+	BlockBase* block = NULL;
+
+	for (s32 x = 0; x < _width; ++x) {
+		for (s32 y = 0; y < _height; ++y) {
+			s32 index = (y * _width) + x;
+
+			block = _data[index];
+
+			if (block != NULL) {
+				block->render(x * BlockBase::BLOCK_MAP_SIZE, y * BlockBase::BLOCK_MAP_SIZE, gfx);
+			} else {
+				gfx->drawFilledRect(x * BlockBase::BLOCK_MAP_SIZE, y * BlockBase::BLOCK_MAP_SIZE, BlockBase::BLOCK_MAP_SIZE, BlockBase::BLOCK_MAP_SIZE, woopsiRGB(0, 0, 0));
+			}
+		}
+	}
+}
+
 BlockBase* LevelBase::getBlockAt(s32 x, s32 y) const {
 	if ((x < 0) || (x >= _width)) return NULL;
 	if ((y < 0) || (y >= _height)) return NULL;

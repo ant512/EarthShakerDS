@@ -10,6 +10,7 @@
 #include "gravityinversionbmp1.h"
 #include "gravityinversionbmp2.h"
 #include "gravityinversionbmp3.h"
+#include "gravityinversionmapbmp.h"
 
 /**
  * Collecting a gravity inversion block switches gravity in the game so that
@@ -33,12 +34,16 @@ public:
 		_animation->addFrame(&_bmp2, 0);
 		_animation->addFrame(&_bmp3, 0);
 		_animation->play();
+
+		_mapBitmap = new GravityInversionMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~GravityInversionBlock() {};
+	~GravityInversionBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Inverts gravity and removes the block from the level.

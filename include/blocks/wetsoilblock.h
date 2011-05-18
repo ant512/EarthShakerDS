@@ -13,6 +13,7 @@
 #include "wetsoilbmp2.h"
 #include "wetsoilbmp3.h"
 #include "wetsoilbmp4.h"
+#include "soilmapbmp.h"
 
 /**
  * Wet soil works the same way as ordinary soil, except it falls like boulders
@@ -36,12 +37,15 @@ public:
 		_animation->addFrame(&_bmp4, 0);
 		_animation->play();
 
+		_mapBitmap = new SoilMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~WetSoilBlock() {};
+	~WetSoilBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Removes the block.

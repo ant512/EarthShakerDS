@@ -1,7 +1,7 @@
 #ifndef _BLOCK_BASE_H_
 #define _BLOCK_BASE_H_
 
-#include <bitmap.h>
+#include <bitmapwrapper.h>
 #include <graphics.h>
 #include <animation.h>
 
@@ -15,6 +15,7 @@ class BlockBase {
 public:
 
 	static const s32 BLOCK_SIZE = 16;			/**< The width and height of a block in pixels. */
+	static const s32 BLOCK_MAP_SIZE = 8;		/**< The width and height of a block when rendered to the map. */
 
 	/**
 	 * Constructor.
@@ -56,13 +57,21 @@ public:
 	s32 getY() const;
 
 	/**
-	 * Draw the block to the graphics object using the supplied map co-ordinates
-	 * to inform the location the block's bitmap will be drawn at.
+	 * Draw the block to the graphics object at the supplied co-ordinates.
 	 * @param x The x co-ordinate to render to.
 	 * @param y The y co-ordinate to render to.
 	 * @param gfx The graphics object to draw to.
 	 */
 	virtual void render(s32 x, s32 y, WoopsiGfx::Graphics* gfx);
+
+	/**
+	 * Draw the block's map representation to the graphics object at the
+	 * supplied co-ordinates.
+	 * @param x The x co-ordinate to render to.
+	 * @param y The y co-ordinate to render to.
+	 * @param gfx The graphics object to draw to.
+	 */
+	void renderMap(s32 x, s32 y, WoopsiGfx::Graphics* gfx);
 
 	/**
 	 * Moves to the next frame of animation.
@@ -204,6 +213,7 @@ public:
 protected:
 	WoopsiGfx::Animation* _animation;			/**< Standard animation. */
 	WoopsiGfx::Animation* _explodingAnimation;	/**< Animation shown when the block is exploding. */
+	WoopsiGfx::BitmapWrapper* _mapBitmap;		/**< Bitmap shown on map screen. */
 	s32 _x;										/**< The x co-ordinate of the block within the level. */
 	s32 _y;										/**< The y co-ordinate of the block within the level. */
 	Game* _game;								/**< Pointer to the game that contains this block. */

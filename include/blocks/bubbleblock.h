@@ -10,6 +10,7 @@
 #include "bubblebmp2.h"
 #include "bubblebmp3.h"
 #include "bubblebmp4.h"
+#include "bubblemapbmp.h"
 #include "constants.h"
 
 /**
@@ -32,12 +33,16 @@ public:
 		_animation->addFrame(&_bmp3, 0);
 		_animation->addFrame(&_bmp4, 0);
 		_animation->play();
+
+		_mapBitmap = new BubbleMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~BubbleBlock() {};
+	~BubbleBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * If there is no block above the bubble, it moves upwards.  If the block

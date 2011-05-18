@@ -10,6 +10,8 @@
 #include "playerblock.h"
 #include "soundplayer.h"
 
+#include "bouldermapbmp.h"
+
 /**
  * Boulders fall if not sitting on anything and can be pushed horizontally.
  * They are the primary "enemy" in the game.
@@ -36,12 +38,16 @@ public:
 		_explodingAnimation->addFrame(BitmapServer::getBoulderExplodeBmp5(), 0);
 		_explodingAnimation->addFrame(BitmapServer::getBoulderExplodeBmp6(), 0);
 		_explodingAnimation->addFrame(BitmapServer::getBoulderExplodeBmp7(), 0);
+
+		_mapBitmap = new BoulderMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~BoulderBlock() {};
+	~BoulderBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Pushes this block to the left if the block to the left is empty.

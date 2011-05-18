@@ -6,6 +6,7 @@
 #include <graphics.h>
 
 #include "blockbase.h"
+#include "doormapbmp.h"
 #include "game.h"
 #include "soundplayer.h"
 
@@ -31,12 +32,16 @@ public:
 		_explodingAnimation->addFrame(BitmapServer::getCyanDoorBmp(), 0);
 		_explodingAnimation->addFrame(BitmapServer::getMagentaDoorBmp(), 0);
 		_explodingAnimation->setLoopType(WoopsiGfx::Animation::ANIMATION_LOOPTYPE_LOOP);
+
+		_mapBitmap = new DoorMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~DoorBlock() {};
+	~DoorBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Explodes the door when there are no diamonds left to collect.  This

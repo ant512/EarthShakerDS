@@ -12,6 +12,7 @@
 #include "soundplayer.h"
 
 #include "barriercontrolbmp.h"
+#include "barriercontrolmapbmp.h"
 
 /**
  * Barrier control blocks can be destroyed by dropping other blocks on them.
@@ -29,12 +30,16 @@ public:
 	 */
 	BarrierControlBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_animation->addFrame(&_bmp, 0);
+
+		_mapBitmap = new BarrierControlMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~BarrierControlBlock() {};
+	~BarrierControlBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Explodes the block.  Called when a heavy block lands on it.

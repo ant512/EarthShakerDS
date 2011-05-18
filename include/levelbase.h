@@ -122,6 +122,12 @@ public:
 	void render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, WoopsiGfx::Graphics* gfx);
 
 	/**
+	 * Renders the level as a map.
+	 * @param gfx The graphics object to draw to.
+	 */
+	void renderMap(WoopsiGfx::Graphics* gfx);
+
+	/**
 	 * Animates all blocks in the level.
 	 */
 	void animate();

@@ -10,6 +10,7 @@
 #include "diamondbmp2.h"
 #include "diamondbmp3.h"
 #include "diamondbmp4.h"
+#include "diamondmapbmp.h"
 #include "game.h"
 #include "soundplayer.h"
 
@@ -37,12 +38,15 @@ public:
 		_animation->addFrame(&_bmp4, 0);
 		_animation->play();
 
+		_mapBitmap = new DiamondMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~DiamondBlock() {};
+	~DiamondBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Adds to the player's score and removes the block from the level.

@@ -14,6 +14,7 @@
 #include "fireexplodebmp2.h"
 #include "fireexplodebmp3.h"
 #include "fireexplodebmp4.h"
+#include "firemapbmp.h"
 
 /**
  * Fire explodes boulders and bubbles (which also extinguish it).  It falls if
@@ -43,12 +44,16 @@ public:
 		_explodingAnimation->addFrame(&_explodeBmp2, 0);
 		_explodingAnimation->addFrame(&_explodeBmp3, 0);
 		_explodingAnimation->addFrame(&_explodeBmp4, 0);
+
+		_mapBitmap = new FireMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~FireBlock() {};
+	~FireBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Explodes the block pushing this and removes this block from the level.

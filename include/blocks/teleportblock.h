@@ -16,6 +16,7 @@
 #include "teleportbmp6.h"
 #include "teleportbmp7.h"
 #include "teleportbmp8.h"
+#include "teleportmapbmp.h"
 
 /**
  * Collecting a teleport block moves the player to another teleport block.
@@ -43,12 +44,16 @@ public:
 		_animation->addFrame(&_bmp7, 0);
 		_animation->addFrame(&_bmp6, 0);
 		_animation->play();
+
+		_mapBitmap = new TeleportMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~TeleportBlock() {};
+	~TeleportBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Moves the player to the next teleport block and removes both blocks

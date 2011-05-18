@@ -12,6 +12,7 @@
 #include "extralifebmp2.h"
 #include "extralifebmp3.h"
 #include "extralifebmp4.h"
+#include "extralifemapbmp.h"
 
 /**
  * Gives the player an extra life when collected.
@@ -35,12 +36,15 @@ public:
 		_animation->addFrame(&_bmp4, 0);
 		_animation->play();
 
+		_mapBitmap = new ExtraLifeMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~ExtraLifeBlock() {};
+	~ExtraLifeBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Adds an extra life and removes the block from the level.

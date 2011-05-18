@@ -7,6 +7,7 @@
 #include "beanbmp1.h"
 #include "beanbmp2.h"
 #include "beanbmp3.h"
+#include "beanmapbmp.h"
 #include "blockbase.h"
 #include "constants.h"
 #include "game.h"
@@ -34,12 +35,15 @@ public:
 		_animation->addFrame(&_bmp3, 0);
 		_animation->play();
 
+		_mapBitmap = new BeanMapBmp();
 	};
 
 	/**
 	 * Destructor.
 	 */
-	~BeanBlock() {};
+	~BeanBlock() {
+		delete _mapBitmap;
+	};
 
 	/**
 	 * Adds to the player's score and removes the block from the level.
