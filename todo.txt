@@ -11,7 +11,6 @@ Todo
 Optional
 --------
 
- - Add wet soil to BlockDisplayScreen.
  - Tidy up menu system code so that the menu is a real hierarchy.
  - Should be possible to exit the game over/complete screens by pressing A or
    Start.

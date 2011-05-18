@@ -5,6 +5,7 @@
 #include "blockdisplayscreen.h"
 #include "boulderblock.h"
 #include "bubbleblock.h"
+#include "constants.h"
 #include "diamondblock.h"
 #include "doorblock.h"
 #include "extralifeblock.h"
@@ -12,7 +13,7 @@
 #include "gravityinversionblock.h"
 #include "spectrumcolours.h"
 #include "teleportblock.h"
-#include "constants.h"
+#include "wetsoilblock.h"
 
 BlockDisplayScreen::BlockDisplayScreen(WoopsiGfx::Graphics* gfx) : ScreenBase(NULL, gfx) {
 	_block = new TeleportBlock(0, 0, NULL);
@@ -90,6 +91,12 @@ void BlockDisplayScreen::moveToNextState() {
 			_state = SCREEN_STATE_DOOR_ERASE;
 			break;
 		case SCREEN_STATE_DOOR_ERASE:
+			_state = SCREEN_STATE_WET_SOIL;
+			break;
+		case SCREEN_STATE_WET_SOIL:
+			_state = SCREEN_STATE_WET_SOIL_ERASE;
+			break;
+		case SCREEN_STATE_WET_SOIL_ERASE:
 			_state = SCREEN_STATE_TELEPORT;
 			break;
 	}
@@ -158,6 +165,11 @@ void BlockDisplayScreen::getNextBlock() {
 			_blockName.setText("Teleporter");
 			_blockDescription.setText("Teleport to a new place");
 			break;
+		case SCREEN_STATE_WET_SOIL:
+			_block = new WetSoilBlock(0, 0, NULL);
+			_blockName.setText("Wet Soil");
+			_blockDescription.setText("Soil that can fall");
+			break;
 		default:
 			break;
 	}
@@ -176,6 +188,7 @@ void BlockDisplayScreen::iterate() {
 		case SCREEN_STATE_BARRIER_CONTROLLER_ERASE:
 		case SCREEN_STATE_BOULDER_ERASE:
 		case SCREEN_STATE_DOOR_ERASE:
+		case SCREEN_STATE_WET_SOIL_ERASE:
 			_bottomGfx->drawFilledRect(0, 0, 256, 192, COLOUR_BLACK);
 			_timer = 0;
 			moveToNextState();

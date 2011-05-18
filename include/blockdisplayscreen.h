@@ -75,6 +75,8 @@ private:
 		SCREEN_STATE_BOULDER_ERASE = 19,				/**< Boulder being erased. */
 		SCREEN_STATE_DOOR = 20,							/**< Door visible. */
 		SCREEN_STATE_DOOR_ERASE = 21,					/**< Door being erased. */
+		SCREEN_STATE_WET_SOIL = 22,						/**< Wet soil visible. */
+		SCREEN_STATE_WET_SOIL_ERASE = 23,				/**< Wet soil being erased. */
 	};
 
 	s32 _timer;									/**< Length of time current block has been visible. */
