@@ -40,8 +40,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 "using WoopsiGfx, a 2D graphics library that includes "
 							 "features such as DMA acceleration, a set of 2D "
 							 "drawing routines, animation, UTF-8 strings and "
-							 "fonts for rendering text .... The sourcecode for this "
-							 "game is available from bitbucket.org/ant512/earthshakerds "
+							 "fonts for rendering text .... "
 							 );
 
 	// Set up the menu system

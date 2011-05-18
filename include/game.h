@@ -169,7 +169,11 @@ private:
 		GAME_STATE_GAME_COMPLETE_SCREEN = 14,		/**< Game complete screen is displayed. */
 		GAME_STATE_GAME_PAUSING = 15,				/**< Game is entering pause mode. */
 		GAME_STATE_GAME_PAUSED = 16,				/**< Game is paused. */
-		GAME_STATE_GAME_UNPAUSING = 17				/**< Game is exiting pause mode. */
+		GAME_STATE_GAME_UNPAUSING = 17,				/**< Game is exiting pause mode. */
+		GAME_STATE_ENTERING_MAP = 18,
+		GAME_STATE_MAP_READY = 19,
+		GAME_STATE_MAP = 20,
+		GAME_STATE_LEAVING_MAP = 21
 	};
 
 	LevelBase* _level;						/**< The currently-active level.*/

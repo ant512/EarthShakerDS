@@ -70,9 +70,9 @@ void LevelBase::renderMap(WoopsiGfx::Graphics* gfx) {
 			block = _data[index];
 
 			if (block != NULL) {
-				block->render(x * BlockBase::BLOCK_MAP_SIZE, y * BlockBase::BLOCK_MAP_SIZE, gfx);
+				block->renderMap(BlockBase::BLOCK_MAP_SIZE + (x * BlockBase::BLOCK_MAP_SIZE), BlockBase::BLOCK_MAP_SIZE + (y * BlockBase::BLOCK_MAP_SIZE), gfx);
 			} else {
-				gfx->drawFilledRect(x * BlockBase::BLOCK_MAP_SIZE, y * BlockBase::BLOCK_MAP_SIZE, BlockBase::BLOCK_MAP_SIZE, BlockBase::BLOCK_MAP_SIZE, woopsiRGB(0, 0, 0));
+				gfx->drawFilledRect(BlockBase::BLOCK_MAP_SIZE + (x * BlockBase::BLOCK_MAP_SIZE), BlockBase::BLOCK_MAP_SIZE + (y * BlockBase::BLOCK_MAP_SIZE), BlockBase::BLOCK_MAP_SIZE, BlockBase::BLOCK_MAP_SIZE, woopsiRGB(0, 0, 0));
 			}
 		}
 	}

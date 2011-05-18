@@ -260,6 +260,8 @@ void Game::iterate() {
 
 			if (pad.start) {
 				_state = GAME_STATE_GAME_PAUSING;
+			} else if (pad.x) {
+				_state = GAME_STATE_ENTERING_MAP;
 			}
 
 			break;
@@ -413,6 +415,55 @@ void Game::iterate() {
 		case GAME_STATE_GAME_UNPAUSING:
 
 			if (!pad.start) {
+				_state = GAME_STATE_GAMEPLAY;
+				render();
+			}
+
+			break;
+
+		case GAME_STATE_ENTERING_MAP:
+			_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 16, COLOUR_BLACK);
+			
+			// Top border
+			_topGfx->drawLine(5, 4, 250, 4, COLOUR_MAGENTA);
+			_topGfx->drawLine(4, 5, 251, 5, COLOUR_MAGENTA);
+
+			// Left border
+			_topGfx->drawLine(4, 5, 4, 170, COLOUR_MAGENTA);
+			_topGfx->drawLine(5, 5, 5, 170, COLOUR_MAGENTA);
+
+			// Right border
+			_topGfx->drawLine(250, 5, 250, 170, COLOUR_MAGENTA);
+			_topGfx->drawLine(251, 5, 251, 170, COLOUR_MAGENTA);
+
+			// Bottom border
+			_topGfx->drawLine(5, 171, 250, 171, COLOUR_MAGENTA);
+			_topGfx->drawLine(4, 170, 250, 170, COLOUR_MAGENTA);
+
+			_level->renderMap(_topGfx);
+
+			_state = GAME_STATE_MAP_READY;
+
+			break;
+
+		case GAME_STATE_MAP_READY:
+			if (!pad.x) {
+				_state = GAME_STATE_MAP;
+				//SoundPlayer::playMapTheme();
+			}
+			break;
+
+		case GAME_STATE_MAP:
+			
+			if (pad.x) {
+				_state = GAME_STATE_LEAVING_MAP;
+			}
+
+			break;
+		
+		case GAME_STATE_LEAVING_MAP:
+
+			if (!pad.x) {
 				_state = GAME_STATE_GAMEPLAY;
 				render();
 			}
