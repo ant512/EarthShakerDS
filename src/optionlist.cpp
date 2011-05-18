@@ -66,6 +66,10 @@ const WoopsiGfx::WoopsiString& OptionList::getSelectedOption() const {
 	return _options[_selectedIndex];
 }
 
+void OptionList::setSelectedIndex(s32 index) {
+	_selectedIndex = index;
+}
+
 void OptionList::addOption(const WoopsiGfx::WoopsiString& option) {
 	_options.push_back(option);
 }

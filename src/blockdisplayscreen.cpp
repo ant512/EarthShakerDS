@@ -166,9 +166,6 @@ void BlockDisplayScreen::getNextBlock() {
 }
 
 void BlockDisplayScreen::iterate() {
-
-	PadState pad = Hardware::getPadState();
-
 	switch (_state) {
 		case SCREEN_STATE_TELEPORT_ERASE:
 		case SCREEN_STATE_BEAN_ERASE:

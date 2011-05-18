@@ -59,7 +59,7 @@ public:
 		_pad.r = ((keysDown() & KEY_R) || (keysHeld() & KEY_R));
 		_pad.a = ((keysDown() & KEY_A) || (keysHeld() & KEY_A));
 		_pad.b = ((keysDown() & KEY_B) || (keysHeld() & KEY_B));
-		_pad.x = ((keysDown() & KEY_X) || (keysHeld() & KEY_B));
+		_pad.x = ((keysDown() & KEY_X) || (keysHeld() & KEY_X));
 		_pad.y = ((keysDown() & KEY_Y) || (keysHeld() & KEY_Y));
 		_pad.start = ((keysDown() & KEY_START) || (keysHeld() & KEY_START));
 		_pad.select = ((keysDown() & KEY_SELECT) || (keysHeld() & KEY_SELECT));

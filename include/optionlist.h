@@ -30,6 +30,8 @@ public:
 
 	void render();
 
+	void setSelectedIndex(s32 index);
+
 private:
 	GameFont _font;
 	WoopsiArray<WoopsiGfx::WoopsiString> _options;

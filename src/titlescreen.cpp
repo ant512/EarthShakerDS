@@ -15,7 +15,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	topGfx->drawBitmap(0, 0, 256, 64, &_logoBmp, 0, 0);
 
 	// Copyrights
-	str.setText("ZX (c) 1990 Michael Batty");
+	WoopsiGfx::WoopsiString str = "ZX (c) 1990 Michael Batty";
 	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 160, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 
 	str.setText("DS (c) 2011 Antony Dzeryn");
@@ -57,11 +57,16 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 
 TitleScreen::~TitleScreen() {
 	delete _scroller;
+	delete _blockDisplayScreen;
+
+	for (s32 i = 0; i < _menu.size(); ++i) {
+		delete _menu[i];
+	}
 }
 
 void TitleScreen::iterate() {
 
-	PadState pad = Hardware::getPadState();
+	const PadState& pad = Hardware::getPadState();
 
 	_scroller->render(184, _topGfx);
 	_blockDisplayScreen->iterate();
@@ -90,6 +95,7 @@ void TitleScreen::iterate() {
 
 						// Switch to level select menu
 						_activeMenuIndex = 1;
+						_menu[1]->setSelectedIndex(0);
 						_menu[1]->render();
 
 						// Wait until the button is released before continuing
@@ -106,9 +112,29 @@ void TitleScreen::iterate() {
 			case 1:
 
 				// Level select
-				_chosenLevel = _levelDefinitions->at(_selectedLevelIndex);
+				_chosenLevel = _levelDefinitions->at(_menu[1]->getSelectedIndex());
 				SoundPlayer::stopTitleTheme();
 				SoundPlayer::playBubbleExplode();
+				break;
+		}
+	} else if (pad.b) {
+		switch (_activeMenuIndex) {
+			case 0:
+				break;
+			case 1:
+				// Switch to main menu
+				_activeMenuIndex = 0;
+				_menu[0]->setSelectedIndex(0);
+				_menu[0]->render();
+
+				// Wait until the button is released before continuing
+				// so that we don't select the top item in the next
+				// menu automatically
+				while (pad.b) {
+					Hardware::waitForVBlank();
+				}
+
+				break;
 		}
 	}
 }

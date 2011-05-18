@@ -7,13 +7,16 @@ collect all of the diamonds in each level, avoiding falling boulders, fires,
 etc.
 
 
-Level Select
-------------
+Menu System
+-----------
 
-When the game starts, the available levels are listed.  Choose the starting
-level using the up and down buttons (or Select button).  You can page through
-the levels faster using the left and right buttons.  When the correct level is
-highlighted, press A or Start to start the game.
+When the game starts, a menu system appears on the top screen.  You can choose
+to start from the beginning of the game ("Start") or select a level from the
+level select menu ("Level Select").  Navigate to the desired option using the up
+and down buttons or the Select button.  You can page through the options more
+quickly by using the left and right buttons.  When the correct option is
+highlighted, press A or Start to select it.  The B button returns to the
+previous menu if a submenu is selected.
 
 
 Controls

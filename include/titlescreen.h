@@ -32,7 +32,6 @@ private:
 	Scroller* _scroller;
 	LogoBmp _logoBmp;
 	WoopsiArray<LevelDefinition*>* _levelDefinitions;
-	s32 _selectedLevelIndex;
 	LevelDefinition* _chosenLevel;
 	BlockDisplayScreen* _blockDisplayScreen;
 	WoopsiArray<OptionList*> _menu;
