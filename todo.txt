@@ -1,7 +1,6 @@
 Todo
 ----
 
- - Finish map screen
  - Sounds:
    - Extra life
    - Suicide
