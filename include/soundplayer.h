@@ -35,6 +35,7 @@ public:
 		mmLoadEffect(SFX_TELEPORTCOLLECT);
 		mmLoadEffect(SFX_TIME);
 		mmLoadEffect(SFX_TITLETHEME);
+		mmLoadEffect(SFX_GAMEOVERTHEME);
 	};
 
 	/**
@@ -98,6 +99,13 @@ public:
 	 */
 	static void playDoorOpen() {
 		mmEffect(SFX_DOOROPEN);
+	};
+
+	/**
+	 * Plays the game over music.
+	 */
+	static void playGameOverTheme() {
+		mmEffect(SFX_GAMEOVERTHEME);
 	};
 
 	/**
@@ -185,6 +193,7 @@ public:
 		mmUnloadEffect(SFX_TELEPORTCOLLECT);
 		mmUnloadEffect(SFX_TIME);
 		mmUnloadEffect(SFX_TITLETHEME);
+		mmUnloadEffect(SFX_GAMEOVERTHEME);
 	};
 
 private:

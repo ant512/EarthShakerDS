@@ -1,4 +1,5 @@
 #include "gameoverscreen.h"
+#include "soundplayer.h"
 
 GameOverScreen::GameOverScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32 score, s32 level) : ScreenBase(topGfx, bottomGfx) {
 	_timer = 200;
@@ -20,6 +21,8 @@ GameOverScreen::GameOverScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics*
 
 	str.format("%02d", level);
 	topGfx->drawText(196, 110, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+	SoundPlayer::playGameOverTheme();
 }
 
 void GameOverScreen::iterate() {
