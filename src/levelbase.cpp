@@ -120,8 +120,8 @@ void LevelBase::iterateBlocks(bool isGravityInverted) {
 
 	// Calculate the start and end points for all blocks we will iterate.  We
 	// need to iterate over all blocks, but depending on the direction of
-	// gravity we need to either start at the bottom-right (normal gravity) or
-	// top-left (inverted gravity).
+	// gravity we need to either start at the bottom (normal gravity) or top
+	// top (inverted gravity).
 	s32 start = 0;
 	s32 stop = 0;
 	s32 increment = 1;

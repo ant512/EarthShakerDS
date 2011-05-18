@@ -7,6 +7,14 @@ Todo
    - Suicide
    - Game over music
 
+
+Optional
+--------
+
+ - Finish commenting BlockDisplayScreen.
+ - Add wet soil to BlockDisplayScreen.
+ - Tidy up menu system code so that the menu is a real hierarchy.
+
 Future Version
 --------------
 
