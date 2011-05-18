@@ -18,12 +18,11 @@ public:
 
 	/**
 	 * Constructor.
-	 * Constructor.
 	 * @param topGfx Pointer to the graphics object that draws on the top
 	 * physical display.
 	 * @param bottomGfx Pointer to the graphics object that draws on the bottom
 	 * physical display.
-	 * @param score The final score achieved by the player.
+	 * @param score The score achieved by the player.
 	 */
 	GameCompleteScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, s32 score);
 
