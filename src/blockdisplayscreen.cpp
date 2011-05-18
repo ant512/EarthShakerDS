@@ -17,8 +17,6 @@
 BlockDisplayScreen::BlockDisplayScreen(WoopsiGfx::Graphics* gfx) : ScreenBase(NULL, gfx) {
 	_block = new TeleportBlock(0, 0, NULL);
 	_timer = 0;
-	_blockX = 120;
-	_blockY = 88;
 	_state = SCREEN_STATE_DOOR_ERASE;
 }
 
@@ -189,7 +187,7 @@ void BlockDisplayScreen::iterate() {
 
 			if (_timer % ANIMATION_TIME == 0) {
 				_block->animate();
-				_block->render(_blockX, _blockY, _bottomGfx);
+				_block->render(BLOCK_DISPLAY_X, BLOCK_DISPLAY_Y, _bottomGfx);
 
 				_bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(_blockName)) / 2, 144, &_font, _blockName, 0, _blockName.getLength(), COLOUR_WHITE);
 				_bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(_blockDescription)) / 2, 160, &_font, _blockDescription, 0, _blockDescription.getLength(), COLOUR_CYAN);

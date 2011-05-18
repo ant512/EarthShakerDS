@@ -193,12 +193,12 @@ private:
 	/**
 	 * Constructor is private to prevent creation.
 	 */
-	LevelFactory();
+	LevelFactory() { };
 
 	/**
 	 * Destructor.
 	 */
-	~LevelFactory();
+	~LevelFactory() { };
 };
 
 #endif

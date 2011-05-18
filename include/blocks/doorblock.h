@@ -88,6 +88,10 @@ public:
 	};
 
 private:
+
+	/**
+	 * Plays the door open sound.
+	 */
 	void onExplode() {
 		SoundPlayer::playDoorOpen();
 	};

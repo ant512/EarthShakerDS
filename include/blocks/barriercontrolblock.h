@@ -15,7 +15,8 @@
 
 /**
  * Barrier control blocks can be destroyed by dropping other blocks on them.
- * When destroyed, any barrier blocks in the level are removed.
+ * When destroyed, any barrier blocks and other controllers in the level are
+ * removed.
  */
 class BarrierControlBlock : public BlockBase {
 public:
