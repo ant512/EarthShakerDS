@@ -50,6 +50,9 @@ public:
 	 */
 	~FireBlock() {};
 
+	/**
+	 * Explodes the block pushing this and removes this block from the level.
+	 */
 	bool pushLeft() {
 		if (_isExploding) return false;
 
@@ -64,6 +67,10 @@ public:
 		return true;
 	};
 
+	/**
+	 * Explodes the block pushing this and removes this block from the level.
+	 * @return True if the fire is removed from the level.
+	 */
 	bool pushRight() {
 		if (_isExploding) return false;
 
@@ -78,6 +85,10 @@ public:
 		return true;
 	};
 
+	/**
+	 * Explodes the block pushing this and removes this block from the level.
+	 * @return True if the fire is removed from the level.
+	 */
 	bool pushUp() {
 		if (_isExploding) return false;
 
@@ -92,6 +103,10 @@ public:
 		return true;
 	};
 
+	/**
+	 * Explodes the block pushing this and removes this block from the level.
+	 * @return True if the fire is removed from the level.
+	 */
 	bool pushDown() {
 		if (_isExploding) return false;
 		
