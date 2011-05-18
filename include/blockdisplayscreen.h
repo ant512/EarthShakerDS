@@ -7,6 +7,7 @@
 
 #include "blockbase.h"
 #include "gamefont.h"
+#include "hardware.h"
 #include "screenbase.h"
 #include "spectrumcolours.h"
 
@@ -19,7 +20,7 @@ public:
 
 	~BlockDisplayScreen();
 
-	void iterate(PadState pad);
+	void iterate();
 
 	bool isRunning() const;
 

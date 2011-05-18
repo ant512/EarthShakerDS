@@ -6,6 +6,7 @@
 #include <woopsistring.h>
 
 #include "gamefont.h"
+#include "hardware.h"
 #include "screenbase.h"
 #include "spectrumcolours.h"
 
@@ -15,7 +16,7 @@ public:
 
 	~GameCompleteScreen() {};
 
-	void iterate(PadState pad);
+	void iterate();
 
 	bool isRunning() const;
 

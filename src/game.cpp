@@ -211,7 +211,9 @@ void Game::render() {
 	_level->render(x, y, displayWidth, displayHeight, _topGfx);
 }
 
-void Game::iterate(PadState pad) {
+void Game::iterate() {
+
+	const PadState& pad = Hardware::getPadState();
 
 	switch (_state) {
 
@@ -224,7 +226,7 @@ void Game::iterate(PadState pad) {
 
 		case GAME_STATE_TITLE_SCREEN:
 
-			_titleScreen->iterate(pad);
+			_titleScreen->iterate();
 
 			if (!_titleScreen->isRunning()) {
 				_transition->reset();
@@ -343,7 +345,7 @@ void Game::iterate(PadState pad) {
 		case GAME_STATE_GAME_OVER_SCREEN:
 
 			// Run the game over screen
-			_gameOverScreen->iterate(pad);
+			_gameOverScreen->iterate();
 
 			if (!_gameOverScreen->isRunning()) {
 				delete _gameOverScreen;
@@ -378,7 +380,7 @@ void Game::iterate(PadState pad) {
 		case GAME_STATE_GAME_COMPLETE_SCREEN:
 
 			// Run the game complete screen
-			_gameCompleteScreen->iterate(pad);
+			_gameCompleteScreen->iterate();
 
 			if (!_gameCompleteScreen->isRunning()) {
 				delete _gameCompleteScreen;
@@ -441,7 +443,8 @@ void Game::animate() {
 	}
 }
 
-void Game::move(PadState pad) {
+void Game::move(const PadState& pad) {
+
 	_movementTimer++;
 
 	if (_movementTimer == MOVEMENT_TIME) {

@@ -16,9 +16,10 @@ int main(int argc, char* argv[]) {
 
 	Game* game = new Game(Hardware::getTopGfx(), Hardware::getBottomGfx());
 
+	Hardware::updateState();
+
 	while(game->isRunning()) {
-		Hardware::updateState();
-		game->iterate(Hardware::getPadState());
+		game->iterate();
 		Hardware::waitForVBlank();
 	}
 

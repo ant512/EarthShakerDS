@@ -22,7 +22,7 @@ GameOverScreen::GameOverScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics*
 	topGfx->drawText(196, 110, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 }
 
-void GameOverScreen::iterate(PadState pad) {
+void GameOverScreen::iterate() {
 	--_timer;
 }
 

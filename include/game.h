@@ -9,6 +9,7 @@
 #include "gamefont.h"
 #include "gameoverscreen.h"
 #include "gatetransition.h"
+#include "hardware.h"
 #include "levelbase.h"
 #include "leveldefinition.h"
 #include "logobmp.h"
@@ -103,9 +104,8 @@ public:
 	 * around.  Redrawing and moving work on a timer system, so calling this
 	 * method will not necessarily produce an observable effect if the timers
 	 * have not reached the required values.
-	 * @param pad State of the DS keypad.
 	 */
-	void iterate(PadState pad);
+	void iterate();
 
 	/**
 	 * Increase the number of diamonds collected in the level by one.
@@ -239,9 +239,9 @@ private:
 	 * Moves level blocks.  Uses a timer system, so calling the method will not
 	 * necessarily produce an effect other than adjusting the _movementTimer
 	 * value.
-	 * @param pad State of the DS' keypad.
+	 * @param pad State of the DS keypad.
 	 */
-	void move(PadState pad);
+	void move(const PadState& pad);
 
 	/**
 	 * Decreases remaining time.  Uses a timer system, so calling the method

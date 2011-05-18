@@ -67,6 +67,7 @@ public:
 
 	static void waitForVBlank() {
 		swiWaitForVBlank();
+		updateState();
 	};
 
 private:

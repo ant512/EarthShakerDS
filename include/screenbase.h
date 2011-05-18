@@ -3,8 +3,6 @@
 
 #include <graphics.h>
 
-#include "padstate.h"
-
 /**
  * Base class for all separate "screens" or sections of the game, ie. the title
  * screen, game over screen, and even the game itself.
@@ -32,9 +30,8 @@ public:
 	/**
 	 * Iterate method runs the screen logic.  Should be called every vbl, or as
 	 * often as necessary to make the screen work correctly.
-	 * @param pad The state of the DS' keypad.
 	 */
-	virtual void iterate(PadState pad) = 0;
+	virtual void iterate() = 0;
 
 	/**
 	 * Indicates whether or not the screen is running.  If not, calling its

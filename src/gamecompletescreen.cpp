@@ -19,7 +19,7 @@ GameCompleteScreen::GameCompleteScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::G
 	topGfx->drawText(148, 112, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 }
 
-void GameCompleteScreen::iterate(PadState pad) {
+void GameCompleteScreen::iterate() {
 	--_timer;
 }
 

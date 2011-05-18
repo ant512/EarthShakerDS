@@ -9,6 +9,7 @@
 #include "gamefont.h"
 #include "leveldefinition.h"
 #include "logobmp.h"
+#include "optionlist.h"
 #include "screenbase.h"
 #include "scroller.h"
 #include "spectrumcolours.h"
@@ -19,7 +20,7 @@ public:
 
 	~TitleScreen();
 
-	void iterate(PadState pad);
+	void iterate();
 
 	bool isRunning() const;
 
@@ -34,9 +35,8 @@ private:
 	s32 _selectedLevelIndex;
 	LevelDefinition* _chosenLevel;
 	BlockDisplayScreen* _blockDisplayScreen;
-
-	void drawLevelNames();
-
+	WoopsiArray<OptionList*> _menu;
+	s32 _activeMenuIndex;
 };
 
 #endif

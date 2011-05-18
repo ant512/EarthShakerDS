@@ -1,10 +1,10 @@
 #include "constants.h"
+#include "hardware.h"
 #include "soundplayer.h"
 #include "titlescreen.h"
 
 TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinition*>* levelDefinitions) : ScreenBase(topGfx, bottomGfx) {
 	_timer = 0;
-	_selectedLevelIndex = 0;
 	_chosenLevel = NULL;
 
 	_levelDefinitions = levelDefinitions;
@@ -13,10 +13,6 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 
 	topGfx->drawBitmap(0, 0, 256, 64, &_logoBmp, 0, 0);
-
-	// Level select
-	WoopsiGfx::WoopsiString	str = "Select Level";
-	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 72, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 
 	// Copyrights
 	str.setText("ZX (c) 1990 Michael Batty");
@@ -38,80 +34,82 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 "for the 2011 GBATemp Homebrew Bounty competition "
 							 ".... Many thanks to Michael Batty for permission "
 							 "to distribute his original graphics and other "
-							 "assets with this remake .... This is a demo "
-							 "version that includes only 7.5 of the original "
-							 "32 levels - more levels will be coming in future "
-							 "releases .... This release was made on 10.05.2011 "
+							 "assets with this remake .... See ant.simianzombie.com "
+							 "for other projects ... "
 							 );
 
+	// Set up the menu system
+	_menu.push_back(new OptionList(_topGfx, "Menu"));
 
-	drawLevelNames();
+	_menu[0]->addOption("Start");
+	_menu[0]->addOption("Level Select");
 
-	SoundPlayer::playTitleTheme();
+	_menu.push_back(new OptionList(_topGfx, "Select Level"));
+
+	for (s32 i = 0; i < _levelDefinitions->size(); ++i) {
+		_menu[1]->addOption(_levelDefinitions->at(i)->getName());
+	}
+
+	_activeMenuIndex = 0;
+
+	_menu[_activeMenuIndex]->render();
 }
 
 TitleScreen::~TitleScreen() {
 	delete _scroller;
 }
 
-void TitleScreen::iterate(PadState pad) {
-	++_timer;
+void TitleScreen::iterate() {
+
+	PadState pad = Hardware::getPadState();
 
 	_scroller->render(184, _topGfx);
-	_blockDisplayScreen->iterate(pad);
+	_blockDisplayScreen->iterate();
+
+	++_timer;
 
 	if (_timer < MOVEMENT_TIME) return;
 
 	_timer = 0;
 
-	if (pad.up) {
-		if (_selectedLevelIndex > 0) {
-			--_selectedLevelIndex;
+	_menu[_activeMenuIndex]->iterate();
 
-			SoundPlayer::playBlockFall();
-			drawLevelNames();
-		} else {
-			_selectedLevelIndex = _levelDefinitions->size() - 1;
+	if (pad.a || pad.start) {
+		switch (_activeMenuIndex) {
+			case 0:
 
-			SoundPlayer::playBlockFall();
-			drawLevelNames();
+				// Main menu
+				switch (_menu[0]->getSelectedIndex()) {
+					case 0:
+
+						// Start at beginning of game
+						_chosenLevel = _levelDefinitions->at(0);
+						break;
+
+					case 1:
+
+						// Switch to level select menu
+						_activeMenuIndex = 1;
+						_menu[1]->render();
+
+						// Wait until the button is released before continuing
+						// so that we don't select the top item in the next
+						// menu automatically
+						while (pad.a || pad.start) {
+							Hardware::waitForVBlank();
+						}
+
+						break;
+				}
+
+				break;
+			case 1:
+
+				// Level select
+				_chosenLevel = _levelDefinitions->at(_selectedLevelIndex);
+				SoundPlayer::stopTitleTheme();
+				SoundPlayer::playBubbleExplode();
 		}
-	} else if (pad.down || pad.select) {
-		if (_selectedLevelIndex < _levelDefinitions->size() - 1) {
-			++_selectedLevelIndex;
-
-			SoundPlayer::playBlockFall();
-			drawLevelNames();
-		} else {
-			_selectedLevelIndex = 0;
-
-			SoundPlayer::playBlockFall();
-			drawLevelNames();
-		}
-	} else if (pad.right) {
-		if (_selectedLevelIndex < _levelDefinitions->size() - 4) {
-			_selectedLevelIndex += 3;
-		} else {
-			_selectedLevelIndex = _levelDefinitions->size() - 1;
-		}
-
-		SoundPlayer::playBlockFall();
-		drawLevelNames();
-
-	} else if (pad.left) {
-		if (_selectedLevelIndex > 3) {
-			_selectedLevelIndex -= 3;
-		} else {
-			_selectedLevelIndex = 0;
-		}
-
-		SoundPlayer::playBlockFall();
-		drawLevelNames();
-
-	} else if (pad.a || pad.start) {
-		_chosenLevel = _levelDefinitions->at(_selectedLevelIndex);
-		SoundPlayer::stopTitleTheme();
-		SoundPlayer::playBubbleExplode();
 	}
 }
 
@@ -121,31 +119,4 @@ bool TitleScreen::isRunning() const {
 
 LevelDefinition* TitleScreen::getChosenLevel() const {
 	return _chosenLevel;
-}
-
-void TitleScreen::drawLevelNames() {
-
-	WoopsiGfx::WoopsiString str;
-	s32 y = 88;
-	SpectrumColour colour = COLOUR_WHITE;
-
-	s32 firstOption = _selectedLevelIndex - 3;
-	s32 lastOption = _selectedLevelIndex + 3;
-
-	_topGfx->drawFilledRect(0, y, SCREEN_WIDTH, _font.getHeight() * 7, COLOUR_BLACK);
-
-	for (s32 i = firstOption; i <= lastOption; ++i) {
-		if ((i >= 0) && (i < _levelDefinitions->size())) {
-			if (i == _selectedLevelIndex) {
-				colour = COLOUR_YELLOW;
-			} else {
-				colour = COLOUR_CYAN;
-			}
-
-			str = _levelDefinitions->at(i)->getName();
-			_topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, y, &_font, str, 0, str.getLength(), colour);
-		}
-
-		y += _font.getHeight();
-	}
 }
