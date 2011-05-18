@@ -35,7 +35,12 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 ".... Many thanks to Michael Batty for permission "
 							 "to distribute his original graphics and other "
 							 "assets with this remake .... See ant.simianzombie.com "
-							 "for other projects ... "
+							 "for other projects .... Earth Shaker DS was written "
+							 "using WoopsiGfx, a 2D graphics library that includes "
+							 "features such as DMA acceleration, a set of 2D "
+							 "drawing routines, animation, UTF-8 strings and "
+							 "fonts for rendering text .... The sourcecode for this "
+							 "game is available from bitbucket.org/ant512/earthshakerds "
 							 );
 
 	// Set up the menu system
