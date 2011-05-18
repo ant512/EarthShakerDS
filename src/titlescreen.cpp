@@ -39,12 +39,12 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 );
 
 	// Set up the menu system
-	_menu.push_back(new OptionList(_topGfx, "Menu"));
+	_menu.push_back(new Menu(_topGfx, "Menu"));
 
 	_menu[0]->addOption("Start");
 	_menu[0]->addOption("Level Select");
 
-	_menu.push_back(new OptionList(_topGfx, "Select Level"));
+	_menu.push_back(new Menu(_topGfx, "Select Level"));
 
 	for (s32 i = 0; i < _levelDefinitions->size(); ++i) {
 		_menu[1]->addOption(_levelDefinitions->at(i)->getName());

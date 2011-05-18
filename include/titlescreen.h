@@ -9,7 +9,7 @@
 #include "gamefont.h"
 #include "leveldefinition.h"
 #include "logobmp.h"
-#include "optionlist.h"
+#include "menu.h"
 #include "screenbase.h"
 #include "scroller.h"
 #include "spectrumcolours.h"
@@ -58,7 +58,7 @@ private:
 	WoopsiArray<LevelDefinition*>* _levelDefinitions;	/**< List of all level definitions. */
 	LevelDefinition* _chosenLevel;				/**< Level selected by the player. */
 	BlockDisplayScreen* _blockDisplayScreen;	/**< Block slideshow on bottom display. */
-	WoopsiArray<OptionList*> _menu;				/**< Menu system on top display. */
+	WoopsiArray<Menu*> _menu;					/**< Menu system on top display. */
 	s32 _activeMenuIndex;						/**< Currently active menu index. */
 };
 

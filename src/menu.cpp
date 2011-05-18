@@ -1,18 +1,18 @@
 #include "constants.h"
-#include "optionlist.h"
+#include "menu.h"
 #include "soundplayer.h"
 
-OptionList::OptionList(WoopsiGfx::Graphics* gfx, const WoopsiGfx::WoopsiString& title) {
+Menu::Menu(WoopsiGfx::Graphics* gfx, const WoopsiGfx::WoopsiString& title) {
 	_selectedIndex = 0;
 
 	_gfx = gfx;
 	_title = title;
 }
 
-OptionList::~OptionList() {
+Menu::~Menu() {
 }
 
-void OptionList::iterate() {
+void Menu::iterate() {
 
 	const PadState& pad = Hardware::getPadState();
 	
@@ -62,33 +62,33 @@ void OptionList::iterate() {
 	}
 }
 
-const WoopsiGfx::WoopsiString& OptionList::getSelectedOption() const {
+const WoopsiGfx::WoopsiString& Menu::getSelectedOption() const {
 	return _options[_selectedIndex];
 }
 
-void OptionList::setSelectedIndex(s32 index) {
+void Menu::setSelectedIndex(s32 index) {
 	_selectedIndex = index;
 }
 
-void OptionList::addOption(const WoopsiGfx::WoopsiString& option) {
+void Menu::addOption(const WoopsiGfx::WoopsiString& option) {
 	_options.push_back(option);
 }
 
-s32 OptionList::getSelectedIndex() const {
+s32 Menu::getSelectedIndex() const {
 	return _selectedIndex;
 }
 
-void OptionList::render() {
+void Menu::render() {
 	renderTitle();
 	renderOptions();
 }
 
-void OptionList::renderTitle() {
+void Menu::renderTitle() {
 	_gfx->drawFilledRect(0, OPTION_LIST_Y, SCREEN_WIDTH, _font.getHeight() * 7, COLOUR_BLACK);
 	_gfx->drawText((SCREEN_WIDTH - _font.getStringWidth(_title)) / 2, OPTION_LIST_Y, &_font, _title, 0, _title.getLength(), COLOUR_WHITE);
 }
 
-void OptionList::renderOptions() {
+void Menu::renderOptions() {
 
 	WoopsiGfx::WoopsiString str;
 	s32 y = OPTION_LIST_Y + OPTION_LIST_TITLE_LIST_GAP;

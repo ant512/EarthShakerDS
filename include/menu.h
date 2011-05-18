@@ -1,5 +1,5 @@
-#ifndef _OPTION_LIST_H_
-#define _OPTION_LIST_H_
+#ifndef _MENU_H_
+#define _MENU_H_
 
 #include <nds.h>
 #include <graphics.h>
@@ -14,11 +14,11 @@
 const s32 OPTION_LIST_Y = 72;				/**< Y co-ordinate of menu. */
 const s32 OPTION_LIST_TITLE_LIST_GAP = 16;	/**< Distance between menu title and options. */
 
-class OptionList {
+class Menu {
 public:
-	OptionList(WoopsiGfx::Graphics* gfx, const WoopsiGfx::WoopsiString& title);
+	Menu(WoopsiGfx::Graphics* gfx, const WoopsiGfx::WoopsiString& title);
 
-	~OptionList();
+	~Menu();
 
 	void iterate();
 
