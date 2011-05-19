@@ -69,6 +69,10 @@ The following blocks can be found at various points in the game:
    Gravity remains inverted until the gravity timer runs out.  The direction of
    gravity and the remaining time are both displayed at the bottom of the screen
    next to the green "g".
+ - Barriers block your path.  They decrease the amount of remaining time if you
+   walk into them.
+ - Barrier controllers will destroy all barriers when they are themselves
+   destroyed.  Drop a boulder onto them.
 
 
 Requirements
