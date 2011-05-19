@@ -9,7 +9,6 @@ Todo
 Optional
 --------
 
- - Tidy up menu system code so that the menu is a real hierarchy.
  - Map should be on screen only whilst music is playing.
 
 
