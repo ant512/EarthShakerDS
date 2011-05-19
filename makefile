@@ -1,6 +1,6 @@
-#---------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 .SUFFIXES:
-#---------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 ifeq ($(strip $(DEVKITARM)),)
 $(error "Please set DEVKITARM in your environment. export DEVKITARM=<path to>devkitARM")
@@ -176,8 +176,8 @@ _LIBS		+= -lnds9 -lmm9
 _BANNER 		:= -b $(GAME_ICON) "$(GAME_TITLE);$(GAME_SUBTITLE1);$(GAME_SUBTITLE2)"
 
 #-------------------------------------------------------------------------------
-# rule to build a .nds binary - forces the link every time because we don't have proper
-# dependencies in here...
+# rule to build a .nds binary - forces the link every time because we don't have
+# proper dependencies in here...
 %.nds: $(OFILES)
 	@echo Linking...
 	@$(LD) $(LDFLAGS) -specs=ds_arm9.specs $(OFILES) $(_LPATHS) $(_LIBS) -o $(TARGET).elf
@@ -206,11 +206,11 @@ _BANNER 		:= -b $(GAME_ICON) "$(GAME_TITLE);$(GAME_SUBTITLE1);$(GAME_SUBTITLE2)"
 	@echo Assembling $(notdir $<)
 	@$(CC) -MMD -MF $*.d -MP $(ASFLAGS) $(_DEFS) $(_INCS) -c $< -o$@
 	
-#--------------------------------------------------------------------------------- 
+#-------------------------------------------------------------------------------
 # rule to build soundbank from music files 
-#--------------------------------------------------------------------------------- 
+#-------------------------------------------------------------------------------
 soundbank.bin : $(AUDIOFILES) 
-#--------------------------------------------------------------------------------- 
+#-------------------------------------------------------------------------------
 	@mmutil $^ -d -osoundbank.bin -hsoundbank.h 
  
 #-------------------------------------------------------------------------------
