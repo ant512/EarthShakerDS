@@ -7,12 +7,12 @@
 #include "game.h"
 #include "blockbase.h"
 #include "constants.h"
-
 #include "extralifebmp1.h"
 #include "extralifebmp2.h"
 #include "extralifebmp3.h"
 #include "extralifebmp4.h"
 #include "extralifemapbmp.h"
+#include "soundplayer.h"
 
 /**
  * Gives the player an extra life when collected.
@@ -51,9 +51,7 @@ public:
 	 * @return True.
 	 */
 	bool pushUp() {
-		_game->increaseLives();
-		_game->addScore(EXTRA_LIFE_SCORE);
-		_game->getLevel()->removeBlockAt(_x, _y);
+		collect();
 		return true;
 	};
 
@@ -62,9 +60,7 @@ public:
 	 * @return True.
 	 */
 	bool pushDown() {
-		_game->increaseLives();
-		_game->addScore(EXTRA_LIFE_SCORE);
-		_game->getLevel()->removeBlockAt(_x, _y);
+		collect();
 		return true;
 	};
 
@@ -73,9 +69,7 @@ public:
 	 * @return True.
 	 */
 	bool pushLeft() {
-		_game->increaseLives();
-		_game->addScore(EXTRA_LIFE_SCORE);
-		_game->getLevel()->removeBlockAt(_x, _y);
+		collect();
 		return true;
 	};
 
@@ -84,9 +78,7 @@ public:
 	 * @return True.
 	 */
 	bool pushRight() {
-		_game->increaseLives();
-		_game->addScore(EXTRA_LIFE_SCORE);
-		_game->getLevel()->removeBlockAt(_x, _y);
+		collect();
 		return true;
 	};
 
@@ -95,6 +87,17 @@ private:
 	ExtraLifeBmp2 _bmp2;		/**< The second animation frame. */
 	ExtraLifeBmp3 _bmp3;		/**< The third animation frame. */
 	ExtraLifeBmp4 _bmp4;		/**< The fourth animation frame. */
+
+	/**
+	 * Collects the extra life.
+	 */
+	void collect() {
+		_game->increaseLives();
+		_game->addScore(EXTRA_LIFE_SCORE);
+		_game->getLevel()->removeBlockAt(_x, _y);
+
+		SoundPlayer::playExtraLifeCollect();
+	};
 };
 
 #endif

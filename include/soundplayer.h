@@ -27,6 +27,7 @@ public:
 		mmLoadEffect(SFX_BUBBLEEXPLODE);
 		mmLoadEffect(SFX_DIAMONDCOLLECT);
 		mmLoadEffect(SFX_DOOROPEN);
+		mmLoadEffect(SFX_EXTRALIFECOLLECT);
 		mmLoadEffect(SFX_GRAVITYINVERSION);
 		mmLoadEffect(SFX_LEVELCOMPLETE);
 		mmLoadEffect(SFX_PAUSE);
@@ -101,6 +102,13 @@ public:
 	 */
 	static void playDoorOpen() {
 		mmEffect(SFX_DOOROPEN);
+	};
+
+	/**
+	 * Plays the extra life collection sound.
+	 */
+	static void playExtraLifeCollect() {
+		mmEffect(SFX_EXTRALIFECOLLECT);
 	};
 
 	/**
@@ -216,6 +224,7 @@ public:
 		mmUnloadEffect(SFX_BUBBLEEXPLODE);
 		mmUnloadEffect(SFX_DIAMONDCOLLECT);
 		mmUnloadEffect(SFX_DOOROPEN);
+		mmUnloadEffect(SFX_EXTRALIFECOLLECT);
 		mmUnloadEffect(SFX_GRAVITYINVERSION);
 		mmUnloadEffect(SFX_LEVELCOMPLETE);
 		mmUnloadEffect(SFX_PAUSE);

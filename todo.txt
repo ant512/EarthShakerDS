@@ -1,13 +1,6 @@
 Todo
 ----
 
- - Sounds:
-   - Extra life
-
-
-Future Version
---------------
-
  - Teleport effect
  - Timer increase animation when bean is collected
  - Level editor
