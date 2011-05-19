@@ -445,20 +445,44 @@ void Game::iterate() {
 
 			_level->renderMap(_topGfx);
 
+			//SoundPlayer::playMapTheme();
+
 			_state = GAME_STATE_MAP_READY;
+
+			// Abuse movement timer to work as map timer
+			_movementTimer = 0;
 
 			break;
 
 		case GAME_STATE_MAP_READY:
-			if (!pad.x) {
+
+			++_movementTimer;
+
+			if (_movementTimer == MAP_TIME) {
+
+				// Prevent map from staying on screen if player holds down X
+				_state = GAME_STATE_GAMEPLAY;
+				_movementTimer = 0;
+				render();
+			} else if (!pad.x) {
+
+				// X released, so switch to map mode
 				_state = GAME_STATE_MAP;
-				//SoundPlayer::playMapTheme();
 			}
+
 			break;
 
 		case GAME_STATE_MAP:
+
+			++_movementTimer;
 			
-			if (pad.x) {
+			if (_movementTimer == MAP_TIME) {
+
+				// Close map if timer has expired
+				_state = GAME_STATE_GAMEPLAY;
+				_movementTimer = 0;
+				render();
+			} else if (pad.x) {
 				_state = GAME_STATE_LEAVING_MAP;
 			}
 
@@ -466,8 +490,17 @@ void Game::iterate() {
 		
 		case GAME_STATE_LEAVING_MAP:
 
-			if (!pad.x) {
+			++_movementTimer;
+
+			if (_movementTimer == MAP_TIME) {
+
+				// Close map if timer has expired
 				_state = GAME_STATE_GAMEPLAY;
+				_movementTimer = 0;
+				render();
+			} else if (!pad.x) {
+				_state = GAME_STATE_GAMEPLAY;
+				_movementTimer = 0;
 				render();
 			}
 

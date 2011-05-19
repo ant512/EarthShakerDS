@@ -4,12 +4,7 @@ Todo
  - Sounds:
    - Extra life
    - Map screen music
-
-
-Optional
---------
-
- - Map should be on screen only whilst music is playing.
+ - Check that map screen visible duration matches music duration.
 
 
 Future Version
