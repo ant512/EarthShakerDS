@@ -62,7 +62,7 @@ public:
 
 		_isOddIteration = !_isOddIteration;
 
-		LevelBase* level = _game->getLevel();
+		Level* level = _game->getLevel();
 		BlockBase* block = level->getBlockAt(_x - 1, _y);
 
 		if (block == NULL) {
@@ -86,7 +86,7 @@ public:
 		if (_isExploding) return false;
 		if (_isFalling) return false;
 
-		LevelBase* level = _game->getLevel();
+		Level* level = _game->getLevel();
 
 		if (_x == level->getWidth() - 1) return false;
 

@@ -10,7 +10,7 @@
 #include "gameoverscreen.h"
 #include "gatetransition.h"
 #include "hardware.h"
-#include "levelbase.h"
+#include "level.h"
 #include "leveldefinition.h"
 #include "logobmp.h"
 #include "padstate.h"
@@ -41,7 +41,7 @@ public:
 	 * Get the currently-running level object.
 	 * @return The currently-running level object.
 	 */
-	LevelBase* getLevel() const;
+	Level* getLevel() const;
 
 	/**
 	 * Gets the player block.
@@ -176,7 +176,7 @@ private:
 		GAME_STATE_LEAVING_MAP = 21
 	};
 
-	LevelBase* _level;						/**< The currently-active level.*/
+	Level* _level;							/**< The currently-active level.*/
 	s32 _remainingGravityTime;				/**< The amount of time left until gravity returns to normal. */
 	s32 _score;								/**< The current score. */
 	s32 _remainingTime;						/**< The amount of time remaining. */

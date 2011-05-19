@@ -107,7 +107,7 @@ private:
 	 * @return The next teleport block in the level, or NULL if none is found.
 	 */
 	TeleportBlock* getNextTeleport() {
-		LevelBase* level = _game->getLevel();
+		Level* level = _game->getLevel();
 		TeleportBlock* teleport = NULL;
 
 		for (s32 y = 0; y < level->getHeight(); ++y) {
@@ -138,7 +138,7 @@ private:
 
 		// Teleport the player
 		BlockBase* player = _game->getPlayerBlock();
-		LevelBase* level = _game->getLevel();
+		Level* level = _game->getLevel();
 
 		level->moveBlock(player->getX(), player->getY(), destination->getX(), destination->getY());
 

@@ -1,6 +1,6 @@
 #include "blockbase.h"
 #include "game.h"
-#include "levelbase.h"
+#include "level.h"
 #include "soundplayer.h"
 
 BlockBase::BlockBase(s32 x, s32 y, Game* game) {
@@ -119,7 +119,7 @@ void BlockBase::squashBlock() {
 	if (!_isFalling) return;
 
 	BlockBase* block = NULL;
-	LevelBase* level = _game->getLevel();	
+	Level* level = _game->getLevel();	
 	
 	if (_game->isGravityInverted()) {
 		block = level->getBlockAt(_x, _y - 1);
@@ -150,7 +150,7 @@ void BlockBase::fall() {
 
 void BlockBase::raise() {
 
-	LevelBase* level = _game->getLevel();	
+	Level* level = _game->getLevel();	
 
 	// Abort if we're already at the top of the grid
 	if (_y == 0) {
@@ -200,7 +200,7 @@ void BlockBase::raise() {
 
 void BlockBase::drop() {
 
-	LevelBase* level = _game->getLevel();	
+	Level* level = _game->getLevel();	
 
 	// Abort if we're already at the bottom of the grid
 	if (_y == level->getHeight() - 1) {
@@ -263,7 +263,7 @@ void BlockBase::slideLeft() {
 	if (_isFalling) return;
 	if (_isExploding) return;
 
-	LevelBase* level = _game->getLevel();
+	Level* level = _game->getLevel();
 	BlockBase* restingOn = NULL;
 
 	// We can only slide if the block we're resting on is slippy.  We can't
@@ -309,7 +309,7 @@ void BlockBase::slideRight() {
 	if (_isFalling) return;
 	if (_isExploding) return;
 
-	LevelBase* level = _game->getLevel();
+	Level* level = _game->getLevel();
 	BlockBase* restingOn = NULL;
 
 	// We can only slide if the block we're resting on is slippy.  We can't

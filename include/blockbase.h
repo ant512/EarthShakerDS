@@ -5,7 +5,7 @@
 #include <graphics.h>
 #include <animation.h>
 
-class LevelBase;
+class Level;
 class Game;
 
 /**
@@ -31,14 +31,14 @@ public:
 	virtual ~BlockBase();
 
 	/**
-	 * Sets the x co-ordinate of the block.  Typically the LevelBase class
+	 * Sets the x co-ordinate of the block.  Typically the Level class
 	 * should be left alone to manage block co-ordinates using this method.
 	 * @param x The x co-ordinate of the block.
 	 */
 	void setX(s32 x);
 
 	/**
-	 * Sets the y co-ordinate of the block.  Typically the LevelBase class
+	 * Sets the y co-ordinate of the block.  Typically the Level class
 	 * should be left alone to manage block co-ordinates using this method.
 	 * @param y The y co-ordinate of the block.
 	 */

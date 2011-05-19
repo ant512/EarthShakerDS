@@ -1,5 +1,5 @@
-#ifndef _LEVEL_BASE_H_
-#define _LEVEL_BASE_H_
+#ifndef _LEVEL_H_
+#define _LEVEL_H_
 
 #include <graphics.h>
 #include <woopsistring.h>
@@ -11,7 +11,7 @@ class PlayerBlock;
 /**
  * Base class for all levels.  Controls the entire grid of blocks.
  */
-class LevelBase {
+class Level {
 public:
 
 	/**
@@ -21,12 +21,12 @@ public:
 	 * @param number The level number.
 	 * @param name The level name.
 	 */
-	LevelBase(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name);
+	Level(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name);
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~LevelBase();
+	virtual ~Level();
 
 	/**
 	 * Gets the width of the level in blocks.

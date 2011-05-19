@@ -2,10 +2,10 @@
 
 #include "game.h"
 #include "blockbase.h"
-#include "levelbase.h"
+#include "level.h"
 #include "playerblock.h"
 
-LevelBase::LevelBase(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name) {
+Level::Level(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& name) {
 	_width = width;
 	_height = height;
 	_number = number;
@@ -15,7 +15,7 @@ LevelBase::LevelBase(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiS
 	_diamondCount = 0;
 }
 
-LevelBase::~LevelBase() {
+Level::~Level() {
 
 	deleteRemovedBlocks();
 
@@ -27,13 +27,13 @@ LevelBase::~LevelBase() {
 	delete[] _data;
 }
 
-void LevelBase::animate() {
+void Level::animate() {
 	for (s32 i = 0; i < _width * _height; ++i) {
 		if (_data[i] != NULL) _data[i]->animate();
 	}
 }
 
-void LevelBase::render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, WoopsiGfx::Graphics* gfx) {
+void Level::render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, WoopsiGfx::Graphics* gfx) {
 
 	// Ensure we don't try to draw more blocks than exist
 	s32 stopX = numBlocksX + blockX;
@@ -59,7 +59,7 @@ void LevelBase::render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, W
 	}
 }
 
-void LevelBase::renderMap(WoopsiGfx::Graphics* gfx) {
+void Level::renderMap(WoopsiGfx::Graphics* gfx) {
 
 	BlockBase* block = NULL;
 
@@ -78,14 +78,14 @@ void LevelBase::renderMap(WoopsiGfx::Graphics* gfx) {
 	}
 }
 
-BlockBase* LevelBase::getBlockAt(s32 x, s32 y) const {
+BlockBase* Level::getBlockAt(s32 x, s32 y) const {
 	if ((x < 0) || (x >= _width)) return NULL;
 	if ((y < 0) || (y >= _height)) return NULL;
 
 	return _data[(y * _width) + x];
 }
 
-void LevelBase::setBlockAt(s32 x, s32 y, BlockBase* block) {
+void Level::setBlockAt(s32 x, s32 y, BlockBase* block) {
 	if ((x < 0) || (x >= _width)) return;
 	if ((y < 0) || (y >= _height)) return;
 
@@ -100,7 +100,7 @@ void LevelBase::setBlockAt(s32 x, s32 y, BlockBase* block) {
 	}
 }
 
-void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
+void Level::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
 
 	if ((sourceX == destX) && (sourceY == destY)) return;
 
@@ -118,7 +118,7 @@ void LevelBase::moveBlock(s32 sourceX, s32 sourceY, s32 destX, s32 destY) {
 	setBlockAt(sourceX, sourceY, NULL);
 }
 
-void LevelBase::removeBlockAt(s32 x, s32 y) {
+void Level::removeBlockAt(s32 x, s32 y) {
 
 	BlockBase* block = getBlockAt(x, y);
 
@@ -128,14 +128,14 @@ void LevelBase::removeBlockAt(s32 x, s32 y) {
 	setBlockAt(x, y, NULL);
 }
 
-void LevelBase::deleteRemovedBlocks() {
+void Level::deleteRemovedBlocks() {
 	for (s32 i = 0; i < _removedBlockList.size(); ++i) {
 		delete _removedBlockList[i];
 	}
 	_removedBlockList.clear();
 }
 
-void LevelBase::iterateBlocks(bool isGravityInverted) {
+void Level::iterateBlocks(bool isGravityInverted) {
 
 	// Calculate the start and end points for all blocks we will iterate.  We
 	// need to iterate over all blocks, but depending on the direction of
@@ -204,15 +204,15 @@ void LevelBase::iterateBlocks(bool isGravityInverted) {
 	}
 }
 
-void LevelBase::iterate(bool isGravityInverted) {
+void Level::iterate(bool isGravityInverted) {
 	deleteRemovedBlocks();
 	iterateBlocks(isGravityInverted);
 }
 
-PlayerBlock* LevelBase::getPlayerBlock() const {
+PlayerBlock* Level::getPlayerBlock() const {
 	return _playerBlock;
 }
 
-void LevelBase::setPlayerBlock(PlayerBlock* block) {
+void Level::setPlayerBlock(PlayerBlock* block) {
 	_playerBlock = block;
 }

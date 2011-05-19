@@ -56,7 +56,7 @@ private:
 	 * Removes all barrier blocks and barrier control blocks from the level.
 	 */
 	void onDestroyed() {
-		LevelBase* level = _game->getLevel();
+		Level* level = _game->getLevel();
 		BarrierBlock* barrier = NULL;
 		BarrierControlBlock* control = NULL;
 

@@ -58,7 +58,7 @@ public:
 		if (_isOddIteration != _game->isOddIteration()) return false;
 		_isOddIteration = !_isOddIteration;
 
-		LevelBase* level = _game->getLevel();
+		Level* level = _game->getLevel();
 		BlockBase* block = level->getBlockAt(_x, _y - 1);
 
 		if (block != NULL) {
@@ -98,7 +98,7 @@ public:
 	bool pushDown() {
 		if (_isExploding) return false;
 
-		LevelBase* level = _game->getLevel();
+		Level* level = _game->getLevel();
 
 		if (_y == level->getHeight() - 1) return false;
 
@@ -149,7 +149,7 @@ public:
 		if (_isOddIteration != _game->isOddIteration()) return false;
 		_isOddIteration = !_isOddIteration;
 
-		LevelBase* level = _game->getLevel();
+		Level* level = _game->getLevel();
 		BlockBase* block = level->getBlockAt(_x - 1, _y);
 
 		if (block != NULL) {
@@ -190,7 +190,7 @@ public:
 	bool pushRight() {
 		if (_isExploding) return false;
 		
-		LevelBase* level = _game->getLevel();
+		Level* level = _game->getLevel();
 
 		if (_x == level->getWidth() - 1) return false;
 

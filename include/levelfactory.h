@@ -16,7 +16,7 @@
 #include "fireblock.h"
 #include "gravityinversionblock.h"
 #include "game.h"
-#include "levelbase.h"
+#include "level.h"
 #include "leveldefinition.h"
 #include "playerblock.h"
 #include "soilblock.h"
@@ -33,23 +33,23 @@
 #include "level5.h"
 
 /**
- * Creates new instances of LevelBase.
+ * Creates new instances of Level.
  */
 class LevelFactory {
 public:
 
 	/**
-	 * Creates a new LevelBase object and populates it with data drawn from the
+	 * Creates a new Level object and populates it with data drawn from the
 	 * supplied definition.
 	 * @param data The level definition to use as a data source for the level.
 	 * @param game The containing game object.
-	 * @return The new LevelBase object.
+	 * @return The new Level object.
 	 */
-	static LevelBase* createLevel(LevelDefinition* data, Game* game) {
+	static Level* createLevel(LevelDefinition* data, Game* game) {
 
 		BlockBase* block = NULL;
 
-		LevelBase* level = new LevelBase(data->getWidth(), data->getHeight(), data->getNumber(), data->getName());
+		Level* level = new Level(data->getWidth(), data->getHeight(), data->getNumber(), data->getName());
 
 		for (s32 x = 0; x < data->getWidth(); ++x) {
 			for (s32 y = 0; y < data->getHeight(); ++y) {
