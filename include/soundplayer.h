@@ -31,6 +31,7 @@ public:
 		mmLoadEffect(SFX_LEVELCOMPLETE);
 		mmLoadEffect(SFX_PAUSE);
 		mmLoadEffect(SFX_PLAYEREXPLODE);
+		mmLoadEffect(SFX_MAPTHEME);
 		mmLoadEffect(SFX_SOILDIG);
 		mmLoadEffect(SFX_TELEPORTCOLLECT);
 		mmLoadEffect(SFX_TIME);
@@ -132,6 +133,21 @@ public:
 	};
 
 	/**
+	 * Plays the map music.
+	 */
+	static void playMapTheme() {
+		mmEffectCancel(_mapHandle);
+		_mapHandle = mmEffect(SFX_MAPTHEME);
+	};
+
+	/**
+	 * Stops the map music.
+	 */
+	static void stopMapTheme() {
+		mmEffectCancel(_mapHandle);
+	};
+
+	/**
 	 * Plays the game paused sound.
 	 */
 	static void playPause() {
@@ -204,6 +220,7 @@ public:
 		mmUnloadEffect(SFX_LEVELCOMPLETE);
 		mmUnloadEffect(SFX_PAUSE);
 		mmUnloadEffect(SFX_PLAYEREXPLODE);
+		mmUnloadEffect(SFX_MAPTHEME);
 		mmUnloadEffect(SFX_SOILDIG);
 		mmUnloadEffect(SFX_TELEPORTCOLLECT);
 		mmUnloadEffect(SFX_TIME);
@@ -216,6 +233,7 @@ private:
 	static mm_sfxhand _titleHandle;		/**< Handle for the title music. */
 	static mm_sfxhand _gravityHandle;	/**< Handle for the gravity inversion sound. */
 	static mm_sfxhand _gameOverHandle;	/**< Handle for the game over music. */
+	static mm_sfxhand _mapHandle;		/**< Handle for the map music. */
 
 	/**
 	 * Constructor.

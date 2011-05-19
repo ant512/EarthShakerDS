@@ -3,8 +3,6 @@ Todo
 
  - Sounds:
    - Extra life
-   - Map screen music
- - Check that map screen visible duration matches music duration.
 
 
 Future Version

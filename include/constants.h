@@ -24,7 +24,7 @@ const s32 TIMER_TIME = 30;
 /**
  * Amount of time that the map screen is visible.
  */
-const s32 MAP_TIME = 200;
+const s32 MAP_TIME = 600;
 
 /**
  * Width of the game display.
