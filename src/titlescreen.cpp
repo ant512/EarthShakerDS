@@ -6,7 +6,6 @@
 TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinition*>* levelDefinitions) : ScreenBase(topGfx, bottomGfx) {
 	_timer = 0;
 	_chosenLevel = NULL;
-	_state = STATE_NORMAL;
 
 	_levelDefinitions = levelDefinitions;
 
@@ -44,20 +43,44 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 );
 
 	// Set up the menu system
-	_menu.push_back(new Menu(_topGfx, "Menu"));
+	_menuSystem = new MenuSystem(this, _topGfx, "Menu", MENU_MAIN);
+	
+	// Set up root menu
+	Menu* rootMenu = _menuSystem->getRootMenu();
+	rootMenu->addOption("Start");
 
-	_menu[0]->addOption("Start");
-	_menu[0]->addOption("Level Select");
-
-	_menu.push_back(new Menu(_topGfx, "Select Level"));
+	// Set up level select
+	Menu* levelSelect = new Menu("Level Select", MENU_LEVEL_SELECT);
+	rootMenu->addSubMenu(levelSelect);
 
 	for (s32 i = 0; i < _levelDefinitions->size(); ++i) {
-		_menu[1]->addOption(_levelDefinitions->at(i)->getName());
+		levelSelect->addOption(_levelDefinitions->at(i)->getName());
 	}
 
-	_activeMenuIndex = 0;
+	// Set up sound test
 
-	_menu[_activeMenuIndex]->render();
+	Menu* soundTest = new Menu("Sound Test", MENU_SOUND_TEST);
+	rootMenu->addSubMenu(soundTest);
+
+	soundTest->addOption("Barrier Explode");
+	soundTest->addOption("Barrier Push");
+	soundTest->addOption("Bean Collect");
+	soundTest->addOption("Block Fall");
+	soundTest->addOption("Block Land");
+	soundTest->addOption("Boulder Explode");
+	soundTest->addOption("Bubble Explode");
+	soundTest->addOption("Diamond Collect");
+	soundTest->addOption("Door Open");
+	soundTest->addOption("Gravity Inversion");
+	soundTest->addOption("Level Complete");
+	soundTest->addOption("Pause");
+	soundTest->addOption("Player Explode");
+	soundTest->addOption("Soil Dig");
+	soundTest->addOption("Teleport Collect");
+	soundTest->addOption("Time");
+	soundTest->addOption("Suicide");
+
+	_menuSystem->render();
 
 	SoundPlayer::playTitleTheme();
 }
@@ -65,102 +88,89 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 TitleScreen::~TitleScreen() {
 	delete _scroller;
 	delete _blockSlideshowScreen;
-
-	for (s32 i = 0; i < _menu.size(); ++i) {
-		delete _menu[i];
-	}
+	delete _menuSystem;
 }
 
 void TitleScreen::iterate() {
-
 	_scroller->render(184, _topGfx);
 	_blockSlideshowScreen->iterate();
+	_menuSystem->iterate();
+}
 
-	const PadState& pad = Hardware::getPadState();
+void TitleScreen::handleMenuAction(Menu* source) {
+	switch (source->getId()) {
+		case MENU_MAIN:
 
-	switch (_state) {
-		case STATE_NORMAL:
-			iterateMenu();
+			// Start at beginning of game
+			_chosenLevel = _levelDefinitions->at(0);
+			SoundPlayer::stopTitleTheme();
+			SoundPlayer::playBubbleExplode();
 			break;
-		case STATE_NEXT_MENU:
 
-			// Wait for buttons to be released so we don't immediately choose an
-			// option on the next menu
-			if (!pad.a && !pad.start) {
-				_state = STATE_NORMAL;
-			}
+		case MENU_LEVEL_SELECT:
+			_chosenLevel = _levelDefinitions->at(source->getSelectedIndex());
+			SoundPlayer::stopTitleTheme();
+			SoundPlayer::playBubbleExplode();
 			break;
-		case STATE_PREVIOUS_MENU:
-			if (!pad.b) {
-				_state = STATE_NORMAL;
-			}
-			break;
+
+		case MENU_SOUND_TEST:
+			soundTest(source->getSelectedIndex());
 	}
 }
 
-void TitleScreen::iterateMenu() {
-
-	const PadState& pad = Hardware::getPadState();
-
-	++_timer;
-
-	if (_timer < MOVEMENT_TIME) return;
-
-	_timer = 0;
-
-	_menu[_activeMenuIndex]->iterate();
-
-	if (pad.a || pad.start) {
-		switch (_activeMenuIndex) {
-			case 0:
-
-				// Main menu
-				switch (_menu[0]->getSelectedIndex()) {
-					case 0:
-
-						// Start at beginning of game
-						_chosenLevel = _levelDefinitions->at(0);
-						SoundPlayer::stopTitleTheme();
-						SoundPlayer::playBubbleExplode();
-						break;
-
-					case 1:
-
-						// Switch to level select menu
-						_activeMenuIndex = 1;
-						_menu[1]->setSelectedIndex(0);
-						_menu[1]->render();
-
-						SoundPlayer::playDiamondCollect();
-						_state = STATE_NEXT_MENU;
-
-						break;
-				}
-
-				break;
-			case 1:
-
-				// Level select
-				_chosenLevel = _levelDefinitions->at(_menu[1]->getSelectedIndex());
-				SoundPlayer::stopTitleTheme();
-				SoundPlayer::playBubbleExplode();
-				break;
-		}
-	} else if (pad.b) {
-		switch (_activeMenuIndex) {
-			case 0:
-				break;
-			case 1:
-				// Switch to main menu
-				_activeMenuIndex = 0;
-				_menu[0]->setSelectedIndex(0);
-				_menu[0]->render();
-
-				SoundPlayer::playBlockLand();
-				_state = STATE_PREVIOUS_MENU;
-
-				break;
-		}
+void TitleScreen::soundTest(s32 sound) {
+	switch (sound) {
+		case 0:
+			SoundPlayer::playBarrierExplode();
+			break;
+		case 1:
+			SoundPlayer::playBarrierPush();
+			break;
+		case 2:
+			SoundPlayer::playBeanCollect();
+			break;
+		case 3:
+			SoundPlayer::playBlockFall();
+			break;
+		case 4:
+			SoundPlayer::playBlockLand();
+			break;
+		case 5:
+			SoundPlayer::playBoulderExplode();
+			break;
+		case 6:
+			SoundPlayer::playBubbleExplode();
+			break;
+		case 7:
+			SoundPlayer::playDiamondCollect();
+			break;
+		case 8:
+			SoundPlayer::playDoorOpen();
+			break;
+		case 9:
+			SoundPlayer::playGravityInversion();
+			break;
+		case 10:
+			SoundPlayer::playLevelComplete();
+			break;
+		case 11:
+			SoundPlayer::playPause();
+			break;
+		case 12:
+			SoundPlayer::playPlayerExplode();
+			break;
+		case 13:
+			SoundPlayer::playSoilDig();
+			break;
+		case 14:
+			SoundPlayer::playSuicide();
+			break;
+		case 15:
+			SoundPlayer::playTeleportCollect();
+			break;
+		case 16:
+			SoundPlayer::playTime();
+			break;
 	}
 }
 

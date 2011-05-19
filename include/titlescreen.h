@@ -10,6 +10,8 @@
 #include "leveldefinition.h"
 #include "logobmp.h"
 #include "menu.h"
+#include "menulistener.h"
+#include "menusystem.h"
 #include "screenbase.h"
 #include "scroller.h"
 #include "spectrumcolours.h"
@@ -17,7 +19,7 @@
 /**
  * The title screen.
  */
-class TitleScreen : public ScreenBase {
+class TitleScreen : public ScreenBase, public MenuListener {
 public:
 
 	/**
@@ -52,11 +54,21 @@ public:
 	 */
 	LevelDefinition* getChosenLevel() const;
 
+	/**
+	 * Handles any menu selections.
+	 * @param source The menu that raised the event.
+	 */
+	void handleMenuAction(Menu* source);
+
 private:
-	enum ScreenState {
-		STATE_NORMAL = 1,
-		STATE_NEXT_MENU = 2,
-		STATE_PREVIOUS_MENU = 3
+
+	/**
+	 * List of all menus in the menu system.
+	 */
+	enum MenuId {
+		MENU_MAIN = 1,									/**< The main menu. */
+		MENU_LEVEL_SELECT = 2,							/**< The level select menu. */
+		MENU_SOUND_TEST = 3								/**< The sound test menu. */
 	};
 
 	s32 _timer;											/**< Timer to control speed of user input. */
@@ -66,11 +78,12 @@ private:
 	WoopsiArray<LevelDefinition*>* _levelDefinitions;	/**< List of all level definitions. */
 	LevelDefinition* _chosenLevel;						/**< Level selected by the player. */
 	BlockSlideshowScreen* _blockSlideshowScreen;		/**< Block slideshow on bottom display. */
-	WoopsiArray<Menu*> _menu;							/**< Menu system on top display. */
-	s32 _activeMenuIndex;								/**< Currently active menu index. */
-	ScreenState _state;
+	MenuSystem* _menuSystem;							/**< The menu system on the top display. */
 
-	void iterateMenu();
+	/**
+	 * Plays the specified sound.
+	 */
+	void soundTest(s32 sound);
 };
 
 #endif

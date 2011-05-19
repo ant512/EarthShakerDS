@@ -2,68 +2,59 @@
 #include "menu.h"
 #include "soundplayer.h"
 
-Menu::Menu(WoopsiGfx::Graphics* gfx, const WoopsiGfx::WoopsiString& title) {
+Menu::Menu(const WoopsiGfx::WoopsiString& title, s32 id) {
 	_selectedIndex = 0;
 
-	_gfx = gfx;
 	_title = title;
+	_id = id;
+
+	_parent = NULL;
 }
 
 Menu::~Menu() {
+	for (s32 i = 0; i < _subMenus.size(); ++i) {
+		delete _subMenus[i];
+	}
 }
 
-void Menu::iterate() {
+void Menu::moveToNextOption() {
+	if (_selectedIndex < getTotalOptionCount() - 1) {
+		++_selectedIndex;
+	} else {
+		_selectedIndex = 0;
+	}
+}
 
-	const PadState& pad = Hardware::getPadState();
-	
-	if (pad.up) {
-		if (_selectedIndex > 0) {
-			--_selectedIndex;
+void Menu::moveToPreviousOption() {
+	if (_selectedIndex > 0) {
+		--_selectedIndex;
+	} else {
+		_selectedIndex = getTotalOptionCount() - 1;
+	}
+}
 
-			SoundPlayer::playBlockFall();
-			render();
-		} else {
-			_selectedIndex = _options.size() - 1;
+void Menu::moveToNextPage() {
+	if (_selectedIndex < getTotalOptionCount() - 4) {
+		_selectedIndex += 3;
+	} else {
+		_selectedIndex = getTotalOptionCount() - 1;
+	}
+}
 
-			SoundPlayer::playBlockFall();
-			render();
-		}
-	} else if (pad.down || pad.select) {
-		if (_selectedIndex < _options.size() - 1) {
-			++_selectedIndex;
-
-			SoundPlayer::playBlockFall();
-			render();
-		} else {
-			_selectedIndex = 0;
-
-			SoundPlayer::playBlockFall();
-			render();
-		}
-	} else if (pad.right) {
-		if (_selectedIndex < _options.size() - 4) {
-			_selectedIndex += 3;
-		} else {
-			_selectedIndex = _options.size() - 1;
-		}
-
-		SoundPlayer::playBlockFall();
-		render();
-
-	} else if (pad.left) {
-		if (_selectedIndex > 3) {
-			_selectedIndex -= 3;
-		} else {
-			_selectedIndex = 0;
-		}
-
-		SoundPlayer::playBlockFall();
-		render();
+void Menu::moveToPreviousPage() {
+	if (_selectedIndex > 3) {
+		_selectedIndex -= 3;
+	} else {
+		_selectedIndex = 0;
 	}
 }
 
 const WoopsiGfx::WoopsiString& Menu::getSelectedOption() const {
 	return _options[_selectedIndex];
+}
+
+s32 Menu::getTotalOptionCount() const {
+	return _options.size() + _subMenus.size();
 }
 
 void Menu::setSelectedIndex(s32 index) {
@@ -78,44 +69,49 @@ void Menu::addOption(const WoopsiGfx::WoopsiString& option) {
 	_options.push_back(option);
 }
 
+s32 Menu::getOptionCount() const {
+	return _options.size();
+}
+
+const WoopsiGfx::WoopsiString& Menu::getOption(s32 index) const {
+	return _options[index];
+}
+
+Menu* Menu::getSubMenu(s32 index) const {
+	return _subMenus[index];
+}
+
+bool Menu::isSubMenuSelected() const {
+	return _selectedIndex >= _options.size();
+}
+
+Menu* Menu::getSelectedSubMenu() const {
+	if (!isSubMenuSelected()) return NULL;
+
+	return _subMenus[_selectedIndex - _options.size()];
+}
+
 s32 Menu::getSelectedIndex() const {
 	return _selectedIndex;
 }
 
-void Menu::render() {
-	renderTitle();
-	renderOptions();
+void Menu::addSubMenu(Menu* subMenu) {
+	subMenu->setParent(this);
+	_subMenus.push_back(subMenu);
 }
 
-void Menu::renderTitle() {
-	_gfx->drawFilledRect(0, MENU_Y, SCREEN_WIDTH, _font.getHeight() * 7, COLOUR_BLACK);
-	_gfx->drawText((SCREEN_WIDTH - _font.getStringWidth(_title)) / 2, MENU_Y, &_font, _title, 0, _title.getLength(), COLOUR_WHITE);
+Menu* Menu::getParent() const {
+	return _parent;
 }
 
-void Menu::renderOptions() {
+void Menu::setParent(Menu* menu) {
+	_parent = menu;
+}
 
-	WoopsiGfx::WoopsiString str;
-	s32 y = MENU_Y + MENU_TITLE_LIST_GAP;
-	SpectrumColour colour = COLOUR_WHITE;
+s32 Menu::getId() const {
+	return _id;
+}
 
-	s32 firstOption = _selectedIndex - 3;
-	s32 lastOption = _selectedIndex + 3;
-
-	// Wipe area under options and redraw visible option subset
-	_gfx->drawFilledRect(0, y, SCREEN_WIDTH, _font.getHeight() * 7, COLOUR_BLACK);
-
-	for (s32 i = firstOption; i <= lastOption; ++i) {
-		if ((i >= 0) && (i < _options.size())) {
-			if (i == _selectedIndex) {
-				colour = COLOUR_YELLOW;
-			} else {
-				colour = COLOUR_CYAN;
-			}
-
-			str = _options.at(i);
-			_gfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, y, &_font, str, 0, str.getLength(), colour);
-		}
-
-		y += _font.getHeight();
-	}
+const WoopsiGfx::WoopsiString& Menu::getTitle() const {
+	return _title;
 }
