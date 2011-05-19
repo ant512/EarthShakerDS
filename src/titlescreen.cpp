@@ -76,9 +76,9 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	soundTest->addOption("Pause");
 	soundTest->addOption("Player Explode");
 	soundTest->addOption("Soil Dig");
+	soundTest->addOption("Suicide");
 	soundTest->addOption("Teleport Collect");
 	soundTest->addOption("Time");
-	soundTest->addOption("Suicide");
 
 	_menuSystem->render();
 
