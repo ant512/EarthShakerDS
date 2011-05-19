@@ -20,6 +20,7 @@ public:
 	/**
 	 * Constructor.
 	 * @param title Title of the menu.
+	 * @param id Unique ID for the menu.
 	 */
 	Menu(const WoopsiGfx::WoopsiString& title, s32 id);
 

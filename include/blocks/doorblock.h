@@ -22,6 +22,7 @@ public:
 	 * @param x The x co-ordinate within the level map of the block.
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
+	 * @param bitmap The bitmap to use.
 	 */
 	DoorBlock(s32 x, s32 y, Game* game, WoopsiGfx::BitmapBase* bitmap) : BlockBase(x, y, game) {
 		_animation->addFrame(bitmap, 0);

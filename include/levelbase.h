@@ -116,7 +116,7 @@ public:
 	 * @param blockX The x co-ordinate of the first block to render.
 	 * @param blockY The y co-ordinate of the first block to render.
 	 * @param numBlocksX The horizontal number of  blocks to render.
-	 * @param numBlockY The vertical number of blocks to render.
+	 * @param numBlocksY The vertical number of blocks to render.
 	 * @param gfx The graphics object to draw to.
 	 */
 	void render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, WoopsiGfx::Graphics* gfx);

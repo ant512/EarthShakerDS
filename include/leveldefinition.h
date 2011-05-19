@@ -66,6 +66,10 @@ public:
 	 */
 	const WoopsiGfx::WoopsiString& getName() const { return _name; };
 
+	/**
+	 * Swaps the colours of bitmaps in BitmapServer to match the colour scheme
+	 * of this level.
+	 */
 	inline virtual void recolourBitmaps() { };
 
 protected:

@@ -18,7 +18,11 @@ public:
 
 	/**
 	 * Constructor.
+	 * @param listener Listener that reacts to selections within the menu
+	 * system.
 	 * @param gfx Pointer to the graphics object.
+	 * @param title Title of the root menu.
+	 * @param rootMenuId ID of the root menu.
 	 */
 	MenuSystem(MenuListener* listener, WoopsiGfx::Graphics* gfx, WoopsiGfx::WoopsiString title, s32 rootMenuId);
 
