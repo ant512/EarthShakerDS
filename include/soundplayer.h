@@ -231,11 +231,11 @@ public:
 		mmUnloadEffect(SFX_PLAYEREXPLODE);
 		mmUnloadEffect(SFX_MAPTHEME);
 		mmUnloadEffect(SFX_SOILDIG);
+		mmUnloadEffect(SFX_SUICIDE);
 		mmUnloadEffect(SFX_TELEPORTCOLLECT);
 		mmUnloadEffect(SFX_TIME);
 		mmUnloadEffect(SFX_TITLETHEME);
 		mmUnloadEffect(SFX_GAMEOVERTHEME);
-		mmUnloadEffect(SFX_SUICIDE);
 	};
 
 private:

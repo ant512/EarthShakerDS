@@ -71,6 +71,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	soundTest->addOption("Bubble Explode");
 	soundTest->addOption("Diamond Collect");
 	soundTest->addOption("Door Open");
+	soundTest->addOption("Extra Life Collect");
 	soundTest->addOption("Gravity Inversion");
 	soundTest->addOption("Level Complete");
 	soundTest->addOption("Pause");
@@ -148,27 +149,30 @@ void TitleScreen::soundTest(s32 sound) {
 			SoundPlayer::playDoorOpen();
 			break;
 		case 9:
-			SoundPlayer::playGravityInversion();
+			SoundPlayer::playExtraLifeCollect();
 			break;
 		case 10:
-			SoundPlayer::playLevelComplete();
+			SoundPlayer::playGravityInversion();
 			break;
 		case 11:
-			SoundPlayer::playPause();
+			SoundPlayer::playLevelComplete();
 			break;
 		case 12:
-			SoundPlayer::playPlayerExplode();
+			SoundPlayer::playPause();
 			break;
 		case 13:
-			SoundPlayer::playSoilDig();
+			SoundPlayer::playPlayerExplode();
 			break;
 		case 14:
-			SoundPlayer::playSuicide();
+			SoundPlayer::playSoilDig();
 			break;
 		case 15:
-			SoundPlayer::playTeleportCollect();
+			SoundPlayer::playSuicide();
 			break;
 		case 16:
+			SoundPlayer::playTeleportCollect();
+			break;
+		case 17:
 			SoundPlayer::playTime();
 			break;
 	}
