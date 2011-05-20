@@ -550,22 +550,49 @@ void Game::move(const PadState& pad) {
 
 		bool moved = false;
 
-		if (pad.up) {
-			moved = getPlayerBlock()->pushUp();
-		} else if (pad.down) {
-			moved = getPlayerBlock()->pushDown();
-		}
+		if (Hardware::isMostRecentDirectionVertical()) {
 
-		// Deviate from the original game slightly here and allow horizontal
-		// movement even if a vertical button is also pressed, but only if the
-		// player hasn't already moved.  This should reduce the frustration of
-		// need super-speedy fingers to let go of one direction and then press
-		// the next within a couple of VBLs.
-		if (!moved) {
+			// Attempt to move vertically before horizontally, as the most
+			// recent button pushed was a vertical direction
+			if (pad.up) {
+				moved = getPlayerBlock()->pushUp();
+			} else if (pad.down) {
+				moved = getPlayerBlock()->pushDown();
+			}
+
+			// Allow horizontal movement even if a vertical button is also
+			// pressed, but only if the player hasn't already moved.  This
+			// should reduce the frustration of needing super-speedy fingers to
+			// let go of one direction and then press the next within a couple
+			// of VBLs.
+			if (!moved) {
+				if (pad.left) {
+					getPlayerBlock()->pushLeft();
+				} else if (pad.right) {
+					getPlayerBlock()->pushRight();
+				}
+			}
+		} else {
+
+			// Attempt to move horizontally before vertically, as the most
+			// recent button pushed was a horizontal direction
 			if (pad.left) {
-				getPlayerBlock()->pushLeft();
+				moved = getPlayerBlock()->pushLeft();
 			} else if (pad.right) {
-				getPlayerBlock()->pushRight();
+				moved = getPlayerBlock()->pushRight();
+			}
+
+			// Allow horizontal movement even if a vertical button is also
+			// pressed, but only if the player hasn't already moved.  This
+			// should reduce the frustration of needing super-speedy fingers to
+			// let go of one direction and then press the next within a couple
+			// of VBLs.
+			if (!moved) {
+				if (pad.up) {
+					getPlayerBlock()->pushUp();
+				} else if (pad.down) {
+					getPlayerBlock()->pushDown();
+				}
 			}
 		}
 
