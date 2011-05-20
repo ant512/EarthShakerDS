@@ -170,10 +170,9 @@ private:
 		GAME_STATE_GAME_PAUSING = 15,				/**< Game is entering pause mode. */
 		GAME_STATE_GAME_PAUSED = 16,				/**< Game is paused. */
 		GAME_STATE_GAME_UNPAUSING = 17,				/**< Game is exiting pause mode. */
-		GAME_STATE_ENTERING_MAP = 18,
-		GAME_STATE_MAP_READY = 19,
-		GAME_STATE_MAP = 20,
-		GAME_STATE_LEAVING_MAP = 21
+		GAME_STATE_MAP_ENTERING = 18,
+		GAME_STATE_MAP = 19,
+		GAME_STATE_LEAVING_MAP = 20
 	};
 
 	Level* _level;							/**< The currently-active level.*/
@@ -284,9 +283,21 @@ private:
 	void decreaseLives();
 
 	/**
-	 * Draws the name of the level to the bottom display.
+	 * Resets all members associated with level state (diamonds collected, time
+	 * remaining, etc) to their default state.  Called before starting or
+	 * restarting a level.
 	 */
-	void drawLevelName();
+	void resetLevelVariables();
+
+	/**
+	 * Pauses the game.
+	 */
+	void pause();
+
+	/**
+	 * Shows the map screen.
+	 */
+	void showMap();
 };
 
 #endif

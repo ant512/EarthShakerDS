@@ -211,6 +211,48 @@ void Game::render() {
 	_level->render(x, y, displayWidth, displayHeight, _topGfx);
 }
 
+void Game::showMap() {
+	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 16, COLOUR_BLACK);
+	
+	// Top border
+	_topGfx->drawLine(5, 4, 250, 4, COLOUR_MAGENTA);
+	_topGfx->drawLine(4, 5, 251, 5, COLOUR_MAGENTA);
+
+	// Left border
+	_topGfx->drawLine(4, 5, 4, 170, COLOUR_MAGENTA);
+	_topGfx->drawLine(5, 5, 5, 170, COLOUR_MAGENTA);
+
+	// Right border
+	_topGfx->drawLine(250, 5, 250, 170, COLOUR_MAGENTA);
+	_topGfx->drawLine(251, 5, 251, 170, COLOUR_MAGENTA);
+
+	// Bottom border
+	_topGfx->drawLine(5, 171, 250, 171, COLOUR_MAGENTA);
+	_topGfx->drawLine(4, 170, 250, 170, COLOUR_MAGENTA);
+
+	_level->renderMap(_topGfx);
+
+	// Abuse movement timer to work as map timer
+	_movementTimer = 0;
+
+	// Map is only visible once per level per life
+	_isMapAvailable = false;
+
+	SoundPlayer::playMapTheme();
+
+	_state = GAME_STATE_MAP_ENTERING;
+}
+
+void Game::pause() {
+	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 16, COLOUR_BLACK);
+	_topGfx->drawText(104, 84, &_font, "Paused", 0, 6, COLOUR_YELLOW);
+	_topGfx->drawText(48, 100, &_font, "Press X to exit game", 0, 20, COLOUR_YELLOW);
+
+	SoundPlayer::playPause();
+
+	_state = GAME_STATE_GAME_PAUSING;
+}
+
 void Game::iterate() {
 
 	const PadState& pad = Hardware::getPadState();
@@ -259,12 +301,9 @@ void Game::iterate() {
 			move(pad);
 
 			if (pad.start) {
-				_state = GAME_STATE_GAME_PAUSING;
+				pause();
 			} else if (pad.x && _isMapAvailable) {
-				_state = GAME_STATE_ENTERING_MAP;
-
-				// Map is only visible once per level per life
-				_isMapAvailable = false;
+				showMap();
 			}
 
 			break;
@@ -397,13 +436,9 @@ void Game::iterate() {
 			break;
 
 		case GAME_STATE_GAME_PAUSING:
-			_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 16, COLOUR_BLACK);
-			_topGfx->drawText(104, 84, &_font, "Paused", 0, 6, COLOUR_YELLOW);
-			_topGfx->drawText(48, 100, &_font, "Press X to exit game", 0, 20, COLOUR_YELLOW);
 
 			if (!pad.start) {
 				_state = GAME_STATE_GAME_PAUSED;
-				SoundPlayer::playPause();
 			}
 
 			break;
@@ -430,37 +465,7 @@ void Game::iterate() {
 
 			break;
 
-		case GAME_STATE_ENTERING_MAP:
-			_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 16, COLOUR_BLACK);
-			
-			// Top border
-			_topGfx->drawLine(5, 4, 250, 4, COLOUR_MAGENTA);
-			_topGfx->drawLine(4, 5, 251, 5, COLOUR_MAGENTA);
-
-			// Left border
-			_topGfx->drawLine(4, 5, 4, 170, COLOUR_MAGENTA);
-			_topGfx->drawLine(5, 5, 5, 170, COLOUR_MAGENTA);
-
-			// Right border
-			_topGfx->drawLine(250, 5, 250, 170, COLOUR_MAGENTA);
-			_topGfx->drawLine(251, 5, 251, 170, COLOUR_MAGENTA);
-
-			// Bottom border
-			_topGfx->drawLine(5, 171, 250, 171, COLOUR_MAGENTA);
-			_topGfx->drawLine(4, 170, 250, 170, COLOUR_MAGENTA);
-
-			_level->renderMap(_topGfx);
-
-			SoundPlayer::playMapTheme();
-
-			_state = GAME_STATE_MAP_READY;
-
-			// Abuse movement timer to work as map timer
-			_movementTimer = 0;
-
-			break;
-
-		case GAME_STATE_MAP_READY:
+		case GAME_STATE_MAP_ENTERING:
 
 			++_movementTimer;
 
@@ -694,19 +699,6 @@ void Game::drawTimerBarBackground() {
 	_topGfx->drawFilledRect(barWidth * 7, barY, SCREEN_WIDTH, barHeight, COLOUR_WHITE);
 }
 
-void Game::drawLevelName() {
-	s32 nameWidth = _font.getStringWidth(_level->getName());
-	s32 nameHeight = _font.getHeight();
-	s32 nameX = (SCREEN_WIDTH - nameWidth) / 2;
-	s32 nameY = (SCREEN_HEIGHT - nameHeight) / 2;
-
-	// Erase region under name
-	_bottomGfx->drawFilledRect(0, nameY, SCREEN_WIDTH, nameHeight, COLOUR_BLACK);
-
-	// Draw name
-	_bottomGfx->drawText(nameX, nameY, &_font, _level->getName(), 0, _level->getName().getLength(), COLOUR_WHITE);
-}
-
 void Game::drawHUD() {
 
 	// Wipe everything
@@ -714,7 +706,6 @@ void Game::drawHUD() {
 	_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 
 	drawTimerBarBackground();
-	drawLevelName();
 
 	// Logo
 	_bottomGfx->drawBitmap(0, 0, 256, 64, &_logoBmp, 0, 0);
@@ -725,6 +716,10 @@ void Game::drawHUD() {
 
 	str.setText("DS (c) 2011 Antony Dzeryn");
 	_bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 168, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+	// Level name
+	str.setText(_level->getName());
+	_bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)), (SCREEN_HEIGHT - _font.getHeight()) / 2, &_font,str, 0, str.getLength(), COLOUR_WHITE);
 
 	// Erase region for counters
 	s32 counterHeight = _font.getHeight();
@@ -777,6 +772,13 @@ void Game::drawHUD() {
 
 	str.setText(":");
 	_topGfx->drawText(200, counterY, &_font, str, 0, str.getLength(), COLOUR_RED);
+
+	// Draw everything else
+	drawDiamondCounters();
+	drawScore();
+	drawLifeCounter();
+	drawGravityCounter();
+	drawGravityIndicator();
 }
 
 void Game::drawTimerBar() {
@@ -803,7 +805,7 @@ void Game::invertGravity() {
 	drawGravityIndicator();
 }
 
-void Game::resetLevel() {
+void Game::resetLevelVariables() {
 	_state = GAME_STATE_GAMEPLAY;
 	_collectedDiamonds = 0;
 	_remainingTime = STARTING_TIME;
@@ -813,6 +815,10 @@ void Game::resetLevel() {
 	_animationTimer = 0;
 	_movementTimer = 0;
 	_levelTimer = 0;
+}
+
+void Game::resetLevel() {
+	resetLevelVariables();
 
 	s32 levelNumber = 0;
 
@@ -824,24 +830,10 @@ void Game::resetLevel() {
 	_level = LevelFactory::createLevel(_levelDefinitions[levelNumber - 1], this);
 
 	drawHUD();
-	drawDiamondCounters();
-	drawScore();
-	drawLifeCounter();
-	drawGravityCounter();
-	drawGravityIndicator();
 }
 
-
 void Game::startLevel(LevelDefinition* levelDefinition) {
-	_state = GAME_STATE_GAMEPLAY;
-	_collectedDiamonds = 0;
-	_remainingTime = STARTING_TIME;
-	_remainingGravityTime = 0;
-	_isMapAvailable = true;
-
-	_animationTimer = 0;
-	_movementTimer = 0;
-	_levelTimer = 0;
+	resetLevelVariables();
 
 	if (_level != NULL) {
 		delete _level;
@@ -851,11 +843,6 @@ void Game::startLevel(LevelDefinition* levelDefinition) {
 	levelDefinition->recolourBitmaps();
 
 	drawHUD();
-	drawDiamondCounters();
-	drawScore();
-	drawLifeCounter();
-	drawGravityCounter();
-	drawGravityIndicator();
 }
 
 void Game::endLevel() {
