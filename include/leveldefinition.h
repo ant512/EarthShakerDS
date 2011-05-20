@@ -20,6 +20,7 @@ public:
 	 * @param height The height of the level, in blocks.
 	 * @param number The number of the level.
 	 * @param name The name of the level.
+	 * @param data The level layout.
 	 */
 	LevelDefinition(s32 width, s32 height, s32 number, WoopsiGfx::WoopsiString name, const u8* data) {
 		_width = width;
