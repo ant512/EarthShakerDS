@@ -31,7 +31,8 @@ Press X to bring up a map screen and press X again to switch back to the game.
 Note that you can only bring up the map screen once per life per level, so only
 look at it when you need to.
 
-Press Start to pause the game.  Press it again to unpause.
+Press Start to pause the game.  Press it again to unpause.  While paused,
+pressing X exits the game and returns to the title screen.
 
 
 Gameplay
