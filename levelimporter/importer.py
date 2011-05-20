@@ -53,10 +53,26 @@ def saveLevel(level, width, height, number, name):
 		f.write("\t/**\n")
 		f.write("\t * Constructor.\n")
 		f.write("\t */\n")
-		f.write("\tLevel{0}() : LevelDefinition(30, 20, {0}, \"{1}\") ".format(number, name))
-		f.write("{\n")
+		f.write("\tLevel{0}();\n".format(number))
+		f.write("\n")
 
-		f.write("\t\tu8 layout[600] = {\n")
+		f.write("\t/**\n")
+		f.write("\t * Swap bitmaps to use palette of this level.\n")
+		f.write("\t */")
+		f.write("\tvoid recolourBitmaps();\n")
+
+		f.write("};\n")
+		f.write("\n")
+		f.write("#endif\n")
+		f.write("\n")
+
+	with open(os.path.join(os.getcwd(), "level{0}.cpp".format(number)), "w") as f:
+
+		f.write("#include \"level{0}.h\"\n".format(number))
+		f.write("#include \"bitmapserver.h\"\n")
+
+		f.write("const static u8 level{0}Data[600] = ".format(number))
+		f.write("{\n")
 
 		for y in range(0, height):
 			f.write("\t\t\t")
@@ -73,12 +89,15 @@ def saveLevel(level, width, height, number, name):
 
 		f.write("\n")
 
-		f.write("\t\tsetLayout(layout);\n")
-		f.write("\t};\n")
-		f.write("};\n")
-		f.write("\n")
+		f.write("\tLevel{0}::Level{0}() : LevelDefinition(30, 20, {0}, \"{1}\", level{0}Data) ".format(number, name))
+		f.write("{\n")
+		f.write("}\n")
 
-		f.write("#endif\n")
+		f.write("\n")
+		f.write("void Level{0}::recolourBitmaps() ".format(number))
+		f.write("{\n")
+		f.write("\n")
+		f.write("}\n")
 		f.write("\n")
 
 def compareGridSquareWithBlock(level, block, gridX, gridY):
