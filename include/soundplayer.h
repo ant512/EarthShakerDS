@@ -28,17 +28,17 @@ public:
 		mmLoadEffect(SFX_DIAMONDCOLLECT);
 		mmLoadEffect(SFX_DOOROPEN);
 		mmLoadEffect(SFX_EXTRALIFECOLLECT);
+		mmLoadEffect(SFX_GAMEOVERTHEME);
 		mmLoadEffect(SFX_GRAVITYINVERSION);
 		mmLoadEffect(SFX_LEVELCOMPLETE);
 		mmLoadEffect(SFX_PAUSE);
 		mmLoadEffect(SFX_PLAYEREXPLODE);
 		mmLoadEffect(SFX_MAPTHEME);
 		mmLoadEffect(SFX_SOILDIG);
+		mmLoadEffect(SFX_SUICIDE);
 		mmLoadEffect(SFX_TELEPORTCOLLECT);
 		mmLoadEffect(SFX_TIME);
 		mmLoadEffect(SFX_TITLETHEME);
-		mmLoadEffect(SFX_GAMEOVERTHEME);
-		mmLoadEffect(SFX_SUICIDE);
 	};
 
 	/**
@@ -225,6 +225,7 @@ public:
 		mmUnloadEffect(SFX_DIAMONDCOLLECT);
 		mmUnloadEffect(SFX_DOOROPEN);
 		mmUnloadEffect(SFX_EXTRALIFECOLLECT);
+		mmUnloadEffect(SFX_GAMEOVERTHEME);
 		mmUnloadEffect(SFX_GRAVITYINVERSION);
 		mmUnloadEffect(SFX_LEVELCOMPLETE);
 		mmUnloadEffect(SFX_PAUSE);
@@ -235,7 +236,6 @@ public:
 		mmUnloadEffect(SFX_TELEPORTCOLLECT);
 		mmUnloadEffect(SFX_TIME);
 		mmUnloadEffect(SFX_TITLETHEME);
-		mmUnloadEffect(SFX_GAMEOVERTHEME);
 	};
 
 private:
