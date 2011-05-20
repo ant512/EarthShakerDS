@@ -11,12 +11,26 @@ Menu System
 -----------
 
 When the game starts, a menu system appears on the top screen.  You can choose
-to start from the beginning of the game ("Start") or select a level from the
-level select menu ("Level Select").  Navigate to the desired option using the up
-and down buttons or the Select button.  You can page through the options more
-quickly by using the left and right buttons.  When the correct option is
-highlighted, press A or Start to select it.  The B button returns to the
-previous menu if a submenu is selected.
+to start from the beginning of the game ("Start"), select a level from the
+level select menu ("Level Select"), or play with the game's sound effects
+("Sound Test").  Navigate to the desired option using the up and down buttons or
+the Select button.  You can page through the options more quickly by using the
+left and right buttons.  When the correct option is highlighted, press A or
+Start to select it.  The B button returns to the previous menu if a submenu is
+currently active.
+
+
+Gameplay
+--------
+
+Collect all of the diamonds in each level.  When all of the diamonds are
+collected, a notification sound will play and the door - located somewhere in
+the level - will start flashing.  Enter the door to end the level.  You can be
+killed by:
+
+ - Blocks landing on your head;
+ - Walking into fire;
+ - Running out of time.
 
 
 Controls
@@ -33,19 +47,6 @@ look at it when you need to.
 
 Press Start to pause the game.  Press it again to unpause.  While paused,
 pressing X exits the game and returns to the title screen.
-
-
-Gameplay
---------
-
-Collect all of the diamonds in each level.  When all of the diamonds are
-collected, a notification sound will play and the door - located somewhere in
-the level - will start flashing.  Enter the door to end the level.  You can be
-killed by:
-
- - Blocks landing on your head;
- - Walking into fire;
- - Running out of time.
 
 
 Blocks
