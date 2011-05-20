@@ -13,6 +13,9 @@
 class Hardware {
 public:
 
+	/**
+	 * Number of key presses stored in the pad history queue.
+	 */
 	static const s32 PAD_HISTORY_SIZE = 10;
 
 	/**
@@ -55,6 +58,11 @@ public:
 	 */
 	static void waitForVBlank();
 
+	/**
+	 * Check if the most recently-pressed direction was vertical or horizontal.
+	 * @return True if the most recently-pressed direction was vertical; false
+	 * if it was horizontal.
+	 */
 	static bool isMostRecentDirectionVertical();
 
 private:
@@ -63,11 +71,11 @@ private:
 	static WoopsiGfx::FrameBuffer* _bottomBuffer;	/**< Bottom frame buffer. */
 	static WoopsiGfx::Graphics* _topGfx;			/**< Top display graphics object. */
 	static WoopsiGfx::Graphics* _bottomGfx;			/**< Bottom display graphics object. */
-	static s32 _padHistory[PAD_HISTORY_SIZE];
-	static s32 _upPriority;
-	static s32 _downPriority;
-	static s32 _leftPriority;
-	static s32 _rightPriority;
+	static s32 _padHistory[PAD_HISTORY_SIZE];		/**< Queue of recent button presses. */
+	static s32 _upPriority;							/**< How recently up was pressed relative to other directions. */
+	static s32 _downPriority;						/**< How recently down was pressed relative to other directions. */
+	static s32 _leftPriority;						/**< How recently left was pressed relative to other directions. */
+	static s32 _rightPriority;						/**< How recently right was pressed relative to other directions. */
 
 	/**
 	 * Constructor.
@@ -88,11 +96,15 @@ private:
 	 * Calculates the priority of all held directions by working out which were
 	 * pressed most recently.  This allows us to favour the most recently-
 	 * pressed direction when reacting to the pad.  Priorities are 8 (highest),
-	 * 4, 2 and 1, so that they can be added together to obtain the priority of
-	 * the vertical vs. the horizontal direction.
+	 * 4, 2 and 1 (lowest), so that they can be added together to obtain the
+	 * priority of the vertical vs. the horizontal direction.
 	 */
 	static void calculateDirectionPriorities();
 
+	/**
+	 * Adds the specified key to the front of the pad history queue.
+	 * @param key The key to enqueue.
+	 */
 	static void queuePadHistory(s32 key);
 };
 

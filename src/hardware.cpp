@@ -117,6 +117,9 @@ void Hardware::calculateDirectionPriorities() {
 			_rightPriority = currentPriority;
 			currentPriority >>= 1;
 		}
+
+		// Stop iterating if we've already assigned all priorities
+		if (currentPriority == 0) break;
 	}
 }
 
