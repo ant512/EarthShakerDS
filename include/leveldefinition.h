@@ -21,10 +21,10 @@ public:
 	 * @param number The number of the level.
 	 * @param name The name of the level.
 	 */
-	LevelDefinition(s32 width, s32 height, s32 number, WoopsiGfx::WoopsiString name) {
+	LevelDefinition(s32 width, s32 height, s32 number, WoopsiGfx::WoopsiString name, const u8* data) {
 		_width = width;
 		_height = height;
-		_layout = new u8[width * height];
+		_layout = data;
 		_number = number;
 		_name = name;
 	};
@@ -32,9 +32,7 @@ public:
 	/**
 	 * Destructor.
 	 */
-	~LevelDefinition() {
-		if (_layout != NULL) delete[] _layout;
-	};
+	inline ~LevelDefinition() { };
 
 	/**
 	 * Gets the width of the level.
@@ -58,13 +56,13 @@ public:
 	 * Gets the layout of the level.
 	 * @return The layout of the level.
 	 */
-	inline u8* getLayout() const { return _layout; }
+	inline const u8* getLayout() const { return _layout; };
 
 	/**
 	 * Gets the name of the level.
 	 * @return The name of the level.
 	 */
-	const WoopsiGfx::WoopsiString& getName() const { return _name; };
+	inline const WoopsiGfx::WoopsiString& getName() const { return _name; };
 
 	/**
 	 * Swaps the colours of bitmaps in BitmapServer to match the colour scheme
@@ -73,21 +71,11 @@ public:
 	inline virtual void recolourBitmaps() { };
 
 protected:
-	u8* _layout;								/**< Level map stored as a 1 dimensional array of bytes. */
+	const u8* _layout;							/**< Level map stored as a 1 dimensional array of bytes. */
 	s32 _width;									/**< Width of the level in blocks. */
 	s32 _height;								/**< Height of the level in blocks. */
 	WoopsiGfx::WoopsiString _name;				/**< Name of the level. */
 	s32 _number;								/**< Number of the level. */
-
-	/**
-	 * Copies the layout from the supplied data into the internal store.
-	 * @param layout The layout to copy.
-	 */
-	void setLayout(u8* layout) {
-		for (s32 i = 0; i < _width * _height; ++i) {
-			_layout[i] = layout[i];
-		}
-	};
 };
 
 #endif
