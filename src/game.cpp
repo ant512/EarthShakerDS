@@ -238,6 +238,7 @@ void Game::showMap() {
 	// Map is only visible once per level per life
 	_isMapAvailable = false;
 
+	SoundPlayer::stopAll();
 	SoundPlayer::playMapTheme();
 
 	_state = GAME_STATE_MAP_ENTERING;
@@ -248,6 +249,7 @@ void Game::pause() {
 	_topGfx->drawText(104, 84, &_font, "Paused", 0, 6, COLOUR_YELLOW);
 	_topGfx->drawText(48, 100, &_font, "Press X to exit game", 0, 20, COLOUR_YELLOW);
 
+	SoundPlayer::stopAll();
 	SoundPlayer::playPause();
 
 	_state = GAME_STATE_GAME_PAUSING;
@@ -263,6 +265,7 @@ void Game::iterate() {
 			return;
 
 		case GAME_STATE_STARTUP:
+			SoundPlayer::stopAll();
 			_titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
 			_state = GAME_STATE_TITLE_SCREEN;
 
@@ -820,6 +823,8 @@ void Game::resetLevelVariables() {
 void Game::resetLevel() {
 	resetLevelVariables();
 
+	SoundPlayer::stopAll();
+
 	s32 levelNumber = 0;
 
 	if (_level != NULL) {
@@ -835,6 +840,8 @@ void Game::resetLevel() {
 void Game::startLevel(LevelDefinition* levelDefinition) {
 	resetLevelVariables();
 
+	SoundPlayer::stopAll();
+
 	if (_level != NULL) {
 		delete _level;
 	}
@@ -847,5 +854,6 @@ void Game::startLevel(LevelDefinition* levelDefinition) {
 
 void Game::endLevel() {
 	_state = GAME_STATE_LEVEL_COMPLETE;
+	SoundPlayer::stopAll();
 	SoundPlayer::playLevelComplete();
 }

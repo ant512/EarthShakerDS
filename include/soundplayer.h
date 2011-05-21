@@ -212,6 +212,16 @@ public:
 	};
 
 	/**
+	 * Stops all (long running) sounds.
+	 */
+	static void stopAll() {
+		mmEffectCancel(_titleHandle);
+		mmEffectCancel(_gravityHandle);
+		mmEffectCancel(_gameOverHandle);
+		mmEffectCancel(_mapHandle);
+	};
+
+	/**
 	 * Shuts down all game sounds.
 	 */
 	static void shutdown() {
