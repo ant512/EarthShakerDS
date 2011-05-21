@@ -121,11 +121,13 @@ void MenuSystem::iterateMenu() {
 			render();
 
 			SoundPlayer::playDiamondCollect();
-			_state = STATE_NEXT_MENU;
 		} else {
 			// Raise event
 			_listener->handleMenuAction(_activeMenu);
 		}
+
+		_state = STATE_NEXT_MENU;
+
 	} else if (pad.b) {
 		if (_activeMenu->getParent() != NULL) {
 
