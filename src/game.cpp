@@ -719,7 +719,7 @@ void Game::drawHUD() {
 
 	// Level name
 	str.setText(_level->getName());
-	_bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)), (SCREEN_HEIGHT - _font.getHeight()) / 2, &_font,str, 0, str.getLength(), COLOUR_WHITE);
+	_bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, (SCREEN_HEIGHT - _font.getHeight()) / 2, &_font,str, 0, str.getLength(), COLOUR_WHITE);
 
 	// Erase region for counters
 	s32 counterHeight = _font.getHeight();
