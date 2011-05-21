@@ -241,7 +241,33 @@ void Game::showMap() {
 	SoundPlayer::stopAll();
 	SoundPlayer::playMapTheme();
 
-	_state = GAME_STATE_MAP_ENTERING;
+	const PadState& pad = Hardware::getPadState();
+
+	bool xHeld = pad.x;
+
+	// Show the map until the timer expires or X is pressed
+	while (_movementTimer < MAP_TIME) {
+		++_movementTimer;
+		Hardware::waitForVBlank();
+
+		if (!pad.x && xHeld) {
+
+			// X has been released; we can now listen for X as a way of exiting
+			// the map early
+			xHeld = false;
+
+		} else if (pad.x && !xHeld) {
+
+			// X has been pressed again; we can exit the map early
+			break;
+		}
+	}
+
+	_movementTimer = 0;
+
+	SoundPlayer::stopMapTheme();
+
+	render();
 }
 
 void Game::runTitleScreen() {
@@ -441,62 +467,6 @@ void Game::iterate() {
 
 		case GAME_STATE_GAME_COMPLETE:
 			runGameComplete();
-			break;
-
-		case GAME_STATE_MAP_ENTERING:
-
-			++_movementTimer;
-
-			if (_movementTimer == MAP_TIME) {
-
-				// Prevent map from staying on screen if player holds down X
-				_state = GAME_STATE_GAMEPLAY;
-				_movementTimer = 0;
-
-				SoundPlayer::stopMapTheme();
-
-				render();
-			} else if (!pad.x) {
-
-				// X released, so switch to map mode
-				_state = GAME_STATE_MAP;
-			}
-
-			break;
-
-		case GAME_STATE_MAP:
-
-			++_movementTimer;
-			
-			if (_movementTimer == MAP_TIME) {
-
-				// Close map if timer has expired
-				_state = GAME_STATE_GAMEPLAY;
-				_movementTimer = 0;
-
-				SoundPlayer::stopMapTheme();
-
-				render();
-			} else if (pad.x) {
-				_state = GAME_STATE_LEAVING_MAP;
-			}
-
-			break;
-		
-		case GAME_STATE_LEAVING_MAP:
-
-			++_movementTimer;
-
-			if ((_movementTimer == MAP_TIME) || !pad.x) {
-
-				_state = GAME_STATE_GAMEPLAY;
-				_movementTimer = 0;
-
-				SoundPlayer::stopMapTheme();
-
-				render();
-			}
-
 			break;
 	}
 }

@@ -161,9 +161,6 @@ private:
 		GAME_STATE_TITLE_SCREEN = 6,				/**< Title screen shown. */
 		GAME_STATE_LEVEL_TRANSITION = 7,			/**< Level is transitioning out ready for next level. */
 		GAME_STATE_GAME_COMPLETE = 8,				/**< Player has completed all levels. */
-		GAME_STATE_MAP_ENTERING = 9,
-		GAME_STATE_MAP = 10,
-		GAME_STATE_LEAVING_MAP = 11
 	};
 
 	Level* _level;							/**< The currently-active level.*/
