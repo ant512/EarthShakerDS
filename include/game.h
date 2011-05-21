@@ -153,12 +153,11 @@ private:
 		GAME_STATE_PLAYER_SUICIDE = 4,				/**< Player has committed suicide. */
 		GAME_STATE_GAME_OVER = 5,					/**< Player has lost all lives. */
 		GAME_STATE_TITLE_SCREEN = 6,				/**< Title screen shown. */
-		GAME_STATE_LEVEL_TRANSITION = 7,			/**< Level is transitioning out ready for next level. */
-		GAME_STATE_GAME_COMPLETE = 8,				/**< Player has completed all levels. */
+		GAME_STATE_GAME_COMPLETE = 7,				/**< Player has completed all levels. */
 	};
 
-	WoopsiGfx::Graphics* _topGfx;		/**< Pointer to the graphics object for the top display. */
-	WoopsiGfx::Graphics* _bottomGfx;	/**< Pointer to the graphics object for the bottom display. */
+	WoopsiGfx::Graphics* _topGfx;			/**< Pointer to the graphics object for the top display. */
+	WoopsiGfx::Graphics* _bottomGfx;		/**< Pointer to the graphics object for the bottom display. */
 
 	Level* _level;							/**< The currently-active level.*/
 	s32 _remainingGravityTime;				/**< The amount of time left until gravity returns to normal. */
@@ -289,6 +288,8 @@ private:
 	void runGameOver();
 	void runTransition();
 	void runGameComplete();
+	void runLevelComplete();
+	void runGame();
 };
 
 #endif

@@ -382,12 +382,44 @@ void Game::pause() {
 	}
 }
 
+void Game::runLevelComplete() {
+
+	while (_remainingTime > 0) {
+		_remainingTime -= _remainingTime >= 4 ? 4 : _remainingTime;
+		addScore(_remainingTime >= 4 ? 4 : _remainingTime);		// One point per second
+
+		drawTimerBar();
+
+		Hardware::waitForVBlank();
+	}
+
+	runTransition();
+
+	if (_level->getNumber() < _levelDefinitions.size() - 1) {
+		startLevel(_levelDefinitions[_level->getNumber()]);
+	} else {
+		_state = GAME_STATE_GAME_COMPLETE;
+	}
+}
+
+void Game::runGame() {
+
+	const PadState& pad = Hardware::getPadState();
+
+	animate();
+	timer();
+	move(pad);
+
+	if (pad.start) {
+		pause();
+	} else if (pad.x && _isMapAvailable) {
+		showMap();
+	}
+}
+
 void Game::main() {
 
 	while (isRunning()) {
-
-		const PadState& pad = Hardware::getPadState();
-
 		switch (_state) {
 
 			case GAME_STATE_NOT_RUNNING:
@@ -398,16 +430,7 @@ void Game::main() {
 				break;
 
 			case GAME_STATE_GAMEPLAY:
-				animate();
-				timer();
-				move(pad);
-
-				if (pad.start) {
-					pause();
-				} else if (pad.x && _isMapAvailable) {
-					showMap();
-				}
-
+				runGame();
 				break;
 
 			case GAME_STATE_PLAYER_DEAD:
@@ -438,33 +461,7 @@ void Game::main() {
 				break;
 
 			case GAME_STATE_LEVEL_COMPLETE:
-
-				// Handle the situation in which the player has finished the level
-				_remainingTime -= _remainingTime >= 4 ? 4 : _remainingTime;
-				addScore(_remainingTime >= 4 ? 4 : _remainingTime);		// One point per second
-
-				drawTimerBar();
-
-				if (_remainingTime < 1) {
-					_transition->reset();
-					_state = GAME_STATE_LEVEL_TRANSITION;
-				}
-
-				break;
-
-			case GAME_STATE_LEVEL_TRANSITION:
-				
-				_transition->iterate();
-
-				if (!_transition->isRunning()) {
-
-					if (_level->getNumber() < _levelDefinitions.size() - 1) {
-						startLevel(_levelDefinitions[_level->getNumber()]);
-					} else {
-						_state = GAME_STATE_GAME_COMPLETE;
-					}
-				}
-
+				runLevelComplete();
 				break;
 
 			case GAME_STATE_GAME_OVER:
