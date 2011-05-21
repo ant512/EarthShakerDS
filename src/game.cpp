@@ -244,17 +244,6 @@ void Game::showMap() {
 	_state = GAME_STATE_MAP_ENTERING;
 }
 
-void Game::pause() {
-	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 16, COLOUR_BLACK);
-	_topGfx->drawText(104, 84, &_font, "Paused", 0, 6, COLOUR_YELLOW);
-	_topGfx->drawText(48, 100, &_font, "Press X to exit game", 0, 20, COLOUR_YELLOW);
-
-	SoundPlayer::stopAll();
-	SoundPlayer::playPause();
-
-	_state = GAME_STATE_GAME_PAUSING;
-}
-
 void Game::runTitleScreen() {
 	SoundPlayer::stopAll();
 	_titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
@@ -327,6 +316,40 @@ void Game::runGameComplete() {
 	_gameCompleteScreen = NULL;
 
 	_state = GAME_STATE_TITLE_SCREEN;
+}
+
+void Game::pause() {
+
+	const PadState& pad = Hardware::getPadState();
+
+	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 16, COLOUR_BLACK);
+	_topGfx->drawText(104, 84, &_font, "Paused", 0, 6, COLOUR_YELLOW);
+	_topGfx->drawText(48, 100, &_font, "Press X to exit game", 0, 20, COLOUR_YELLOW);
+
+	SoundPlayer::stopAll();
+	SoundPlayer::playPause();
+
+	while (pad.start) {
+		Hardware::waitForVBlank();
+	}
+
+	while (!pad.start && !pad.x) {
+		Hardware::waitForVBlank();
+	}
+
+	if (pad.start) {
+
+		while (pad.start) {
+			Hardware::waitForVBlank();
+		}
+
+		render();
+	} else if (pad.x) {
+		_state = GAME_STATE_TITLE_SCREEN;
+
+		delete _level;
+		_level = NULL;
+	}
 }
 
 void Game::iterate() {
@@ -418,36 +441,6 @@ void Game::iterate() {
 
 		case GAME_STATE_GAME_COMPLETE:
 			runGameComplete();
-			break;
-
-		case GAME_STATE_GAME_PAUSING:
-
-			if (!pad.start) {
-				_state = GAME_STATE_GAME_PAUSED;
-			}
-
-			break;
-
-		case GAME_STATE_GAME_PAUSED:
-			
-			if (pad.start) {
-				_state = GAME_STATE_GAME_UNPAUSING;
-			} else if (pad.x) {
-				_state = GAME_STATE_TITLE_SCREEN;
-
-				delete _level;
-				_level = NULL;
-			}
-
-			break;
-		
-		case GAME_STATE_GAME_UNPAUSING:
-
-			if (!pad.start) {
-				_state = GAME_STATE_GAMEPLAY;
-				render();
-			}
-
 			break;
 
 		case GAME_STATE_MAP_ENTERING:
