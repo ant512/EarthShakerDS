@@ -45,7 +45,7 @@ Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : Screen
 	_gameOverScreen = NULL;
 	_gameCompleteScreen = NULL;
 	_titleScreen = NULL;
-	_state = GAME_STATE_STARTUP;
+	_state = GAME_STATE_TITLE_SCREEN;
 	_transition = new GateTransition(topGfx, bottomGfx);
 
 	_levelDefinitions.push_back(new Level1());
@@ -255,6 +255,80 @@ void Game::pause() {
 	_state = GAME_STATE_GAME_PAUSING;
 }
 
+void Game::runTitleScreen() {
+	SoundPlayer::stopAll();
+	_titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
+
+	while (_titleScreen->isRunning()) {
+		_titleScreen->iterate();
+		Hardware::waitForVBlank();
+	}
+
+	runTransition();
+
+	LevelDefinition* chosenLevel = _titleScreen->getChosenLevel();
+
+	delete _titleScreen;
+	_titleScreen = NULL;
+
+	_score = 0;
+	_lives = STARTING_LIVES;
+
+	startLevel(chosenLevel);
+}
+
+void Game::runTransition() {
+
+	_transition->reset();
+
+	while (_transition->isRunning()) {
+		_transition->iterate();
+		Hardware::waitForVBlank();
+	}
+}
+
+void Game::runGameOver() {
+
+	runTransition();
+
+	// Game has ended; set up a new game over screen and kill the level
+	_gameOverScreen = new GameOverScreen(_topGfx, _bottomGfx, _score, _level->getNumber());
+
+	delete _level;
+	_level = NULL;
+
+	while (_gameOverScreen->isRunning()) {
+		_gameOverScreen->iterate();
+		Hardware::waitForVBlank();
+	}
+
+	delete _gameOverScreen;
+	_gameOverScreen = NULL;
+
+	_state = GAME_STATE_TITLE_SCREEN;
+}
+
+void Game::runGameComplete() {
+	
+	runTransition();
+
+	// Game is complete; set up a new game complete screen and kill the level
+	_gameCompleteScreen = new GameCompleteScreen(_topGfx, _bottomGfx, _score);
+
+	delete _level;
+	_level = NULL;
+
+	while (_gameCompleteScreen->isRunning()) {
+		_gameCompleteScreen->iterate();
+		Hardware::waitForVBlank();
+	}
+
+	delete _gameCompleteScreen;
+	_gameCompleteScreen = NULL;
+
+	_state = GAME_STATE_TITLE_SCREEN;
+}
+
 void Game::iterate() {
 
 	const PadState& pad = Hardware::getPadState();
@@ -264,38 +338,8 @@ void Game::iterate() {
 		case GAME_STATE_NOT_RUNNING:
 			return;
 
-		case GAME_STATE_STARTUP:
-			SoundPlayer::stopAll();
-			_titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
-			_state = GAME_STATE_TITLE_SCREEN;
-
 		case GAME_STATE_TITLE_SCREEN:
-
-			_titleScreen->iterate();
-
-			if (!_titleScreen->isRunning()) {
-				_transition->reset();
-				_state = GAME_STATE_TITLE_SCREEN_TRANSITION;
-			}
-
-			break;
-
-		case GAME_STATE_TITLE_SCREEN_TRANSITION:
-
-			_transition->iterate();
-
-			if (!_transition->isRunning()) {
-				LevelDefinition* chosenLevel = _titleScreen->getChosenLevel();
-
-				delete _titleScreen;
-				_titleScreen = NULL;
-
-				_score = 0;
-				_lives = STARTING_LIVES;
-
-				startLevel(chosenLevel);
-			}
-
+			runTitleScreen();
 			break;
 
 		case GAME_STATE_GAMEPLAY:
@@ -369,73 +413,11 @@ void Game::iterate() {
 			break;
 
 		case GAME_STATE_GAME_OVER:
-
-			_transition->reset();
-			_state = GAME_STATE_GAME_OVER_TRANSITION;
-
-		case GAME_STATE_GAME_OVER_TRANSITION:
-
-			_transition->iterate();
-
-			if (!_transition->isRunning()) {
-
-				// Game has ended; set up a new game over screen and kill the level
-				_gameOverScreen = new GameOverScreen(_topGfx, _bottomGfx, _score, _level->getNumber());
-				_state = GAME_STATE_GAME_OVER_SCREEN;
-
-				delete _level;
-				_level = NULL;
-			}
-
-			break;
-		
-		case GAME_STATE_GAME_OVER_SCREEN:
-
-			// Run the game over screen
-			_gameOverScreen->iterate();
-
-			if (!_gameOverScreen->isRunning()) {
-				delete _gameOverScreen;
-				_gameOverScreen = NULL;
-
-				_state = GAME_STATE_STARTUP;
-			}
-
+			runGameOver();
 			break;
 
 		case GAME_STATE_GAME_COMPLETE:
-
-			_transition->reset();
-			_state = GAME_STATE_GAME_COMPLETE_TRANSITION;
-
-		case GAME_STATE_GAME_COMPLETE_TRANSITION:
-
-			_transition->iterate();
-
-			if (!_transition->isRunning()) {
-
-				// Game is complete; set up a new game complete screen and kill the level
-				_gameCompleteScreen = new GameCompleteScreen(_topGfx, _bottomGfx, _score);
-				_state = GAME_STATE_GAME_COMPLETE_SCREEN;
-
-				delete _level;
-				_level = NULL;
-			}
-
-			break;
-
-		case GAME_STATE_GAME_COMPLETE_SCREEN:
-
-			// Run the game complete screen
-			_gameCompleteScreen->iterate();
-
-			if (!_gameCompleteScreen->isRunning()) {
-				delete _gameCompleteScreen;
-				_gameCompleteScreen = NULL;
-
-				_state = GAME_STATE_STARTUP;
-			}
-
+			runGameComplete();
 			break;
 
 		case GAME_STATE_GAME_PAUSING:
@@ -451,7 +433,7 @@ void Game::iterate() {
 			if (pad.start) {
 				_state = GAME_STATE_GAME_UNPAUSING;
 			} else if (pad.x) {
-				_state = GAME_STATE_STARTUP;
+				_state = GAME_STATE_TITLE_SCREEN;
 
 				delete _level;
 				_level = NULL;

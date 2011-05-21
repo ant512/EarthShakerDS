@@ -158,21 +158,15 @@ private:
 		GAME_STATE_PLAYER_DEAD = 3,					/**< Player has died. */
 		GAME_STATE_PLAYER_SUICIDE = 4,				/**< Player has committed suicide. */
 		GAME_STATE_GAME_OVER = 5,					/**< Player has lost all lives. */
-		GAME_STATE_GAME_OVER_TRANSITION = 6,		/**< Game is transitioning to game over screen. */
-		GAME_STATE_GAME_OVER_SCREEN = 7,			/**< Game over screen is displayed. */
-		GAME_STATE_TITLE_SCREEN = 8,				/**< Title screen shown. */
-		GAME_STATE_STARTUP = 9,						/**< Game is initialising. */
-		GAME_STATE_LEVEL_TRANSITION = 10,			/**< Level is transitioning out ready for next level. */
-		GAME_STATE_TITLE_SCREEN_TRANSITION = 11,	/**< Title screen is transitioning out. */
-		GAME_STATE_GAME_COMPLETE = 12,				/**< Player has completed all levels. */
-		GAME_STATE_GAME_COMPLETE_TRANSITION = 13,	/**< Game is transitioning to game complete screen. */
-		GAME_STATE_GAME_COMPLETE_SCREEN = 14,		/**< Game complete screen is displayed. */
-		GAME_STATE_GAME_PAUSING = 15,				/**< Game is entering pause mode. */
-		GAME_STATE_GAME_PAUSED = 16,				/**< Game is paused. */
-		GAME_STATE_GAME_UNPAUSING = 17,				/**< Game is exiting pause mode. */
-		GAME_STATE_MAP_ENTERING = 18,
-		GAME_STATE_MAP = 19,
-		GAME_STATE_LEAVING_MAP = 20
+		GAME_STATE_TITLE_SCREEN = 6,				/**< Title screen shown. */
+		GAME_STATE_LEVEL_TRANSITION = 7,			/**< Level is transitioning out ready for next level. */
+		GAME_STATE_GAME_COMPLETE = 8,				/**< Player has completed all levels. */
+		GAME_STATE_GAME_PAUSING = 9,				/**< Game is entering pause mode. */
+		GAME_STATE_GAME_PAUSED = 10,				/**< Game is paused. */
+		GAME_STATE_GAME_UNPAUSING = 11,				/**< Game is exiting pause mode. */
+		GAME_STATE_MAP_ENTERING = 12,
+		GAME_STATE_MAP = 13,
+		GAME_STATE_LEAVING_MAP = 14
 	};
 
 	Level* _level;							/**< The currently-active level.*/
@@ -298,6 +292,12 @@ private:
 	 * Shows the map screen.
 	 */
 	void showMap();
+
+
+	void runTitleScreen();
+	void runGameOver();
+	void runTransition();
+	void runGameComplete();
 };
 
 #endif
