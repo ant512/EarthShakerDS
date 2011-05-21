@@ -39,14 +39,18 @@
 #include "level31.h"
 #include "level32.h"
 
-Game::Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : ScreenBase(topGfx, bottomGfx) {
+Game::Game() {
 	_isOddIteration = true;
 	_level = NULL;
 	_gameOverScreen = NULL;
 	_gameCompleteScreen = NULL;
 	_titleScreen = NULL;
 	_state = GAME_STATE_TITLE_SCREEN;
-	_transition = new GateTransition(topGfx, bottomGfx);
+
+	_topGfx = Hardware::getTopGfx();
+	_bottomGfx = Hardware::getBottomGfx();
+
+	_transition = new GateTransition(_topGfx, _bottomGfx);
 
 	_levelDefinitions.push_back(new Level1());
 	_levelDefinitions.push_back(new Level2());
@@ -378,96 +382,101 @@ void Game::pause() {
 	}
 }
 
-void Game::iterate() {
+void Game::main() {
 
-	const PadState& pad = Hardware::getPadState();
+	while (isRunning()) {
 
-	switch (_state) {
+		const PadState& pad = Hardware::getPadState();
 
-		case GAME_STATE_NOT_RUNNING:
-			return;
+		switch (_state) {
 
-		case GAME_STATE_TITLE_SCREEN:
-			runTitleScreen();
-			break;
+			case GAME_STATE_NOT_RUNNING:
+				return;
 
-		case GAME_STATE_GAMEPLAY:
-			animate();
-			timer();
-			move(pad);
+			case GAME_STATE_TITLE_SCREEN:
+				runTitleScreen();
+				break;
 
-			if (pad.start) {
-				pause();
-			} else if (pad.x && _isMapAvailable) {
-				showMap();
-			}
+			case GAME_STATE_GAMEPLAY:
+				animate();
+				timer();
+				move(pad);
 
-			break;
-
-		case GAME_STATE_PLAYER_DEAD:
-
-			// Handle the situation in which the player has been killed
-			decreaseLives();
-
-			if (_lives > 0) {
-				resetLevel();
-			} else {
-				_state = GAME_STATE_GAME_OVER;
-			}
-
-			break;
-
-		case GAME_STATE_PLAYER_SUICIDE:
-
-			// Handle the situation in which the player has committed suicide
-
-			_remainingTime -= 4;
-
-			drawTimerBar();
-
-			if (_remainingTime < 1) {
-				killPlayer();
-			}
-
-			break;
-
-		case GAME_STATE_LEVEL_COMPLETE:
-
-			// Handle the situation in which the player has finished the level
-			_remainingTime -= _remainingTime >= 4 ? 4 : _remainingTime;
-			addScore(_remainingTime >= 4 ? 4 : _remainingTime);		// One point per second
-
-			drawTimerBar();
-
-			if (_remainingTime < 1) {
-				_transition->reset();
-				_state = GAME_STATE_LEVEL_TRANSITION;
-			}
-
-			break;
-
-		case GAME_STATE_LEVEL_TRANSITION:
-			
-			_transition->iterate();
-
-			if (!_transition->isRunning()) {
-
-				if (_level->getNumber() < _levelDefinitions.size() - 1) {
-					startLevel(_levelDefinitions[_level->getNumber()]);
-				} else {
-					_state = GAME_STATE_GAME_COMPLETE;
+				if (pad.start) {
+					pause();
+				} else if (pad.x && _isMapAvailable) {
+					showMap();
 				}
-			}
 
-			break;
+				break;
 
-		case GAME_STATE_GAME_OVER:
-			runGameOver();
-			break;
+			case GAME_STATE_PLAYER_DEAD:
 
-		case GAME_STATE_GAME_COMPLETE:
-			runGameComplete();
-			break;
+				// Handle the situation in which the player has been killed
+				decreaseLives();
+
+				if (_lives > 0) {
+					resetLevel();
+				} else {
+					_state = GAME_STATE_GAME_OVER;
+				}
+
+				break;
+
+			case GAME_STATE_PLAYER_SUICIDE:
+
+				// Handle the situation in which the player has committed suicide
+
+				_remainingTime -= 4;
+
+				drawTimerBar();
+
+				if (_remainingTime < 1) {
+					killPlayer();
+				}
+
+				break;
+
+			case GAME_STATE_LEVEL_COMPLETE:
+
+				// Handle the situation in which the player has finished the level
+				_remainingTime -= _remainingTime >= 4 ? 4 : _remainingTime;
+				addScore(_remainingTime >= 4 ? 4 : _remainingTime);		// One point per second
+
+				drawTimerBar();
+
+				if (_remainingTime < 1) {
+					_transition->reset();
+					_state = GAME_STATE_LEVEL_TRANSITION;
+				}
+
+				break;
+
+			case GAME_STATE_LEVEL_TRANSITION:
+				
+				_transition->iterate();
+
+				if (!_transition->isRunning()) {
+
+					if (_level->getNumber() < _levelDefinitions.size() - 1) {
+						startLevel(_levelDefinitions[_level->getNumber()]);
+					} else {
+						_state = GAME_STATE_GAME_COMPLETE;
+					}
+				}
+
+				break;
+
+			case GAME_STATE_GAME_OVER:
+				runGameOver();
+				break;
+
+			case GAME_STATE_GAME_COMPLETE:
+				runGameComplete();
+				break;
+		}
+
+		Hardware::waitForVBlank();
 	}
 }
 

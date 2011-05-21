@@ -15,22 +15,19 @@
 #include "logobmp.h"
 #include "padstate.h"
 #include "playerblock.h"
-#include "screenbase.h"
 #include "scroller.h"
 #include "titlescreen.h"
 
 /**
  * Game class ultimately controls everything in the game.
  */
-class Game : public ScreenBase {
+class Game {
 public:
 
 	/**
 	 * Constructor.
-	 * @param topGfx Pointer to the graphics object for the top display.
-	 * @param bottomGfx Pointer to the graphics object for the bottom display.
 	 */
-	Game(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx);
+	Game();
 
 	/**
 	 * Destructor.
@@ -100,12 +97,9 @@ public:
 	void addScore(s32 score);
 
 	/**
-	 * Updates the game state.  This will redraw the level and move any objects
-	 * around.  Redrawing and moving work on a timer system, so calling this
-	 * method will not necessarily produce an observable effect if the timers
-	 * have not reached the required values.
+	 * Main game entry point.  Runs all game logic.
 	 */
-	void iterate();
+	void main();
 
 	/**
 	 * Increase the number of diamonds collected in the level by one.
@@ -162,6 +156,9 @@ private:
 		GAME_STATE_LEVEL_TRANSITION = 7,			/**< Level is transitioning out ready for next level. */
 		GAME_STATE_GAME_COMPLETE = 8,				/**< Player has completed all levels. */
 	};
+
+	WoopsiGfx::Graphics* _topGfx;		/**< Pointer to the graphics object for the top display. */
+	WoopsiGfx::Graphics* _bottomGfx;	/**< Pointer to the graphics object for the bottom display. */
 
 	Level* _level;							/**< The currently-active level.*/
 	s32 _remainingGravityTime;				/**< The amount of time left until gravity returns to normal. */

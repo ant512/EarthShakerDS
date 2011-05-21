@@ -14,12 +14,8 @@ int main(int argc, char* argv[]) {
 	BitmapServer::init();
 	Hardware::init();
 
-	Game* game = new Game(Hardware::getTopGfx(), Hardware::getBottomGfx());
-
-	while(game->isRunning()) {
-		game->iterate();
-		Hardware::waitForVBlank();
-	}
+	Game* game = new Game();
+	game->main();
 
 	delete game;
 
