@@ -42,9 +42,6 @@
 Game::Game() {
 	_isOddIteration = true;
 	_level = NULL;
-	_gameOverScreen = NULL;
-	_gameCompleteScreen = NULL;
-	_titleScreen = NULL;
 	_state = GAME_STATE_TITLE_SCREEN;
 
 	_topGfx = Hardware::getTopGfx();
@@ -272,19 +269,18 @@ void Game::showMap() {
 
 void Game::runTitleScreen() {
 	SoundPlayer::stopAll();
-	_titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
+	TitleScreen* titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
 
-	while (_titleScreen->isRunning()) {
-		_titleScreen->iterate();
+	while (titleScreen->isRunning()) {
+		titleScreen->iterate();
 		Hardware::waitForVBlank();
 	}
 
 	runTransition();
 
-	LevelDefinition* chosenLevel = _titleScreen->getChosenLevel();
+	LevelDefinition* chosenLevel = titleScreen->getChosenLevel();
 
-	delete _titleScreen;
-	_titleScreen = NULL;
+	delete titleScreen;
 
 	_score = 0;
 	_lives = STARTING_LIVES;
@@ -307,18 +303,17 @@ void Game::runGameOver() {
 	runTransition();
 
 	// Game has ended; set up a new game over screen and kill the level
-	_gameOverScreen = new GameOverScreen(_topGfx, _bottomGfx, _score, _level->getNumber());
+	GameOverScreen* gameOverScreen = new GameOverScreen(_topGfx, _bottomGfx, _score, _level->getNumber());
 
 	delete _level;
 	_level = NULL;
 
-	while (_gameOverScreen->isRunning()) {
-		_gameOverScreen->iterate();
+	while (gameOverScreen->isRunning()) {
+		gameOverScreen->iterate();
 		Hardware::waitForVBlank();
 	}
 
-	delete _gameOverScreen;
-	_gameOverScreen = NULL;
+	delete gameOverScreen;
 
 	_state = GAME_STATE_TITLE_SCREEN;
 }
@@ -328,18 +323,17 @@ void Game::runGameComplete() {
 	runTransition();
 
 	// Game is complete; set up a new game complete screen and kill the level
-	_gameCompleteScreen = new GameCompleteScreen(_topGfx, _bottomGfx, _score);
+	GameCompleteScreen* gameCompleteScreen = new GameCompleteScreen(_topGfx, _bottomGfx, _score);
 
 	delete _level;
 	_level = NULL;
 
-	while (_gameCompleteScreen->isRunning()) {
-		_gameCompleteScreen->iterate();
+	while (gameCompleteScreen->isRunning()) {
+		gameCompleteScreen->iterate();
 		Hardware::waitForVBlank();
 	}
 
-	delete _gameCompleteScreen;
-	_gameCompleteScreen = NULL;
+	delete gameCompleteScreen;
 
 	_state = GAME_STATE_TITLE_SCREEN;
 }

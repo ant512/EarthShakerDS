@@ -174,10 +174,6 @@ private:
 	GameState _state;						/**< Current state of the game. */
 
 	WoopsiArray<LevelDefinition*> _levelDefinitions;	/**< List of all level definitions. */
-
-	GameOverScreen* _gameOverScreen;			/**< The screen displayed when the game ends. */
-	GameCompleteScreen* _gameCompleteScreen;	/**< The screen displayed when the game is complete. */
-	TitleScreen* _titleScreen;					/**< The screen displayed when the game starts. */
 	bool _isMapAvailable;
 
 	/**
@@ -282,12 +278,34 @@ private:
 	 */
 	void showMap();
 
-
+	/**
+	 * Runs the title screen.
+	 */
 	void runTitleScreen();
+
+	/**
+	 * Runs the game over screen.
+	 */
 	void runGameOver();
+
+	/**
+	 * Runs the transition between different sections of the game.
+	 */
 	void runTransition();
+
+	/**
+	 * Runs the game complete screen.
+	 */
 	void runGameComplete();
+
+	/**
+	 * Runs the level complete screen.
+	 */
 	void runLevelComplete();
+
+	/**
+	 * Runs the game itself.
+	 */
 	void runGame();
 };
 
