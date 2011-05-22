@@ -50,8 +50,6 @@ Game::Game() {
 	_topGfx = Hardware::getTopGfx();
 	_bottomGfx = Hardware::getBottomGfx();
 
-	_transition = new GateTransition(_topGfx, _bottomGfx);
-
 	_levelDefinitions.push_back(new Level1());
 	_levelDefinitions.push_back(new Level2());
 	_levelDefinitions.push_back(new Level3());
@@ -87,8 +85,6 @@ Game::Game() {
 }
 
 Game::~Game() {
-	delete _transition;
-
 	for (s32 i = 0; i < _levelDefinitions.size(); ++i) {
 		delete _levelDefinitions[i];
 	}
@@ -298,10 +294,10 @@ void Game::runTitleScreen() {
 
 void Game::runTransition() {
 
-	_transition->reset();
+	GateTransition transition(_topGfx, _bottomGfx);
 
-	while (_transition->isRunning()) {
-		_transition->iterate();
+	while (transition.isRunning()) {
+		transition.iterate();
 		Hardware::waitForVBlank();
 	}
 }

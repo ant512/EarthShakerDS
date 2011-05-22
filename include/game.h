@@ -172,7 +172,6 @@ private:
 	bool _isOddIteration;					/**< Indicates whether the game is in an odd or an even iteration. */
 	LogoBmp _logoBmp;						/**< The game's logo. */
 	GameState _state;						/**< Current state of the game. */
-	GateTransition* _transition;			/**< Transition that plays between game screens. */
 
 	WoopsiArray<LevelDefinition*> _levelDefinitions;	/**< List of all level definitions. */
 
