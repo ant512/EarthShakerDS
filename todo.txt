@@ -2,7 +2,6 @@ Todo
 ----
 
  - Teleport effect
- - Timer increase animation when bean is collected
  - Level editor
  - Needs to be a way to stop gravity sound (all sounds!) when player dies/etc.
    Maybe SoundPlayer::stopAll()?

@@ -91,10 +91,20 @@ private:
 	 * bean from the level.
 	 */
 	void collect() {
-		_game->addScore(BEAN_SCORE);
-		_game->increaseTime(BEAN_TIME);
+		s32 remainingTime = BEAN_TIME;
+		s32 timeIncreasePerIteration = 2;
+		s32 scoreIncrease = (BEAN_SCORE / BEAN_TIME) * timeIncreasePerIteration;
+
 		_game->getLevel()->removeBlockAt(_x, _y);
+
 		SoundPlayer::playBeanCollect();
+
+		while (remainingTime > 0) {
+			_game->increaseTime(timeIncreasePerIteration);
+			_game->addScore(scoreIncrease);
+			remainingTime -= timeIncreasePerIteration;
+			Hardware::waitForVBlank();
+		}
 	};
 };
 
