@@ -3,5 +3,3 @@ Todo
 
  - Teleport effect
  - Level editor
- - Needs to be a way to stop gravity sound (all sounds!) when player dies/etc.
-   Maybe SoundPlayer::stopAll()?
