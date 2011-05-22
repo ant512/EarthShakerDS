@@ -24,6 +24,8 @@
 class TeleportBlock : public BlockBase {
 public:
 
+	static const s32 TELEPORT_TIME = 50;
+
 	/**
 	 * Constructor.
 	 * @param x The x co-ordinate within the level map of the block.
@@ -140,12 +142,26 @@ private:
 		BlockBase* player = _game->getPlayerBlock();
 		Level* level = _game->getLevel();
 
-		level->moveBlock(player->getX(), player->getY(), destination->getX(), destination->getY());
+		SoundPlayer::playTeleportCollect();
+
+		s32 timer = 0;
+		while (timer < TELEPORT_TIME) {
+			Hardware::waitForVBlank();
+			timer++;
+		}
 
 		// Remove this block from the level
 		_game->getLevel()->removeBlockAt(_x, _y);
 
-		SoundPlayer::playTeleportCollect();
+		level->moveBlock(player->getX(), player->getY(), destination->getX(), destination->getY());
+
+		_game->render();
+
+		timer = 0;
+		while (timer < TELEPORT_TIME) {
+			timer++;
+			Hardware::waitForVBlank();
+		}
 
 		return false;
 	}

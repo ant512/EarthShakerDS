@@ -140,6 +140,11 @@ public:
 	 */
 	void endLevel();
 
+	/**
+	 * Redraws the game.
+	 */
+	void render();
+
 private:
 
 	/**
@@ -232,11 +237,6 @@ private:
 	 * _levelTimer value.
 	 */
 	void timer();
-
-	/**
-	 * Redraws the game.
-	 */
-	void render();
 
 	/**
 	 * Draws the background HUD graphics.  This method should be called just
