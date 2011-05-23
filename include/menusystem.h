@@ -56,8 +56,7 @@ private:
 	 */
 	enum MenuState {
 		STATE_NORMAL = 1,								/**< Normal operation. */
-		STATE_NEXT_MENU = 2,							/**< Switching to the next menu. */
-		STATE_PREVIOUS_MENU = 3							/**< Switching to the previous menu. */
+		STATE_SWITCHING_MENU = 2						/**< Switching to the next menu. */
 	};
 
 	static const s32 MENU_Y = 72;						/**< Y co-ordinate of menu. */

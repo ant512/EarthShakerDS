@@ -84,17 +84,11 @@ void MenuSystem::iterate() {
 			iterateMenu();
 			break;
 
-		case STATE_NEXT_MENU:
+		case STATE_SWITCHING_MENU:
 
 			// Wait for buttons to be released so we don't immediately choose an
 			// option on the next menu
-			if (!pad.a && !pad.start) {
-				_state = STATE_NORMAL;
-			}
-			break;
-
-		case STATE_PREVIOUS_MENU:
-			if (!pad.b) {
+			if (!pad.a && !pad.start && !pad.b) {
 				_state = STATE_NORMAL;
 			}
 			break;
@@ -126,7 +120,7 @@ void MenuSystem::iterateMenu() {
 			_listener->handleMenuAction(_activeMenu);
 		}
 
-		_state = STATE_NEXT_MENU;
+		_state = STATE_SWITCHING_MENU;
 
 	} else if (pad.b) {
 		if (_activeMenu->getParent() != NULL) {
@@ -138,7 +132,7 @@ void MenuSystem::iterateMenu() {
 			render();
 
 			SoundPlayer::playBlockLand();
-			_state = STATE_PREVIOUS_MENU;
+			_state = STATE_SWITCHING_MENU;
 		}
 	} else if (pad.up) {
 		_activeMenu->moveToPreviousOption();
