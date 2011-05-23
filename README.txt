@@ -36,7 +36,8 @@ killed by:
 Controls
 --------
 
-The d-pad moves around the level.
+The d-pad moves around the level.  Hold the A button when pressing a direction
+to push the adjacent block in that direction without moving the player sprite.
 
 If you make a mistake and get stuck, you can press L and R simultaneously to
 commit suicide and restart the level.
