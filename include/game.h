@@ -193,6 +193,11 @@ private:
 	void move();
 
 	/**
+	 * Moves the player based on the current pad state.
+	 */
+	void movePlayer();
+
+	/**
 	 * Decreases remaining time.  Uses a timer system, so calling the method
 	 * will not necessarily produce an effect other than adjusting the
 	 * _levelTimer value.

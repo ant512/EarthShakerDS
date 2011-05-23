@@ -78,11 +78,6 @@ public:
 		explode();
 	};
 
-	/**
-	 * Moves the player based on the current pad state.
-	 */
-	void onIterate();
-
 private:
 	PlayerBmp1 _bmp1;				/**< First animation bitmap. */
 	PlayerBmp2 _bmp2;				/**< Second animation bitmap. */

@@ -437,6 +437,8 @@ void Game::move() {
 	if (_movementTimer == MOVEMENT_TIME) {
 		_movementTimer = 0;
 
+		movePlayer();
+
 		_level->iterate(_remainingGravityTime > 0);
 		_isOddIteration = !_isOddIteration;
 
@@ -456,6 +458,59 @@ void Game::move() {
 				resetLevel();
 			} else {
 				_state = GAME_STATE_GAME_OVER;
+			}
+		}
+	}
+}
+
+void Game::movePlayer() {
+	bool moved = false;
+
+	const PadState& pad = Hardware::getPadState();
+	PlayerBlock* player = _level->getPlayerBlock();
+
+	if (Hardware::isMostRecentDirectionVertical()) {
+
+		// Attempt to move vertically before horizontally, as the most
+		// recent button pushed was a vertical direction
+		if (pad.up) {
+			moved = player->pushUp();
+		} else if (pad.down) {
+			moved = player->pushDown();
+		}
+
+		// Allow horizontal movement even if a vertical button is also
+		// pressed, but only if the player hasn't already moved.  This
+		// should reduce the frustration of needing super-speedy fingers to
+		// let go of one direction and then press the next within a couple
+		// of VBLs.
+		if (!moved) {
+			if (pad.left) {
+				player->pushLeft();
+			} else if (pad.right) {
+				player->pushRight();
+			}
+		}
+	} else {
+
+		// Attempt to move horizontally before vertically, as the most
+		// recent button pushed was a horizontal direction
+		if (pad.left) {
+			moved = player->pushLeft();
+		} else if (pad.right) {
+			moved = player->pushRight();
+		}
+
+		// Allow horizontal movement even if a vertical button is also
+		// pressed, but only if the player hasn't already moved.  This
+		// should reduce the frustration of needing super-speedy fingers to
+		// let go of one direction and then press the next within a couple
+		// of VBLs.
+		if (!moved) {
+			if (pad.up) {
+				player->pushUp();
+			} else if (pad.down) {
+				player->pushDown();
 			}
 		}
 	}
