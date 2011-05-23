@@ -439,7 +439,7 @@ void Game::move() {
 
 		movePlayer();
 
-		_level->iterate(_remainingGravityTime > 0);
+		_level->iterate(isGravityInverted());
 		_isOddIteration = !_isOddIteration;
 
 		if (_remainingGravityTime > 0) {
@@ -593,7 +593,7 @@ void Game::resetLevel() {
 
 	_hud->drawBackground(_level->getDiamondCount(),
 						 _collectedDiamonds,
-						 _remainingTime,
+						 _remainingGravityTime,
 						 isGravityInverted(),
 						 _lives,
 						 _score,
@@ -615,7 +615,7 @@ void Game::startLevel(LevelDefinition* levelDefinition) {
 
 	_hud->drawBackground(_level->getDiamondCount(),
 						 _collectedDiamonds,
-						 _remainingTime,
+						 _remainingGravityTime,
 						 isGravityInverted(),
 						 _lives,
 						 _score,
