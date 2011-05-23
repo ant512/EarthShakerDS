@@ -48,8 +48,10 @@ bool PlayerBlock::pushLeft() {
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x - 1, _y);
 
+	const PadState& pad = Hardware::getPadState();
+
 	// We can move into the block if it has been vacated
-	if (block == NULL) {
+	if ((block == NULL) && !pad.a) {
 		_game->getLevel()->moveBlock(_x, _y, _x - 1, _y);
 		return true;
 	}
@@ -79,8 +81,10 @@ bool PlayerBlock::pushRight() {
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x + 1, _y);
 
+	const PadState& pad = Hardware::getPadState();
+
 	// We can move into the block if it has been vacated
-	if (block == NULL) {
+	if ((block == NULL) && !pad.a) {
 		_game->getLevel()->moveBlock(_x, _y, _x + 1, _y);
 		return true;
 	}
@@ -110,8 +114,10 @@ bool PlayerBlock::pushUp() {
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x, _y - 1);
 
+	const PadState& pad = Hardware::getPadState();
+
 	// We can move into the block if it has been vacated
-	if (block == NULL) {
+	if ((block == NULL) && !pad.a) {
 		_game->getLevel()->moveBlock(_x, _y, _x, _y - 1);
 		return true;
 	}
@@ -141,8 +147,10 @@ bool PlayerBlock::pushDown() {
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x, _y + 1);
 
+	const PadState& pad = Hardware::getPadState();
+
 	// We can move into the block if it has been vacated
-	if (block == NULL) {
+	if ((block == NULL) && !pad.a) {
 		_game->getLevel()->moveBlock(_x, _y, _x, _y + 1);
 		return true;
 	}
