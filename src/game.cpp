@@ -117,7 +117,7 @@ bool Game::isOddIteration() const {
 
 void Game::addScore(s32 score) {
 	_score += score;
-	_hud->drawScore(score);
+	_hud->drawScore(_score);
 }
 
 PlayerBlock* Game::getPlayerBlock() const {
