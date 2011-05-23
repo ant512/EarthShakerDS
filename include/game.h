@@ -150,12 +150,12 @@ private:
 	 * List of all possible states the game can be in.
 	 */
 	enum GameState {
-		GAME_STATE_NOT_RUNNING = 0,					/**< Game has stopped for some reason. */
-		GAME_STATE_GAMEPLAY = 1,					/**< Normal gameplay. */
-		GAME_STATE_LEVEL_COMPLETE = 2,				/**< Player has completed the level. */
-		GAME_STATE_GAME_OVER = 5,					/**< Player has lost all lives. */
-		GAME_STATE_TITLE_SCREEN = 6,				/**< Title screen shown. */
-		GAME_STATE_GAME_COMPLETE = 7,				/**< Player has completed all levels. */
+		GAME_STATE_NOT_RUNNING = 0,			/**< Game has stopped for some reason. */
+		GAME_STATE_GAMEPLAY = 1,			/**< Normal gameplay. */
+		GAME_STATE_LEVEL_COMPLETE = 2,		/**< Player has completed the level. */
+		GAME_STATE_GAME_OVER = 3,			/**< Player has lost all lives. */
+		GAME_STATE_TITLE_SCREEN = 4,		/**< Title screen shown. */
+		GAME_STATE_GAME_COMPLETE = 5,		/**< Player has completed all levels. */
 	};
 
 	WoopsiGfx::Graphics* _topGfx;			/**< Pointer to the graphics object for the top display. */
@@ -176,42 +176,7 @@ private:
 	GameHUD* _hud;							/**< Stats, and other graphics that surround the game. */
 
 	WoopsiArray<LevelDefinition*> _levelDefinitions;	/**< List of all level definitions. */
-	bool _isMapAvailable;
-
-	/**
-	 * Draws the timer bar.
-	 */
-	void drawTimerBar();
-
-	/**
-	 * Draws the score.
-	 */
-	void drawScore();
-
-	/**
-	 * Draws the count of diamonds remaining and total.
-	 */
-	void drawDiamondCounters();
-
-	/**
-	 * Draws the count of lives remaining.
-	 */
-	void drawLifeCounter();
-
-	/**
-	 * Draws the inverted gravity time remaining.
-	 */
-	void drawGravityCounter();
-
-	/**
-	 * Draws the multicolour timer bar background.
-	 */
-	void drawTimerBarBackground();
-
-	/**
-	 * Draws the gravity direction indicator.
-	 */
-	void drawGravityIndicator();
+	bool _isMapAvailable;					/**< True if the map is available to view. */
 
 	/**
 	 * Redraws the level.  Uses a timer system, so calling the method will not
@@ -233,13 +198,6 @@ private:
 	 * _levelTimer value.
 	 */
 	void timer();
-
-	/**
-	 * Draws the background HUD graphics.  This method should be called just
-	 * once at the start of each level.  It draws just the parts that do not
-	 * change during the course of a level.
-	 */
-	void drawHUD();
 
 	/**
 	 * Starts the specified level.
