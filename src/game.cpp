@@ -44,6 +44,8 @@ Game::Game() {
 	_level = NULL;
 	_state = GAME_STATE_TITLE_SCREEN;
 
+	_hud = new GameHUD();
+
 	_topGfx = Hardware::getTopGfx();
 	_bottomGfx = Hardware::getBottomGfx();
 
@@ -85,6 +87,8 @@ Game::~Game() {
 	for (s32 i = 0; i < _levelDefinitions.size(); ++i) {
 		delete _levelDefinitions[i];
 	}
+
+	delete _hud;
 }
 
 s32 Game::getScore() const {
@@ -113,63 +117,7 @@ bool Game::isOddIteration() const {
 
 void Game::addScore(s32 score) {
 	_score += score;
-	drawScore();
-}
-
-void Game::drawScore() {
-	WoopsiGfx::WoopsiString str;
-	str.format("%06d", _score);
-
-	s32 scoreWidth = _font.getStringWidth(str);
-	s32 scoreHeight = _font.getHeight();
-	s32 scoreX = SCREEN_WIDTH - scoreWidth;
-	s32 scoreY = SCREEN_HEIGHT - scoreHeight - 1;
-
-	_topGfx->drawFilledRect(scoreX, scoreY, scoreWidth, scoreHeight, COLOUR_BLACK);
-	_topGfx->drawText(scoreX, scoreY, &_font, str, 0, str.getLength(), woopsiRGB(31, 31, 31));
-}
-
-void Game::drawLifeCounter() {
-
-	// Prevent lives less than 0 being printed
-	s32 lives = _lives > -1 ? _lives : 0;
-
-	WoopsiGfx::WoopsiString str;
-	str.format("%01d", lives);
-
-	s32 width = _font.getStringWidth(str);
-	s32 height = _font.getHeight();
-	s32 x = 96;
-	s32 y = SCREEN_HEIGHT - height - 1;
-
-	_topGfx->drawFilledRect(x, y, width, height, COLOUR_BLACK);
-	_topGfx->drawText(x, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
-}
-
-void Game::drawGravityCounter() {
-	WoopsiGfx::WoopsiString str;
-	str.format("%02d", _remainingGravityTime);
-
-	s32 width = _font.getStringWidth(str);
-	s32 height = _font.getHeight();
-	s32 x = 136;
-	s32 y = SCREEN_HEIGHT - height - 1;
-
-	_topGfx->drawFilledRect(x, y, width, height, COLOUR_BLACK);
-	_topGfx->drawText(x, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
-}
-
-void Game::drawGravityIndicator() {
-	WoopsiGfx::WoopsiString str;
-	str.setText(isGravityInverted() ? "&" : "%");
-
-	s32 width = _font.getStringWidth(str);
-	s32 height = _font.getHeight();
-	s32 x = 120;
-	s32 y = SCREEN_HEIGHT - height - 1;
-
-	_topGfx->drawFilledRect(x, y, width, height, COLOUR_BLACK);
-	_topGfx->drawText(x, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+	_hud->drawScore(score);
 }
 
 PlayerBlock* Game::getPlayerBlock() const {
@@ -378,7 +326,7 @@ void Game::runLevelComplete() {
 		_remainingTime -= _remainingTime >= 4 ? 4 : _remainingTime;
 		addScore(_remainingTime >= 4 ? 4 : _remainingTime);		// One point per second
 
-		drawTimerBar();
+		_hud->drawTimerBar(_remainingTime);
 
 		Hardware::waitForVBlank();
 	}
@@ -469,7 +417,7 @@ void Game::commitSuicide() {
 
 	while (_remainingTime > 0) {
 		_remainingTime -= 4;
-		drawTimerBar();
+		_hud->drawTimerBar(_remainingTime);
 		Hardware::waitForVBlank();
 	}
 
@@ -494,10 +442,10 @@ void Game::move() {
 
 		if (_remainingGravityTime > 0) {
 			--_remainingGravityTime;
-			drawGravityCounter();
+			_hud->drawGravityCounter(_remainingGravityTime);
 
 			if (_remainingGravityTime == 0) {
-				drawGravityIndicator();
+				_hud->drawGravityIndicator(false);
 			}
 		}
 
@@ -524,161 +472,33 @@ void Game::increaseTime(s32 time) {
 
 	// We have to redraw the background and then redraw the black overlay to
 	// correctly show the state of the timer bar
-	drawTimerBarBackground();
-	drawTimerBar();
+	_hud->drawTimerBarBackground();
+	_hud->drawTimerBar(_remainingTime);
 }
 
 void Game::increaseCollectedDiamonds() {
 	++_collectedDiamonds;
-	drawDiamondCounters();
+	_hud->drawDiamondCounters(_level->getDiamondCount(), _collectedDiamonds);
 }
 
 void Game::increaseLives() {
 	++_lives;
-	drawLifeCounter();
+	_hud->drawLifeCounter(_lives);
 }
 
 void Game::decreaseLives() {
 	--_lives;
-	drawLifeCounter();
-}
-
-void Game::drawDiamondCounters() {
-	WoopsiGfx::WoopsiString str;
-
-	// Erase region for counters
-	s32 height = _font.getHeight();
-	s32 y = SCREEN_HEIGHT - height - 1;
-
-	str.format("%02d", _level->getDiamondCount());
-	_topGfx->drawFilledRect(40, y, 16, height, COLOUR_BLACK);
-	_topGfx->drawText(40, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
-
-	str.format("%02d", _collectedDiamonds);
-	_topGfx->drawFilledRect(64, y, 16, height, COLOUR_BLACK);
-	_topGfx->drawText(64, y, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+	_hud->drawLifeCounter(_lives);
 }
 
 void Game::decreaseTime() {
 	--_remainingTime;
 
-	drawTimerBar();
+	_hud->drawTimerBar(_remainingTime);
 
 	if (_remainingTime == 0) {
 		getPlayerBlock()->explode();
 	}
-}
-
-void Game::drawTimerBarBackground() {
-	s32 barY = 178;
-	s32 barWidth = SCREEN_WIDTH / 8;
-	s32 barHeight = 4;
-
-	_topGfx->drawFilledRect(0, barY, SCREEN_WIDTH, barHeight, COLOUR_BLUE_DARK);
-	_topGfx->drawFilledRect(barWidth, barY, SCREEN_WIDTH, barHeight, COLOUR_BLUE);
-	_topGfx->drawFilledRect(barWidth * 2, barY, SCREEN_WIDTH, barHeight, COLOUR_RED);
-	_topGfx->drawFilledRect(barWidth * 3, barY, SCREEN_WIDTH, barHeight, COLOUR_MAGENTA);
-	_topGfx->drawFilledRect(barWidth * 4, barY, SCREEN_WIDTH, barHeight, COLOUR_GREEN);
-	_topGfx->drawFilledRect(barWidth * 5, barY, SCREEN_WIDTH, barHeight, COLOUR_CYAN);
-	_topGfx->drawFilledRect(barWidth * 6, barY, SCREEN_WIDTH, barHeight, COLOUR_YELLOW);
-	_topGfx->drawFilledRect(barWidth * 7, barY, SCREEN_WIDTH, barHeight, COLOUR_WHITE);
-}
-
-void Game::drawHUD() {
-
-	// Wipe everything
-	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
-	_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
-
-	drawTimerBarBackground();
-
-	// Logo
-	_bottomGfx->drawBitmap(0, 0, 256, 64, &_logoBmp, 0, 0);
-
-	// Copyrights
-	WoopsiGfx::WoopsiString	str = "ZX (c) 1990 Michael Batty";
-	_bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 160, &_font, str, 0, str.getLength(), COLOUR_WHITE);
-
-	str.setText("DS (c) 2011 Antony Dzeryn");
-	_bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 168, &_font, str, 0, str.getLength(), COLOUR_WHITE);
-
-	// Level name
-	str.setText(_level->getName());
-	_bottomGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, (SCREEN_HEIGHT - _font.getHeight()) / 2, &_font,str, 0, str.getLength(), COLOUR_WHITE);
-
-	// Erase region for counters
-	s32 counterHeight = _font.getHeight();
-	s32 counterY = SCREEN_HEIGHT - counterHeight - 1;
-
-	_topGfx->drawFilledRect(0, counterY, SCREEN_WIDTH, counterHeight, COLOUR_BLACK);
-
-	// Level display
-	str.setText("L");
-
-	// Here we abandon calculated text co-ordinates and hard-code everything
-	// with magic numbers, because it's quicker for both the computer and the
-	// programmer to execute
-	_topGfx->drawText(0, counterY, &_font, str, 0, str.getLength(), COLOUR_GREEN);
-
-	str.format("%02d", _level->getNumber());
-	_topGfx->drawText(8, counterY, &_font, str, 0, str.getLength(), COLOUR_WHITE);
-
-	// Diamond
-	str.setText("*");
-	_topGfx->drawText(32, counterY, &_font, str, 0, str.getLength(), COLOUR_CYAN);
-
-	// Diamonds
-	str.setText(":");
-	_topGfx->drawText(56, counterY, &_font, str, 0, str.getLength(), COLOUR_CYAN);
-
-	// Heart
-	str.setText("+");
-	_topGfx->drawText(88, counterY, &_font, str, 0, str.getLength(), COLOUR_RED);
-
-	// Gravity
-	str.setText("$");
-	_topGfx->drawText(112, counterY, &_font, str, 0, str.getLength(), COLOUR_GREEN);
-
-	// "SCORE:"
-	str.setText("S");
-	_topGfx->drawText(160, counterY, &_font, str, 0, str.getLength(), COLOUR_WHITE);
-
-	str.setText("C");
-	_topGfx->drawText(168, counterY, &_font, str, 0, str.getLength(), COLOUR_YELLOW);
-
-	str.setText("O");
-	_topGfx->drawText(176, counterY, &_font, str, 0, str.getLength(), COLOUR_CYAN);
-
-	str.setText("R");
-	_topGfx->drawText(184, counterY, &_font, str, 0, str.getLength(), COLOUR_GREEN);
-
-	str.setText("E");
-	_topGfx->drawText(192, counterY, &_font, str, 0, str.getLength(), COLOUR_MAGENTA);
-
-	str.setText(":");
-	_topGfx->drawText(200, counterY, &_font, str, 0, str.getLength(), COLOUR_RED);
-
-	// Draw everything else
-	drawDiamondCounters();
-	drawScore();
-	drawLifeCounter();
-	drawGravityCounter();
-	drawGravityIndicator();
-}
-
-void Game::drawTimerBar() {
-
-	// Rather than draw a bar representing the amount of time left to elapse,
-	// we overwrite the existing graphics from right to left with a black rect.
-	// This gives the illusion of shortening the remaining time bar with much
-	// less effort.
-
-	s32 barY = 178;
-	s32 width = STARTING_TIME - _remainingTime;
-	s32 barX = SCREEN_WIDTH - width;
-
-	// Draw new bar graphic
-	_topGfx->drawFilledRect(barX, barY, width, 4, COLOUR_BLACK);
 }
 
 void Game::invertGravity() {
@@ -686,8 +506,8 @@ void Game::invertGravity() {
 
 	SoundPlayer::playGravityInversion();
 
-	drawGravityCounter();
-	drawGravityIndicator();
+	_hud->drawGravityCounter(_remainingGravityTime);
+	_hud->drawGravityIndicator(true);
 }
 
 void Game::resetLevelVariables() {
@@ -716,7 +536,14 @@ void Game::resetLevel() {
 
 	_level = LevelFactory::createLevel(_levelDefinitions[levelNumber - 1], this);
 
-	drawHUD();
+	_hud->drawBackground(_level->getDiamondCount(),
+						 _collectedDiamonds,
+						 _remainingTime,
+						 isGravityInverted(),
+						 _lives,
+						 _score,
+						 _level->getName(),
+						 _level->getNumber());
 }
 
 void Game::startLevel(LevelDefinition* levelDefinition) {
@@ -731,7 +558,14 @@ void Game::startLevel(LevelDefinition* levelDefinition) {
 	_level = LevelFactory::createLevel(levelDefinition, this);
 	levelDefinition->recolourBitmaps();
 
-	drawHUD();
+	_hud->drawBackground(_level->getDiamondCount(),
+						 _collectedDiamonds,
+						 _remainingTime,
+						 isGravityInverted(),
+						 _lives,
+						 _score,
+						 _level->getName(),
+						 _level->getNumber());
 }
 
 void Game::endLevel() {

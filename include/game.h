@@ -7,12 +7,12 @@
 #include "blockbase.h"
 #include "gamecompletescreen.h"
 #include "gamefont.h"
+#include "gamehud.h"
 #include "gameoverscreen.h"
 #include "gatetransition.h"
 #include "hardware.h"
 #include "level.h"
 #include "leveldefinition.h"
-#include "logobmp.h"
 #include "padstate.h"
 #include "playerblock.h"
 #include "scroller.h"
@@ -172,8 +172,8 @@ private:
 	s32 _movementTimer;						/**< Timer used to moderate movement speed. */
 	s32 _levelTimer;						/**< Timer used to decrease remaining level time. */
 	bool _isOddIteration;					/**< Indicates whether the game is in an odd or an even iteration. */
-	LogoBmp _logoBmp;						/**< The game's logo. */
 	GameState _state;						/**< Current state of the game. */
+	GameHUD* _hud;							/**< Stats, and other graphics that surround the game. */
 
 	WoopsiArray<LevelDefinition*> _levelDefinitions;	/**< List of all level definitions. */
 	bool _isMapAvailable;
