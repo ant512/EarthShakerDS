@@ -118,12 +118,10 @@ public:
 	inline bool isExploding() const { return _isExploding; };
 
 	/**
-	 * Check if the block has been destroyed.  Blocks are considered destroyed
-	 * if they are exploding and their exploding animation has finished
-	 * playing.
+	 * Check if the block has been destroyed.
 	 * @return True if the block is destroyed; false if not.
 	 */
-	bool isDestroyed() const;
+	inline bool isDestroyed() const { return _isDestroyed; };
 
 	/**
 	 * Check if the block is currently falling.
@@ -223,6 +221,7 @@ protected:
 	bool _isHot;								/**< Indicates whether or not the block is hot; hot
 													 blocks cause boulders to explode. */
 	bool _isExploding;							/**< Indicates whether or not the block is exploding. */
+	bool _isDestroyed;							/**< Indicates whether or not the block has been destroyed. */
 	bool _isOddIteration;						/**< Remembers if the block is currently at an odd
 													 or even iteration.  Prevents the block iterating
 													 twice during a single iteration of the game if it
@@ -244,6 +243,11 @@ protected:
 	 * memory.
 	 */
 	virtual void onDestroyed() { };
+
+	/**
+	 * Indicates that the block has finished exploding.
+	 */
+	bool hasExploded() const;
 
 	/**
 	 * Called when the block explodes.

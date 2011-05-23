@@ -10,6 +10,7 @@ BlockBase::BlockBase(s32 x, s32 y, Game* game) {
 	_isSlippy = true;
 	_isHot = false;
 	_isExploding = false;
+	_isDestroyed = false;
 	_isOddIteration = true;
 	_isFalling = false;
 	_isHeavyEnoughToKill = false;
@@ -60,16 +61,15 @@ void BlockBase::iterate() {
 
 	_isOddIteration = !_isOddIteration;
 
-	// Remove the block from the level if it has been destroyed.  This will
-	// prevent it from being iterated over again, so onDestroyed() will only be
-	// called once
-	if (isDestroyed()) {
+	if (hasExploded() && !_isDestroyed) {
 		onDestroyed();
 
 		_game->getLevel()->removeBlockAt(_x, _y);
-	} else if (_isExploding) {
+
+		_isDestroyed = true;
+	} else if (_isExploding || _isDestroyed) {
 		
-		// Do not allow exploding blocks to do anything
+		// Do not allow exploding/destroyed blocks to do anything
 		return;
 	} else {
 		onIterate();
@@ -86,7 +86,7 @@ void BlockBase::explode() {
 	onExplode();
 }
 
-bool BlockBase::isDestroyed() const {
+bool BlockBase::hasExploded() const {
 	return (_isExploding && (_explodingAnimation->getStatus() == WoopsiGfx::Animation::ANIMATION_STATUS_STOPPED));
 }
 

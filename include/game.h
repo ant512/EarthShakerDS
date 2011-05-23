@@ -118,12 +118,6 @@ public:
 	void increaseTime(s32 time);
 
 	/**
-	 * Informs the game that the player has been killed.  The next call to
-	 * iterate() will reset the level or end the game.
-	 */
-	void killPlayer();
-
-	/**
 	 * Decreases the amount of remaining time and redraws the timer bar.
 	 */
 	void decreaseTime();
@@ -145,6 +139,11 @@ public:
 	 */
 	void render();
 
+	/**
+	 * Decreases the number of lives and redraws the life counter.
+	 */
+	void decreaseLives();
+
 private:
 
 	/**
@@ -154,8 +153,6 @@ private:
 		GAME_STATE_NOT_RUNNING = 0,					/**< Game has stopped for some reason. */
 		GAME_STATE_GAMEPLAY = 1,					/**< Normal gameplay. */
 		GAME_STATE_LEVEL_COMPLETE = 2,				/**< Player has completed the level. */
-		GAME_STATE_PLAYER_DEAD = 3,					/**< Player has died. */
-		GAME_STATE_PLAYER_SUICIDE = 4,				/**< Player has committed suicide. */
 		GAME_STATE_GAME_OVER = 5,					/**< Player has lost all lives. */
 		GAME_STATE_TITLE_SCREEN = 6,				/**< Title screen shown. */
 		GAME_STATE_GAME_COMPLETE = 7,				/**< Player has completed all levels. */
@@ -227,9 +224,8 @@ private:
 	 * Moves level blocks.  Uses a timer system, so calling the method will not
 	 * necessarily produce an effect other than adjusting the _movementTimer
 	 * value.
-	 * @param pad State of the DS keypad.
 	 */
-	void move(const PadState& pad);
+	void move();
 
 	/**
 	 * Decreases remaining time.  Uses a timer system, so calling the method
@@ -255,11 +251,6 @@ private:
 	 * Resets the current level to its default state.
 	 */
 	void resetLevel();
-
-	/**
-	 * Decreases the number of lives and redraws the life counter.
-	 */
-	void decreaseLives();
 
 	/**
 	 * Resets all members associated with level state (diamonds collected, time
@@ -307,6 +298,11 @@ private:
 	 * Runs the game itself.
 	 */
 	void runGame();
+
+	/**
+	 * Commits suicide.
+	 */
+	void commitSuicide();
 };
 
 #endif

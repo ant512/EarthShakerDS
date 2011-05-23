@@ -3,6 +3,7 @@
 
 #include "blockbase.h"
 #include "game.h"
+#include "hardware.h"
 #include "playerblock.h"
 #include "playermapbmp.h"
 #include "soundplayer.h"
@@ -149,10 +150,62 @@ bool PlayerBlock::pushDown() {
 	return false;
 }
 
+void PlayerBlock::onIterate() {
+	bool moved = false;
+
+	const PadState& pad = Hardware::getPadState();
+
+	if (Hardware::isMostRecentDirectionVertical()) {
+
+		// Attempt to move vertically before horizontally, as the most
+		// recent button pushed was a vertical direction
+		if (pad.up) {
+			moved = pushUp();
+		} else if (pad.down) {
+			moved = pushDown();
+		}
+
+		// Allow horizontal movement even if a vertical button is also
+		// pressed, but only if the player hasn't already moved.  This
+		// should reduce the frustration of needing super-speedy fingers to
+		// let go of one direction and then press the next within a couple
+		// of VBLs.
+		if (!moved) {
+			if (pad.left) {
+				pushLeft();
+			} else if (pad.right) {
+				pushRight();
+			}
+		}
+	} else {
+
+		// Attempt to move horizontally before vertically, as the most
+		// recent button pushed was a horizontal direction
+		if (pad.left) {
+			moved = pushLeft();
+		} else if (pad.right) {
+			moved = pushRight();
+		}
+
+		// Allow horizontal movement even if a vertical button is also
+		// pressed, but only if the player hasn't already moved.  This
+		// should reduce the frustration of needing super-speedy fingers to
+		// let go of one direction and then press the next within a couple
+		// of VBLs.
+		if (!moved) {
+			if (pad.up) {
+				pushUp();
+			} else if (pad.down) {
+				pushDown();
+			}
+		}
+	}
+}
+
 void PlayerBlock::onExplode() {
 	SoundPlayer::playPlayerExplode();
 }
 
 void PlayerBlock::onDestroyed() {
-	_game->killPlayer();
+	_game->decreaseLives();
 }

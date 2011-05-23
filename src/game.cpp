@@ -398,12 +398,14 @@ void Game::runGame() {
 
 	animate();
 	timer();
-	move(pad);
+	move();
 
 	if (pad.start) {
 		pause();
 	} else if (pad.x && _isMapAvailable) {
 		showMap();
+	} else if (pad.r && pad.l) {
+		commitSuicide();
 	}
 }
 
@@ -421,33 +423,6 @@ void Game::main() {
 
 			case GAME_STATE_GAMEPLAY:
 				runGame();
-				break;
-
-			case GAME_STATE_PLAYER_DEAD:
-
-				// Handle the situation in which the player has been killed
-				decreaseLives();
-
-				if (_lives > 0) {
-					resetLevel();
-				} else {
-					_state = GAME_STATE_GAME_OVER;
-				}
-
-				break;
-
-			case GAME_STATE_PLAYER_SUICIDE:
-
-				// Handle the situation in which the player has committed suicide
-
-				_remainingTime -= 4;
-
-				drawTimerBar();
-
-				if (_remainingTime < 1) {
-					killPlayer();
-				}
-
 				break;
 
 			case GAME_STATE_LEVEL_COMPLETE:
@@ -489,67 +464,30 @@ void Game::animate() {
 	}
 }
 
-void Game::move(const PadState& pad) {
+void Game::commitSuicide() {
+	SoundPlayer::playSuicide();
+
+	while (_remainingTime > 0) {
+		_remainingTime -= 4;
+		drawTimerBar();
+		Hardware::waitForVBlank();
+	}
+
+	decreaseLives();
+
+	if (_lives > 0) {
+		resetLevel();
+	} else {
+		_state = GAME_STATE_GAME_OVER;
+	}
+}
+
+void Game::move() {
 
 	_movementTimer++;
 
 	if (_movementTimer == MOVEMENT_TIME) {
 		_movementTimer = 0;
-
-		// Suicide check
-		if (pad.r && pad.l) {
-			_state = GAME_STATE_PLAYER_SUICIDE;
-			SoundPlayer::playSuicide();
-			return;
-		}
-
-		bool moved = false;
-
-		if (Hardware::isMostRecentDirectionVertical()) {
-
-			// Attempt to move vertically before horizontally, as the most
-			// recent button pushed was a vertical direction
-			if (pad.up) {
-				moved = getPlayerBlock()->pushUp();
-			} else if (pad.down) {
-				moved = getPlayerBlock()->pushDown();
-			}
-
-			// Allow horizontal movement even if a vertical button is also
-			// pressed, but only if the player hasn't already moved.  This
-			// should reduce the frustration of needing super-speedy fingers to
-			// let go of one direction and then press the next within a couple
-			// of VBLs.
-			if (!moved) {
-				if (pad.left) {
-					getPlayerBlock()->pushLeft();
-				} else if (pad.right) {
-					getPlayerBlock()->pushRight();
-				}
-			}
-		} else {
-
-			// Attempt to move horizontally before vertically, as the most
-			// recent button pushed was a horizontal direction
-			if (pad.left) {
-				moved = getPlayerBlock()->pushLeft();
-			} else if (pad.right) {
-				moved = getPlayerBlock()->pushRight();
-			}
-
-			// Allow horizontal movement even if a vertical button is also
-			// pressed, but only if the player hasn't already moved.  This
-			// should reduce the frustration of needing super-speedy fingers to
-			// let go of one direction and then press the next within a couple
-			// of VBLs.
-			if (!moved) {
-				if (pad.up) {
-					getPlayerBlock()->pushUp();
-				} else if (pad.down) {
-					getPlayerBlock()->pushDown();
-				}
-			}
-		}
 
 		_level->iterate(_remainingGravityTime > 0);
 		_isOddIteration = !_isOddIteration;
@@ -560,6 +498,16 @@ void Game::move(const PadState& pad) {
 
 			if (_remainingGravityTime == 0) {
 				drawGravityIndicator();
+			}
+		}
+
+		// If the last iteration of the game caused the player to die, we either
+		// need to reset the level to its default state or end the game
+		if (_level->getPlayerBlock()->isDestroyed()) {
+			if (_lives > 0) {
+				resetLevel();
+			} else {
+				_state = GAME_STATE_GAME_OVER;
 			}
 		}
 	}
@@ -582,24 +530,17 @@ void Game::increaseTime(s32 time) {
 
 void Game::increaseCollectedDiamonds() {
 	++_collectedDiamonds;
-
 	drawDiamondCounters();
 }
 
 void Game::increaseLives() {
 	++_lives;
-
 	drawLifeCounter();
 }
 
 void Game::decreaseLives() {
 	--_lives;
-
 	drawLifeCounter();
-}
-
-void Game::killPlayer() {
-	_state = GAME_STATE_PLAYER_DEAD;
 }
 
 void Game::drawDiamondCounters() {
