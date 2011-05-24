@@ -146,6 +146,11 @@ public:
 	 */
 	void removeBlockAt(s32 x, s32 y);
 
+	/**
+	 * Deletes any blocks in the removed list.
+	 */
+	void deleteRemovedBlocks();
+
 private:
 	s32 _width;									/**< The width of the level. */
 	s32 _height;								/**< The height of the level. */
@@ -156,11 +161,6 @@ private:
 	PlayerBlock* _playerBlock;					/**< The player's block within the level. */
 	WoopsiArray<BlockBase*> _removedBlockList;	/**< Array of blocks that have been removed
 													 from the level and are awaiting deletion. */
-
-	/**
-	 * Deletes any blocks in the removed list.
-	 */
-	void deleteRemovedBlocks();
 
 	/**
 	 * Calls the iterate() method of all child blocks.

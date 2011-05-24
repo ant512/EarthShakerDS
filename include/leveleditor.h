@@ -30,7 +30,9 @@ public:
 
 		_level = new Level(LEVEL_WIDTH, LEVEL_HEIGHT, 0, "Test");
 
-		_paintBlock = BLOCK_TYPE_BOULDER;
+		_playerBlock = NULL;
+
+		_paintBlock = BLOCK_TYPE_PLAYER;
 		_cursorX = 0;
 		_cursorY = 0;
 		_timer = 0;
@@ -68,6 +70,8 @@ public:
 			} else if (pad.right) {
 				moveCursorTo(_cursorX + 1, _cursorY);
 			}
+
+			render();
 		}
 	};
 
@@ -86,16 +90,31 @@ public:
 		} else if (_cursorX >= _level->getWidth()) {
 			_cursorX = _level->getWidth() - 1;
 		}
-
-		render();
 	}
 
 	void placeBlock() {
 		BlockBase* newBlock;
 
+		// If we're overwriting the player block we need to forget it
+		if ((_playerBlock->getX() == _cursorX) && (_playerBlock->getY() == _cursorY)) {
+			_playerBlock = NULL;
+		}
+
 		switch (_paintBlock) {
 			case BLOCK_TYPE_NULL:
 				break;
+			case BLOCK_TYPE_PLAYER:
+				newBlock = new PlayerBlock(_cursorX, _cursorY, NULL);
+
+				// We need to ensure that there is only a single player per
+				// level
+				if (_playerBlock != NULL) {
+					_level->removeBlockAt(_playerBlock->getX(), _playerBlock->getY());
+				}
+				
+				_playerBlock = newBlock;	
+				break;
+
 			case BLOCK_TYPE_BOULDER:
 				newBlock = new BoulderBlock(_cursorX, _cursorY, NULL);
 				break;
@@ -105,11 +124,11 @@ public:
 
 		_level->removeBlockAt(_cursorX, _cursorY);
 		_level->setBlockAt(_cursorX, _cursorY, newBlock);
-
-		render();
+		_level->deleteRemovedBlocks();
 	};
 
 	void render() {
+		_level->animate();
 		_level->render(_cursorX, _cursorY, _topGfx);
 		drawCursor();
 	};
@@ -191,6 +210,8 @@ private:
 	s32 _cursorY;
 
 	BlockType _paintBlock;
+
+	BlockBase* _playerBlock;
 };
 
 #endif
