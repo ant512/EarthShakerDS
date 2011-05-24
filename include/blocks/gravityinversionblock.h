@@ -89,6 +89,38 @@ public:
 		return true;
 	};
 
+	/**
+	 * Pushes this block if possible.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeUp() {
+		return pushUp();
+	};
+
+	/**
+	 * Pushes this block if possible.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeDown() {
+		return pushDown();
+	};
+
+	/**
+	 * Pushes this block if possible.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeLeft() {
+		return pushLeft();
+	};
+
+	/**
+	 * Pushes this block if possible.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeRight() {
+		return pushRight();
+	};
+
 private:
 	GravityInversionBmp1 _bmp1;		/**< The first animation frame. */
 	GravityInversionBmp2 _bmp2;		/**< The second animation frame. */

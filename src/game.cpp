@@ -188,22 +188,22 @@ void Game::showMap() {
 
 	const PadState& pad = Hardware::getPadState();
 
-	bool xHeld = pad.x;
+	bool selectHeld = pad.select;
 
 	// Show the map until the timer expires or X is pressed
 	while (_movementTimer < MAP_TIME) {
 		++_movementTimer;
 		Hardware::waitForVBlank();
 
-		if (!pad.x && xHeld) {
+		if (!pad.select && selectHeld) {
 
-			// X has been released; we can now listen for X as a way of exiting
-			// the map early
-			xHeld = false;
+			// Select has been released; we can now listen for Select as a way
+			// of exiting the map early
+			selectHeld = false;
 
-		} else if (pad.x && !xHeld) {
+		} else if (pad.select && !selectHeld) {
 
-			// X has been pressed again; we can exit the map early
+			// Select has been pressed again; we can exit the map early
 			break;
 		}
 	}
@@ -350,7 +350,7 @@ void Game::runGame() {
 
 	if (pad.start) {
 		pause();
-	} else if (pad.x && _isMapAvailable) {
+	} else if (pad.select && _isMapAvailable) {
 		showMap();
 	} else if (pad.r && pad.l) {
 		commitSuicide();
@@ -468,6 +468,16 @@ void Game::movePlayer() {
 
 	const PadState& pad = Hardware::getPadState();
 	PlayerBlock* player = _level->getPlayerBlock();
+
+	if (pad.a) {
+		player->pokeDown();
+	} else if (pad.b) {
+		player->pokeRight();
+	} else if (pad.x) {
+		player->pokeUp();
+	} else if (pad.y) {
+		player->pokeLeft();
+	}
 
 	if (Hardware::isMostRecentDirectionVertical()) {
 

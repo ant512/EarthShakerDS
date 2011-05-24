@@ -78,6 +78,11 @@ public:
 		explode();
 	};
 
+	bool pokeLeft();
+	bool pokeRight();
+	bool pokeUp();
+	bool pokeDown();
+
 private:
 	PlayerBmp1 _bmp1;				/**< First animation bitmap. */
 	PlayerBmp2 _bmp2;				/**< Second animation bitmap. */

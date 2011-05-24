@@ -36,15 +36,18 @@ killed by:
 Controls
 --------
 
-The d-pad moves around the level.  Hold the A button when pressing a direction
-to push the adjacent block in that direction without moving the player sprite.
+The d-pad moves around the level.  The X, Y, A and B buttons will poke the block
+that is above, to the left, below and to the right respectively, without moving
+the player sprite.  This means you can push boulders, collect diamonds, and so
+on, that are next to you without moving.  This is a useful technique in some of
+the levels.
 
 If you make a mistake and get stuck, you can press L and R simultaneously to
 commit suicide and restart the level.
 
-Press X to bring up a map screen and press X again to switch back to the game.
-Note that you can only bring up the map screen once per life per level, so only
-look at it when you need to.
+Press Select to bring up a map screen and press Select again to switch back to
+the game.  Note that you can only bring up the map screen once per life per
+level, so only look at it when you need to.
 
 Press Start to pause the game.  Press it again to unpause.  While paused,
 pressing X exits the game and returns to the title screen.

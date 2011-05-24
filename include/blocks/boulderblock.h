@@ -136,6 +136,38 @@ public:
 		if (block->isHot()) explode();
 	};
 
+	/**
+	 * Pushes this block if the adjacent block is empty.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeUp() {
+		return pushUp();
+	};
+
+	/**
+	 * Pushes this block if the adjacent block is empty.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeDown() {
+		return pushDown();
+	};
+
+	/**
+	 * Pushes this block if the adjacent block is empty.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeLeft() {
+		return pushLeft();
+	};
+
+	/**
+	 * Pushes this block if the adjacent block is empty.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeRight() {
+		return pushRight();
+	};
+
 private:
 	
 	/**

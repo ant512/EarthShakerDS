@@ -79,6 +79,46 @@ public:
 		SoundPlayer::playSoilDig();
 		return true;
 	};
+
+	/**
+	 * Removes the block.
+	 * @return True.
+	 */
+	bool pokeLeft() {
+		_game->getLevel()->removeBlockAt(_x, _y);
+		//SoundPlayer::playSoilPoke();
+		return true;
+	};
+
+	/**
+	 * Removes the block.
+	 * @return True.
+	 */
+	bool pokeRight() {
+		_game->getLevel()->removeBlockAt(_x, _y);
+		//SoundPlayer::playSoilPoke();
+		return true;
+	};
+
+	/**
+	 * Removes the block.
+	 * @return True.
+	 */
+	bool pokeUp() {
+		_game->getLevel()->removeBlockAt(_x, _y);
+		//SoundPlayer::playSoilPoke();
+		return true;
+	};
+
+	/**
+	 * Removes the block.
+	 * @return True.
+	 */
+	bool pokeDown() {
+		_game->getLevel()->removeBlockAt(_x, _y);
+		//SoundPlayer::playSoilPoke();
+		return true;
+	};
 };
 
 #endif

@@ -48,10 +48,8 @@ bool PlayerBlock::pushLeft() {
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x - 1, _y);
 
-	const PadState& pad = Hardware::getPadState();
-
 	// We can move into the block if it has been vacated
-	if ((block == NULL) && !pad.a) {
+	if (block == NULL) {
 		_game->getLevel()->moveBlock(_x, _y, _x - 1, _y);
 		return true;
 	}
@@ -81,10 +79,8 @@ bool PlayerBlock::pushRight() {
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x + 1, _y);
 
-	const PadState& pad = Hardware::getPadState();
-
 	// We can move into the block if it has been vacated
-	if ((block == NULL) && !pad.a) {
+	if (block == NULL) {
 		_game->getLevel()->moveBlock(_x, _y, _x + 1, _y);
 		return true;
 	}
@@ -114,10 +110,8 @@ bool PlayerBlock::pushUp() {
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x, _y - 1);
 
-	const PadState& pad = Hardware::getPadState();
-
 	// We can move into the block if it has been vacated
-	if ((block == NULL) && !pad.a) {
+	if (block == NULL) {
 		_game->getLevel()->moveBlock(_x, _y, _x, _y - 1);
 		return true;
 	}
@@ -147,15 +141,66 @@ bool PlayerBlock::pushDown() {
 	// Re-fetch the block in case it has moved or no longer exists
 	block = _game->getLevel()->getBlockAt(_x, _y + 1);
 
-	const PadState& pad = Hardware::getPadState();
-
 	// We can move into the block if it has been vacated
-	if ((block == NULL) && !pad.a) {
+	if (block == NULL) {
 		_game->getLevel()->moveBlock(_x, _y, _x, _y + 1);
 		return true;
 	}
 
 	return false;
+}
+
+
+bool PlayerBlock::pokeLeft() {
+
+	if (_x == 0) return false;
+	if (_isExploding) return false;
+
+	// Get the block to the left of this
+	BlockBase* block = _game->getLevel()->getBlockAt(_x - 1, _y);
+
+	if (block != NULL) return block->pokeLeft();
+
+	return true;
+}
+
+bool PlayerBlock::pokeRight() {
+
+	if (_x == _game->getLevel()->getWidth() - 1) return false;
+	if (_isExploding) return false;
+
+	// Get the block to the right of this
+	BlockBase* block = _game->getLevel()->getBlockAt(_x + 1, _y);
+
+	if (block != NULL) return block->pokeRight();
+
+	return true;
+}
+
+bool PlayerBlock::pokeUp() {
+
+	if (_y == 0) return false;
+	if (_isExploding) return false;
+
+	// Get the block above this
+	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y - 1);
+
+	if (block != NULL) return block->pokeUp();
+
+	return true;
+}
+
+bool PlayerBlock::pokeDown() {
+
+	if (_y == _game->getLevel()->getHeight() - 1) return false;
+	if (_isExploding) return false;
+
+	// Get the block below this
+	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
+
+	if (block != NULL) return block->pokeDown();
+
+	return true;
 }
 
 void PlayerBlock::onExplode() {

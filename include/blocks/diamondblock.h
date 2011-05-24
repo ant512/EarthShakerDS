@@ -96,6 +96,38 @@ public:
 		return true;
 	};
 
+	/**
+	 * Pushes this block if possible.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeUp() {
+		return pushUp();
+	};
+
+	/**
+	 * Pushes this block if possible.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeDown() {
+		return pushDown();
+	};
+
+	/**
+	 * Pushes this block if possible.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeLeft() {
+		return pushLeft();
+	};
+
+	/**
+	 * Pushes this block if possible.
+	 * @return True if the block moves; false if not.
+	 */
+	bool pokeRight() {
+		return pushRight();
+	};
+
 private:
 	DiamondBmp1 _bmp1;			/**< First animation bitmap. */
 	DiamondBmp2 _bmp2;			/**< Second animation bitmap. */
