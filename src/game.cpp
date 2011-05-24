@@ -5,6 +5,7 @@
 #include "bitmapserver.h"
 #include "soundplayer.h"
 
+#include "leveleditor.h"
 #include "levelfactory.h"
 #include "level1.h"
 #include "level2.h"
@@ -341,6 +342,12 @@ void Game::runGame() {
 }
 
 void Game::main() {
+
+	LevelEditor* editor = new LevelEditor();
+
+	editor->main();
+
+	delete editor;
 
 	while (isRunning()) {
 		switch (_state) {
