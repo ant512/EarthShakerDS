@@ -151,56 +151,48 @@ bool PlayerBlock::pushDown() {
 }
 
 
-bool PlayerBlock::pokeLeft() {
+void PlayerBlock::pokeLeft() {
 
-	if (_x == 0) return false;
-	if (_isExploding) return false;
+	if (_x == 0) return;
+	if (_isExploding) return;
 
 	// Get the block to the left of this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x - 1, _y);
 
-	if (block != NULL) return block->pokeLeft();
-
-	return true;
+	if (block != NULL) block->pokeLeft();
 }
 
-bool PlayerBlock::pokeRight() {
+void PlayerBlock::pokeRight() {
 
-	if (_x == _game->getLevel()->getWidth() - 1) return false;
-	if (_isExploding) return false;
+	if (_x == _game->getLevel()->getWidth() - 1) return;
+	if (_isExploding) return;
 
 	// Get the block to the right of this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x + 1, _y);
 
-	if (block != NULL) return block->pokeRight();
-
-	return true;
+	if (block != NULL) block->pokeRight();
 }
 
-bool PlayerBlock::pokeUp() {
+void PlayerBlock::pokeUp() {
 
-	if (_y == 0) return false;
-	if (_isExploding) return false;
+	if (_y == 0) return;
+	if (_isExploding) return;
 
 	// Get the block above this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y - 1);
 
-	if (block != NULL) return block->pokeUp();
-
-	return true;
+	if (block != NULL) block->pokeUp();
 }
 
-bool PlayerBlock::pokeDown() {
+void PlayerBlock::pokeDown() {
 
-	if (_y == _game->getLevel()->getHeight() - 1) return false;
-	if (_isExploding) return false;
+	if (_y == _game->getLevel()->getHeight() - 1) return;
+	if (_isExploding) return;
 
 	// Get the block below this
 	BlockBase* block = _game->getLevel()->getBlockAt(_x, _y + 1);
 
-	if (block != NULL) return block->pokeDown();
-
-	return true;
+	if (block != NULL) block->pokeDown();
 }
 
 void PlayerBlock::onExplode() {

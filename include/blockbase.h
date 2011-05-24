@@ -210,27 +210,23 @@ public:
 
 	/**
 	 * Attempt to poke this block upwards.
-	 * @return True if the attempt was successful; false if not.
 	 */
-	virtual bool pokeUp() { return false; };
+	virtual void pokeUp() { };
 
 	/**
 	 * Attempt to poke this block downwards.
-	 * @return True if the attempt was successful; false if not.
 	 */
-	virtual bool pokeDown() { return false; };
+	virtual void pokeDown() { };
 
 	/**
 	 * Attempt to poke this block leftwards.
-	 * @return True if the attempt was successful; false if not.
 	 */
-	virtual bool pokeLeft() { return false; };
+	virtual void pokeLeft() { };
 
 	/**
 	 * Attempt to push this block rightwards.
-	 * @return True if the attempt was successful; false if not.
 	 */
-	virtual bool pokeRight() { return false; };
+	virtual void pokeRight() { };
 
 protected:
 	WoopsiGfx::Animation* _animation;			/**< Standard animation. */

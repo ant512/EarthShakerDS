@@ -82,42 +82,34 @@ public:
 
 	/**
 	 * Removes the block.
-	 * @return True.
 	 */
-	bool pokeLeft() {
+	void pokeLeft() {
 		_game->getLevel()->removeBlockAt(_x, _y);
 		//SoundPlayer::playSoilPoke();
-		return true;
 	};
 
 	/**
 	 * Removes the block.
-	 * @return True.
 	 */
-	bool pokeRight() {
+	void pokeRight() {
 		_game->getLevel()->removeBlockAt(_x, _y);
 		//SoundPlayer::playSoilPoke();
-		return true;
 	};
 
 	/**
 	 * Removes the block.
-	 * @return True.
 	 */
-	bool pokeUp() {
+	void pokeUp() {
 		_game->getLevel()->removeBlockAt(_x, _y);
 		//SoundPlayer::playSoilPoke();
-		return true;
 	};
 
 	/**
 	 * Removes the block.
-	 * @return True.
 	 */
-	bool pokeDown() {
+	void pokeDown() {
 		_game->getLevel()->removeBlockAt(_x, _y);
 		//SoundPlayer::playSoilPoke();
-		return true;
 	};
 };
 

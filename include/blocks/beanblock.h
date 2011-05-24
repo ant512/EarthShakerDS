@@ -83,34 +83,30 @@ public:
 
 	/**
 	 * Pushes this block if possible.
-	 * @return True if the block moves; false if not.
 	 */
-	bool pokeUp() {
-		return pushUp();
+	void pokeUp() {
+		pushUp();
 	};
 
 	/**
 	 * Pushes this block if possible.
-	 * @return True if the block moves; false if not.
 	 */
-	bool pokeDown() {
-		return pushDown();
+	void pokeDown() {
+		pushDown();
 	};
 
 	/**
 	 * Pushes this block if possible.
-	 * @return True if the block moves; false if not.
 	 */
-	bool pokeLeft() {
-		return pushLeft();
+	void pokeLeft() {
+		pushLeft();
 	};
 
 	/**
 	 * Pushes this block if possible.
-	 * @return True if the block moves; false if not.
 	 */
-	bool pokeRight() {
-		return pushRight();
+	void pokeRight() {
+		pushRight();
 	};
 
 private:

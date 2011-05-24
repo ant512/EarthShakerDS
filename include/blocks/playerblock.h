@@ -78,10 +78,25 @@ public:
 		explode();
 	};
 
-	bool pokeLeft();
-	bool pokeRight();
-	bool pokeUp();
-	bool pokeDown();
+	/**
+	 * Poke the block to the left of this.
+	 */
+	void pokeLeft();
+
+	/**
+	 * Poke the block to the right of this.
+	 */
+	void pokeRight();
+
+	/**
+	 * Poke the block above this.
+	 */
+	void pokeUp();
+
+	/**
+	 * Poke the block below this.
+	 */
+	void pokeDown();
 
 private:
 	PlayerBmp1 _bmp1;				/**< First animation bitmap. */
