@@ -1,5 +1,6 @@
 #include "constants.h"
 #include "hardware.h"
+#include "leveleditor.h"
 #include "soundplayer.h"
 #include "titlescreen.h"
 
@@ -48,6 +49,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	// Set up root menu
 	Menu* rootMenu = _menuSystem->getRootMenu();
 	rootMenu->addOption("Start");
+	rootMenu->addOption("Level Editor");
 
 	// Set up level select
 	Menu* levelSelect = new Menu("Level Select", MENU_LEVEL_SELECT);
@@ -101,11 +103,7 @@ void TitleScreen::iterate() {
 void TitleScreen::handleMenuAction(Menu* source) {
 	switch (source->getId()) {
 		case MENU_MAIN:
-
-			// Start at beginning of game
-			_chosenLevel = _levelDefinitions->at(0);
-			SoundPlayer::stopTitleTheme();
-			SoundPlayer::playBubbleExplode();
+			mainMenu(source->getSelectedIndex());
 			break;
 
 		case MENU_LEVEL_SELECT:
@@ -116,6 +114,25 @@ void TitleScreen::handleMenuAction(Menu* source) {
 
 		case MENU_SOUND_TEST:
 			soundTest(source->getSelectedIndex());
+	}
+}
+
+void TitleScreen::mainMenu(s32 option) {
+	switch (option) {
+		case 0:
+			// Start at beginning of game
+			_chosenLevel = _levelDefinitions->at(0);
+			SoundPlayer::stopTitleTheme();
+			SoundPlayer::playBubbleExplode();
+			break;
+
+		case 1:
+			// Level editor
+			SoundPlayer::stopTitleTheme();
+			LevelEditor* editor = new LevelEditor();
+			editor->main();
+			delete editor;
+			break;
 	}
 }
 

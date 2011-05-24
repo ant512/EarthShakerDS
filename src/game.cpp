@@ -5,7 +5,6 @@
 #include "bitmapserver.h"
 #include "soundplayer.h"
 
-#include "leveleditor.h"
 #include "levelfactory.h"
 #include "level1.h"
 #include "level2.h"
@@ -343,12 +342,6 @@ void Game::runGame() {
 
 void Game::main() {
 
-	LevelEditor* editor = new LevelEditor();
-
-	editor->main();
-
-	delete editor;
-
 	while (isRunning()) {
 		switch (_state) {
 
@@ -459,9 +452,9 @@ void Game::movePlayer() {
 	const PadState& pad = Hardware::getPadState();
 	PlayerBlock* player = _level->getPlayerBlock();
 
-	if (pad.a) {
+	if (pad.b) {
 		player->pokeDown();
-	} else if (pad.b) {
+	} else if (pad.a) {
 		player->pokeRight();
 	} else if (pad.x) {
 		player->pokeUp();

@@ -84,6 +84,11 @@ private:
 	 * Plays the specified sound.
 	 */
 	void soundTest(s32 sound);
+
+	/**
+	 * Main menu option execution.
+	 */
+	void mainMenu(s32 option);
 };
 
 #endif

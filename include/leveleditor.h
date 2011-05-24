@@ -32,12 +32,22 @@ public:
 
 		_playerBlock = NULL;
 
-		_paintBlock = BLOCK_TYPE_PLAYER;
+		_paintBlock = BLOCK_TYPE_BUBBLE;
 		_cursorX = 0;
 		_cursorY = 0;
 		_timer = 0;
 
+		_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
+		_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
+
 		render();
+
+		// Wait for A to be released
+		const PadState& pad = Hardware::getPadState();
+
+		//while(pad.a) {
+		//	Hardware::waitForVBlank();
+		//}
 	};
 
 	~LevelEditor() { };
@@ -57,6 +67,10 @@ public:
 
 			if (pad.a) {
 				placeBlock();
+			}
+
+			if (pad.b) {
+				removeBlock();
 			}
 
 			if (pad.up) {
@@ -92,8 +106,18 @@ public:
 		}
 	}
 
+	void removeBlock() {
+		// If we're removing the player block we need to forget it
+		if ((_playerBlock->getX() == _cursorX) && (_playerBlock->getY() == _cursorY)) {
+			_playerBlock = NULL;
+		}
+
+		_level->removeBlockAt(_cursorX, _cursorY);
+		_level->renderMap(_bottomGfx);
+	};
+
 	void placeBlock() {
-		BlockBase* newBlock;
+		BlockBase* block;
 
 		// If we're overwriting the player block we need to forget it
 		if ((_playerBlock->getX() == _cursorX) && (_playerBlock->getY() == _cursorY)) {
@@ -104,7 +128,7 @@ public:
 			case BLOCK_TYPE_NULL:
 				break;
 			case BLOCK_TYPE_PLAYER:
-				newBlock = new PlayerBlock(_cursorX, _cursorY, NULL);
+				block = new PlayerBlock(_cursorX, _cursorY, NULL);
 
 				// We need to ensure that there is only a single player per
 				// level
@@ -112,19 +136,36 @@ public:
 					_level->removeBlockAt(_playerBlock->getX(), _playerBlock->getY());
 				}
 				
-				_playerBlock = newBlock;	
+				_playerBlock = block;	
+				break;
+			case BLOCK_TYPE_DIAMOND:
+				block = new DiamondBlock(_cursorX, _cursorY, NULL);
+				break;
+			case BLOCK_TYPE_BUBBLE:
+				block = new BubbleBlock(_cursorX, _cursorY, NULL);
+				break;
+			case BLOCK_TYPE_FIRE:
+				block = new FireBlock(_cursorX, _cursorY, NULL);
+				break;
+			case BLOCK_TYPE_BEAN:
+				block = new BeanBlock(_cursorX, _cursorY, NULL);
+				break;
+			case BLOCK_TYPE_GRAVITY:
+				block = new GravityInversionBlock(_cursorX, _cursorY, NULL);
 				break;
 
 			case BLOCK_TYPE_BOULDER:
-				newBlock = new BoulderBlock(_cursorX, _cursorY, NULL);
+				block = new BoulderBlock(_cursorX, _cursorY, NULL);
 				break;
 			default:
 				break;
 		}
 
 		_level->removeBlockAt(_cursorX, _cursorY);
-		_level->setBlockAt(_cursorX, _cursorY, newBlock);
+		_level->setBlockAt(_cursorX, _cursorY, block);
 		_level->deleteRemovedBlocks();
+
+		_level->renderMap(_bottomGfx);
 	};
 
 	void render() {
@@ -151,7 +192,7 @@ public:
 		if (blockY + numBlocksY > _level->getHeight()) blockY = _level->getHeight() - numBlocksY;
 		if (blockY < 0) blockY = 0;
 
-		_topGfx->drawFilledXORRect((_cursorX - blockX) * BlockBase::BLOCK_SIZE, (_cursorY - blockY) * BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE);
+		_topGfx->drawXORRect((_cursorX - blockX) * BlockBase::BLOCK_SIZE, (_cursorY - blockY) * BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE);
 	};
 
 private:
