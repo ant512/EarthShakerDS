@@ -128,10 +128,6 @@ void Game::render() {
 
 	_level->animate();
 
-	// Get the size of the display measured in blocks
-	s32 displayWidth = GAME_WIDTH / BlockBase::BLOCK_SIZE;
-	s32 displayHeight = GAME_HEIGHT / BlockBase::BLOCK_SIZE;
-
 	// The centre of the display should be the player, unless the player is too
 	// close to an edge for the display to scroll.  In that situation, we keep
 	// the edge of the map at the edge of the display and move the player
@@ -140,20 +136,7 @@ void Game::render() {
 	s32 centreX = getPlayerBlock()->getX();
 	s32 centreY = getPlayerBlock()->getY();
 
-	// Get the top-left corner based on the assumption that the player is at the
-	// centre of the screen
-	s32 x = centreX - (displayWidth / 2);
-	s32 y = centreY - (displayHeight / 2);
-
-	// Prevent scrolling past the end of the level.  This accounts for the
-	// situation in which the player is not the centre of the screen
-	if (x + displayWidth > _level->getWidth()) x = _level->getWidth() - displayWidth;
-	if (x < 0) x = 0;
-
-	if (y + displayHeight > _level->getHeight()) y = _level->getHeight() - displayHeight;
-	if (y < 0) y = 0;
-
-	_level->render(x, y, displayWidth, displayHeight, _topGfx);
+	_level->render(centreX, centreY, _topGfx);
 }
 
 void Game::showMap() {

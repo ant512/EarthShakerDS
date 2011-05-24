@@ -33,7 +33,24 @@ void Level::animate() {
 	}
 }
 
-void Level::render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, WoopsiGfx::Graphics* gfx) {
+void Level::render(s32 centreX, s32 centreY, WoopsiGfx::Graphics* gfx) {
+
+	// Get the size of the display measured in blocks
+	s32 numBlocksX = GAME_WIDTH / BlockBase::BLOCK_SIZE;
+	s32 numBlocksY = GAME_HEIGHT / BlockBase::BLOCK_SIZE;
+
+	// Get the top-left corner based on the assumption that the player is at the
+	// centre of the screen
+	s32 blockX = centreX - (numBlocksX / 2);
+	s32 blockY = centreY - (numBlocksY / 2);
+
+	// Prevent scrolling past the end of the level.  The central point will not
+	// be at the centre of the screen
+	if (blockX + numBlocksX > _width) blockX = _width - numBlocksX;
+	if (blockX < 0) blockX = 0;
+
+	if (blockY + numBlocksY > _height) blockY = _height - numBlocksY;
+	if (blockY < 0) blockY = 0;
 
 	// Ensure we don't try to draw more blocks than exist
 	s32 stopX = numBlocksX + blockX;

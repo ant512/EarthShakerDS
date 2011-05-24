@@ -113,13 +113,11 @@ public:
 	/**
 	 * Renders the rectangular subset of blocks indicated to the supplied
 	 * graphics object.
-	 * @param blockX The x co-ordinate of the first block to render.
-	 * @param blockY The y co-ordinate of the first block to render.
-	 * @param numBlocksX The horizontal number of  blocks to render.
-	 * @param numBlocksY The vertical number of blocks to render.
+	 * @param centreX The x co-ordinate of the block to centre on if possible.
+	 * @param centreY The y co-ordinate of the block to centre on if possible.
 	 * @param gfx The graphics object to draw to.
 	 */
-	void render(s32 blockX, s32 blockY, s32 numBlocksX, s32 numBlocksY, WoopsiGfx::Graphics* gfx);
+	void render(s32 centreX, s32 centreY, WoopsiGfx::Graphics* gfx);
 
 	/**
 	 * Renders the level as a map.
