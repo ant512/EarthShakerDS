@@ -41,13 +41,14 @@ public:
 		_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 
 		render();
+		drawMap();
 
 		// Wait for A to be released
 		const PadState& pad = Hardware::getPadState();
 
-		//while(pad.a) {
-		//	Hardware::waitForVBlank();
-		//}
+		while(pad.a) {
+			Hardware::waitForVBlank();
+		}
 	};
 
 	~LevelEditor() { };
@@ -113,7 +114,7 @@ public:
 		}
 
 		_level->removeBlockAt(_cursorX, _cursorY);
-		_level->renderMap(_bottomGfx);
+		drawMap();
 	};
 
 	void placeBlock() {
@@ -165,13 +166,36 @@ public:
 		_level->setBlockAt(_cursorX, _cursorY, block);
 		_level->deleteRemovedBlocks();
 
-		_level->renderMap(_bottomGfx);
+		drawMap();
 	};
 
 	void render() {
 		_level->animate();
 		_level->render(_cursorX, _cursorY, _topGfx);
 		drawCursor();
+	};
+
+	void drawMap() {
+		_level->renderMap(_bottomGfx);
+		drawBorder();
+	};
+
+	void drawBorder() {
+		// Top border
+		_bottomGfx->drawLine(5, 4, 250, 4, COLOUR_MAGENTA);
+		_bottomGfx->drawLine(4, 5, 251, 5, COLOUR_MAGENTA);
+
+		// Left border
+		_bottomGfx->drawLine(4, 5, 4, 170, COLOUR_MAGENTA);
+		_bottomGfx->drawLine(5, 5, 5, 170, COLOUR_MAGENTA);
+
+		// Right border
+		_bottomGfx->drawLine(250, 5, 250, 170, COLOUR_MAGENTA);
+		_bottomGfx->drawLine(251, 5, 251, 170, COLOUR_MAGENTA);
+
+		// Bottom border
+		_bottomGfx->drawLine(5, 171, 250, 171, COLOUR_MAGENTA);
+		_bottomGfx->drawLine(4, 170, 250, 170, COLOUR_MAGENTA);
 	};
 
 	void drawCursor() {

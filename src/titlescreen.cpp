@@ -5,6 +5,7 @@
 #include "titlescreen.h"
 
 TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinition*>* levelDefinitions) : ScreenBase(topGfx, bottomGfx) {
+
 	_timer = 0;
 	_chosenLevel = NULL;
 
