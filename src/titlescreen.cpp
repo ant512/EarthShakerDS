@@ -13,7 +13,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 
 	topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 	bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
-/*
+
 	topGfx->drawBitmap(0, 0, 256, 64, &_logoBmp, 0, 0);
 
 	// Copyrights
@@ -22,7 +22,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 
 	str.setText("DS (c) 2011 Antony Dzeryn");
 	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 168, &_font, str, 0, str.getLength(), COLOUR_WHITE);
-*/
+
 	_blockSlideshowScreen = new BlockSlideshowScreen(bottomGfx);
 
 	_scroller = new Scroller(".... Earth Shaker DS - Featuring anti-gravity, "
@@ -83,7 +83,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	soundTest->addOption("Teleport Collect", 16);
 	soundTest->addOption("Time", 17);
 
-	rootMenu->addOption("Level Editor", 1);
+	//rootMenu->addOption("Level Editor", 1);
 
 	_menuSystem->render();
 

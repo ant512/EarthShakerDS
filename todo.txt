@@ -3,4 +3,25 @@ Todo
 
  - Add soil poke sound.
  - Teleport effect
- - Level editor
+ - Level editor:
+   - Buttons activated by stylus.
+   - Text buttons.
+   - Bitmap buttons.
+   - 5 tabs on bottom of screen: "Map", "Block", "Palette", "File", "Exit"
+     - When button tapped, switch to different view.
+     - "Map" view displays map of level state.
+     - "Block" view displays all 38 blocks; tapping one makes it the current
+       painting block.
+     - "Palette" view allows the following to be set:
+       - Boulder colour.
+       - Soil colour.
+       - Brick wall colour.
+     - "File" button has sub-options:
+       - "Load":
+         - Loads an existing map.
+         - Need a directory list.
+       - "Save":
+         - Saves the current map.
+         - Need a directory list and a keyboard.
+       - "New" resets to a blank level.
+     - "Exit" menu switches back to title screen.
