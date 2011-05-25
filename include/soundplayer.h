@@ -35,6 +35,7 @@ public:
 		mmLoadEffect(SFX_PLAYEREXPLODE);
 		mmLoadEffect(SFX_MAPTHEME);
 		mmLoadEffect(SFX_SOILDIG);
+		mmLoadEffect(SFX_SOILPOKE);
 		mmLoadEffect(SFX_SUICIDE);
 		mmLoadEffect(SFX_TELEPORTCOLLECT);
 		mmLoadEffect(SFX_TIME);
@@ -177,6 +178,13 @@ public:
 	};
 
 	/**
+	 * Plays the soil poking sound.
+	 */
+	static void playSoilPoke() {
+		mmEffect(SFX_SOILPOKE);
+	};
+
+	/**
 	 * Plays the suicide sound.
 	 */
 	static void playSuicide() {
@@ -242,6 +250,7 @@ public:
 		mmUnloadEffect(SFX_PLAYEREXPLODE);
 		mmUnloadEffect(SFX_MAPTHEME);
 		mmUnloadEffect(SFX_SOILDIG);
+		mmUnloadEffect(SFX_SOILPOKE);
 		mmUnloadEffect(SFX_SUICIDE);
 		mmUnloadEffect(SFX_TELEPORTCOLLECT);
 		mmUnloadEffect(SFX_TIME);

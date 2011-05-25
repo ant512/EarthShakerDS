@@ -85,7 +85,7 @@ public:
 	 */
 	void pokeLeft() {
 		_game->getLevel()->removeBlockAt(_x, _y);
-		//SoundPlayer::playSoilPoke();
+		SoundPlayer::playSoilPoke();
 	};
 
 	/**
@@ -93,7 +93,7 @@ public:
 	 */
 	void pokeRight() {
 		_game->getLevel()->removeBlockAt(_x, _y);
-		//SoundPlayer::playSoilPoke();
+		SoundPlayer::playSoilPoke();
 	};
 
 	/**
@@ -101,7 +101,7 @@ public:
 	 */
 	void pokeUp() {
 		_game->getLevel()->removeBlockAt(_x, _y);
-		//SoundPlayer::playSoilPoke();
+		SoundPlayer::playSoilPoke();
 	};
 
 	/**
@@ -109,7 +109,7 @@ public:
 	 */
 	void pokeDown() {
 		_game->getLevel()->removeBlockAt(_x, _y);
-		//SoundPlayer::playSoilPoke();
+		SoundPlayer::playSoilPoke();
 	};
 };
 

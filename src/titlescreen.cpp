@@ -79,11 +79,13 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	soundTest->addOption("Pause", 12);
 	soundTest->addOption("Player Explode", 13);
 	soundTest->addOption("Soil Dig", 14);
-	soundTest->addOption("Suicide", 15);
-	soundTest->addOption("Teleport Collect", 16);
-	soundTest->addOption("Time", 17);
+	soundTest->addOption("Soil Poke", 15);
+	soundTest->addOption("Suicide", 16);
+	soundTest->addOption("Teleport Collect", 17);
+	soundTest->addOption("Time", 18);
 
-	//rootMenu->addOption("Level Editor", 1);
+	//
+	rootMenu->addOption("Level Editor", 1);
 
 	_menuSystem->render();
 
@@ -186,12 +188,15 @@ void TitleScreen::soundTest(s32 sound) {
 			SoundPlayer::playSoilDig();
 			break;
 		case 15:
-			SoundPlayer::playSuicide();
+			SoundPlayer::playSoilPoke();
 			break;
 		case 16:
-			SoundPlayer::playTeleportCollect();
+			SoundPlayer::playSuicide();
 			break;
 		case 17:
+			SoundPlayer::playTeleportCollect();
+			break;
+		case 18:
 			SoundPlayer::playTime();
 			break;
 	}

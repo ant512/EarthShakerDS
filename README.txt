@@ -36,7 +36,7 @@ killed by:
 Controls
 --------
 
-The d-pad moves around the level.  The X, Y, A and B buttons will poke the block
+The d-pad moves around the level.  The X, Y, B and A buttons will poke the block
 that is above, to the left, below and to the right respectively, without moving
 the player sprite.  This means you can push boulders, collect diamonds, and so
 on, that are next to you without moving.  This is a useful technique in some of
