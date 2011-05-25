@@ -41,8 +41,8 @@ void MenuSystem::renderOptions() {
 	s32 firstOption = _activeMenu->getSelectedIndex() - 3;
 	s32 lastOption = _activeMenu->getSelectedIndex() + 3;
 
-	if (lastOption > _activeMenu->getTotalOptionCount() - 1) {
-		lastOption = _activeMenu->getTotalOptionCount() - 1;
+	if (lastOption > _activeMenu->getOptionCount() - 1) {
+		lastOption = _activeMenu->getOptionCount() - 1;
 	}
 
 	// Wipe area under options and redraw visible option subset
@@ -63,11 +63,7 @@ void MenuSystem::renderOptions() {
 
 		// Draw an option if one is available; otherwise, draw a submenu if one
 		// of those is available
-		if (i < _activeMenu->getOptionCount()) {
-			str = _activeMenu->getOption(i);
-		} else {
-			str = _activeMenu->getSubMenu(i - _activeMenu->getOptionCount())->getTitle();
-		}
+		str = _activeMenu->getOptionText(i);
 
 		_gfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, y, &_font, str, 0, str.getLength(), colour);
 		y += _font.getHeight();

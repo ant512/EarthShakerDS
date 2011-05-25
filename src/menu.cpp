@@ -15,46 +15,81 @@ Menu::~Menu() {
 	for (s32 i = 0; i < _subMenus.size(); ++i) {
 		delete _subMenus[i];
 	}
+
+	for (s32 i = 0; i < _options.size(); ++i) {
+		delete _options[i];
+	}
 }
 
 void Menu::moveToNextOption() {
-	if (_selectedIndex < getTotalOptionCount() - 1) {
-		++_selectedIndex;
+	if (_selectedIndex < getOptionCount() - 1) {
+
+		// Options without text are treated as spaces
+		do {
+			++_selectedIndex;
+		} while (getSelectedText().getLength() == 0);
 	} else {
 		_selectedIndex = 0;
+
+		// Options without text are treated as spaces
+		while (getSelectedText().getLength() == 0) {
+			++_selectedIndex;
+		}
 	}
 }
 
 void Menu::moveToPreviousOption() {
 	if (_selectedIndex > 0) {
-		--_selectedIndex;
+
+		// Options without text are treated as spaces
+		do {
+			--_selectedIndex;
+		} while (getSelectedText().getLength() == 0);
 	} else {
-		_selectedIndex = getTotalOptionCount() - 1;
+		_selectedIndex = getOptionCount() - 1;
+
+		// Options without text are treated as spaces
+		while (getSelectedText().getLength() == 0) {
+			--_selectedIndex;
+		}
 	}
 }
 
 void Menu::moveToNextPage() {
-	if (_selectedIndex < getTotalOptionCount() - 4) {
+	if (_selectedIndex < getOptionCount() - 4) {
 		_selectedIndex += 3;
+
+		// Options without text are treated as spaces
+		while (getSelectedText().getLength() == 0) {
+			++_selectedIndex;
+		}
 	} else {
-		_selectedIndex = getTotalOptionCount() - 1;
+		_selectedIndex = getOptionCount() - 1;
+
+		// Options without text are treated as spaces
+		while (getSelectedText().getLength() == 0) {
+			--_selectedIndex;
+		}
 	}
 }
 
 void Menu::moveToPreviousPage() {
 	if (_selectedIndex > 3) {
 		_selectedIndex -= 3;
+
+		// Options without text are treated as spaces
+		while (getSelectedText().getLength() == 0) {
+			--_selectedIndex;
+		}
 	} else {
 		_selectedIndex = 0;
+
+
+		// Options without text are treated as spaces
+		while (getSelectedText().getLength() == 0) {
+			++_selectedIndex;
+		}
 	}
-}
-
-const WoopsiGfx::WoopsiString& Menu::getSelectedOption() const {
-	return _options[_selectedIndex];
-}
-
-s32 Menu::getTotalOptionCount() const {
-	return _options.size() + _subMenus.size();
 }
 
 void Menu::setSelectedIndex(s32 index) {
@@ -63,18 +98,28 @@ void Menu::setSelectedIndex(s32 index) {
 	if (index > _options.size() - 1) index = _options.size() - 1;
 
 	_selectedIndex = index;
+
+	// Options without text are treated as spaces
+	while (getSelectedText().getLength() == 0) {
+		++_selectedIndex;
+	}
 }
 
-void Menu::addOption(const WoopsiGfx::WoopsiString& option) {
-	_options.push_back(option);
+void Menu::addOption(const WoopsiGfx::WoopsiString& text, s32 value) {
+	MenuOption* menuOption = new MenuOption(text, value, false);
+	_options.push_back(menuOption);
 }
 
 s32 Menu::getOptionCount() const {
 	return _options.size();
 }
 
-const WoopsiGfx::WoopsiString& Menu::getOption(s32 index) const {
-	return _options[index];
+const WoopsiGfx::WoopsiString& Menu::getOptionText(s32 index) const {
+	return _options[index]->getText();
+}
+
+s32 Menu::getOptionValue(s32 index) const {
+	return _options[index]->getValue();
 }
 
 Menu* Menu::getSubMenu(s32 index) const {
@@ -82,22 +127,33 @@ Menu* Menu::getSubMenu(s32 index) const {
 }
 
 bool Menu::isSubMenuSelected() const {
-	return _selectedIndex >= _options.size();
+	return _options[_selectedIndex]->isSubMenu();
 }
 
 Menu* Menu::getSelectedSubMenu() const {
 	if (!isSubMenuSelected()) return NULL;
 
-	return _subMenus[_selectedIndex - _options.size()];
+	return _subMenus[getSelectedValue()];
 }
 
 s32 Menu::getSelectedIndex() const {
 	return _selectedIndex;
 }
 
+s32 Menu::getSelectedValue() const {
+	return _options[_selectedIndex]->getValue();
+}
+
+const WoopsiGfx::WoopsiString& Menu::getSelectedText() const {
+	return _options[_selectedIndex]->getText();
+}
+
 void Menu::addSubMenu(Menu* subMenu) {
 	subMenu->setParent(this);
 	_subMenus.push_back(subMenu);
+
+	MenuOption* option = new MenuOption(subMenu->getTitle(), _subMenus.size() - 1, true);
+	_options.push_back(option);
 }
 
 Menu* Menu::getParent() const {

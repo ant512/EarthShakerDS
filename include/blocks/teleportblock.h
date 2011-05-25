@@ -24,7 +24,7 @@
 class TeleportBlock : public BlockBase {
 public:
 
-	static const s32 TELEPORT_TIME = 50;
+	static const s32 TELEPORT_TIME = 50;	/**< Duration of pause before and after player teleports. */
 
 	/**
 	 * Constructor.

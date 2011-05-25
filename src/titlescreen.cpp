@@ -13,7 +13,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 
 	topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 	bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
-
+/*
 	topGfx->drawBitmap(0, 0, 256, 64, &_logoBmp, 0, 0);
 
 	// Copyrights
@@ -22,7 +22,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 
 	str.setText("DS (c) 2011 Antony Dzeryn");
 	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 168, &_font, str, 0, str.getLength(), COLOUR_WHITE);
-
+*/
 	_blockSlideshowScreen = new BlockSlideshowScreen(bottomGfx);
 
 	_scroller = new Scroller(".... Earth Shaker DS - Featuring anti-gravity, "
@@ -49,15 +49,14 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	
 	// Set up root menu
 	Menu* rootMenu = _menuSystem->getRootMenu();
-	rootMenu->addOption("Start");
-	rootMenu->addOption("Level Editor");
+	rootMenu->addOption("Start Game", 0);
 
 	// Set up level select
 	Menu* levelSelect = new Menu("Level Select", MENU_LEVEL_SELECT);
 	rootMenu->addSubMenu(levelSelect);
 
 	for (s32 i = 0; i < _levelDefinitions->size(); ++i) {
-		levelSelect->addOption(_levelDefinitions->at(i)->getName());
+		levelSelect->addOption(_levelDefinitions->at(i)->getName(), i);
 	}
 
 	// Set up sound test
@@ -65,24 +64,26 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	Menu* soundTest = new Menu("Sound Test", MENU_SOUND_TEST);
 	rootMenu->addSubMenu(soundTest);
 
-	soundTest->addOption("Barrier Explode");
-	soundTest->addOption("Barrier Push");
-	soundTest->addOption("Bean Collect");
-	soundTest->addOption("Block Fall");
-	soundTest->addOption("Block Land");
-	soundTest->addOption("Boulder Explode");
-	soundTest->addOption("Bubble Explode");
-	soundTest->addOption("Diamond Collect");
-	soundTest->addOption("Door Open");
-	soundTest->addOption("Extra Life Collect");
-	soundTest->addOption("Gravity Inversion");
-	soundTest->addOption("Level Complete");
-	soundTest->addOption("Pause");
-	soundTest->addOption("Player Explode");
-	soundTest->addOption("Soil Dig");
-	soundTest->addOption("Suicide");
-	soundTest->addOption("Teleport Collect");
-	soundTest->addOption("Time");
+	soundTest->addOption("Barrier Explode", 0);
+	soundTest->addOption("Barrier Push", 1);
+	soundTest->addOption("Bean Collect", 2);
+	soundTest->addOption("Block Fall", 3);
+	soundTest->addOption("Block Land", 4);
+	soundTest->addOption("Boulder Explode", 5);
+	soundTest->addOption("Bubble Explode", 6);
+	soundTest->addOption("Diamond Collect", 7);
+	soundTest->addOption("Door Open", 8);
+	soundTest->addOption("Extra Life Collect", 9);
+	soundTest->addOption("Gravity Inversion", 10);
+	soundTest->addOption("Level Complete", 11);
+	soundTest->addOption("Pause", 12);
+	soundTest->addOption("Player Explode", 13);
+	soundTest->addOption("Soil Dig", 14);
+	soundTest->addOption("Suicide", 15);
+	soundTest->addOption("Teleport Collect", 16);
+	soundTest->addOption("Time", 17);
+
+	rootMenu->addOption("Level Editor", 1);
 
 	_menuSystem->render();
 
@@ -104,17 +105,17 @@ void TitleScreen::iterate() {
 void TitleScreen::handleMenuAction(Menu* source) {
 	switch (source->getId()) {
 		case MENU_MAIN:
-			mainMenu(source->getSelectedIndex());
+			mainMenu(source->getSelectedValue());
 			break;
 
 		case MENU_LEVEL_SELECT:
-			_chosenLevel = _levelDefinitions->at(source->getSelectedIndex());
+			_chosenLevel = _levelDefinitions->at(source->getSelectedValue());
 			SoundPlayer::stopTitleTheme();
 			SoundPlayer::playBubbleExplode();
 			break;
 
 		case MENU_SOUND_TEST:
-			soundTest(source->getSelectedIndex());
+			soundTest(source->getSelectedValue());
 	}
 }
 

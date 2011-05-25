@@ -8,6 +8,7 @@
 
 #include "gamefont.h"
 #include "hardware.h"
+#include "menuoption.h"
 #include "padstate.h"
 #include "spectrumcolours.h"
 
@@ -31,13 +32,13 @@ public:
 
 	/**
 	 * Adds a new option to the end of the menu list.
-	 * @param option The text of the option.
+	 * @param text The text of the option.
+	 * @param value The value of the option.
 	 */
-	void addOption(const WoopsiGfx::WoopsiString& option);
+	void addOption(const WoopsiGfx::WoopsiString& text, s32 value);
 
 	/**
-	 * Get the number of options in the menu.  This does not include the count
-	 * of submenus.
+	 * Get the number of options in the menu.
 	 * @return The number of options in the menu.
 	 */
 	s32 getOptionCount() const;
@@ -47,7 +48,14 @@ public:
 	 * @param index The index of the option to retrieve.
 	 * @return The text of the option.
 	 */
-	const WoopsiGfx::WoopsiString& getOption(s32 index) const;
+	const WoopsiGfx::WoopsiString& getOptionText(s32 index) const;
+
+	/**
+	 * Gets the value of the specified option.
+	 * @param index The index of the option to retrieve.
+	 * @return The value of the option.
+	 */
+	s32 getOptionValue(s32 index) const;
 
 	/**
 	 * Gets the specified sub menu.
@@ -81,13 +89,6 @@ public:
 	 * @param menu The menu to set as this menu's parent.
 	 */
 	void setParent(Menu* menu);
-
-	/**
-	 * Gets the total number of available options, which is calculated as the
-	 * number of options plus the number of submenus.
-	 * @return The total number of available options.
-	 */
-	s32 getTotalOptionCount() const;
 
 	/**
 	 * Get the parent of the current menu.  Returns NULL if the menu has no
@@ -136,10 +137,16 @@ public:
 	s32 getSelectedIndex() const;
 
 	/**
+	 * Gets the value of the currently-selected option.
+	 * @return The value of the currently-selected option.
+	 */
+	s32 getSelectedValue() const;
+
+	/**
 	 * Gets the text of the currently-selected option.
 	 * @return The text of the currently-selected option.
 	 */
-	const WoopsiGfx::WoopsiString& getSelectedOption() const;
+	const WoopsiGfx::WoopsiString& getSelectedText() const;
 
 	/**
 	 * Sets the selected index to the specified value.
@@ -148,12 +155,12 @@ public:
 	void setSelectedIndex(s32 index);
 
 private:
-	WoopsiArray<WoopsiGfx::WoopsiString> _options;	/**< List of options to choose from. */
-	WoopsiGfx::WoopsiString _title;					/**< Title of the menu. */
-	s32 _selectedIndex;								/**< Currently-selected index. */
-	WoopsiArray<Menu*> _subMenus;					/**< List of sub menus. */
-	Menu* _parent;									/**< The menu's parent menu. */
-	s32 _id;										/**< The ID of the menu. */
+	WoopsiArray<MenuOption*> _options;					/**< List of all options. */
+	WoopsiGfx::WoopsiString _title;						/**< Title of the menu. */
+	s32 _selectedIndex;									/**< Currently-selected index. */
+	WoopsiArray<Menu*> _subMenus;						/**< List of sub menus. */
+	Menu* _parent;										/**< The menu's parent menu. */
+	s32 _id;											/**< The ID of the menu. */
 };
 
 #endif
