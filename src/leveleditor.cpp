@@ -54,6 +54,8 @@ LevelEditor::LevelEditor() {
 
 	render();
 
+	drawPanelBorder();
+
 	_mapPanel = new LevelEditorMapPanel(_bottomGfx, _level);
 	_blockPanel = new LevelEditorBlockPanel(_bottomGfx, this);
 
@@ -236,4 +238,22 @@ void LevelEditor::handleButtonAction(ButtonBase* source) {
 		case STATE_FILE:
 			break;
 	}
+}
+
+void LevelEditor::drawPanelBorder() {
+	// Top border
+	_bottomGfx->drawLine(5, 4, 250, 4, COLOUR_MAGENTA);
+	_bottomGfx->drawLine(4, 5, 251, 5, COLOUR_MAGENTA);
+
+	// Left border
+	_bottomGfx->drawLine(4, 5, 4, 170, COLOUR_MAGENTA);
+	_bottomGfx->drawLine(5, 5, 5, 170, COLOUR_MAGENTA);
+
+	// Right border
+	_bottomGfx->drawLine(250, 5, 250, 170, COLOUR_MAGENTA);
+	_bottomGfx->drawLine(251, 5, 251, 170, COLOUR_MAGENTA);
+
+	// Bottom border
+	_bottomGfx->drawLine(5, 171, 250, 171, COLOUR_MAGENTA);
+	_bottomGfx->drawLine(4, 170, 250, 170, COLOUR_MAGENTA);
 }

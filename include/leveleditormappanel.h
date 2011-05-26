@@ -17,7 +17,6 @@ public:
 
 		// Optimise this - drawing the map every frame kills performance
 		_level->renderMap(_gfx);
-		drawBorder();
 	};
 
 private:

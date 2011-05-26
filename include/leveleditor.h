@@ -103,6 +103,8 @@ private:
 	LevelEditorPanelBase* _activePanel;
 	LevelEditorMapPanel* _mapPanel;
 	LevelEditorBlockPanel* _blockPanel;
+
+	void drawPanelBorder();
 };
 
 #endif
