@@ -20,10 +20,6 @@ public:
 		drawBorder();
 	};
 
-	void erase() {
-		_gfx->drawFilledRect(4, 4, 251, 171, COLOUR_BLACK);
-	};
-
 private:
 	Level* _level;
 };

@@ -14,6 +14,10 @@ public:
 	virtual ~LevelEditorPanelBase() {};
 	virtual void iterate() = 0;
 
+	void erase() {
+		_gfx->drawFilledRect(4, 4, 251, 171, COLOUR_BLACK);
+	};
+
 protected:
 	WoopsiGfx::Graphics* _gfx;
 

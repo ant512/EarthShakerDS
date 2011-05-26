@@ -3,6 +3,7 @@
 
 #include <graphics.h>
 
+#include "leveleditorpanelbase.h"
 #include "leveleditor.h"
 
 class LevelEditorBlockPanel : public LevelEditorPanelBase {
@@ -11,7 +12,7 @@ public:
 		_levelEditor = levelEditor;
 	};
 
-	~LevelEditorMapPanel() {};
+	~LevelEditorBlockPanel() {};
 
 	void iterate() {
 		drawBorder();
