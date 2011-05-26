@@ -19,4 +19,12 @@ typedef struct {
 	bool select : 1;	/**< Is select pressed? */
 } PadState;
 
+typedef struct {
+	u8 held:1;					/**< Stylus is held down */
+	u8 released:1;				/**< Inverse of held */
+	u8 newPress:1;				/**< Stylus has been newly pressed */
+	s16 x;						/**< X co-ord of the stylus */
+	s16 y;						/**< Y co-ord of the stylus */
+} StylusState;
+
 #endif

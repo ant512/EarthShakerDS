@@ -1,6 +1,7 @@
 #include "hardware.h"
 
 PadState Hardware::_pad;
+StylusState Hardware::_stylus;
 
 WoopsiGfx::FrameBuffer* Hardware::_topBuffer = NULL;
 WoopsiGfx::FrameBuffer* Hardware::_bottomBuffer = NULL;
@@ -44,24 +45,54 @@ void Hardware::updatePadState() {
 
 	PadState oldPad = _pad;
 
-	_pad.up = (keysDown() & KEY_UP) || (keysHeld() & KEY_UP);
-	_pad.down = (keysDown() & KEY_DOWN) || (keysHeld() & KEY_DOWN);
-	_pad.left = (keysDown() & KEY_LEFT) || (keysHeld() & KEY_LEFT);
-	_pad.right = (keysDown() & KEY_RIGHT) || (keysHeld() & KEY_RIGHT);
-	_pad.l = ((keysDown() & KEY_L) || (keysHeld() & KEY_L));
-	_pad.r = ((keysDown() & KEY_R) || (keysHeld() & KEY_R));
-	_pad.a = ((keysDown() & KEY_A) || (keysHeld() & KEY_A));
-	_pad.b = ((keysDown() & KEY_B) || (keysHeld() & KEY_B));
-	_pad.x = ((keysDown() & KEY_X) || (keysHeld() & KEY_X));
-	_pad.y = ((keysDown() & KEY_Y) || (keysHeld() & KEY_Y));
-	_pad.start = ((keysDown() & KEY_START) || (keysHeld() & KEY_START));
-	_pad.select = ((keysDown() & KEY_SELECT) || (keysHeld() & KEY_SELECT));
+	s32 pressed = keysDown();	// buttons pressed this loop
+	s32 held = keysHeld();		// buttons currently held
+	s32 allKeys = pressed | held;
+
+	_pad.up = allKeys & KEY_UP;
+	_pad.down = allKeys & KEY_DOWN;
+	_pad.left = allKeys & KEY_LEFT;
+	_pad.right = allKeys & KEY_RIGHT;
+	_pad.l = allKeys & KEY_L;
+	_pad.r = allKeys & KEY_R;
+	_pad.a = allKeys & KEY_A;
+	_pad.b = allKeys & KEY_B;
+	_pad.x = allKeys & KEY_X;
+	_pad.y = allKeys & KEY_Y;
+	_pad.start = allKeys & KEY_START;
+	_pad.select = allKeys & KEY_SELECT;
 
 	if ((_pad.up && !oldPad.up) || (_pad.down && !oldPad.down)) {
 		_isMostRecentDirectionVertical = true;
 	} else if ((_pad.left && !oldPad.left) || (_pad.right && !oldPad.right)) {
 		_isMostRecentDirectionVertical = false;
 	}
+
+	touchPosition touch;
+	touchRead(&touch);
+
+	if (_stylus.newPress) {
+		_stylus.held = true;
+		_stylus.newPress = false;
+	}
+
+	_stylus.released = false;
+
+	if ((allKeys & KEY_TOUCH) && (!_stylus.held)) {
+		
+		// New click
+		_stylus.newPress = true;
+		_stylus.released = false;
+
+	} else if ((allKeys & KEY_TOUCH) && (_stylus.held)) {
+		
+		// Release
+		_stylus.released = true;
+		_stylus.newPress = false;
+	}
+
+	_stylus.x = touch.px;
+	_stylus.y = touch.py;
 }
 
 bool Hardware::isMostRecentDirectionVertical() {

@@ -53,6 +53,10 @@ public:
 		return _pad;
 	};
 
+	static inline const StylusState& getStylusState() {
+		return _stylus;
+	};
+
 	/**
 	 * Waits for the next VBlank.  Also updates the pad state.
 	 */
@@ -67,6 +71,7 @@ public:
 
 private:
 	static PadState _pad;							/**< State of the DS' pad. */
+	static StylusState _stylus;						/**< State of the DS' stylus. */
 	static WoopsiGfx::FrameBuffer* _topBuffer;		/**< Top frame buffer. */
 	static WoopsiGfx::FrameBuffer* _bottomBuffer;	/**< Bottom frame buffer. */
 	static WoopsiGfx::Graphics* _topGfx;			/**< Top display graphics object. */

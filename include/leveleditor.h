@@ -22,7 +22,13 @@
 #include "wallblock.h"
 #include "wetsoilblock.h"
 
-class LevelEditor {
+#include "textbutton.h"
+#include "buttonbank.h"
+#include "buttonlistener.h"
+#include "leveleditorpanelbase.h"
+#include "leveleditormappanel.h"
+
+class LevelEditor : public ButtonListener {
 public:
 	LevelEditor() {
 		_topGfx = Hardware::getTopGfx();
@@ -40,8 +46,17 @@ public:
 		_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 		_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 
+		_mainButtonBank = new ButtonBank(this);
+		_mainButtonBank->addButton(new TextButton(2, 180, 60, 10, STATE_MAP, "Map"));
+		_mainButtonBank->addButton(new TextButton(66, 180, 60, 10, STATE_BLOCK, "Block"));
+		_mainButtonBank->addButton(new TextButton(130, 180, 60, 10, STATE_PALETTE, "Palette"));
+		_mainButtonBank->addButton(new TextButton(194, 180, 60, 10, STATE_FILE, "File"));
+
+		_mainButtonBank->render(_bottomGfx);
+
 		render();
-		drawMap();
+
+		_activePanel = new LevelEditorMapPanel(_bottomGfx, _level);
 
 		// Wait for A to be released
 		const PadState& pad = Hardware::getPadState();
@@ -51,18 +66,28 @@ public:
 		}
 	};
 
-	~LevelEditor() { };
+	~LevelEditor() {
+		delete _mainButtonBank;
+		delete _level;
+	};
 
 	void main() {
 		while (1) {
 
 			Hardware::waitForVBlank();
 
+			// Update stylus stuff every frame
+			const StylusState& stylus = Hardware::getStylusState();
+
+			_mainButtonBank->click(stylus.x, stylus.y);
+
 			++_timer;
 
 			if (_timer < ANIMATION_TIME) continue;
 
 			_timer = 0;
+
+			_activePanel->iterate();
 
 			const PadState& pad = Hardware::getPadState();
 
@@ -114,7 +139,6 @@ public:
 		}
 
 		_level->removeBlockAt(_cursorX, _cursorY);
-		drawMap();
 	};
 
 	void placeBlock() {
@@ -165,37 +189,14 @@ public:
 		_level->removeBlockAt(_cursorX, _cursorY);
 		_level->setBlockAt(_cursorX, _cursorY, block);
 		_level->deleteRemovedBlocks();
-
-		drawMap();
 	};
 
 	void render() {
 		_level->animate();
 		_level->render(_cursorX, _cursorY, _topGfx);
 		drawCursor();
-	};
 
-	void drawMap() {
-		_level->renderMap(_bottomGfx);
-		drawBorder();
-	};
-
-	void drawBorder() {
-		// Top border
-		_bottomGfx->drawLine(5, 4, 250, 4, COLOUR_MAGENTA);
-		_bottomGfx->drawLine(4, 5, 251, 5, COLOUR_MAGENTA);
-
-		// Left border
-		_bottomGfx->drawLine(4, 5, 4, 170, COLOUR_MAGENTA);
-		_bottomGfx->drawLine(5, 5, 5, 170, COLOUR_MAGENTA);
-
-		// Right border
-		_bottomGfx->drawLine(250, 5, 250, 170, COLOUR_MAGENTA);
-		_bottomGfx->drawLine(251, 5, 251, 170, COLOUR_MAGENTA);
-
-		// Bottom border
-		_bottomGfx->drawLine(5, 171, 250, 171, COLOUR_MAGENTA);
-		_bottomGfx->drawLine(4, 170, 250, 170, COLOUR_MAGENTA);
+		_mainButtonBank->render(_bottomGfx);
 	};
 
 	void drawCursor() {
@@ -217,6 +218,19 @@ public:
 		if (blockY < 0) blockY = 0;
 
 		_topGfx->drawXORRect((_cursorX - blockX) * BlockBase::BLOCK_SIZE, (_cursorY - blockY) * BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE);
+	};
+
+	void handleButtonAction(ButtonBase* source) {
+		switch (source->getId()) {
+			case STATE_MAP:
+				break;
+			case STATE_BLOCK:
+				break;
+			case STATE_PALETTE:
+				break;
+			case STATE_FILE:
+				break;
+		}
 	};
 
 private:
@@ -262,6 +276,13 @@ private:
 		BLOCK_TYPE_SOIL_BOULDER = 37
 	};
 
+	enum EditorState {
+		STATE_MAP = 0,
+		STATE_BLOCK = 1,
+		STATE_PALETTE = 2,
+		STATE_FILE = 3
+	};
+
 	static const s32 LEVEL_WIDTH = 30;
 	static const s32 LEVEL_HEIGHT = 20;
 
@@ -275,8 +296,9 @@ private:
 	s32 _cursorY;
 
 	BlockType _paintBlock;
-
 	BlockBase* _playerBlock;
+	ButtonBank* _mainButtonBank;
+	LevelEditorPanelBase* _activePanel;
 };
 
 #endif
