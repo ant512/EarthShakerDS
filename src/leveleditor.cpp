@@ -45,10 +45,10 @@ LevelEditor::LevelEditor() {
 	_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 
 	_mainButtonBank = new ButtonBank(this);
-	_mainButtonBank->addButton(new TextButton(2, 180, 60, 10, STATE_MAP, "Map"));
-	_mainButtonBank->addButton(new TextButton(66, 180, 60, 10, STATE_BLOCK, "Block"));
-	_mainButtonBank->addButton(new TextButton(130, 180, 60, 10, STATE_PALETTE, "Palette"));
-	_mainButtonBank->addButton(new TextButton(194, 180, 60, 10, STATE_FILE, "File"));
+	_mainButtonBank->addButton(new TextButton(2, 174, 60, 16, STATE_MAP, "Map"));
+	_mainButtonBank->addButton(new TextButton(66, 174, 60, 16, STATE_BLOCK, "Block"));
+	_mainButtonBank->addButton(new TextButton(130, 174, 60, 16, STATE_PALETTE, "Palette"));
+	_mainButtonBank->addButton(new TextButton(194, 174, 60, 16, STATE_FILE, "File"));
 
 	_mainButtonBank->render(_bottomGfx);
 
