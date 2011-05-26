@@ -84,11 +84,12 @@ void Hardware::updatePadState() {
 		_stylus.newPress = true;
 		_stylus.released = false;
 
-	} else if ((allKeys & KEY_TOUCH) && (_stylus.held)) {
+	} else if ((!(allKeys & KEY_TOUCH)) && (_stylus.held)) {
 		
 		// Release
 		_stylus.released = true;
 		_stylus.newPress = false;
+		_stylus.held = false;
 	}
 
 	_stylus.x = touch.px;

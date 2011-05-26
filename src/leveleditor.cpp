@@ -82,7 +82,9 @@ void LevelEditor::main() {
 		// Update stylus stuff every frame
 		const StylusState& stylus = Hardware::getStylusState();
 
-		_mainButtonBank->click(stylus.x, stylus.y);
+		if (stylus.newPress) {
+			_mainButtonBank->click(stylus.x, stylus.y);
+		}
 
 		++_timer;
 
