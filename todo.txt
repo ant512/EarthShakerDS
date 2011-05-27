@@ -1,7 +1,6 @@
 Todo
 ----
 
- - Add soil poke sound.
  - Teleport effect
  - Level editor:
    - "File" button has sub-options:
