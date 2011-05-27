@@ -16,4 +16,4 @@ Todo
        - Saves the current map.
        - Need a directory list and a keyboard.
      - "New" resets to a blank level.
-   - "Exit" menu switches back to title screen.
+     - "Exit" menu switches back to title screen.
