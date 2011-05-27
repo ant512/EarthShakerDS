@@ -38,11 +38,11 @@ public:
 
 private:
 
-	enum EditorState {
-		STATE_MAP = 0,
-		STATE_BLOCK = 1,
-		STATE_PALETTE = 2,
-		STATE_FILE = 3
+	enum PanelType {
+		PANEL_MAP = 0,
+		PANEL_BLOCK = 1,
+		PANEL_PALETTE = 2,
+		PANEL_FILE = 3
 	};
 
 	static const s32 LEVEL_WIDTH = 30;

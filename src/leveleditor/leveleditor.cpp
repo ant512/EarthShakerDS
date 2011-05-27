@@ -43,10 +43,10 @@ LevelEditor::LevelEditor() {
 	_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 
 	_mainButtonBank = new ButtonBank(this, _bottomGfx);
-	_mainButtonBank->addButton(new TextButton(2, 174, 60, 16, STATE_MAP, "Map"));
-	_mainButtonBank->addButton(new TextButton(66, 174, 60, 16, STATE_BLOCK, "Block"));
-	_mainButtonBank->addButton(new TextButton(130, 174, 60, 16, STATE_PALETTE, "Palette"));
-	_mainButtonBank->addButton(new TextButton(194, 174, 60, 16, STATE_FILE, "File"));
+	_mainButtonBank->addButton(new TextButton(2, 174, 60, 16, PANEL_MAP, "Map"));
+	_mainButtonBank->addButton(new TextButton(66, 174, 60, 16, PANEL_BLOCK, "Block"));
+	_mainButtonBank->addButton(new TextButton(130, 174, 60, 16, PANEL_PALETTE, "Palette"));
+	_mainButtonBank->addButton(new TextButton(194, 174, 60, 16, PANEL_FILE, "File"));
 
 	_mainButtonBank->render();
 
@@ -178,15 +178,15 @@ void LevelEditor::handleButtonAction(ButtonBase* source) {
 	_activePanel->erase();
 
 	switch (source->getId()) {
-		case STATE_MAP:
+		case PANEL_MAP:
 			_activePanel = _mapPanel;
 			break;
-		case STATE_BLOCK:
+		case PANEL_BLOCK:
 			_activePanel = _blockPanel;
 			break;
-		case STATE_PALETTE:
+		case PANEL_PALETTE:
 			break;
-		case STATE_FILE:
+		case PANEL_FILE:
 			break;
 	}
 
