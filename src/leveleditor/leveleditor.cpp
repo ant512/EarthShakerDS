@@ -26,6 +26,7 @@
 #include "buttonlistener.h"
 #include "leveleditorpanelbase.h"
 #include "leveleditorblockpanel.h"
+#include "leveleditorpalettepanel.h"
 #include "leveleditormappanel.h"
 #include "levelfactory.h"
 
@@ -54,8 +55,9 @@ LevelEditor::LevelEditor() {
 
 	drawPanelBorder();
 
-	_mapPanel = new LevelEditorMapPanel(_bottomGfx, _level);
 	_blockPanel = new LevelEditorBlockPanel(_bottomGfx, this);
+	_palettePanel = new LevelEditorPalettePanel(_bottomGfx);
+	_mapPanel = new LevelEditorMapPanel(_bottomGfx, _level);
 
 	_activePanel = _mapPanel;
 
@@ -69,6 +71,9 @@ LevelEditor::LevelEditor() {
 
 LevelEditor::~LevelEditor() {
 	delete _mainButtonBank;
+	delete _blockPanel;
+	delete _palettePanel;
+	delete _mapPanel;
 	delete _level;
 }
 
@@ -185,6 +190,7 @@ void LevelEditor::handleButtonAction(ButtonBase* source) {
 			_activePanel = _blockPanel;
 			break;
 		case PANEL_PALETTE:
+			_activePanel = _palettePanel;
 			break;
 		case PANEL_FILE:
 			break;

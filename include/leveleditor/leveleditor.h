@@ -14,6 +14,7 @@
 
 class LevelEditorBlockPanel;
 class LevelEditorMapPanel;
+class LevelEditorPalettePanel;
 class LevelEditorPanelBase;
 
 class LevelEditor : public ButtonListener {
@@ -60,6 +61,7 @@ private:
 	ButtonBank* _mainButtonBank;
 	LevelEditorPanelBase* _activePanel;
 	LevelEditorMapPanel* _mapPanel;
+	LevelEditorPalettePanel* _palettePanel;
 	LevelEditorBlockPanel* _blockPanel;
 
 	void drawPanelBorder();
