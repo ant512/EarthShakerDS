@@ -39,7 +39,8 @@ LevelEditor::LevelEditor() {
 
 	_cursorX = 0;
 	_cursorY = 0;
-	_timer = 0;
+	_animationTimer = 0;
+	_movementTimer = 0;
 
 	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 	_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
@@ -88,11 +89,13 @@ void LevelEditor::main() {
 		_buttons->iterate();
 		_activePanel->iterate();
 
-		++_timer;
+		render();
 
-		if (_timer < ANIMATION_TIME) continue;
+		++_movementTimer;
 
-		_timer = 0;
+		if (_movementTimer < MOVEMENT_TIME / 2) continue;
+
+		_movementTimer = 0;
 
 		const PadState& pad = Hardware::getPadState();
 
@@ -115,8 +118,6 @@ void LevelEditor::main() {
 		} else if (pad.right) {
 			moveCursorTo(_cursorX + 1, _cursorY);
 		}
-
-		render();
 	}
 }
 
@@ -157,6 +158,13 @@ void LevelEditor::placeBlock() {
 }
 
 void LevelEditor::render() {
+
+	++_animationTimer;
+
+	if (_animationTimer < ANIMATION_TIME) return;
+
+	_animationTimer = 0;
+
 	_level->animate();
 	_level->render(_cursorX, _cursorY, _topGfx);
 	drawCursor();

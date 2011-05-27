@@ -54,7 +54,8 @@ private:
 	WoopsiGfx::Graphics* _bottomGfx;		/**< Pointer to the graphics object for the bottom display. */
 
 	Level* _level;							/**< The currently-active level.*/
-	s32 _timer;
+	s32 _animationTimer;
+	s32 _movementTimer;
 
 	s32 _cursorX;
 	s32 _cursorY;
