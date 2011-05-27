@@ -33,8 +33,9 @@ class LevelEditorBlockPanel : public LevelEditorPanelBase, public ButtonListener
 public:
 	LevelEditorBlockPanel(WoopsiGfx::Graphics* gfx, LevelEditor* levelEditor) : LevelEditorPanelBase(gfx) {
 		_levelEditor = levelEditor;
+		_selectedBlock = BLOCK_TYPE_PLAYER;
 
-		_buttons = new ButtonBank(this);
+		_buttons = new ButtonBank(this, gfx);
 
 		_buttons->addButton(new BitmapButton(8, 8, 20, 20, BLOCK_TYPE_PLAYER, &_playerBmp));
 		_buttons->addButton(new BitmapButton(32, 8, 20, 20, BLOCK_TYPE_BARRIER, &_barrierBmp));
@@ -61,7 +62,11 @@ public:
 	};
 
 	void iterate() {
-		_buttons->render(_gfx);
+		_buttons->iterate();
+	};
+
+	void render() {
+		_buttons->render();
 	};
 
 	/**
@@ -69,12 +74,18 @@ public:
 	 * @param source The button that raised the event.
 	 */
 	void handleButtonAction(ButtonBase* source) {
+		_selectedBlock = (BlockType)source->getId();
+	};
 
-	}
+	BlockType getSelectedBlockType() const {
+		return _selectedBlock;
+	};
 
 private:
 	LevelEditor* _levelEditor;
 	ButtonBank* _buttons;
+
+	BlockType _selectedBlock;
 
 	BarrierBmp1 _barrierBmp;
 	BarrierControlBmp _barrierControlBmp;

@@ -27,6 +27,14 @@ public:
 
 	s32 getId() const { return _id; };
 
+	void click() {
+		_clicked = true;
+	};
+
+	void release() {
+		_clicked = false;
+	};
+
 protected:
 	s32 _x;
 	s32 _y;

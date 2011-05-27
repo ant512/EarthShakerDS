@@ -57,7 +57,6 @@ private:
 	s32 _cursorX;
 	s32 _cursorY;
 
-	BlockType _paintBlock;
 	BlockBase* _playerBlock;
 	ButtonBank* _mainButtonBank;
 	LevelEditorPanelBase* _activePanel;

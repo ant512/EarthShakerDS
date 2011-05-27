@@ -36,7 +36,6 @@ LevelEditor::LevelEditor() {
 
 	_playerBlock = NULL;
 
-	_paintBlock = BLOCK_TYPE_BUBBLE;
 	_cursorX = 0;
 	_cursorY = 0;
 	_timer = 0;
@@ -44,13 +43,13 @@ LevelEditor::LevelEditor() {
 	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 	_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 
-	_mainButtonBank = new ButtonBank(this);
+	_mainButtonBank = new ButtonBank(this, _bottomGfx);
 	_mainButtonBank->addButton(new TextButton(2, 174, 60, 16, STATE_MAP, "Map"));
 	_mainButtonBank->addButton(new TextButton(66, 174, 60, 16, STATE_BLOCK, "Block"));
 	_mainButtonBank->addButton(new TextButton(130, 174, 60, 16, STATE_PALETTE, "Palette"));
 	_mainButtonBank->addButton(new TextButton(194, 174, 60, 16, STATE_FILE, "File"));
 
-	_mainButtonBank->render(_bottomGfx);
+	_mainButtonBank->render();
 
 	render();
 
@@ -79,20 +78,14 @@ void LevelEditor::main() {
 
 		Hardware::waitForVBlank();
 
-		// Update stylus stuff every frame
-		const StylusState& stylus = Hardware::getStylusState();
-
-		if (stylus.newPress) {
-			_mainButtonBank->click(stylus.x, stylus.y);
-		}
+		_mainButtonBank->iterate();
+		_activePanel->iterate();
 
 		++_timer;
 
 		if (_timer < ANIMATION_TIME) continue;
 
 		_timer = 0;
-
-		_activePanel->iterate();
 
 		const PadState& pad = Hardware::getPadState();
 
@@ -154,7 +147,7 @@ void LevelEditor::placeBlock() {
 		_playerBlock = NULL;
 	}
 
-	switch (_paintBlock) {
+	switch (_blockPanel->getSelectedBlockType()) {
 		case BLOCK_TYPE_NULL:
 			break;
 		case BLOCK_TYPE_PLAYER:
@@ -200,8 +193,6 @@ void LevelEditor::render() {
 	_level->animate();
 	_level->render(_cursorX, _cursorY, _topGfx);
 	drawCursor();
-
-	_mainButtonBank->render(_bottomGfx);
 }
 
 void LevelEditor::drawCursor() {
@@ -240,6 +231,8 @@ void LevelEditor::handleButtonAction(ButtonBase* source) {
 		case STATE_FILE:
 			break;
 	}
+
+	_activePanel->render();
 }
 
 void LevelEditor::drawPanelBorder() {

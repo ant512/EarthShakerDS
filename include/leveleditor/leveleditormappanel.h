@@ -19,6 +19,10 @@ public:
 		_level->renderMap(_gfx);
 	};
 
+	void render() {
+		_level->renderMap(_gfx);
+	};
+
 private:
 	Level* _level;
 };

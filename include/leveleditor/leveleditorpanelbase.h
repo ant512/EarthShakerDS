@@ -14,6 +14,8 @@ public:
 	virtual ~LevelEditorPanelBase() {};
 	virtual void iterate() = 0;
 
+	virtual void render() = 0;
+
 	void erase() {
 		_gfx->drawFilledRect(8, 8, 240, 160, COLOUR_BLACK);
 	};
