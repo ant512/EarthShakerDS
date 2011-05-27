@@ -21,13 +21,27 @@ public:
 	 * @param number The number of the level.
 	 * @param name The name of the level.
 	 * @param data The level layout.
+	 * @param boulderColour The colour of boulders in this level.
+	 * @param brickWallColour The colour of brick walls in this level.
+	 * @param soilColour The colour of soil in this level.
 	 */
-	LevelDefinition(s32 width, s32 height, s32 number, WoopsiGfx::WoopsiString name, const u8* data) {
+	LevelDefinition(s32 width,
+					s32 height,
+					s32 number,
+					WoopsiGfx::WoopsiString name,
+					const u8* data,
+					u16 boulderColour,
+					u16 brickWallColour,
+					u16 soilColour) {
+
 		_width = width;
 		_height = height;
 		_layout = data;
 		_number = number;
 		_name = name;
+		_boulderColour = boulderColour;
+		_brickWallColour = brickWallColour;
+		_soilColour = soilColour;
 	};
 
 	/**
@@ -65,11 +79,9 @@ public:
 	 */
 	inline const WoopsiGfx::WoopsiString& getName() const { return _name; };
 
-	/**
-	 * Swaps the colours of bitmaps in BitmapServer to match the colour scheme
-	 * of this level.
-	 */
-	inline virtual void recolourBitmaps() { };
+	inline u16 getBoulderColour() const { return _boulderColour; };
+	inline u16 getBrickWallColour() const { return _brickWallColour; };
+	inline u16 getSoilColour() const { return _soilColour; };
 
 protected:
 	const u8* _layout;							/**< Level map stored as a 1 dimensional array of bytes. */
@@ -77,6 +89,9 @@ protected:
 	s32 _height;								/**< Height of the level in blocks. */
 	WoopsiGfx::WoopsiString _name;				/**< Name of the level. */
 	s32 _number;								/**< Number of the level. */
+	u16 _boulderColour;							/**< Colour of boulders in this level. */
+	u16 _brickWallColour;						/**< Colour of brick walls in this level. */
+	u16 _soilColour;							/**< Colour of soil in this level. */
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include "level23.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level23Data[600] = {
 	17,17,2 ,18,17,2 ,17,17,2 ,2 ,17,2 ,18,17,18,17,18,32,32,2 ,32,32,32,32,32,32,32,32,32,17,
@@ -24,11 +25,5 @@ const static u8 level23Data[600] = {
 	2 ,4 ,32,2 ,4 ,4 ,4 ,4 ,4 ,18,2 ,2 ,18,4 ,32,32,32,32,32,32,3 ,32,18,32,2 ,32,2 ,32,32,10
 };
 
-Level23::Level23() : LevelDefinition(30, 20, 23, "Alarm Clock Works", level23Data) {
-}
-
-void Level23::recolourBitmaps() {
-	BitmapServer::makeSoilBlue();
-	BitmapServer::makeBrickWallRed();
-	BitmapServer::makeBouldersYellow();
+Level23::Level23() : LevelDefinition(30, 20, 23, "Alarm Clock Works", level23Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) {
 }

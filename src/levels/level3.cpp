@@ -1,5 +1,6 @@
 #include "level3.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level3Data[600] = {
     17,17,21,21,21,21,21,21,32,32,17,17,17,17,32,32,32,32,32,32,2 ,32,17,17,17,21,21,21,21,21,
@@ -24,11 +25,5 @@ const static u8 level3Data[600] = {
 	21,21,21,21,21,21,21,21,32,32,32,32,2 ,2 ,32,32,32,2 ,2 ,32,32,32,32,32,2 ,2 ,32,6 ,2 ,17
 };
 
-Level3::Level3() : LevelDefinition(30, 20, 3, "The Gravity Chamber", level3Data) {
-}
-
-void Level3::recolourBitmaps() {
-	BitmapServer::makeSoilBlue();
-	BitmapServer::makeBrickWallRed();
-	BitmapServer::makeBouldersYellow();
+Level3::Level3() : LevelDefinition(30, 20, 3, "The Gravity Chamber", level3Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) {
 }

@@ -1,5 +1,6 @@
 #include "level29.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level29Data[600] = {
 	32,4 ,10,18,4 ,2 ,4 ,18,4 ,32,32,4 ,2 ,32,32,4 ,18,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,2 ,5 ,18,10,2 ,
@@ -24,10 +25,5 @@ const static u8 level29Data[600] = {
 	10,5 ,32,32,32,32,32,3 ,18,4 ,18,32,32,3 ,32,32,32,3 ,32,32,18,4 ,18,32,3 ,32,5 ,5 ,5 ,2
 };
 
-Level29::Level29() : LevelDefinition(30, 20, 29, "Ye Fit Warm House", level29Data) {
-}
-
-void Level29::recolourBitmaps() {
-	BitmapServer::makeSoilMagenta();
-	BitmapServer::makeBrickWallYellow();
+Level29::Level29() : LevelDefinition(30, 20, 29, "Ye Fit Warm House", level29Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_MAGENTA) {
 }

@@ -1,5 +1,6 @@
 #include "level11.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level11Data[600] = {
 	17,17,21,21,21,21,21,21,10,17,0 ,17,32,32,32,2 ,32,6 ,21,21,21,21,21,21,21,21,3 ,17,17,17,
@@ -24,10 +25,5 @@ const static u8 level11Data[600] = {
 	21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,10,21,21,3 ,17,17
 };
 
-Level11::Level11() : LevelDefinition(30, 20, 11, "Graviton Shells", level11Data) {
-}
-
-void Level11::recolourBitmaps() {
-	BitmapServer::makeSoilMagenta();
-	BitmapServer::makeBouldersRed();
+Level11::Level11() : LevelDefinition(30, 20, 11, "Graviton Shells", level11Data, COLOUR_RED, COLOUR_RED, COLOUR_MAGENTA) {
 }

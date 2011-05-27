@@ -1,5 +1,6 @@
 #include "level6.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level6Data[600] = {
 	3 ,3 ,32,32,32,32,32,3 ,32,32,32,2 ,3 ,32,17,17,32,32,2 ,32,32,32,17,17,17,17,17,32,32,32,
@@ -24,11 +25,5 @@ const static u8 level6Data[600] = {
 	17,17,17,4 ,17,17,18,18,18,4 ,4 ,4 ,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,4
 };
 
-Level6::Level6() : LevelDefinition(30, 20, 6, "Diamonds of Mine", level6Data) {
-}
-
-void Level6::recolourBitmaps() {
-	BitmapServer::makeSoilCyan();
-	BitmapServer::makeBrickWallMagenta();
-	BitmapServer::makeBouldersYellow();
+Level6::Level6() : LevelDefinition(30, 20, 6, "Diamonds of Mine", level6Data, COLOUR_YELLOW, COLOUR_MAGENTA, COLOUR_CYAN) {
 }

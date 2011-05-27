@@ -570,6 +570,80 @@ void Game::resetLevelVariables() {
 	_levelTimer = 0;
 }
 
+void Game::recolourBitmaps(const LevelDefinition* levelDefinition) {
+	switch (levelDefinition->getBoulderColour()) {
+		case COLOUR_WHITE:
+			BitmapServer::makeBouldersWhite();
+			break;
+		case COLOUR_RED:
+			BitmapServer::makeBouldersRed();
+			break;
+		case COLOUR_GREEN:
+			BitmapServer::makeBouldersGreen();
+			break;
+		case COLOUR_BLUE:
+			BitmapServer::makeBouldersBlue();
+			break;
+		case COLOUR_CYAN:
+			BitmapServer::makeBouldersCyan();
+			break;
+		case COLOUR_MAGENTA:
+			BitmapServer::makeBouldersMagenta();
+			break;
+		case COLOUR_YELLOW:
+			BitmapServer::makeBouldersYellow();
+			break;
+	}
+
+	switch (levelDefinition->getBrickWallColour()) {
+		case COLOUR_WHITE:
+			BitmapServer::makeBrickWallWhite();
+			break;
+		case COLOUR_RED:
+			BitmapServer::makeBrickWallRed();
+			break;
+		case COLOUR_GREEN:
+			BitmapServer::makeBrickWallGreen();
+			break;
+		case COLOUR_BLUE:
+			BitmapServer::makeBrickWallBlue();
+			break;
+		case COLOUR_CYAN:
+			BitmapServer::makeBrickWallCyan();
+			break;
+		case COLOUR_MAGENTA:
+			BitmapServer::makeBrickWallMagenta();
+			break;
+		case COLOUR_YELLOW:
+			BitmapServer::makeBrickWallYellow();
+			break;
+	}
+
+	switch (levelDefinition->getSoilColour()) {
+		case COLOUR_WHITE:
+			BitmapServer::makeSoilWhite();
+			break;
+		case COLOUR_RED:
+			BitmapServer::makeSoilRed();
+			break;
+		case COLOUR_GREEN:
+			BitmapServer::makeSoilGreen();
+			break;
+		case COLOUR_BLUE:
+			BitmapServer::makeSoilBlue();
+			break;
+		case COLOUR_CYAN:
+			BitmapServer::makeSoilCyan();
+			break;
+		case COLOUR_MAGENTA:
+			BitmapServer::makeSoilMagenta();
+			break;
+		case COLOUR_YELLOW:
+			BitmapServer::makeSoilYellow();
+			break;
+	}
+}
+
 void Game::resetLevel() {
 	resetLevelVariables();
 
@@ -583,6 +657,8 @@ void Game::resetLevel() {
 	}
 
 	_level = LevelFactory::createLevel(_levelDefinitions[levelNumber - 1], this);
+
+	recolourBitmaps(_levelDefinitions[levelNumber - 1]);
 
 	_hud->drawBackground(_level->getDiamondCount(),
 						 _collectedDiamonds,
@@ -604,7 +680,8 @@ void Game::startLevel(LevelDefinition* levelDefinition) {
 	}
 
 	_level = LevelFactory::createLevel(levelDefinition, this);
-	levelDefinition->recolourBitmaps();
+
+	recolourBitmaps(levelDefinition);
 
 	_hud->drawBackground(_level->getDiamondCount(),
 						 _collectedDiamonds,

@@ -1,5 +1,6 @@
 #include "level8.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level8Data[600] = {
 	18,2 ,17,18,18,18,18,10,32,2 ,32,32,10,18,18,18,18,18,17,3 ,17,32,32,32,32,32,4 ,32,17,18,
@@ -24,11 +25,5 @@ const static u8 level8Data[600] = {
 	18,18,17,32,32,32,18,18,18,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,18,18,18,18,3 ,18,18,10
 };
 
-Level8::Level8() : LevelDefinition(30, 20, 8, "Central Incinerator", level8Data) {
-}
-
-void Level8::recolourBitmaps() {
-	BitmapServer::makeSoilYellow();
-	BitmapServer::makeBrickWallRed();
-	BitmapServer::makeBouldersCyan();
+Level8::Level8() : LevelDefinition(30, 20, 8, "Central Incinerator", level8Data, COLOUR_CYAN, COLOUR_RED, COLOUR_YELLOW) {
 }

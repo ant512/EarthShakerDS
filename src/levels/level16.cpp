@@ -1,5 +1,6 @@
 #include "level16.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level16Data[600] = {
 	17,17,17,32,32,2 ,32,32,5 ,5 ,5 ,22,22,22,22,10,22,4 ,22,4 ,4 ,4 ,4 ,4 ,4 ,5 ,17,32,22,22,
@@ -24,10 +25,5 @@ const static u8 level16Data[600] = {
 	22,4 ,4 ,22,4 ,22,4 ,22,4 ,22,4 ,4 ,22,1 ,22,11,22,4 ,22,4 ,22,4 ,22,4 ,22,4 ,22,4 ,4 ,22
 };
 
-Level16::Level16() : LevelDefinition(30, 20, 16, "Hair Brained Surgery", level16Data) {
-}
-
-void Level16::recolourBitmaps() {
-	BitmapServer::makeSoilGreen();
-	BitmapServer::makeBouldersBlue();
+Level16::Level16() : LevelDefinition(30, 20, 16, "Hair Brained Surgery", level16Data, COLOUR_BLUE, COLOUR_RED, COLOUR_GREEN) {
 }

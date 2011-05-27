@@ -14,11 +14,6 @@ public:
 	 * Constructor.
 	 */
 	EmptyLevel();
-
-	/**
-	 * Swap bitmaps to use palette of this level.
-	 */
-	void recolourBitmaps();
 };
 
 #endif

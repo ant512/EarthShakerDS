@@ -1,5 +1,6 @@
 #include "level13.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level13Data[600] = {
 	30,17,17,35,35,2 ,35,35,35,35,35,35,35,2 ,35,35,35,35,35,2 ,35,35,35,35,35,17,17,35,35,30,
@@ -24,9 +25,5 @@ const static u8 level13Data[600] = {
 	30,30,30,30,30,30,17,17,30,4 ,4 ,30,4 ,4 ,30,4 ,4 ,30,4 ,4 ,30,17,30,30,30,30,30,30,30,30
 };
 
-Level13::Level13() : LevelDefinition(30, 20, 13, "Wet Hell Soil", level13Data) {
-}
-
-void Level13::recolourBitmaps() {
-	BitmapServer::makeBouldersGreen();
+Level13::Level13() : LevelDefinition(30, 20, 13, "Wet Hell Soil", level13Data, COLOUR_GREEN, COLOUR_RED, COLOUR_BLUE) {
 }

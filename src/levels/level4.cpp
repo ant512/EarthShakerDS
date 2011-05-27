@@ -1,5 +1,6 @@
 #include "level4.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level4Data[600] = {
 	17,17,32,32,32,17,32,32,32,17,0 ,0 ,0 ,0 ,0 ,32,2 ,32,32,2 ,32,32,32,2 ,2 ,32,17,32,2 ,32,
@@ -24,10 +25,5 @@ const static u8 level4Data[600] = {
 	4 ,32,4 ,1 ,10,19,19,19,4 ,2 ,32,32,32,2 ,32,32,32,10,19,32,17,32,17,32,19,10,32,4 ,4 ,4
 };
 
-Level4::Level4() : LevelDefinition(30, 20, 4, "Head in the Clouds", level4Data) {
-}
-
-void Level4::recolourBitmaps() {
-	BitmapServer::makeSoilGreen();
-	BitmapServer::makeBouldersCyan();
+Level4::Level4() : LevelDefinition(30, 20, 4, "Head in the Clouds", level4Data, COLOUR_CYAN, COLOUR_RED, COLOUR_GREEN) {
 }

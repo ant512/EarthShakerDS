@@ -1,5 +1,6 @@
 #include "level21.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level21Data[600] = {
 	20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,17,17,2 ,2 ,20,
@@ -24,10 +25,5 @@ const static u8 level21Data[600] = {
 	17,32,17,17,17,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 };
 
-Level21::Level21() : LevelDefinition(30, 20, 21, "Outer Bounds", level21Data) {
-}
-
-void Level21::recolourBitmaps() {
-	BitmapServer::makeSoilBlue();
-	BitmapServer::makeBouldersGreen();
+Level21::Level21() : LevelDefinition(30, 20, 21, "Outer Bounds", level21Data, COLOUR_GREEN, COLOUR_RED, COLOUR_BLUE) {
 }

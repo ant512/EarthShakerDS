@@ -1,5 +1,6 @@
 #include "level18.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level18Data[600] = {
 	13,4 ,10,28,28,17,17,5 ,28,28,4 ,32,8 ,8 ,3 ,2 ,32,32,2 ,32,2 ,2 ,2 ,28,28,28,5 ,17,17,5 ,
@@ -24,10 +25,5 @@ const static u8 level18Data[600] = {
 	17,4 ,4 ,28,2 ,4 ,4 ,4 ,4 ,28,17,17,28,32,28,2 ,32,2 ,32,4 ,4 ,4 ,4 ,32,2 ,17,2 ,4 ,4 ,2
 };
 
-Level18::Level18() : LevelDefinition(30, 20, 18, "Spacebase Wastepipes", level18Data) {
-}
-
-void Level18::recolourBitmaps() {
-	BitmapServer::makeSoilBlue();
-	BitmapServer::makeBouldersYellow();
+Level18::Level18() : LevelDefinition(30, 20, 18, "Spacebase Wastepipes", level18Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) {
 }

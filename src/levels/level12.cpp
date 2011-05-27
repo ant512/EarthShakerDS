@@ -1,5 +1,6 @@
 #include "level12.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level12Data[600] = {
 	0 ,23,23,2 ,17,32,23,32,32,32,32,32,23,23,23,23,23,23,23,2 ,2 ,2 ,23,23,2 ,23,17,23,2 ,5 ,
@@ -24,10 +25,5 @@ const static u8 level12Data[600] = {
 	2 ,23,23,23,10,4 ,23,23,4 ,17,23,4 ,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,32,32,32
 };
 
-Level12::Level12() : LevelDefinition(30, 20, 12, "The Oil Wells", level12Data) {
-}
-
-void Level12::recolourBitmaps() {
-	BitmapServer::makeSoilWhite();
-	BitmapServer::makeBouldersBlue();
+Level12::Level12() : LevelDefinition(30, 20, 12, "The Oil Wells", level12Data, COLOUR_BLUE, COLOUR_RED, COLOUR_MAGENTA) {
 }

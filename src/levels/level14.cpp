@@ -1,5 +1,6 @@
 #include "level14.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level14Data[600] = {
 	20,10,20,20,20,17,17,20,20,20,0 ,0 ,20,0 ,20,20,20,10,32,32,20,20,20,32,32,32,17,0 ,0 ,0 ,
@@ -24,10 +25,5 @@ const static u8 level14Data[600] = {
 	3 ,32,32,32,32,32,5 ,32,32,32,4 ,32,32,32,32,32,32,32,32,5 ,3 ,32,32,32,17,17,17,17,17,3
 };
 
-Level14::Level14() : LevelDefinition(30, 20, 14, "The Gravlock Cell", level14Data) {
-}
-
-void Level14::recolourBitmaps() {
-	BitmapServer::makeSoilBlue();
-	BitmapServer::makeBouldersWhite();
+Level14::Level14() : LevelDefinition(30, 20, 14, "The Gravlock Cell", level14Data, COLOUR_WHITE, COLOUR_RED, COLOUR_BLUE) {
 }

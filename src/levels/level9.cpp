@@ -1,5 +1,6 @@
 #include "level9.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level9Data[600] = {
 	30,30,30,2 ,32,30,30,30,17,30,30,30,30,17,30,32,17,2 ,2 ,2 ,30,2 ,30,2 ,30,30,30,17,17,17,
@@ -24,10 +25,5 @@ const static u8 level9Data[600] = {
 	30,30,30,30,30,30,10,2 ,9 ,2 ,2 ,30,30,30,30,32,2 ,32,32,32,32,30,32,32,2 ,32,32,32,32,32
 };
 
-Level9::Level9() : LevelDefinition(30, 20, 9, "Internal Reactor Inc", level9Data) {
-}
-
-void Level9::recolourBitmaps() {
-	BitmapServer::makeSoilGreen();
-	BitmapServer::makeBouldersCyan();
+Level9::Level9() : LevelDefinition(30, 20, 9, "Internal Reactor Inc", level9Data, COLOUR_CYAN, COLOUR_RED, COLOUR_GREEN) {
 }

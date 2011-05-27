@@ -1,5 +1,6 @@
 #include "emptylevel.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 emptyLevelData[600] = {
 	0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,
@@ -24,11 +25,5 @@ const static u8 emptyLevelData[600] = {
 	0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0
 };
 
-EmptyLevel::EmptyLevel() : LevelDefinition(30, 20, 0, "Empty", emptyLevelData) {
-}
-
-void EmptyLevel::recolourBitmaps() {
-	BitmapServer::makeSoilBlue();
-	BitmapServer::makeBrickWallRed();
-	BitmapServer::makeBouldersYellow();
+EmptyLevel::EmptyLevel() : LevelDefinition(30, 20, 0, "Empty", emptyLevelData, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) {
 }

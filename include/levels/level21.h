@@ -14,11 +14,6 @@ public:
 	 * Constructor.
 	 */
 	Level21();
-
-	/**
-	 * Swap bitmaps to use palette of this level.
-	 */
-	void recolourBitmaps();
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include "level5.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level5Data[600] = {
 	20,2 ,20,2 ,20,32,2 ,20,2 ,20,2 ,32,20,20,2 ,20,20,20,20,20,20,2 ,20,2 ,20,2 ,20,2 ,20,20,
@@ -24,11 +25,5 @@ const static u8 level5Data[600] = {
 	17,2 ,17,2 ,20,2 ,20,2 ,17,2 ,17,32,32,2 ,13,2 ,17,2 ,20,2 ,17,2 ,20,2 ,17,17,2 ,20,20,17
 };
 
-Level5::Level5() : LevelDefinition(30, 20, 5, "Hush Toed Iceland", level5Data) {
-}
-
-void Level5::recolourBitmaps() {
-	BitmapServer::makeSoilBlue();
-	BitmapServer::makeBrickWallRed();
-	BitmapServer::makeBouldersYellow();
+Level5::Level5() : LevelDefinition(30, 20, 5, "Hush Toed Iceland", level5Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) {
 }

@@ -1,5 +1,6 @@
 #include "level30.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level30Data[600] = {
 	30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,17,30,30,
@@ -24,9 +25,5 @@ const static u8 level30Data[600] = {
 	30,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,30
 };
 
-Level30::Level30() : LevelDefinition(30, 20, 30, "The Keep", level30Data) {
-}
-
-void Level30::recolourBitmaps() {
-	BitmapServer::makeBouldersRed();
+Level30::Level30() : LevelDefinition(30, 20, 30, "The Keep", level30Data, COLOUR_RED, COLOUR_RED, COLOUR_BLUE) {
 }

@@ -1,5 +1,6 @@
 #include "level7.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level7Data[600] = {
 	17,17,24,24,24,24,24,24,24,17,24,24,24,24,24,24,24,3 ,17,17,24,24,24,24,24,24,24,24,24,17,
@@ -24,10 +25,5 @@ const static u8 level7Data[600] = {
 	17,3 ,17,17,24,24,17,3 ,17,24,24,17,3 ,3 ,24,24,24,17,17,17,24,24,24,4 ,24,24,24,24,17,17
 };
 
-Level7::Level7() : LevelDefinition(30, 20, 7, "The Two of Hearts", level7Data) {
-}
-
-void Level7::recolourBitmaps() {
-	BitmapServer::makeSoilRed();
-	BitmapServer::makeBouldersMagenta();
+Level7::Level7() : LevelDefinition(30, 20, 7, "The Two of Hearts", level7Data, COLOUR_MAGENTA, COLOUR_RED, COLOUR_RED) {
 }

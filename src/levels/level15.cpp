@@ -1,5 +1,6 @@
 #include "level15.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level15Data[600] = {
 	25,25,25,25,33,33,0 ,0 ,17,2 ,2 ,17,33,33,17,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,
@@ -24,9 +25,5 @@ const static u8 level15Data[600] = {
 	2 ,2 ,2 ,25,0 ,33,2 ,33,33,33,33,33,33,33,33,33,33,5 ,33,33,33,33,33,33,33,33,33,33,17,0
 };
 
-Level15::Level15() : LevelDefinition(30, 20, 15, "Honeycombs", level15Data) {
-}
-
-void Level15::recolourBitmaps() {
-	BitmapServer::makeBouldersMagenta();
+Level15::Level15() : LevelDefinition(30, 20, 15, "Honeycombs", level15Data, COLOUR_MAGENTA, COLOUR_RED, COLOUR_BLUE) {
 }

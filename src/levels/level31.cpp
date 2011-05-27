@@ -1,5 +1,6 @@
 #include "level31.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level31Data[600] = {
 	3 ,2 ,3 ,4 ,0 ,4 ,3 ,2 ,3 ,0 ,3 ,4 ,3 ,4 ,3 ,4 ,3 ,0 ,3 ,0 ,3 ,0 ,3 ,2 ,3 ,4 ,4 ,0 ,0 ,0 ,
@@ -24,9 +25,5 @@ const static u8 level31Data[600] = {
 	4 ,4 ,13,4 ,0 ,0 ,0 ,3 ,0 ,0 ,2 ,3 ,0 ,3 ,18,0 ,0 ,5 ,0 ,0 ,0 ,4 ,4 ,4 ,4 ,4 ,4 ,2 ,4 ,4
 };
 
-Level31::Level31() : LevelDefinition(30, 20, 31, "For Goodness Sake", level31Data) {
-}
-
-void Level31::recolourBitmaps() {
-	BitmapServer::makeBrickWallRed();
+Level31::Level31() : LevelDefinition(30, 20, 31, "For Goodness Sake", level31Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) {
 }

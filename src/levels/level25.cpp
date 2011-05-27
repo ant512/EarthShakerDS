@@ -1,5 +1,6 @@
 #include "level25.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level25Data[600] = {
 	0 ,0 ,0 ,18,18,17,18,18,18,17,2 ,2 ,18,32,17,32,0 ,0 ,0 ,0 ,32,5 ,2 ,32,5 ,32,0 ,0 ,0 ,32,
@@ -24,11 +25,5 @@ const static u8 level25Data[600] = {
 	2 ,2 ,18,18,18,32,32,32,32,32,0 ,17,18,18,2 ,2 ,2 ,18,18,10,32,10,18,18,2 ,32,17,18,11,0
 };
 
-Level25::Level25() : LevelDefinition(30, 20, 25, "Great Walls of Fire", level25Data) {
-}
-
-void Level25::recolourBitmaps() {
-	BitmapServer::makeSoilMagenta();
-	BitmapServer::makeBrickWallCyan();
-	BitmapServer::makeBouldersBlue();
+Level25::Level25() : LevelDefinition(30, 20, 25, "Great Walls of Fire", level25Data, COLOUR_BLUE, COLOUR_CYAN, COLOUR_MAGENTA) {
 }

@@ -1,5 +1,6 @@
 #include "level26.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level26Data[600] = {
 	2 ,2 ,10,10,10,10,10,10,10,10,10,10,27,2 ,3 ,4 ,2 ,2 ,2 ,27,27,27,17,17,17,2 ,2 ,27,4 ,17,
@@ -24,9 +25,5 @@ const static u8 level26Data[600] = {
 	4 ,10,27,27,27,27,8 ,5 ,5 ,5 ,8 ,8 ,8 ,8 ,8 ,8 ,2 ,8 ,8 ,8 ,8 ,35,35,35,35,35,35,35,35,35
 };
 
-Level26::Level26() : LevelDefinition(30, 20, 26, "China Canal", level26Data) {
-}
-
-void Level26::recolourBitmaps() {
-	BitmapServer::makeBouldersRed();
+Level26::Level26() : LevelDefinition(30, 20, 26, "China Canal", level26Data, COLOUR_RED, COLOUR_RED, COLOUR_BLUE) {
 }

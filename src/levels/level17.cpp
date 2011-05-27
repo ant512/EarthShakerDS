@@ -1,5 +1,6 @@
 #include "level17.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level17Data[600] = {
 	21,21,21,21,35,10,35,35,35,21,21,21,21,21,21,21,21,17,17,35,21,21,21,21,21,21,21,21,21,21,
@@ -24,9 +25,5 @@ const static u8 level17Data[600] = {
 	21,17,21,21,21,21,21,21,21,35,35,35,35,21,21,21,21,21,17,17,17,21,2 ,21,21,21,21,21,21,21
 };
 
-Level17::Level17() : LevelDefinition(30, 20, 17, "Bury Drainage Hirers", level17Data) {
-}
-
-void Level17::recolourBitmaps() {
-	BitmapServer::makeBouldersBlue();
+Level17::Level17() : LevelDefinition(30, 20, 17, "Bury Drainage Hirers", level17Data, COLOUR_BLUE, COLOUR_RED, COLOUR_BLUE) {
 }

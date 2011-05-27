@@ -1,5 +1,6 @@
 #include "level22.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level22Data[600] = {
 	30,4 ,2 ,30,30,35,30,30,30,17,30,17,17,17,35,30,30,30,2 ,4 ,4 ,2 ,30,30,17,17,17,17,35,2 ,
@@ -24,9 +25,5 @@ const static u8 level22Data[600] = {
 	30,30,2 ,2 ,2 ,17,35,35,30,35,35,35,35,35,35,35,35,30,30,30,30,2 ,30,30,6 ,30,6 ,30,6 ,30
 };
 
-Level22::Level22() : LevelDefinition(30, 20, 22, "Spring Loded", level22Data) {
-}
-
-void Level22::recolourBitmaps() {
-	BitmapServer::makeBouldersBlue();
+Level22::Level22() : LevelDefinition(30, 20, 22, "Spring Loded", level22Data, COLOUR_BLUE, COLOUR_RED, COLOUR_BLUE) {
 }

@@ -1,5 +1,6 @@
 #include "level2.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level2Data[600] = {
 	3 ,3 ,0 ,3 ,0 ,0 ,0 ,31,31,17,31,0 ,0 ,0 ,0 ,3 ,2 ,3 ,0 ,31,2 ,3 ,0 ,31,0 ,2 ,0 ,0 ,3 ,3 ,
@@ -24,11 +25,5 @@ const static u8 level2Data[600] = {
 	5 ,5 ,5 ,32,32,32,32,32,32,32,32,32,31,31,31,4 ,31,31,31,31,31,31,31,31,31,2 ,31,31,31,31
 };
 
-Level2::Level2() : LevelDefinition(30, 20, 2, "The Bubble Bath", level2Data) {
-}
-
-void Level2::recolourBitmaps() {
-	BitmapServer::makeSoilRed();
-	BitmapServer::makeBrickWallRed();
-	BitmapServer::makeBouldersMagenta();
+Level2::Level2() : LevelDefinition(30, 20, 2, "The Bubble Bath", level2Data, COLOUR_MAGENTA, COLOUR_RED, COLOUR_RED) {
 }

@@ -24,10 +24,5 @@ const static u8 level28Data[600] = {
 	15,17,0 ,0 ,32,2 ,26,4 ,32,10,2 ,32,2 ,2 ,32,32,2 ,32,2 ,2 ,3 ,10,26,5 ,5 ,0 ,0 ,17,17,17
 };
 
-Level28::Level28() : LevelDefinition(30, 20, 28, "Your Safe With Me", level28Data) {
-}
-
-void Level28::recolourBitmaps() {
-	BitmapServer::makeSoilBlue();
-	BitmapServer::makeBouldersYellow();
+Level28::Level28() : LevelDefinition(30, 20, 28, "Your Safe With Me", level28Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) {
 }

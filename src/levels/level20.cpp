@@ -1,5 +1,6 @@
 #include "level20.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level20Data[600] = {
 	29,29,29,29,2 ,29,29,29,2 ,29,34,2 ,29,29,2 ,29,29,29,34,34,34,2 ,29,2 ,34,29,2 ,29,2 ,29,
@@ -24,11 +25,5 @@ const static u8 level20Data[600] = {
 	2 ,34,2 ,34,34,34,34,34,34,34,34,2 ,34,34,34,2 ,29,34,34,34,2 ,29,34,29,29,29,34,29,29,29
 };
 
-Level20::Level20() : LevelDefinition(30, 20, 20, "Ruse No Doubt", level20Data) {
-}
-
-void Level20::recolourBitmaps() {
-	BitmapServer::makeSoilBlue();
-	BitmapServer::makeBrickWallRed();
-	BitmapServer::makeBouldersYellow();
+Level20::Level20() : LevelDefinition(30, 20, 20, "Ruse No Doubt", level20Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) {
 }

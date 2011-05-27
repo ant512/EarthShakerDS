@@ -1,5 +1,6 @@
 #include "level32.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level32Data[600] = {
 	18,18,18,1 ,18,5 ,5 ,18,10,18,32,18,10,18,18,18,18,18,10,17,32,4 ,32,32,32,32,32,32,18,17,
@@ -24,11 +25,5 @@ const static u8 level32Data[600] = {
 	12,4 ,32,32,32,32,18,5 ,5 ,9 ,18,10,5 ,10,18,18,10,18,18,18,4 ,18,18,32,18,18,18,18,18,18
 };
 
-Level32::Level32() : LevelDefinition(30, 20, 32, "No Devil Lived On", level32Data) {
-}
-
-void Level32::recolourBitmaps() {
-	BitmapServer::makeSoilBlue();
-	BitmapServer::makeBrickWallRed();
-	BitmapServer::makeBouldersYellow();
+Level32::Level32() : LevelDefinition(30, 20, 32, "No Devil Lived On", level32Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) {
 }

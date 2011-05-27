@@ -1,5 +1,6 @@
 #include "level1.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level1Data[600] = {
 	18,18,18,18,13,32,32,32,32,32,17,32,32,32,32,32,32,32,17,17,32,32,32,32,18,18,18,18,18,18,
@@ -24,11 +25,5 @@ const static u8 level1Data[600] = {
 	18,18,18,18,18,4, 18,18,18,4, 18,18,18,4, 18,18,18,4, 18,18,18,4, 18,18,18,18,18,18,18,18
 };
 
-Level1::Level1() : LevelDefinition(30, 20, 1, "Room for Improvement", level1Data) {
-}
-
-void Level1::recolourBitmaps() {
-	BitmapServer::makeSoilBlue();
-	BitmapServer::makeBrickWallRed();
-	BitmapServer::makeBouldersYellow();
+Level1::Level1() : LevelDefinition(30, 20, 1, "Room for Improvement", level1Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) {
 }

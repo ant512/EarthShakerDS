@@ -1,5 +1,6 @@
 #include "level24.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level24Data[600] = {
 	17,4 ,26,26,17,17,35,0 ,0 ,0 ,3 ,3 ,17,35,2 ,2 ,35,35,35,35,35,26,17,17,26,4 ,3 ,10,3 ,4 ,
@@ -24,9 +25,5 @@ const static u8 level24Data[600] = {
 	4 ,3 ,4 ,35,2 ,4 ,3 ,35,35,10,2 ,2 ,26,10,35,35,1 ,10,3 ,3 ,26,26,26,3 ,3 ,3 ,3 ,3 ,3 ,3
 };
 
-Level24::Level24() : LevelDefinition(30, 20, 24, "Fog Rise Waterfall", level24Data) {
-}
-
-void Level24::recolourBitmaps() {
-	BitmapServer::makeBouldersBlue();
+Level24::Level24() : LevelDefinition(30, 20, 24, "Fog Rise Waterfall", level24Data, COLOUR_BLUE, COLOUR_RED, COLOUR_BLUE) {
 }

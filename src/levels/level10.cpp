@@ -1,5 +1,6 @@
 #include "level10.h"
 #include "bitmapserver.h"
+#include "spectrumcolours.h"
 
 const static u8 level10Data[600] = {
 	17,27,32,17,32,17,32,32,2 ,2 ,32,27,27,27,27,32,17,32,32,17,17,2 ,17,27,27,27,27,27,27,27,
@@ -24,10 +25,5 @@ const static u8 level10Data[600] = {
 	27,27,17,17,17,27,27,27,2 ,17,17,2 ,2 ,2 ,2 ,2 ,2 ,27,17,17,27,27,27,27,2 ,27,27,17,17,17
 };
 
-Level10::Level10() : LevelDefinition(30, 20, 10, "Nuclear Ore Caverns", level10Data) {
-}
-
-void Level10::recolourBitmaps() {
-	BitmapServer::makeSoilMagenta();
-	BitmapServer::makeBouldersBlue();
+Level10::Level10() : LevelDefinition(30, 20, 10, "Nuclear Ore Caverns", level10Data, COLOUR_BLUE, COLOUR_RED, COLOUR_MAGENTA) {
 }
