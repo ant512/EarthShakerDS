@@ -15,9 +15,9 @@ public:
 		_text = text;
 	};
 
-	virtual ~TextButton() { };
+	~TextButton() { };
 
-	virtual void render(WoopsiGfx::Graphics* gfx) {
+	void render(WoopsiGfx::Graphics* gfx) {
 		s32 textWidth = _font.getStringWidth(_text);
 		s32 textX = ((_width - textWidth) / 2) + _x;
 		s32 textY = ((_height - _font.getHeight()) / 2) + _y;
@@ -27,14 +27,8 @@ public:
 		gfx->drawFilledRect(_x, _y + 1, _width, _height - 2, backgroundColour);
 		gfx->drawLine(_x + 1, _y, _x + _width - 2, _y, backgroundColour);
 		gfx->drawLine(_x + 1, _y + _height - 1, _x + _width - 2, _y + _height - 1, backgroundColour);
-		gfx->drawText(textX, textY, &_font, _text, 0, _text.getLength(), COLOUR_WHITE);
-	};
 
-	bool checkCollision(s32 x, s32 y) {
-		return ((x >= _x) &&
-				(y >= _y) &&
-				(x < _x + _width) &&
-				(y < _y + _height));
+		gfx->drawText(textX, textY, &_font, _text, 0, _text.getLength(), COLOUR_WHITE);
 	};
 
 private:
