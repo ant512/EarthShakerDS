@@ -35,6 +35,7 @@ LevelEditor::LevelEditor() {
 	_level = new Level(LEVEL_WIDTH, LEVEL_HEIGHT, 0, "Test");
 
 	_playerBlock = NULL;
+	_doorBlock = NULL;
 
 	_cursorX = 0;
 	_cursorY = 0;
@@ -142,9 +143,14 @@ void LevelEditor::removeBlock() {
 void LevelEditor::placeBlock() {
 	BlockBase* block = NULL;
 
-	// If we're overwriting the player block we need to forget it
 	if ((_playerBlock->getX() == _cursorX) && (_playerBlock->getY() == _cursorY)) {
+
+		// If we're overwriting the player block we need to forget it
 		_playerBlock = NULL;
+	} else if ((_doorBlock->getX() == _cursorX) && (_doorBlock->getY() == _cursorY)) {
+
+		// If we're overwriting the door block we need to forget it
+		_doorBlock = NULL;
 	}
 
 	switch (_blockPanel->getSelectedBlockType()) {
@@ -176,9 +182,144 @@ void LevelEditor::placeBlock() {
 		case BLOCK_TYPE_GRAVITY:
 			block = new GravityInversionBlock(_cursorX, _cursorY, NULL);
 			break;
+		case BLOCK_TYPE_EXTRA_LIFE:
+			block = new ExtraLifeBlock(_cursorX, _cursorY, NULL);
+			break;
+		case BLOCK_TYPE_BARRIER:
+			block = new BarrierBlock(_cursorX, _cursorY, NULL);
+			break;
+		case BLOCK_TYPE_BARRIER_CONTROL:
+			block = new BarrierControlBlock(_cursorX, _cursorY, NULL);
+			break;
+		case BLOCK_TYPE_TELEPORT:
+			block = new TeleportBlock(_cursorX, _cursorY, NULL);
+			break;
+		case BLOCK_TYPE_DOOR_BLUE:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getBlueDoorBmp());
 
+			// We need to ensure that there is only a single door per level
+			if (_doorBlock != NULL) {
+				_level->removeBlockAt(_doorBlock->getX(), _doorBlock->getY());
+			}
+			
+			_doorBlock = block;
+			break;
+		case BLOCK_TYPE_DOOR_CYAN:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getCyanDoorBmp());
+
+			// We need to ensure that there is only a single door per level
+			if (_doorBlock != NULL) {
+				_level->removeBlockAt(_doorBlock->getX(), _doorBlock->getY());
+			}
+			
+			_doorBlock = block;
+			break;
+		case BLOCK_TYPE_DOOR_GREEN:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getGreenDoorBmp());
+
+			// We need to ensure that there is only a single door per level
+			if (_doorBlock != NULL) {
+				_level->removeBlockAt(_doorBlock->getX(), _doorBlock->getY());
+			}
+			
+			_doorBlock = block;
+			break;
+		case BLOCK_TYPE_DOOR_MAGENTA:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getMagentaDoorBmp());
+
+			// We need to ensure that there is only a single door per level
+			if (_doorBlock != NULL) {
+				_level->removeBlockAt(_doorBlock->getX(), _doorBlock->getY());
+			}
+			
+			_doorBlock = block;
+			break;
+		case BLOCK_TYPE_DOOR_RED:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getRedDoorBmp());
+
+			// We need to ensure that there is only a single door per level
+			if (_doorBlock != NULL) {
+				_level->removeBlockAt(_doorBlock->getX(), _doorBlock->getY());
+			}
+			
+			_doorBlock = block;
+			break;
+		case BLOCK_TYPE_DOOR_YELLOW:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getYellowDoorBmp());
+
+			// We need to ensure that there is only a single door per level
+			if (_doorBlock != NULL) {
+				_level->removeBlockAt(_doorBlock->getX(), _doorBlock->getY());
+			}
+			
+			_doorBlock = block;
+			break;
 		case BLOCK_TYPE_BOULDER:
 			block = new BoulderBlock(_cursorX, _cursorY, NULL);
+			break;
+		case BLOCK_TYPE_WALL_BRICK:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getBrickWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_ICE:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getIceWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_METAL:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getMetalWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_BRAIN:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getBrainWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_GIRDER:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getGirderWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_HEART:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getHeartWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_HONEYCOMB:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getHoneycombWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_LEAFY:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getLeafyWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_NUCLEAR:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getNuclearWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_PIPE:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getPipeWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_QUESTION:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getQuestionWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_SAND:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getSandWallBmp());
+			break;
+		case BLOCK_TYPE_WALL_SQUARE:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getSquareWallBmp());
+			break;
+		case BLOCK_TYPE_SOIL:
+			block = new SoilBlock(_cursorX, _cursorY, NULL, BitmapServer::getSoilBmp());
+			break;
+		case BLOCK_TYPE_SOIL_HONEYCOMB:
+			block = new SoilBlock(_cursorX, _cursorY, NULL, BitmapServer::getHoneycombSoilBmp());
+			break;
+		case BLOCK_TYPE_SOIL_QUESTION:
+			block = new SoilBlock(_cursorX, _cursorY, NULL, BitmapServer::getQuestionWallBmp());
+			break;
+		case BLOCK_TYPE_SOIL_WET:
+			block = new WetSoilBlock(_cursorX, _cursorY, NULL);
+			break;
+		case BLOCK_TYPE_DOOR_WHITE:
+			block = new DoorBlock(_cursorX, _cursorY, NULL, BitmapServer::getWhiteDoorBmp());
+
+			// We need to ensure that there is only a single door per level
+			if (_doorBlock != NULL) {
+				_level->removeBlockAt(_doorBlock->getX(), _doorBlock->getY());
+			}
+			
+			_doorBlock = block;
+			break;
+		case BLOCK_TYPE_SOIL_BOULDER:
+			block = new SoilBlock(_cursorX, _cursorY, NULL, BitmapServer::getBoulderBmp());
 			break;
 		default:
 			break;

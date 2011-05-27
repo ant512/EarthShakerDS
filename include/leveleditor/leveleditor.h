@@ -58,6 +58,7 @@ private:
 	s32 _cursorY;
 
 	BlockBase* _playerBlock;
+	BlockBase* _doorBlock;
 	ButtonBank* _mainButtonBank;
 	LevelEditorPanelBase* _activePanel;
 	LevelEditorMapPanel* _mapPanel;
