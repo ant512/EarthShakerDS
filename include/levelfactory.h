@@ -42,8 +42,8 @@ public:
 
 		Level* level = new Level(data->getWidth(), data->getHeight(), data->getNumber(), data->getName());
 
-		for (s32 x = 0; x < data->getWidth(); ++x) {
-			for (s32 y = 0; y < data->getHeight(); ++y) {
+		for (s32 y = 0; y < data->getHeight(); ++y) {
+			for (s32 x = 0; x < data->getWidth(); ++x) {
 				placeBlock(level, (BlockType)data->getLayout()[(y * data->getWidth()) + x], x, y, game);
 			}
 		}
@@ -55,14 +55,20 @@ public:
 		
 		BlockBase* block = NULL;
 
-		if ((level->getPlayerBlock()->getX() == x) && (level->getPlayerBlock()->getY() == y)) {
+		if (level->getPlayerBlock() != NULL) {
+			if ((level->getPlayerBlock()->getX() == x) && (level->getPlayerBlock()->getY() == y)) {
 
-			// If we're overwriting the player block we need to forget it
-			level->setPlayerBlock(NULL);
-		} else if ((level->getDoorBlock()->getX() == x) && (level->getDoorBlock()->getY() == y)) {
+				// If we're overwriting the player block we need to forget it
+				level->setPlayerBlock(NULL);
+			}
+		}
 
-			// If we're overwriting the door block we need to forget it
-			level->setDoorBlock(NULL);
+		if (level->getDoorBlock() != NULL) {
+			if ((level->getDoorBlock()->getX() == x) && (level->getDoorBlock()->getY() == y)) {
+
+				// If we're overwriting the door block we need to forget it
+				level->setDoorBlock(NULL);
+			}
 		}
 
 		switch (blockType) {

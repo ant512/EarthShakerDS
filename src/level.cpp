@@ -13,6 +13,10 @@ Level::Level(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& n
 	_name = name;
 	_data = new BlockBase*[width * height];
 
+	for (s32 i = 0; i < width * height; ++i) {
+		_data[i] = NULL;
+	}
+
 	_playerBlock = NULL;
 	_doorBlock = NULL;
 
