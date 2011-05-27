@@ -12,12 +12,12 @@ Menu System
 
 When the game starts, a menu system appears on the top screen.  You can choose
 to start from the beginning of the game ("Start"), select a level from the
-level select menu ("Level Select"), or play with the game's sound effects
-("Sound Test").  Navigate to the desired option using the up and down buttons or
-the Select button.  You can page through the options more quickly by using the
-left and right buttons.  When the correct option is highlighted, press A or
-Start to select it.  The B button returns to the previous menu if a submenu is
-currently active.
+level select menu ("Level Select"), play with the game's sound effects
+("Sound Test") or try out the level editor ("Level Editor").  Navigate to the
+desired option using the up and down buttons or the Select button.  You can page
+through the options more quickly by using the left and right buttons.  When the
+correct option is highlighted, press A or Start to select it.  The B button
+returns to the previous menu if a submenu is currently active.
 
 
 Gameplay
