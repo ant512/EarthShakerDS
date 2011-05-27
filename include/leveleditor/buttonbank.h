@@ -9,6 +9,9 @@
 #include "hardware.h"
 #include "padstate.h"
 
+/**
+ * Contains a list of buttons and raises events when one is clicked.
+ */
 class ButtonBank {
 public:
 	ButtonBank(ButtonListener* listener, WoopsiGfx::Graphics* gfx) {

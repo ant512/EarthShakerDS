@@ -12,8 +12,16 @@
 #include "leveleditorpanelbase.h"
 #include "spectrumcolours.h"
 
+/**
+ * Panel that allows block colours to be chosen.
+ */
 class LevelEditorPalettePanel : public LevelEditorPanelBase, public ButtonListener {
 public:
+
+	/**
+	 * Constructor.
+	 * @param gfx Graphics object to draw with.
+	 */
 	LevelEditorPalettePanel(WoopsiGfx::Graphics* gfx) : LevelEditorPanelBase(gfx) {
 		_buttons = new ButtonBank(this, gfx);
 
@@ -42,14 +50,24 @@ public:
 		_buttons->addButton(new ColourButton(176, 56, 20, 20, 20, COLOUR_YELLOW, COLOUR_YELLOW_DARK));
 	};
 
+	/**
+	 * Destructor.
+	 */
 	~LevelEditorPalettePanel() {
 		delete _buttons;
 	};
 
+	/**
+	 * Run a single iteration of the panel logic.
+	 */
 	void iterate() {
 		_buttons->iterate();
 	};
 
+	/**
+	 * Draw the panel.  Should be called when the panel is first displayed;
+	 * after that, the iterate() method redraws when needed.
+	 */
 	void render() {
 		renderBitmaps();
 
@@ -133,9 +151,11 @@ public:
 	};
 
 private:
-	ButtonBank* _buttons;
-	GameFont _font;
+	ButtonBank* _buttons;		/**< Collection of buttons in the panel. */
 
+	/**
+	 * Renders the bitmaps for each block that can be recoloured.
+	 */
 	void renderBitmaps() {
 		WoopsiGfx::BitmapBase* bmp = BitmapServer::getBoulderBmp();
 		_gfx->drawBitmap(8, 8, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
