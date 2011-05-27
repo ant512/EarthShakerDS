@@ -7,6 +7,7 @@
 
 class BlockBase;
 class PlayerBlock;
+class DoorBlock;
 
 /**
  * Base class for all levels.  Controls the entire grid of blocks.
@@ -74,6 +75,18 @@ public:
 	 * @param block A pointer to the player block.
 	 */
 	void setPlayerBlock(PlayerBlock* block);
+
+	/**
+	 * Gets a pointer to the block representing the exit door.
+	 * @return A pointer to the door block.
+	 */
+	DoorBlock* getDoorBlock() const;
+
+	/**
+	 * Sets the door block pointer to the specified block.
+	 * @param block A pointer to the door block.
+	 */
+	void setDoorBlock(DoorBlock* block);
 
 	/**
 	 * Gets the block at the specified co-ordinates.
@@ -159,6 +172,7 @@ private:
 	s32 _number;								/**< The number of the level. */
 	s32 _diamondCount;							/**< The total number of diamonds in the level. */
 	PlayerBlock* _playerBlock;					/**< The player's block within the level. */
+	DoorBlock* _doorBlock;						/**< The door block within the level. */
 	WoopsiArray<BlockBase*> _removedBlockList;	/**< Array of blocks that have been removed
 													 from the level and are awaiting deletion. */
 

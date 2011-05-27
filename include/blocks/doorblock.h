@@ -5,6 +5,7 @@
 #include <bitmapbase.h>
 #include <graphics.h>
 
+#include "bitmapserver.h"
 #include "blockbase.h"
 #include "doormapbmp.h"
 #include "game.h"

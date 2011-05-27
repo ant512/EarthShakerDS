@@ -1,7 +1,8 @@
 #include <bitmap.h>
 
-#include "game.h"
 #include "blockbase.h"
+#include "doorblock.h"
+#include "game.h"
 #include "level.h"
 #include "playerblock.h"
 
@@ -11,6 +12,9 @@ Level::Level(s32 width, s32 height, s32 number, const WoopsiGfx::WoopsiString& n
 	_number = number;
 	_name = name;
 	_data = new BlockBase*[width * height];
+
+	_playerBlock = NULL;
+	_doorBlock = NULL;
 
 	_diamondCount = 0;
 }
@@ -232,4 +236,12 @@ PlayerBlock* Level::getPlayerBlock() const {
 
 void Level::setPlayerBlock(PlayerBlock* block) {
 	_playerBlock = block;
+}
+
+DoorBlock* Level::getDoorBlock() const {
+	return _doorBlock;
+}
+
+void Level::setDoorBlock(DoorBlock* block) {
+	_doorBlock = block;
 }
