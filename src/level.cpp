@@ -35,6 +35,22 @@ Level::~Level() {
 	delete[] _data;
 }
 
+void Level::clear() {
+	_playerBlock = NULL;
+	_doorBlock = NULL;
+	_diamondCount = 0;
+
+	deleteRemovedBlocks();
+
+	// Delete all blocks
+	for (s32 i = 0; i < _width * _height; ++i) {
+		if (_data[i] != NULL) {
+			delete _data[i];
+			_data[i] = NULL;
+		}
+	}
+}
+
 void Level::animate() {
 	for (s32 i = 0; i < _width * _height; ++i) {
 		if (_data[i] != NULL) _data[i]->animate();

@@ -59,7 +59,7 @@ LevelEditor::LevelEditor() {
 	_blockPanel = new LevelEditorBlockPanel(_bottomGfx, this);
 	_palettePanel = new LevelEditorPalettePanel(_bottomGfx);
 	_mapPanel = new LevelEditorMapPanel(_bottomGfx, _level);
-	_filePanel = new LevelEditorFilePanel(_bottomGfx);
+	_filePanel = new LevelEditorFilePanel(_bottomGfx, _level);
 
 	_activePanel = _mapPanel;
 
@@ -81,7 +81,7 @@ LevelEditor::~LevelEditor() {
 }
 
 void LevelEditor::main() {
-	while (1) {
+	while (_filePanel->isRunning()) {
 
 		Hardware::waitForVBlank();
 

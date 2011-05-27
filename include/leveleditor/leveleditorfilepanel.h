@@ -6,8 +6,10 @@
 
 #include "buttonbank.h"
 #include "buttonlistener.h"
+#include "level.h"
 #include "leveleditorpanelbase.h"
 #include "spectrumcolours.h"
+#include "textbutton.h"
 
 /**
  * Panel with options for loading and saving the current level, reseting the
@@ -20,8 +22,16 @@ public:
 	 * Constructor.
 	 * @param gfx Graphics object to draw with.
 	 */
-	LevelEditorFilePanel(WoopsiGfx::Graphics* gfx) : LevelEditorPanelBase(gfx) {
+	LevelEditorFilePanel(WoopsiGfx::Graphics* gfx, Level* level) : LevelEditorPanelBase(gfx) {
+		_level = level;
+		_isRunning = true;
+
 		_buttons = new ButtonBank(this, gfx);
+
+		_buttons->addButton(new TextButton(8, 8, 100, 20, 0, "Load"));
+		_buttons->addButton(new TextButton(32, 8, 100, 20, 1, "Save"));
+		_buttons->addButton(new TextButton(56, 8, 100, 20, 2, "New"));
+		_buttons->addButton(new TextButton(80, 8, 100, 20, 3, "Exit"));
 	};
 
 	/**
@@ -52,11 +62,27 @@ public:
 	 */
 	void handleButtonAction(ButtonBase* source) {
 		switch (source->getId()) {
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				_level->clear();
+				break;
+			case 3:
+				_isRunning = false;
+				break;
 		}
+	};
+
+	bool isRunning() const {
+		return _isRunning;
 	};
 
 private:
 	ButtonBank* _buttons;		/**< Collection of buttons in the panel. */
+	Level* _level;
+	bool _isRunning;
 };
 
 #endif

@@ -164,6 +164,11 @@ public:
 	 */
 	void deleteRemovedBlocks();
 
+	/**
+	 * Removes all blocks and resets the diamond count.
+	 */
+	void clear();
+
 private:
 	s32 _width;									/**< The width of the level. */
 	s32 _height;								/**< The height of the level. */
