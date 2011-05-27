@@ -6,10 +6,6 @@
 
 TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinition*>* levelDefinitions) : ScreenBase(topGfx, bottomGfx) {
 
-	LevelEditor* editor = new LevelEditor();
-	editor->main();
-	delete editor;
-
 	_timer = 0;
 	_chosenLevel = NULL;
 
