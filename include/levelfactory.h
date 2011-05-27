@@ -4,6 +4,7 @@
 #include <woopsiarray.h>
 
 #include "bitmapserver.h"
+#include "blocktype.h"
 
 #include "barrierblock.h"
 #include "barriercontrolblock.h"
@@ -47,128 +48,128 @@ public:
 			for (s32 y = 0; y < data->getHeight(); ++y) {
 
 				switch (data->getLayout()[(y * data->getWidth()) + x]) {
-					case 0:
+					case BLOCK_TYPE_NULL:
 						block = NULL;
 						break;
-					case 1:
+					case BLOCK_TYPE_PLAYER:
 						block = new PlayerBlock(x, y, game);
 						level->setPlayerBlock((PlayerBlock*)block);
 						break;
-					case 2:
+					case BLOCK_TYPE_DIAMOND:
 						block = new DiamondBlock(x, y, game);
 						level->increaseDiamondCount();
 						break;
-					case 3:
+					case BLOCK_TYPE_BUBBLE:
 						block = new BubbleBlock(x, y, game);
 						break;
-					case 4:
+					case BLOCK_TYPE_FIRE:
 						block = new FireBlock(x, y, game);
 						break;
-					case 5:
+					case BLOCK_TYPE_BEAN:
 						block = new BeanBlock(x, y, game);
 						break;
-					case 6:
+					case BLOCK_TYPE_GRAVITY:
 						block = new GravityInversionBlock(x, y, game);
 						break;
-					case 7:
+					case BLOCK_TYPE_EXTRA_LIFE:
 						block = new ExtraLifeBlock(x, y, game);
 						break;
-					case 8:
+					case BLOCK_TYPE_BARRIER:
 						block = new BarrierBlock(x, y, game);
 						break;
-					case 9:
+					case BLOCK_TYPE_BARRIER_CONTROL:
 						block = new BarrierControlBlock(x, y, game);
 						break;
-					case 10:
+					case BLOCK_TYPE_TELEPORT:
 						block = new TeleportBlock(x, y, game);
 						break;
 
-					case 11:
+					case BLOCK_TYPE_DOOR_BLUE:
 						block = new DoorBlock(x, y, game, BitmapServer::getBlueDoorBmp());
 						break;
-					case 12:
+					case BLOCK_TYPE_DOOR_CYAN:
 						block = new DoorBlock(x, y, game, BitmapServer::getCyanDoorBmp());
 						break;
-					case 13:
+					case BLOCK_TYPE_DOOR_GREEN:
 						block = new DoorBlock(x, y, game, BitmapServer::getGreenDoorBmp());
 						break;
-					case 14:
+					case BLOCK_TYPE_DOOR_MAGENTA:
 						block = new DoorBlock(x, y, game, BitmapServer::getMagentaDoorBmp());
 						break;
-					case 15:
+					case BLOCK_TYPE_DOOR_RED:
 						block = new DoorBlock(x, y, game, BitmapServer::getRedDoorBmp());
 						break;
-					case 16:
+					case BLOCK_TYPE_DOOR_YELLOW:
 						block = new DoorBlock(x, y, game, BitmapServer::getYellowDoorBmp());
 						break;
 
-					case 17:
+					case BLOCK_TYPE_BOULDER:
 						block = new BoulderBlock(x, y, game);
 						break;
 
-					case 18:
+					case BLOCK_TYPE_WALL_BRICK:
 						block = new WallBlock(x, y, game, BitmapServer::getBrickWallBmp());
 						break;
-					case 19:
+					case BLOCK_TYPE_WALL_ROCK:
 						block = new WallBlock(x, y, game, BitmapServer::getRockWallBmp());
 						break;
-					case 20:
+					case BLOCK_TYPE_WALL_ICE:
 						block = new WallBlock(x, y, game, BitmapServer::getIceWallBmp());
 						break;
-					case 21:
+					case BLOCK_TYPE_WALL_METAL:
 						block = new WallBlock(x, y, game, BitmapServer::getMetalWallBmp());
 						break;
-					case 22:
+					case BLOCK_TYPE_WALL_BRAIN:
 						block = new WallBlock(x, y, game, BitmapServer::getBrainWallBmp());
 						break;
-					case 23:
+					case BLOCK_TYPE_WALL_GIRDER:
 						block = new WallBlock(x, y, game, BitmapServer::getGirderWallBmp());
 						break;
-					case 24:
+					case BLOCK_TYPE_WALL_HEART:
 						block = new WallBlock(x, y, game, BitmapServer::getHeartWallBmp());
 						break;
-					case 25:
+					case BLOCK_TYPE_WALL_HONEYCOMB:
 						block = new WallBlock(x, y, game, BitmapServer::getHoneycombWallBmp());
 						break;
-					case 26:
+					case BLOCK_TYPE_WALL_LEAFY:
 						block = new WallBlock(x, y, game, BitmapServer::getLeafyWallBmp());
 						break;
-					case 27:
+					case BLOCK_TYPE_WALL_NUCLEAR:
 						block = new WallBlock(x, y, game, BitmapServer::getNuclearWallBmp());
 						break;
-					case 28:
+					case BLOCK_TYPE_WALL_PIPE:
 						block = new WallBlock(x, y, game, BitmapServer::getPipeWallBmp());
 						break;
-					case 29:
+					case BLOCK_TYPE_WALL_QUESTION:
 						block = new WallBlock(x, y, game, BitmapServer::getQuestionWallBmp());
 						break;				
-					case 30:
+					case BLOCK_TYPE_WALL_SAND:
 						block = new WallBlock(x, y, game, BitmapServer::getSandWallBmp());
 						break;
-					case 31:
+					case BLOCK_TYPE_WALL_SQUARE:
 						block = new WallBlock(x, y, game, BitmapServer::getSquareWallBmp());
 						break;
 
-					case 32:
+					case BLOCK_TYPE_SOIL:
 						block = new SoilBlock(x, y, game, BitmapServer::getSoilBmp());
 						break;
 
-					case 33:
+					case BLOCK_TYPE_SOIL_HONEYCOMB:
 						block = new SoilBlock(x, y, game, BitmapServer::getHoneycombSoilBmp());
 						break;
-					case 34:
+					case BLOCK_TYPE_SOIL_QUESTION:
 						block = new SoilBlock(x, y, game, BitmapServer::getQuestionWallBmp());
 						break;
 
-					case 35:
+					case BLOCK_TYPE_SOIL_WET:
 						block = new WetSoilBlock(x, y, game);
 						break;
 
-					case 36:
+					case BLOCK_TYPE_DOOR_WHITE:
 						block = new DoorBlock(x, y, game, BitmapServer::getWhiteDoorBmp());
 						break;
 
-					case 37:
+					case BLOCK_TYPE_SOIL_BOULDER:
 						block = new SoilBlock(x, y, game, BitmapServer::getBoulderBmp());
 						break;
 				}
