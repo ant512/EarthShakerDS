@@ -347,4 +347,4 @@ WoopsiGfx::Bitmap* BitmapServer::createMutableBitmap(WoopsiGfx::BitmapBase* sour
 	delete gfx;
 
 	return dest;
-};
+}
