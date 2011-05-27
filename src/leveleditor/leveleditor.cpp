@@ -25,6 +25,7 @@
 #include "buttonbank.h"
 #include "buttonlistener.h"
 #include "leveleditorpanelbase.h"
+#include "leveleditorfilepanel.h"
 #include "leveleditorblockpanel.h"
 #include "leveleditorpalettepanel.h"
 #include "leveleditormappanel.h"
@@ -43,13 +44,13 @@ LevelEditor::LevelEditor() {
 	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 	_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
 
-	_mainButtonBank = new ButtonBank(this, _bottomGfx);
-	_mainButtonBank->addButton(new TextButton(2, 174, 60, 16, PANEL_MAP, "Map"));
-	_mainButtonBank->addButton(new TextButton(66, 174, 60, 16, PANEL_BLOCK, "Block"));
-	_mainButtonBank->addButton(new TextButton(130, 174, 60, 16, PANEL_PALETTE, "Palette"));
-	_mainButtonBank->addButton(new TextButton(194, 174, 60, 16, PANEL_FILE, "File"));
+	_buttons = new ButtonBank(this, _bottomGfx);
+	_buttons->addButton(new TextButton(2, 174, 60, 16, PANEL_MAP, "Map"));
+	_buttons->addButton(new TextButton(66, 174, 60, 16, PANEL_BLOCK, "Block"));
+	_buttons->addButton(new TextButton(130, 174, 60, 16, PANEL_PALETTE, "Palette"));
+	_buttons->addButton(new TextButton(194, 174, 60, 16, PANEL_FILE, "File"));
 
-	_mainButtonBank->render();
+	_buttons->render();
 
 	render();
 
@@ -58,6 +59,7 @@ LevelEditor::LevelEditor() {
 	_blockPanel = new LevelEditorBlockPanel(_bottomGfx, this);
 	_palettePanel = new LevelEditorPalettePanel(_bottomGfx);
 	_mapPanel = new LevelEditorMapPanel(_bottomGfx, _level);
+	_filePanel = new LevelEditorFilePanel(_bottomGfx);
 
 	_activePanel = _mapPanel;
 
@@ -70,10 +72,11 @@ LevelEditor::LevelEditor() {
 }
 
 LevelEditor::~LevelEditor() {
-	delete _mainButtonBank;
+	delete _buttons;
 	delete _blockPanel;
 	delete _palettePanel;
 	delete _mapPanel;
+	delete _filePanel;
 	delete _level;
 }
 
@@ -82,7 +85,7 @@ void LevelEditor::main() {
 
 		Hardware::waitForVBlank();
 
-		_mainButtonBank->iterate();
+		_buttons->iterate();
 		_activePanel->iterate();
 
 		++_timer;
@@ -193,6 +196,7 @@ void LevelEditor::handleButtonAction(ButtonBase* source) {
 			_activePanel = _palettePanel;
 			break;
 		case PANEL_FILE:
+		_activePanel = _filePanel;
 			break;
 	}
 

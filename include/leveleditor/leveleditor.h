@@ -13,6 +13,7 @@
 #include "buttonlistener.h"
 
 class LevelEditorBlockPanel;
+class LevelEditorFilePanel;
 class LevelEditorMapPanel;
 class LevelEditorPalettePanel;
 class LevelEditorPanelBase;
@@ -58,11 +59,13 @@ private:
 	s32 _cursorX;
 	s32 _cursorY;
 
-	ButtonBank* _mainButtonBank;
+	ButtonBank* _buttons;
+
+	LevelEditorBlockPanel* _blockPanel;
+	LevelEditorFilePanel* _filePanel;
+	LevelEditorPalettePanel* _palettePanel;
 	LevelEditorPanelBase* _activePanel;
 	LevelEditorMapPanel* _mapPanel;
-	LevelEditorPalettePanel* _palettePanel;
-	LevelEditorBlockPanel* _blockPanel;
 
 	void drawPanelBorder();
 };
