@@ -11,17 +11,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 
 	_levelDefinitions = levelDefinitions;
 
-	topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
-	bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
-
-	topGfx->drawBitmap(0, 0, 256, 64, &_logoBmp, 0, 0);
-
-	// Copyrights
-	WoopsiGfx::WoopsiString str = "ZX (c) 1990 Michael Batty";
-	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 160, &_font, str, 0, str.getLength(), COLOUR_WHITE);
-
-	str.setText("DS (c) 2011 Antony Dzeryn");
-	topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 168, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+	renderBackground();
 
 	_blockSlideshowScreen = new BlockSlideshowScreen(bottomGfx);
 
@@ -98,6 +88,20 @@ TitleScreen::~TitleScreen() {
 	delete _menuSystem;
 }
 
+void TitleScreen::renderBackground() {
+	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
+	_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
+
+	_topGfx->drawBitmap(0, 0, 256, 64, &_logoBmp, 0, 0);
+
+	// Copyrights
+	WoopsiGfx::WoopsiString str = "ZX (c) 1990 Michael Batty";
+	_topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 160, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+
+	str.setText("DS (c) 2011 Antony Dzeryn");
+	_topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 168, &_font, str, 0, str.getLength(), COLOUR_WHITE);
+}
+
 void TitleScreen::iterate() {
 	_scroller->render(184, _topGfx);
 	_blockSlideshowScreen->iterate();
@@ -133,9 +137,15 @@ void TitleScreen::mainMenu(s32 option) {
 		case 1:
 			// Level editor
 			SoundPlayer::stopTitleTheme();
+
 			LevelEditor* editor = new LevelEditor();
 			editor->main();
 			delete editor;
+
+			renderBackground();
+			_menuSystem->render();
+
+			SoundPlayer::playTitleTheme();
 			break;
 	}
 }

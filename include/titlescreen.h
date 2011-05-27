@@ -89,6 +89,11 @@ private:
 	 * Main menu option execution.
 	 */
 	void mainMenu(s32 option);
+
+	/**
+	 * Draws the logo and copyright messages.
+	 */
+	void renderBackground();
 };
 
 #endif

@@ -29,9 +29,9 @@ public:
 		_buttons = new ButtonBank(this, gfx);
 
 		_buttons->addButton(new TextButton(8, 8, 100, 20, 0, "Load"));
-		_buttons->addButton(new TextButton(32, 8, 100, 20, 1, "Save"));
-		_buttons->addButton(new TextButton(56, 8, 100, 20, 2, "New"));
-		_buttons->addButton(new TextButton(80, 8, 100, 20, 3, "Exit"));
+		_buttons->addButton(new TextButton(8, 32, 100, 20, 1, "Save"));
+		_buttons->addButton(new TextButton(8, 56, 100, 20, 2, "New"));
+		_buttons->addButton(new TextButton(8, 80, 100, 20, 3, "Exit"));
 	};
 
 	/**
