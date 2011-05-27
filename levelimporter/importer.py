@@ -56,11 +56,6 @@ def saveLevel(level, width, height, number, name):
 		f.write("\tLevel{0}();\n".format(number))
 		f.write("\n")
 
-		f.write("\t/**\n")
-		f.write("\t * Swap bitmaps to use palette of this level.\n")
-		f.write("\t */")
-		f.write("\tvoid recolourBitmaps();\n")
-
 		f.write("};\n")
 		f.write("\n")
 		f.write("#endif\n")
@@ -89,15 +84,10 @@ def saveLevel(level, width, height, number, name):
 
 		f.write("\n")
 
-		f.write("\tLevel{0}::Level{0}() : LevelDefinition(30, 20, {0}, \"{1}\", level{0}Data) ".format(number, name))
+		f.write("\tLevel{0}::Level{0}() : LevelDefinition(30, 20, {0}, \"{1}\", level{0}Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) ".format(number, name))
 		f.write("{\n")
 		f.write("}\n")
 
-		f.write("\n")
-		f.write("void Level{0}::recolourBitmaps() ".format(number))
-		f.write("{\n")
-		f.write("\n")
-		f.write("}\n")
 		f.write("\n")
 
 def compareGridSquareWithBlock(level, block, gridX, gridY):
