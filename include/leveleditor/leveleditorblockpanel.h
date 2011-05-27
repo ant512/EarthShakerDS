@@ -23,6 +23,7 @@
 #include "bitmapbutton.h"
 #include "bitmapserver.h"
 #include "blocktype.h"
+#include "buttonbank.h"
 #include "buttonlistener.h"
 #include "leveleditorpanelbase.h"
 #include "leveleditor.h"
