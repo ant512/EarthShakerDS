@@ -28,8 +28,8 @@ GAME_ICON 		:= $(DEVKITPRO)/libwoopsigfx/icon/logo.bmp
 TARGET		:=	$(shell basename $(CURDIR))
 BUILD		:=	build
 RELEASE		:=	Release
-SOURCES		:=	src src/bmp src/levels
-INCLUDES	:=	include include/bmp include/blocks include/levels build
+SOURCES		:=	src src/bmp src/levels src/leveleditor
+INCLUDES	:=	include include/bmp include/blocks include/levels include/leveleditor build
 DEFINES		:=
 MUSIC		:=	sfx
 
