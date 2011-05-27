@@ -149,6 +149,7 @@ void LevelEditor::removeBlock() {
 	}
 
 	_level->removeBlockAt(_cursorX, _cursorY);
+	_level->deleteRemovedBlocks();
 }
 
 void LevelEditor::placeBlock() {
