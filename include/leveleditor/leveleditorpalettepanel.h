@@ -79,6 +79,7 @@ public:
 	 * @param source The button that raised the event.
 	 */
 	void handleButtonAction(ButtonBase* source) {
+		/*
 		switch (source->getId()) {
 			case 0:
 				BitmapServer::makeBouldersWhite();
@@ -148,6 +149,7 @@ public:
 		}
 
 		renderBitmaps();
+		*/
 	};
 
 private:
@@ -163,7 +165,7 @@ private:
 		bmp = BitmapServer::getSoilBmp();
 		_gfx->drawBitmap(8, 32, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
 
-		bmp = BitmapServer::getBrickWallBmp();
+		bmp = BitmapServer::getWallBmp();
 		_gfx->drawBitmap(8, 56, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
 	};
 };

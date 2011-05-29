@@ -15,6 +15,8 @@
 #include "boulderexplodebmp6.h"
 #include "boulderexplodebmp7.h"
 
+#include "blocktype.h"
+
 #include "brainwallbmp.h"
 #include "brickwallbmp.h"
 #include "girderwallbmp.h"
@@ -51,226 +53,241 @@ public:
 	static void init();
 
 	/**
-	 * Turns the brick wall bitmap blue.
-	 */
-	static void makeBrickWallBlue();
-
-	/**
-	 * Turns the brick wall bitmap red.
-	 */
-	static void makeBrickWallRed();
-
-	/**
-	 * Turns the brick wall bitmap green.
-	 */
-	static void makeBrickWallGreen();
-
-	/**
-	 * Turns the brick wall bitmap cyan.
-	 */
-	static void makeBrickWallCyan();
-
-	/**
-	 * Turns the brick wall bitmap magenta.
-	 */
-	static void makeBrickWallMagenta();
-
-	/**
-	 * Turns the brick wall bitmap magenta.
-	 */
-	static void makeBrickWallYellow();
-
-	/**
-	 * Turns the brick wall bitmap white.
-	 */
-	static void makeBrickWallWhite();
-
-	/**
-	 * Turns the soil bitmap blue.
-	 */
-	static void makeSoilBlue();
-
-	/**
-	 * Turns the soil bitmap cyan.
-	 */
-	static void makeSoilCyan();
-
-	/**
-	 * Turns the soil bitmap red.
-	 */
-	static void makeSoilRed();
-
-	/**
-	 * Turns the soil bitmap green.
-	 */
-	static void makeSoilGreen();
-
-	/**
-	 * Turns the soil bitmap yellow.
-	 */
-	static void makeSoilYellow();
-
-	/**
-	 * Turns the soil bitmap magenta.
-	 */
-	static void makeSoilMagenta();
-
-	/**
-	 * Turns the soil bitmap white.
-	 */
-	static void makeSoilWhite();
-
-	/**
-	 * Turns the boulder bitmaps yellow.
-	 */
-	static void makeBouldersYellow();
-
-	/**
-	 * Turns the boulder bitmaps blue.
-	 */
-	static void makeBouldersBlue();
-
-	/**
-	 * Turns the boulder bitmaps cyan.
-	 */
-	static void makeBouldersCyan();
-
-	/**
-	 * Turns the boulder bitmaps red.
-	 */
-	static void makeBouldersRed();
-
-	/**
-	 * Turns the boulder bitmaps magenta.
-	 */
-	static void makeBouldersMagenta();
-
-	/**
-	 * Turns the boulder bitmaps green.
-	 */
-	static void makeBouldersGreen();
-
-	/**
-	 * Turns the boulder bitmaps white.
-	 */
-	static void makeBouldersWhite();
-
-	/**
 	 * Deletes any bitmaps that have been created.  Should only be called when
 	 * no pointers to the bitmaps are being used externally of rhis class.
 	 */
 	static void shutdown();
 
-	/**
-	 * Gets a pointer to the brain wall bitmap.
-	 * @return A pointer to the brain wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getBrainWallBmp() {
-		return _brainWallBmp;
+	inline static WoopsiGfx::Bitmap* getWallBmp() {
+		return _wallBmp;
 	};
 
-	/**
-	 * Gets a pointer to the brick wall bitmap.
-	 * @return A pointer to the brick wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getBrickWallBmp() {
-		return _brickWallBmp;
+	inline static WoopsiGfx::Bitmap* getDoorBmp() {
+		return _doorBmp;
 	};
 
-	/**
-	 * Gets a pointer to the girder wall bitmap.
-	 * @return A pointer to the girder wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getGirderWallBmp() {
-		return _girderWallBmp;
+	static void changeSoilBmp(SoilType type) {
+
+		WoopsiGfx::Graphics* gfx = _soilBmp->newGraphics();
+		WoopsiGfx::BitmapBase* source = NULL;
+
+		switch (type) {
+			case SOIL_TYPE_WHITE:
+				source = new SoilBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case SOIL_TYPE_RED:
+				source = new SoilBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_RED, _soilBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _soilBmp);
+				break;
+			case SOIL_TYPE_GREEN:
+				source = new SoilBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_GREEN, _soilBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _soilBmp);
+				break;
+			case SOIL_TYPE_BLUE:
+				source = new SoilBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_BLUE, _soilBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _soilBmp);
+				break;
+			case SOIL_TYPE_CYAN:
+				source = new SoilBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_CYAN, _soilBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _soilBmp);
+				break;
+			case SOIL_TYPE_MAGENTA:
+				source = new SoilBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _soilBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _soilBmp);
+				break;
+			case SOIL_TYPE_YELLOW:
+				source = new SoilBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_YELLOW, _soilBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_YELLOW_DARK, _soilBmp);
+				break;
+			case SOIL_TYPE_HONEYCOMB:
+				source = new HoneycombSoilBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case SOIL_TYPE_QUESTION:
+				source = new QuestionWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case SOIL_TYPE_BOULDER:
+				source = _boulderBmp;
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+		}
 	};
 
-	/**
-	 * Gets a pointer to the heart wall bitmap.
-	 * @return A pointer to the heart wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getHeartWallBmp() {
-		return _heartWallBmp;
+	static void changeBoulderBmp(BoulderType type) {
+		switch (type) {
+			case BOULDER_TYPE_WHITE:
+				makeBouldersWhite();
+				break;
+			case BOULDER_TYPE_RED:
+				makeBouldersRed();
+				break;
+			case BOULDER_TYPE_GREEN:
+				makeBouldersGreen();
+				break;
+			case BOULDER_TYPE_BLUE:
+				makeBouldersBlue();
+				break;
+			case BOULDER_TYPE_CYAN:
+				makeBouldersCyan();
+				break;
+			case BOULDER_TYPE_MAGENTA:
+				makeBouldersMagenta();
+				break;
+			case BOULDER_TYPE_YELLOW:
+				makeBouldersYellow();
+				break;
+		}
 	};
 
-	/**
-	 * Gets a pointer to the honeycomb wall bitmap.
-	 * @return A pointer to the honeycomb wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getHoneycombWallBmp() {
-		return _honeycombWallBmp;
+	static void changeDoorBmp(DoorType type) {
+
+		WoopsiGfx::Graphics* gfx = _doorBmp->newGraphics();
+		WoopsiGfx::BitmapBase* source = NULL;
+
+		switch (type) {
+			case DOOR_TYPE_WHITE:
+				source = _whiteDoorBmp;
+				break;
+			case DOOR_TYPE_RED:
+				source = _redDoorBmp;
+				break;
+			case DOOR_TYPE_GREEN:
+				source = _greenDoorBmp;
+				break;
+			case DOOR_TYPE_BLUE:
+				source = _blueDoorBmp;
+				break;
+			case DOOR_TYPE_CYAN:
+				source = _cyanDoorBmp;
+				break;
+			case DOOR_TYPE_MAGENTA:
+				source = _magentaDoorBmp;
+				break;
+			case DOOR_TYPE_YELLOW:
+				source = _yellowDoorBmp;
+				break;
+		}
+
+		gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+		delete gfx;
 	};
 
-	/**
-	 * Gets a pointer to the ice wall bitmap.
-	 * @return A pointer to the ice wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getIceWallBmp() {
-		return _iceWallBmp;
-	};
+	static void changeWallBmp(WallType type) {
 
-	/**
-	 * Gets a pointer to the leafy wall bitmap.
-	 * @return A pointer to the leafy wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getLeafyWallBmp() {
-		return _leafyWallBmp;
-	};
+		WoopsiGfx::Graphics* gfx = _wallBmp->newGraphics();
+		WoopsiGfx::BitmapBase* source = NULL;
 
-	/**
-	 * Gets a pointer to the metal wall bitmap.
-	 * @return A pointer to the metal wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getMetalWallBmp() {
-		return _metalWallBmp;
-	};
-
-	/**
-	 * Gets a pointer to the nuclear wall bitmap.
-	 * @return A pointer to the nuclear wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getNuclearWallBmp() {
-		return _nuclearWallBmp;
-	};
-
-	/**
-	 * Gets a pointer to the pipe wall bitmap.
-	 * @return A pointer to the pipe wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getPipeWallBmp() {
-		return _pipeWallBmp;
-	};
-
-	/**
-	 * Gets a pointer to the question wall bitmap.
-	 * @return A pointer to the question wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getQuestionWallBmp() {
-		return _questionWallBmp;
-	};
-
-	/**
-	 * Gets a pointer to the rock wall bitmap.
-	 * @return A pointer to the rock wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getRockWallBmp() {
-		return _rockWallBmp;
-	};
-
-	/**
-	 * Gets a pointer to the sand wall bitmap.
-	 * @return A pointer to the sand wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getSandWallBmp() {
-		return _sandWallBmp;
-	};
-
-	/**
-	 * Gets a pointer to the square wall bitmap.
-	 * @return A pointer to the square wall bitmap.
-	 */
-	inline static WoopsiGfx::Bitmap* getSquareWallBmp() {
-		return _squareWallBmp;
+		switch (type) {
+			case WALL_TYPE_BRICK_WHITE:
+				source = new BrickWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_BRICK_RED:
+				source = new BrickWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_RED, _wallBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _wallBmp);
+				break;
+			case WALL_TYPE_BRICK_GREEN:
+				source = new BrickWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_GREEN, _wallBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _wallBmp);
+				break;
+			case WALL_TYPE_BRICK_BLUE:
+				source = new BrickWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_BLUE, _wallBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _wallBmp);
+				break;
+			case WALL_TYPE_BRICK_CYAN:
+				source = new BrickWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_CYAN, _wallBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _wallBmp);
+				break;
+			case WALL_TYPE_BRICK_MAGENTA:
+				source = new BrickWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _wallBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _wallBmp);
+				break;
+			case WALL_TYPE_BRICK_YELLOW:
+				source = new BrickWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				swapColours(COLOUR_WHITE, COLOUR_YELLOW, _wallBmp);
+				swapColours(COLOUR_WHITE_DARK, COLOUR_YELLOW_DARK, _wallBmp);
+				break;
+			case WALL_TYPE_ROCK:
+				source = new RockWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_ICE:
+				source = new IceWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_METAL:
+				source = new MetalWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_BRAIN:
+				source = new BrainWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_GIRDER:
+				source = new GirderWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_HEART:
+				source = new HeartWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_HONEYCOMB:
+				source = new HoneycombWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_LEAFY:
+				source = new LeafyWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_NUCLEAR:
+				source = new NuclearWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_PIPE:
+				source = new PipeWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_QUESTION:
+				source = new QuestionWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_SAND:
+				source = new SandWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+			case WALL_TYPE_SQUARE:
+				source = new SquareWallBmp();
+				gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+				break;
+		}
+		
+		delete source;
+		delete gfx;
 	};
 
 	/**
@@ -419,21 +436,6 @@ private:
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp6;
 	static WoopsiGfx::Bitmap* _boulderExplodeBmp7;
 
-	static WoopsiGfx::Bitmap* _brainWallBmp;
-	static WoopsiGfx::Bitmap* _brickWallBmp;
-	static WoopsiGfx::Bitmap* _girderWallBmp;
-	static WoopsiGfx::Bitmap* _heartWallBmp;
-	static WoopsiGfx::Bitmap* _honeycombWallBmp;
-	static WoopsiGfx::Bitmap* _iceWallBmp;
-	static WoopsiGfx::Bitmap* _leafyWallBmp;
-	static WoopsiGfx::Bitmap* _metalWallBmp;
-	static WoopsiGfx::Bitmap* _nuclearWallBmp;
-	static WoopsiGfx::Bitmap* _pipeWallBmp;
-	static WoopsiGfx::Bitmap* _questionWallBmp;
-	static WoopsiGfx::Bitmap* _rockWallBmp;
-	static WoopsiGfx::Bitmap* _sandWallBmp;
-	static WoopsiGfx::Bitmap* _squareWallBmp;
-
 	static WoopsiGfx::Bitmap* _redDoorBmp;
 	static WoopsiGfx::Bitmap* _blueDoorBmp;
 	static WoopsiGfx::Bitmap* _greenDoorBmp;
@@ -445,6 +447,9 @@ private:
 	static WoopsiGfx::Bitmap* _soilBmp;
 
 	static WoopsiGfx::Bitmap* _honeycombSoilBmp;
+
+	static WoopsiGfx::Bitmap* _doorBmp;
+	static WoopsiGfx::Bitmap* _wallBmp;
 
 	static SpectrumColour _soilColour;
 	static SpectrumColour _soilDarkColour;
@@ -462,6 +467,41 @@ private:
 	 * Destructor.
 	 */
 	~BitmapServer() { };
+
+	/**
+	 * Turns the boulder bitmaps yellow.
+	 */
+	static void makeBouldersYellow();
+
+	/**
+	 * Turns the boulder bitmaps blue.
+	 */
+	static void makeBouldersBlue();
+
+	/**
+	 * Turns the boulder bitmaps cyan.
+	 */
+	static void makeBouldersCyan();
+
+	/**
+	 * Turns the boulder bitmaps red.
+	 */
+	static void makeBouldersRed();
+
+	/**
+	 * Turns the boulder bitmaps magenta.
+	 */
+	static void makeBouldersMagenta();
+
+	/**
+	 * Turns the boulder bitmaps green.
+	 */
+	static void makeBouldersGreen();
+
+	/**
+	 * Turns the boulder bitmaps white.
+	 */
+	static void makeBouldersWhite();
 
 	/**
 	 * Changes all boulder bitmaps to use the specified colours.

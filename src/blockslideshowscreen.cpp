@@ -141,7 +141,7 @@ void BlockSlideshowScreen::getNextBlock() {
 			_blockDescription.setText("Collect to progress");
 			break;
 		case SCREEN_STATE_DOOR:
-			_block = new DoorBlock(0, 0, NULL, BitmapServer::getRedDoorBmp());
+			_block = new DoorBlock(0, 0, NULL);
 			_blockName.setText("Door");
 			_blockDescription.setText("Enter here to exit level");
 			break;

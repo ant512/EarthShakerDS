@@ -9,21 +9,6 @@ WoopsiGfx::Bitmap* BitmapServer::_boulderExplodeBmp5 = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_boulderExplodeBmp6 = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_boulderExplodeBmp7 = NULL;
 
-WoopsiGfx::Bitmap* BitmapServer::_brainWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_brickWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_girderWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_heartWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_honeycombWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_iceWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_leafyWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_metalWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_nuclearWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_pipeWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_questionWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_rockWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_sandWallBmp = NULL;
-WoopsiGfx::Bitmap* BitmapServer::_squareWallBmp = NULL;
-
 WoopsiGfx::Bitmap* BitmapServer::_blueDoorBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_cyanDoorBmp = NULL;
 WoopsiGfx::Bitmap* BitmapServer::_greenDoorBmp = NULL;
@@ -36,12 +21,11 @@ WoopsiGfx::Bitmap* BitmapServer::_soilBmp = NULL;
 
 WoopsiGfx::Bitmap* BitmapServer::_honeycombSoilBmp = NULL;
 
-SpectrumColour BitmapServer::_soilColour = COLOUR_WHITE;
-SpectrumColour BitmapServer::_soilDarkColour = COLOUR_WHITE_DARK;
+WoopsiGfx::Bitmap* BitmapServer::_doorBmp = NULL;
+WoopsiGfx::Bitmap* BitmapServer::_wallBmp = NULL;
+
 SpectrumColour BitmapServer::_boulderColour = COLOUR_WHITE;
 SpectrumColour BitmapServer::_boulderDarkColour = COLOUR_WHITE_DARK;
-SpectrumColour BitmapServer::_brickWallColour = COLOUR_WHITE;
-SpectrumColour BitmapServer::_brickWallDarkColour = COLOUR_WHITE_DARK;
 
 void BitmapServer::init() {
 
@@ -57,25 +41,12 @@ void BitmapServer::init() {
 	BoulderExplodeBmp6 boulderExplodeBmp6;
 	BoulderExplodeBmp7 boulderExplodeBmp7;
 
-	BrainWallBmp brainWallBmp;
-	BrickWallBmp brickWallBmp;
-	GirderWallBmp girderWallBmp;
-	HeartWallBmp heartWallBmp;
-	HoneycombWallBmp honeycombWallBmp;
-	IceWallBmp iceWallBmp;
-	LeafyWallBmp leafyWallBmp;
-	MetalWallBmp metalWallBmp;
-	NuclearWallBmp nuclearWallBmp;
-	PipeWallBmp pipeWallBmp;
-	QuestionWallBmp questionWallBmp;
-	RockWallBmp rockWallBmp;
-	SandWallBmp sandWallBmp;
-	SquareWallBmp squareWallBmp;
-
 	DoorBmp doorBmp;
 
 	HoneycombSoilBmp honeycombSoilBmp;
 	SoilBmp soilBmp;
+
+	BrickWallBmp brickWallBmp;
 
 	_boulderBmp = createMutableBitmap(&boulderBmp);
 	_boulderExplodeBmp1 = createMutableBitmap(&boulderExplodeBmp1);
@@ -86,25 +57,11 @@ void BitmapServer::init() {
 	_boulderExplodeBmp6 = createMutableBitmap(&boulderExplodeBmp6);
 	_boulderExplodeBmp7 = createMutableBitmap(&boulderExplodeBmp7);
 
-	_brainWallBmp = createMutableBitmap(&brainWallBmp);
-	_brickWallBmp = createMutableBitmap(&brickWallBmp);
-	_girderWallBmp = createMutableBitmap(&girderWallBmp);
-	_heartWallBmp = createMutableBitmap(&heartWallBmp);
-	_honeycombWallBmp = createMutableBitmap(&honeycombWallBmp);
-	_iceWallBmp = createMutableBitmap(&iceWallBmp);
-	_leafyWallBmp = createMutableBitmap(&leafyWallBmp);
-	_metalWallBmp = createMutableBitmap(&metalWallBmp);
-	_nuclearWallBmp = createMutableBitmap(&nuclearWallBmp);
-	_pipeWallBmp = createMutableBitmap(&pipeWallBmp);
-	_questionWallBmp = createMutableBitmap(&questionWallBmp);
-	_rockWallBmp = createMutableBitmap(&rockWallBmp);
-	_sandWallBmp = createMutableBitmap(&sandWallBmp);
-	_squareWallBmp = createMutableBitmap(&squareWallBmp);
-
 	_soilBmp = createMutableBitmap(&soilBmp);
 
 	_honeycombSoilBmp = createMutableBitmap(&honeycombSoilBmp);
 
+	_doorBmp = createMutableBitmap(&doorBmp);
 	_blueDoorBmp = createMutableBitmap(&doorBmp);
 	_cyanDoorBmp = createMutableBitmap(&doorBmp);
 	_greenDoorBmp = createMutableBitmap(&doorBmp);
@@ -112,6 +69,8 @@ void BitmapServer::init() {
 	_redDoorBmp = createMutableBitmap(&doorBmp);
 	_whiteDoorBmp = createMutableBitmap(&doorBmp);
 	_yellowDoorBmp = createMutableBitmap(&doorBmp);
+
+	_wallBmp = createMutableBitmap(&brickWallBmp);
 
 	// Recolour door bitmaps
 	swapColours(COLOUR_WHITE, COLOUR_RED, _redDoorBmp);
@@ -131,118 +90,6 @@ void BitmapServer::init() {
 
 	swapColours(COLOUR_WHITE, COLOUR_YELLOW, _yellowDoorBmp);
 	swapColours(COLOUR_WHITE_DARK, COLOUR_YELLOW_DARK, _yellowDoorBmp);
-}
-
-void BitmapServer::makeBrickWallBlue() {
-	swapColours(_brickWallColour, COLOUR_BLUE, _brickWallBmp);
-	swapColours(_brickWallDarkColour, COLOUR_BLUE_DARK, _brickWallBmp);
-
-	_brickWallColour = COLOUR_BLUE;
-	_brickWallDarkColour = COLOUR_BLUE_DARK;
-}
-
-void BitmapServer::makeBrickWallRed() {
-	swapColours(_brickWallColour, COLOUR_RED, _brickWallBmp);
-	swapColours(_brickWallDarkColour, COLOUR_RED_DARK, _brickWallBmp);
-
-	_brickWallColour = COLOUR_RED;
-	_brickWallDarkColour = COLOUR_RED_DARK;
-}
-
-void BitmapServer::makeBrickWallGreen() {
-	swapColours(_brickWallColour, COLOUR_GREEN, _brickWallBmp);
-	swapColours(_brickWallDarkColour, COLOUR_GREEN_DARK, _brickWallBmp);
-
-	_brickWallColour = COLOUR_GREEN;
-	_brickWallDarkColour = COLOUR_GREEN_DARK;
-}
-
-void BitmapServer::makeBrickWallCyan() {
-	swapColours(_brickWallColour, COLOUR_CYAN, _brickWallBmp);
-	swapColours(_brickWallDarkColour, COLOUR_CYAN_DARK, _brickWallBmp);
-
-	_brickWallColour = COLOUR_CYAN;
-	_brickWallDarkColour = COLOUR_CYAN_DARK;
-}
-
-void BitmapServer::makeBrickWallMagenta() {
-	swapColours(_brickWallColour, COLOUR_MAGENTA, _brickWallBmp);
-	swapColours(_brickWallDarkColour, COLOUR_MAGENTA_DARK, _brickWallBmp);
-
-	_brickWallColour = COLOUR_MAGENTA;
-	_brickWallDarkColour = COLOUR_MAGENTA_DARK;
-}
-
-void BitmapServer::makeBrickWallYellow() {
-	swapColours(_brickWallColour, COLOUR_YELLOW, _brickWallBmp);
-	swapColours(_brickWallDarkColour, COLOUR_YELLOW_DARK, _brickWallBmp);
-
-	_brickWallColour = COLOUR_MAGENTA;
-	_brickWallDarkColour = COLOUR_MAGENTA_DARK;
-}
-
-void BitmapServer::makeBrickWallWhite() {
-	swapColours(_brickWallColour, COLOUR_WHITE, _brickWallBmp);
-	swapColours(_brickWallDarkColour, COLOUR_WHITE_DARK, _brickWallBmp);
-
-	_brickWallColour = COLOUR_WHITE;
-	_brickWallDarkColour = COLOUR_WHITE_DARK;
-}
-
-void BitmapServer::makeSoilBlue() {
-	swapColours(_soilColour, COLOUR_BLUE, _soilBmp);
-	swapColours(_soilDarkColour, COLOUR_BLUE_DARK, _soilBmp);
-
-	_soilColour = COLOUR_BLUE;
-	_soilDarkColour = COLOUR_BLUE_DARK;
-}
-
-void BitmapServer::makeSoilCyan() {
-	swapColours(_soilColour, COLOUR_CYAN, _soilBmp);
-	swapColours(_soilDarkColour, COLOUR_CYAN_DARK, _soilBmp);
-
-	_soilColour = COLOUR_CYAN;
-	_soilDarkColour = COLOUR_CYAN_DARK;
-}
-
-void BitmapServer::makeSoilRed() {
-	swapColours(_soilColour, COLOUR_RED, _soilBmp);
-	swapColours(_soilDarkColour, COLOUR_RED_DARK, _soilBmp);
-
-	_soilColour = COLOUR_RED;
-	_soilDarkColour = COLOUR_RED_DARK;
-}
-
-void BitmapServer::makeSoilGreen() {
-	swapColours(_soilColour, COLOUR_GREEN, _soilBmp);
-	swapColours(_soilDarkColour, COLOUR_GREEN_DARK, _soilBmp);
-
-	_soilColour = COLOUR_GREEN;
-	_soilDarkColour = COLOUR_GREEN_DARK;
-}
-
-void BitmapServer::makeSoilYellow() {
-	swapColours(_soilColour, COLOUR_YELLOW, _soilBmp);
-	swapColours(_soilDarkColour, COLOUR_YELLOW_DARK, _soilBmp);
-
-	_soilColour = COLOUR_YELLOW;
-	_soilDarkColour = COLOUR_YELLOW_DARK;
-}
-
-void BitmapServer::makeSoilMagenta() {
-	swapColours(_soilColour, COLOUR_MAGENTA, _soilBmp);
-	swapColours(_soilDarkColour, COLOUR_MAGENTA_DARK, _soilBmp);
-
-	_soilColour = COLOUR_MAGENTA;
-	_soilDarkColour = COLOUR_MAGENTA_DARK;
-}
-
-void BitmapServer::makeSoilWhite() {
-	swapColours(_soilColour, COLOUR_WHITE, _soilBmp);
-	swapColours(_soilDarkColour, COLOUR_WHITE_DARK, _soilBmp);
-
-	_soilColour = COLOUR_WHITE;
-	_soilDarkColour = COLOUR_WHITE_DARK;
 }
 
 void BitmapServer::makeBouldersYellow() {
@@ -283,21 +130,6 @@ void BitmapServer::shutdown() {
 	if (_boulderExplodeBmp6 != NULL) delete _boulderExplodeBmp6;
 	if (_boulderExplodeBmp7 != NULL) delete _boulderExplodeBmp7;
 
-	if (_brainWallBmp != NULL) delete _brainWallBmp;
-	if (_brickWallBmp != NULL) delete _brickWallBmp;
-	if (_girderWallBmp != NULL) delete _girderWallBmp;
-	if (_heartWallBmp != NULL) delete _heartWallBmp;
-	if (_honeycombWallBmp != NULL) delete _honeycombWallBmp;
-	if (_iceWallBmp != NULL) delete _iceWallBmp;
-	if (_leafyWallBmp != NULL) delete _leafyWallBmp;
-	if (_metalWallBmp != NULL) delete _metalWallBmp;
-	if (_nuclearWallBmp != NULL) delete _nuclearWallBmp;
-	if (_pipeWallBmp != NULL) delete _pipeWallBmp;
-	if (_questionWallBmp != NULL) delete _questionWallBmp;
-	if (_rockWallBmp != NULL) delete _rockWallBmp;
-	if (_sandWallBmp != NULL) delete _sandWallBmp;
-	if (_squareWallBmp != NULL) delete _squareWallBmp;
-
 	if (_redDoorBmp != NULL) delete _redDoorBmp;
 	if (_greenDoorBmp != NULL) delete _greenDoorBmp;
 	if (_blueDoorBmp != NULL) delete _blueDoorBmp;
@@ -308,6 +140,9 @@ void BitmapServer::shutdown() {
 	if (_soilBmp != NULL) delete _soilBmp;
 
 	if (_honeycombSoilBmp != NULL) delete _honeycombSoilBmp;
+
+	if (_doorBmp != NULL) delete _doorBmp;
+	if (_wallBmp != NULL) delete _wallBmp;
 }
 
 void BitmapServer::changeBoulderColours(SpectrumColour light, SpectrumColour dark) {

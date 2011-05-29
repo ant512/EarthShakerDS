@@ -266,8 +266,6 @@ private:
 	 * Commits suicide.
 	 */
 	void commitSuicide();
-
-	void recolourBitmaps(const LevelDefinition* levelDefinition);
 };
 
 #endif

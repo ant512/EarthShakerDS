@@ -4,6 +4,7 @@
 #include <woopsistring.h>
 #include <woopsiarray.h>
 
+#include "blocktype.h"
 #include "level.h"
 
 /**
@@ -30,18 +31,20 @@ public:
 					s32 number,
 					WoopsiGfx::WoopsiString name,
 					const u8* data,
-					u16 boulderColour,
-					u16 brickWallColour,
-					u16 soilColour) {
+					BoulderType boulderType,
+					WallType wallType,
+					SoilType soilType,
+					DoorType doorType) {
 
 		_width = width;
 		_height = height;
 		_layout = data;
 		_number = number;
 		_name = name;
-		_boulderColour = boulderColour;
-		_brickWallColour = brickWallColour;
-		_soilColour = soilColour;
+		_boulderType = boulderType;
+		_wallType = wallType;
+		_soilType = soilType;
+		_doorType = doorType;
 	};
 
 	/**
@@ -79,9 +82,10 @@ public:
 	 */
 	inline const WoopsiGfx::WoopsiString& getName() const { return _name; };
 
-	inline u16 getBoulderColour() const { return _boulderColour; };
-	inline u16 getBrickWallColour() const { return _brickWallColour; };
-	inline u16 getSoilColour() const { return _soilColour; };
+	inline BoulderType getBoulderType() const { return _boulderType; };
+	inline WallType getWallType() const { return _wallType; };
+	inline SoilType getSoilType() const { return _soilType; };
+	inline DoorType getDoorType() const { return _doorType; };
 
 protected:
 	const u8* _layout;							/**< Level map stored as a 1 dimensional array of bytes. */
@@ -89,9 +93,10 @@ protected:
 	s32 _height;								/**< Height of the level in blocks. */
 	WoopsiGfx::WoopsiString _name;				/**< Name of the level. */
 	s32 _number;								/**< Number of the level. */
-	u16 _boulderColour;							/**< Colour of boulders in this level. */
-	u16 _brickWallColour;						/**< Colour of brick walls in this level. */
-	u16 _soilColour;							/**< Colour of soil in this level. */
+	BoulderType _boulderType;					/**< Colour of boulders in this level. */
+	WallType _wallType;							/**< Colour of brick walls in this level. */
+	SoilType _soilType;							/**< Colour of soil in this level. */
+	DoorType _doorType;
 };
 
 #endif

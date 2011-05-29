@@ -25,8 +25,8 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 * @param bitmap The bitmap to use.
 	 */
-	DoorBlock(s32 x, s32 y, Game* game, WoopsiGfx::BitmapBase* bitmap) : BlockBase(x, y, game) {
-		_animation->addFrame(bitmap, 0);
+	DoorBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+		_animation->addFrame(BitmapServer::getDoorBmp(), 0);
 
 		_explodingAnimation->addFrame(BitmapServer::getRedDoorBmp(), 0);
 		_explodingAnimation->addFrame(BitmapServer::getGreenDoorBmp(), 0);

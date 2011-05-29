@@ -26,9 +26,9 @@ public:
 	 * @param bitmap The bitmap to use as the visual representation of the
 	 * block.
 	 */
-	SoilBlock(s32 x, s32 y, Game* game, WoopsiGfx::BitmapBase* bitmap) : BlockBase(x, y, game) {
+	SoilBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
 		_isSlippy = false;
-		_animation->addFrame(bitmap, 0);
+		_animation->addFrame(BitmapServer::getSoilBmp(), 0);
 
 		_mapBitmap = new SoilMapBmp();
 	};

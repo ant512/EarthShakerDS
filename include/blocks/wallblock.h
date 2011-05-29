@@ -5,6 +5,7 @@
 #include <bitmapbase.h>
 
 #include "game.h"
+#include "bitmapserver.h"
 #include "blockbase.h"
 #include "brickwallmapbmp.h"
 
@@ -23,8 +24,8 @@ public:
 	 * @param bitmap The bitmap to use as the visual representation of the
 	 * block.
 	 */
-	WallBlock(s32 x, s32 y, Game* game, WoopsiGfx::BitmapBase* bitmap) : BlockBase(x, y, game) {
-		_animation->addFrame(bitmap, 0);
+	WallBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+		_animation->addFrame(BitmapServer::getWallBmp(), 0);
 
 		_mapBitmap = new BrickWallMapBmp();
 	};
