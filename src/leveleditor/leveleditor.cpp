@@ -93,7 +93,7 @@ void LevelEditor::main() {
 
 		++_movementTimer;
 
-		if (_movementTimer < MOVEMENT_TIME / 2) continue;
+		if (_movementTimer < MOVEMENT_TIME) continue;
 
 		_movementTimer = 0;
 
