@@ -12,7 +12,6 @@
 #include "buttonbank.h"
 #include "buttonlistener.h"
 
-class LevelEditorBlockPanel;
 class LevelEditorFilePanel;
 class LevelEditorMapPanel;
 class LevelEditorPalettePanel;
@@ -43,9 +42,8 @@ private:
 
 	enum PanelType {
 		PANEL_MAP = 0,
-		PANEL_BLOCK = 1,
-		PANEL_PALETTE = 2,
-		PANEL_FILE = 3
+		PANEL_PALETTE = 1,
+		PANEL_FILE = 2
 	};
 
 	static const s32 LEVEL_WIDTH = 30;
@@ -63,7 +61,6 @@ private:
 
 	ButtonBank* _buttons;
 
-	LevelEditorBlockPanel* _blockPanel;
 	LevelEditorFilePanel* _filePanel;
 	LevelEditorPalettePanel* _palettePanel;
 	LevelEditorPanelBase* _activePanel;

@@ -452,16 +452,6 @@ void Game::movePlayer() {
 	const PadState& pad = Hardware::getPadState();
 	PlayerBlock* player = _level->getPlayerBlock();
 
-	if (pad.b) {
-		player->pokeDown();
-	} else if (pad.a) {
-		player->pokeRight();
-	} else if (pad.x) {
-		player->pokeUp();
-	} else if (pad.y) {
-		player->pokeLeft();
-	}
-
 	if (Hardware::isMostRecentDirectionVertical()) {
 
 		// Attempt to move vertically before horizontally, as the most
@@ -479,9 +469,9 @@ void Game::movePlayer() {
 		// of VBLs.
 		if (!moved) {
 			if (pad.left) {
-				player->pushLeft();
+				moved = player->pushLeft();
 			} else if (pad.right) {
-				player->pushRight();
+				moved = player->pushRight();
 			}
 		}
 	} else {
@@ -501,10 +491,22 @@ void Game::movePlayer() {
 		// of VBLs.
 		if (!moved) {
 			if (pad.up) {
-				player->pushUp();
+				moved = player->pushUp();
 			} else if (pad.down) {
-				player->pushDown();
+				moved = player->pushDown();
 			}
+		}
+	}
+
+	if (!moved) {
+		if (pad.b) {
+			player->pokeDown();
+		} else if (pad.a) {
+			player->pokeRight();
+		} else if (pad.x) {
+			player->pokeUp();
+		} else if (pad.y) {
+			player->pokeLeft();
 		}
 	}
 }
