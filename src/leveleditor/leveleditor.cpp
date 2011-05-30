@@ -31,11 +31,18 @@
 #include "leveleditormappanel.h"
 #include "levelfactory.h"
 
+#include "leveleditorblockselector.h"
+
 #include "soundplayer.h"
 
 LevelEditor::LevelEditor() {
 	_topGfx = Hardware::getTopGfx();
 	_bottomGfx = Hardware::getBottomGfx();
+
+	BitmapServer::changeBoulderBmp(BOULDER_TYPE_YELLOW);
+	BitmapServer::changeSoilBmp(SOIL_TYPE_BLUE);
+	BitmapServer::changeWallBmp(WALL_TYPE_BRICK_RED);
+	BitmapServer::changeDoorBmp(DOOR_TYPE_GREEN);
 
 	_level = new Level(LEVEL_WIDTH, LEVEL_HEIGHT, 0, "Test");
 
@@ -44,6 +51,8 @@ LevelEditor::LevelEditor() {
 	for (s32 i = 0; i < LEVEL_WIDTH * LEVEL_HEIGHT; ++i) {
 		_levelData[i] = BLOCK_TYPE_NULL;
 	}
+
+	_blockSelector = new LevelEditorBlockSelector(_topGfx);
 
 	_cursorX = 0;
 	_cursorY = 0;
@@ -60,6 +69,8 @@ LevelEditor::LevelEditor() {
 	_buttons->addButton(new TextButton(194, 174, 60, 16, PANEL_FILE, "File"));
 
 	_buttons->render();
+
+	_blockSelector->render();
 
 	render();
 
@@ -87,6 +98,7 @@ LevelEditor::~LevelEditor() {
 	delete _mapPanel;
 	delete _filePanel;
 	delete _level;
+	delete _blockSelector;
 	delete[] _levelData;
 }
 
@@ -105,6 +117,8 @@ void LevelEditor::main() {
 		if (_movementTimer < MOVEMENT_TIME) continue;
 
 		_movementTimer = 0;
+
+		_blockSelector->iterate();
 
 		const PadState& pad = Hardware::getPadState();
 
@@ -148,8 +162,6 @@ void LevelEditor::moveCursorTo(s32 x, s32 y) {
 }
 
 void LevelEditor::removeBlock() {
-	
-	BlockType type = _blockPanel->getSelectedBlockType();
 
 	s32 dataIndex = (_cursorY * LEVEL_WIDTH) + _cursorX;
 	
@@ -173,7 +185,7 @@ void LevelEditor::removeBlock() {
 }
 
 void LevelEditor::placeBlock() {
-	BlockType type = _blockPanel->getSelectedBlockType();
+	BlockType type = _blockSelector->getSelectedBlockType();
 
 	s32 dataIndex = (_cursorY * LEVEL_WIDTH) + _cursorX;
 

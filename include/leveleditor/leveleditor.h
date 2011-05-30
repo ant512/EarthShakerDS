@@ -17,6 +17,7 @@ class LevelEditorFilePanel;
 class LevelEditorMapPanel;
 class LevelEditorPalettePanel;
 class LevelEditorPanelBase;
+class LevelEditorBlockSelector;
 
 class LevelEditor : public ButtonListener {
 public:
@@ -67,6 +68,8 @@ private:
 	LevelEditorPalettePanel* _palettePanel;
 	LevelEditorPanelBase* _activePanel;
 	LevelEditorMapPanel* _mapPanel;
+
+	LevelEditorBlockSelector* _blockSelector;
 
 	u8* _levelData;
 
