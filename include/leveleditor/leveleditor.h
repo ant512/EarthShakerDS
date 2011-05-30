@@ -68,6 +68,8 @@ private:
 	LevelEditorPanelBase* _activePanel;
 	LevelEditorMapPanel* _mapPanel;
 
+	u8* _levelData;
+
 	void drawPanelBorder();
 };
 

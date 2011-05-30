@@ -37,6 +37,8 @@ LevelEditor::LevelEditor() {
 
 	_level = new Level(LEVEL_WIDTH, LEVEL_HEIGHT, 0, "Test");
 
+	_levelData = new u8[LEVEL_WIDTH * LEVEL_HEIGHT];
+
 	_cursorX = 0;
 	_cursorY = 0;
 	_animationTimer = 0;
@@ -79,6 +81,7 @@ LevelEditor::~LevelEditor() {
 	delete _mapPanel;
 	delete _filePanel;
 	delete _level;
+	delete[] _levelData;
 }
 
 void LevelEditor::main() {
@@ -154,7 +157,14 @@ void LevelEditor::removeBlock() {
 }
 
 void LevelEditor::placeBlock() {
-	LevelFactory::placeBlock(_level, _blockPanel->getSelectedBlockType(), _cursorX, _cursorY, NULL);
+	BlockType type = _blockPanel->getSelectedBlockType();
+
+	s32 dataIndex = (_cursorY * LEVEL_WIDTH) + _cursorX;
+
+	if (type != _levelData[dataIndex]) {
+		LevelFactory::placeBlock(_level, type, _cursorX, _cursorY, NULL);
+		_levelData[dataIndex] = type;
+	}
 }
 
 void LevelEditor::render() {
@@ -188,7 +198,7 @@ void LevelEditor::drawCursor() {
 	if (blockY + numBlocksY > _level->getHeight()) blockY = _level->getHeight() - numBlocksY;
 	if (blockY < 0) blockY = 0;
 
-	_topGfx->drawXORRect((_cursorX - blockX) * BlockBase::BLOCK_SIZE, (_cursorY - blockY) * BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE);
+	_topGfx->drawRect((_cursorX - blockX) * BlockBase::BLOCK_SIZE, (_cursorY - blockY) * BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE, BlockBase::BLOCK_SIZE, COLOUR_WHITE);
 }
 
 void LevelEditor::handleButtonAction(ButtonBase* source) {
