@@ -26,12 +26,14 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 "for the 2011 GBATemp Homebrew Bounty competition "
 							 ".... Many thanks to Michael Batty for permission "
 							 "to distribute his original graphics and other "
-							 "assets with this remake .... See ant.simianzombie.com "
-							 "for other projects .... Earth Shaker DS was written "
-							 "using WoopsiGfx, a 2D graphics library that includes "
-							 "features such as DMA acceleration, a set of 2D "
-							 "drawing routines, animation, UTF-8 strings and "
-							 "fonts for rendering text .... "
+							 "assets with this remake .... Thanks to another "
+							 "world for his testing and feedback .... See "
+							 "ant.simianzombie.com for other projects .... Earth "
+							 "Shaker DS was written using WoopsiGfx, a 2D "
+							 "graphics library that includes features such as "
+							 "DMA acceleration, a set of 2D drawing routines, "
+							 "animation, UTF-8 strings and fonts for rendering "
+							 "text .... "
 							 );
 
 	// Set up the menu system
