@@ -89,16 +89,15 @@ load and save functions are not yet implemented.
 
 The cursor in the top display can be controlled using the d-pad.  Press A to
 place a block and B to erase a block.  By default, the map of the current level
-is displayed in the bottom display.  To change the block that is added to the
-level when A is pressed, tap the "Block" button in the bottom display with the
-stylus.  This will bring up a list of all blocks in the game.  Tap the desired
-block with the stylus and use the d-pad and A to position it in the level.
+is displayed in the bottom display.  Use the L and R buttons to change the block
+that is added to the level when A is pressed.  The possible blocks are displayed
+at the bottom of the upper screen, and the current block is highlighted.
 
-The "Palette" button allows you to change the colour of the boulders, brick
-walls and soil in the current level.
+The "Palette" button allows you to change the colour of the boulders and doors
+and the type of soil and walls in the current level.
 
 Lastly, the "File" button provides a menu with the ability to load and save
-files (not implemented yet), erase the current menu, and exit the editor.
+files (not implemented yet), erase the current level, and exit the editor.
 
 
 Requirements
@@ -114,6 +113,7 @@ Credits and Acknowledgements
 
   - Coding                                          - Antony Dzeryn
   - Original graphics, sounds, levels and design    - Michael Batty
+  - Beta testing                                    - Another World
 
 
 Links
