@@ -67,16 +67,22 @@ public:
 		const PadState& pad = Hardware::getPadState();
 
 
-		if (pad.l && _selectedIndex > 0) {
+		if (pad.l) {
 			drawCursor();
 			--_selectedIndex;
+
+			if (_selectedIndex < 0) _selectedIndex = BLOCK_TYPE_COUNT - 1;
+
 			SoundPlayer::playBlockFall();
 			drawCursor();
 		}
 
-		if (pad.r && _selectedIndex < BLOCK_TYPE_COUNT - 1) {
+		if (pad.r) {
 			drawCursor();
 			++_selectedIndex;
+
+			if (_selectedIndex > BLOCK_TYPE_COUNT - 1) _selectedIndex = 0;
+
 			SoundPlayer::playBlockFall();
 			drawCursor();
 		}
