@@ -32,14 +32,12 @@
 
 class LevelEditorBlockSelector {
 public:
-	static const s32 BLOCK_TYPE_COUNT = 14;
-
 	LevelEditorBlockSelector(WoopsiGfx::Graphics* gfx) {
 		_selectedIndex = 0;
 
 		_gfx = gfx;
 
-		_bitmaps = new WoopsiGfx::BitmapBase*[BLOCK_TYPE_COUNT];
+		_bitmaps = new WoopsiGfx::BitmapBase*[BLOCK_TYPE_COUNT - 1];
 
 		_bitmaps[0] = &_playerBmp;
 		_bitmaps[1] = &_diamondBmp;
@@ -71,7 +69,7 @@ public:
 			drawCursor();
 			--_selectedIndex;
 
-			if (_selectedIndex < 0) _selectedIndex = BLOCK_TYPE_COUNT - 1;
+			if (_selectedIndex < 0) _selectedIndex = BLOCK_TYPE_COUNT - 2;
 
 			SoundPlayer::playBlockFall();
 			drawCursor();
@@ -81,7 +79,7 @@ public:
 			drawCursor();
 			++_selectedIndex;
 
-			if (_selectedIndex > BLOCK_TYPE_COUNT - 1) _selectedIndex = 0;
+			if (_selectedIndex > BLOCK_TYPE_COUNT - 2) _selectedIndex = 0;
 
 			SoundPlayer::playBlockFall();
 			drawCursor();
@@ -90,17 +88,17 @@ public:
 
 	void drawCursor() {
 		s32 y = SCREEN_HEIGHT - BlockBase::BLOCK_SIZE;
-		s32 x = (SCREEN_WIDTH - (BlockBase::BLOCK_SIZE * BLOCK_TYPE_COUNT)) / 2;
+		s32 x = (SCREEN_WIDTH - (BlockBase::BLOCK_SIZE * (BLOCK_TYPE_COUNT - 1))) / 2;
 		_gfx->drawFilledXORRect(x + (_selectedIndex * BlockBase::BLOCK_SIZE), y, _bitmaps[_selectedIndex]->getWidth(), _bitmaps[_selectedIndex]->getHeight());
 	};
 
 	void render() {
 		s32 y = SCREEN_HEIGHT - BlockBase::BLOCK_SIZE;
-		s32 x = (SCREEN_WIDTH - (BlockBase::BLOCK_SIZE * BLOCK_TYPE_COUNT)) / 2;
+		s32 x = (SCREEN_WIDTH - (BlockBase::BLOCK_SIZE * (BLOCK_TYPE_COUNT - 1))) / 2;
 
 		_gfx->drawFilledRect(0, y, SCREEN_WIDTH, BlockBase::BLOCK_SIZE, COLOUR_BLACK);
 
-		for (s32 i = 0; i < BLOCK_TYPE_COUNT; ++i) {
+		for (s32 i = 0; i < BLOCK_TYPE_COUNT - 1; ++i) {
 			_gfx->drawBitmap(x, y, _bitmaps[i]->getWidth(), _bitmaps[i]->getHeight(), _bitmaps[i], 0, 0);
 			x += BlockBase::BLOCK_SIZE;
 		}

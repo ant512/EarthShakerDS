@@ -1,6 +1,12 @@
 #ifndef _BLOCK_TYPE_H_
 #define _BLOCK_TYPE_H_
 
+static const s32 BLOCK_TYPE_COUNT = 16;
+static const s32 DOOR_TYPE_COUNT = 7;
+static const s32 BOULDER_TYPE_COUNT = 7;
+static const s32 WALL_TYPE_COUNT = 20;
+static const s32 SOIL_TYPE_COUNT = 10;
+
 enum BlockType {
 	BLOCK_TYPE_NULL = 0,
 	BLOCK_TYPE_PLAYER = 1,

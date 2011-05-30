@@ -5,12 +5,14 @@
 #include <woopsistring.h>
 
 #include "bitmapbase.h"
+#include "bitmapbutton.h"
 #include "bitmapserver.h"
 #include "buttonbank.h"
 #include "buttonlistener.h"
-#include "colourbutton.h"
 #include "leveleditorpanelbase.h"
 #include "spectrumcolours.h"
+#include "leftarrowbmp.h"
+#include "rightarrowbmp.h"
 
 /**
  * Panel that allows block colours to be chosen.
@@ -25,29 +27,22 @@ public:
 	LevelEditorPalettePanel(WoopsiGfx::Graphics* gfx) : LevelEditorPanelBase(gfx) {
 		_buttons = new ButtonBank(this, gfx);
 
-		_buttons->addButton(new ColourButton(32, 8, 20, 20, 0, COLOUR_WHITE, COLOUR_WHITE_DARK));
-		_buttons->addButton(new ColourButton(56, 8, 20, 20, 1, COLOUR_RED, COLOUR_RED_DARK));
-		_buttons->addButton(new ColourButton(80, 8, 20, 20, 2, COLOUR_GREEN, COLOUR_GREEN_DARK));
-		_buttons->addButton(new ColourButton(104, 8, 20, 20, 3, COLOUR_BLUE, COLOUR_BLUE_DARK));
-		_buttons->addButton(new ColourButton(128, 8, 20, 20, 4, COLOUR_CYAN, COLOUR_CYAN_DARK));
-		_buttons->addButton(new ColourButton(152, 8, 20, 20, 5, COLOUR_MAGENTA, COLOUR_MAGENTA_DARK));
-		_buttons->addButton(new ColourButton(176, 8, 20, 20, 6, COLOUR_YELLOW, COLOUR_YELLOW_DARK));
+		_buttons->addButton(new BitmapButton(8, 8, 16, 16, 0, &_leftArrowBmp));
+		_buttons->addButton(new BitmapButton(56, 8, 16, 16, 1, &_rightArrowBmp));
 
-		_buttons->addButton(new ColourButton(32, 32, 20, 20, 7, COLOUR_WHITE, COLOUR_WHITE_DARK));
-		_buttons->addButton(new ColourButton(56, 32, 20, 20, 8, COLOUR_RED, COLOUR_RED_DARK));
-		_buttons->addButton(new ColourButton(80, 32, 20, 20, 9, COLOUR_GREEN, COLOUR_GREEN_DARK));
-		_buttons->addButton(new ColourButton(104, 32, 20, 20, 10, COLOUR_BLUE, COLOUR_BLUE_DARK));
-		_buttons->addButton(new ColourButton(128, 32, 20, 20, 11, COLOUR_CYAN, COLOUR_CYAN_DARK));
-		_buttons->addButton(new ColourButton(152, 32, 20, 20, 12, COLOUR_MAGENTA, COLOUR_MAGENTA_DARK));
-		_buttons->addButton(new ColourButton(176, 32, 20, 20, 13, COLOUR_YELLOW, COLOUR_YELLOW_DARK));
+		_buttons->addButton(new BitmapButton(8, 32, 16, 16, 2, &_leftArrowBmp));
+		_buttons->addButton(new BitmapButton(56, 32, 16, 16, 3, &_rightArrowBmp));
 
-		_buttons->addButton(new ColourButton(32, 56, 20, 20, 14, COLOUR_WHITE, COLOUR_WHITE_DARK));
-		_buttons->addButton(new ColourButton(56, 56, 20, 20, 15, COLOUR_RED, COLOUR_RED_DARK));
-		_buttons->addButton(new ColourButton(80, 56, 20, 20, 16, COLOUR_GREEN, COLOUR_GREEN_DARK));
-		_buttons->addButton(new ColourButton(104, 56, 20, 20, 17, COLOUR_BLUE, COLOUR_BLUE_DARK));
-		_buttons->addButton(new ColourButton(128, 56, 20, 20, 18, COLOUR_CYAN, COLOUR_CYAN_DARK));
-		_buttons->addButton(new ColourButton(152, 56, 20, 20, 19, COLOUR_MAGENTA, COLOUR_MAGENTA_DARK));
-		_buttons->addButton(new ColourButton(176, 56, 20, 20, 20, COLOUR_YELLOW, COLOUR_YELLOW_DARK));
+		_buttons->addButton(new BitmapButton(8, 56, 16, 16, 4, &_leftArrowBmp));
+		_buttons->addButton(new BitmapButton(56, 56, 16, 16, 5, &_rightArrowBmp));
+	
+		_buttons->addButton(new BitmapButton(8, 80, 16, 16, 6, &_leftArrowBmp));
+		_buttons->addButton(new BitmapButton(56, 80, 16, 16, 7, &_rightArrowBmp));
+
+		_doorType = DOOR_TYPE_GREEN;
+		_wallType = WALL_TYPE_BRICK_RED;
+		_soilType = SOIL_TYPE_BLUE;
+		_boulderType = BOULDER_TYPE_YELLOW;
 	};
 
 	/**
@@ -79,94 +74,86 @@ public:
 	 * @param source The button that raised the event.
 	 */
 	void handleButtonAction(ButtonBase* source) {
-		/*
 		switch (source->getId()) {
 			case 0:
-				BitmapServer::makeBouldersWhite();
+				_boulderType--;
+				if (_boulderType < 0) _boulderType = BOULDER_TYPE_COUNT - 1;
+				BitmapServer::changeBoulderBmp((BoulderType)_boulderType);
+				renderBitmaps();
 				break;
 			case 1:
-				BitmapServer::makeBouldersRed();
+				_boulderType++;
+				if (_boulderType > BOULDER_TYPE_COUNT - 1) _boulderType = 0;
+				BitmapServer::changeBoulderBmp((BoulderType)_boulderType);
+				renderBitmaps();
 				break;
+
 			case 2:
-				BitmapServer::makeBouldersGreen();
+				_soilType--;
+				if (_soilType < 0) _soilType = SOIL_TYPE_COUNT - 1;
+				BitmapServer::changeSoilBmp((SoilType)_soilType);
+				renderBitmaps();
 				break;
 			case 3:
-				BitmapServer::makeBouldersBlue();
+				_soilType++;
+				if (_soilType > SOIL_TYPE_COUNT - 1) _soilType = 0;
+				BitmapServer::changeSoilBmp((SoilType)_soilType);
+				renderBitmaps();
 				break;
+
 			case 4:
-				BitmapServer::makeBouldersCyan();
+				_wallType--;
+				if (_wallType < 0) _wallType = WALL_TYPE_COUNT - 1;
+				BitmapServer::changeWallBmp((WallType)_wallType);
+				renderBitmaps();
 				break;
 			case 5:
-				BitmapServer::makeBouldersMagenta();
+				_wallType++;
+				if (_wallType > WALL_TYPE_COUNT - 1) _wallType = 0;
+				BitmapServer::changeWallBmp((WallType)_wallType);
+				renderBitmaps();
 				break;
+
 			case 6:
-				BitmapServer::makeBouldersYellow();
+				_doorType--;
+				if (_doorType < 0) _doorType = DOOR_TYPE_COUNT - 1;
+				BitmapServer::changeDoorBmp((DoorType)_doorType);
+				renderBitmaps();
 				break;
-
 			case 7:
-				BitmapServer::makeSoilWhite();
-				break;
-			case 8:
-				BitmapServer::makeSoilRed();
-				break;
-			case 9:
-				BitmapServer::makeSoilGreen();
-				break;
-			case 10:
-				BitmapServer::makeSoilBlue();
-				break;
-			case 11:
-				BitmapServer::makeSoilCyan();
-				break;
-			case 12:
-				BitmapServer::makeSoilMagenta();
-				break;
-			case 13:
-				BitmapServer::makeSoilYellow();
-				break;
-
-			case 14:
-				BitmapServer::makeBrickWallWhite();
-				break;
-			case 15:
-				BitmapServer::makeBrickWallRed();
-				break;
-			case 16:
-				BitmapServer::makeBrickWallGreen();
-				break;
-			case 17:
-				BitmapServer::makeBrickWallBlue();
-				break;
-			case 18:
-				BitmapServer::makeBrickWallCyan();
-				break;
-			case 19:
-				BitmapServer::makeBrickWallMagenta();
-				break;
-			case 20:
-				BitmapServer::makeBrickWallYellow();
-				break;
+				_doorType++;
+				if (_doorType > DOOR_TYPE_COUNT - 1) _doorType = 0;
+				BitmapServer::changeDoorBmp((DoorType)_doorType);
+				renderBitmaps();
+				break;	
 		}
-
-		renderBitmaps();
-		*/
 	};
 
 private:
-	ButtonBank* _buttons;		/**< Collection of buttons in the panel. */
+	ButtonBank* _buttons;			/**< Collection of buttons in the panel. */
+	LeftArrowBmp _leftArrowBmp;
+	RightArrowBmp _rightArrowBmp;
+
+	s32 _boulderType;
+	s32 _wallType;
+	s32 _soilType;
+	s32 _doorType;
 
 	/**
 	 * Renders the bitmaps for each block that can be recoloured.
 	 */
 	void renderBitmaps() {
 		WoopsiGfx::BitmapBase* bmp = BitmapServer::getBoulderBmp();
-		_gfx->drawBitmap(8, 8, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
+		_gfx->drawBitmap(32, 8, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
 
 		bmp = BitmapServer::getSoilBmp();
-		_gfx->drawBitmap(8, 32, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
+		_gfx->drawBitmap(32, 32, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
 
 		bmp = BitmapServer::getWallBmp();
-		_gfx->drawBitmap(8, 56, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
+		_gfx->drawBitmap(32, 56, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
+
+		bmp = BitmapServer::getDoorBmp();
+		_gfx->drawBitmap(32, 80, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
 	};
 };
 
