@@ -31,6 +31,8 @@
 #include "leveleditormappanel.h"
 #include "levelfactory.h"
 
+#include "soundplayer.h"
+
 LevelEditor::LevelEditor() {
 	_topGfx = Hardware::getTopGfx();
 	_bottomGfx = Hardware::getBottomGfx();
@@ -38,6 +40,10 @@ LevelEditor::LevelEditor() {
 	_level = new Level(LEVEL_WIDTH, LEVEL_HEIGHT, 0, "Test");
 
 	_levelData = new u8[LEVEL_WIDTH * LEVEL_HEIGHT];
+
+	for (s32 i = 0; i < LEVEL_WIDTH * LEVEL_HEIGHT; ++i) {
+		_levelData[i] = BLOCK_TYPE_NULL;
+	}
 
 	_cursorX = 0;
 	_cursorY = 0;
@@ -143,6 +149,12 @@ void LevelEditor::moveCursorTo(s32 x, s32 y) {
 
 void LevelEditor::removeBlock() {
 	
+	BlockType type = _blockPanel->getSelectedBlockType();
+
+	s32 dataIndex = (_cursorY * LEVEL_WIDTH) + _cursorX;
+	
+	if (_levelData[dataIndex] == BLOCK_TYPE_NULL) return;
+
 	if ((_level->getPlayerBlock()->getX() == _cursorX) && (_level->getPlayerBlock()->getY() == _cursorY)) {
 		// If we're removing the player block we need to forget it
 		_level->setPlayerBlock(NULL);
@@ -154,6 +166,10 @@ void LevelEditor::removeBlock() {
 
 	_level->removeBlockAt(_cursorX, _cursorY);
 	_level->deleteRemovedBlocks();
+
+	_levelData[dataIndex] = BLOCK_TYPE_NULL;
+
+	SoundPlayer::playSoilPoke();
 }
 
 void LevelEditor::placeBlock() {
@@ -164,6 +180,8 @@ void LevelEditor::placeBlock() {
 	if (type != _levelData[dataIndex]) {
 		LevelFactory::placeBlock(_level, type, _cursorX, _cursorY, NULL);
 		_levelData[dataIndex] = type;
+
+		SoundPlayer::playBlockLand();
 	}
 }
 
