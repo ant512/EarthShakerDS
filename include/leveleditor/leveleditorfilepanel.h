@@ -2,14 +2,19 @@
 #define _LEVEL_EDITOR_FILE_PANEL_H_
 
 #include <graphics.h>
+#include <woopsiarray.h>
 #include <woopsistring.h>
 
+#include "blocktype.h"
 #include "buttonbank.h"
 #include "buttonlistener.h"
 #include "level.h"
+#include "leveleditor.h"
 #include "leveleditorpanelbase.h"
 #include "spectrumcolours.h"
 #include "textbutton.h"
+
+#include "gamesession.h"
 
 /**
  * Panel with options for loading and saving the current level, reseting the
@@ -22,16 +27,17 @@ public:
 	 * Constructor.
 	 * @param gfx Graphics object to draw with.
 	 */
-	LevelEditorFilePanel(WoopsiGfx::Graphics* gfx, Level* level) : LevelEditorPanelBase(gfx) {
-		_level = level;
+	LevelEditorFilePanel(WoopsiGfx::Graphics* gfx, LevelEditor* editor) : LevelEditorPanelBase(gfx) {
 		_isRunning = true;
+		_editor = editor;
 
 		_buttons = new ButtonBank(this, gfx);
 
 		_buttons->addButton(new TextButton(8, 8, 100, 20, 0, "Load"));
 		_buttons->addButton(new TextButton(8, 32, 100, 20, 1, "Save"));
-		_buttons->addButton(new TextButton(8, 56, 100, 20, 2, "New"));
-		_buttons->addButton(new TextButton(8, 80, 100, 20, 3, "Exit"));
+		_buttons->addButton(new TextButton(8, 56, 100, 20, 2, "Test"));
+		_buttons->addButton(new TextButton(8, 80, 100, 20, 3, "New"));
+		_buttons->addButton(new TextButton(8, 104, 100, 20, 4, "Exit"));
 	};
 
 	/**
@@ -67,9 +73,12 @@ public:
 			case 1:
 				break;
 			case 2:
-				_level->clear();
+				_editor->testLevel();
 				break;
 			case 3:
+				_editor->resetLevel();
+				break;
+			case 4:
 				_isRunning = false;
 				break;
 		}
@@ -81,7 +90,7 @@ public:
 
 private:
 	ButtonBank* _buttons;		/**< Collection of buttons in the panel. */
-	Level* _level;
+	LevelEditor* _editor;
 	bool _isRunning;
 };
 

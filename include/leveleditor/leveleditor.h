@@ -38,6 +38,10 @@ public:
 
 	void handleButtonAction(ButtonBase* source);
 
+	void testLevel();
+
+	void resetLevel();
+
 private:
 
 	enum PanelType {

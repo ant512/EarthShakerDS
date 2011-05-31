@@ -47,9 +47,7 @@ LevelEditor::LevelEditor() {
 
 	_levelData = new u8[LEVEL_WIDTH * LEVEL_HEIGHT];
 
-	for (s32 i = 0; i < LEVEL_WIDTH * LEVEL_HEIGHT; ++i) {
-		_levelData[i] = BLOCK_TYPE_NULL;
-	}
+	resetLevel();
 
 	_blockSelector = new LevelEditorBlockSelector(_topGfx);
 
@@ -76,7 +74,7 @@ LevelEditor::LevelEditor() {
 
 	_palettePanel = new LevelEditorPalettePanel(_bottomGfx);
 	_mapPanel = new LevelEditorMapPanel(_bottomGfx, _level);
-	_filePanel = new LevelEditorFilePanel(_bottomGfx, _level);
+	_filePanel = new LevelEditorFilePanel(_bottomGfx, this);
 
 	_activePanel = _mapPanel;
 
@@ -261,4 +259,27 @@ void LevelEditor::drawPanelBorder() {
 	// Bottom border
 	_bottomGfx->drawLine(5, 171, 250, 171, COLOUR_MAGENTA);
 	_bottomGfx->drawLine(4, 170, 250, 170, COLOUR_MAGENTA);
+}
+
+void LevelEditor::testLevel() {
+	WoopsiArray<LevelDefinition*> levels;
+	LevelDefinition def(30, 20, 1, "test", _levelData, BOULDER_TYPE_YELLOW,
+						WALL_TYPE_BRICK_RED, SOIL_TYPE_BLUE, DOOR_TYPE_GREEN);
+	levels.push_back(&def);
+	GameSession* session = new GameSession(&levels, &def);
+	session->main();
+	delete session;
+
+	_buttons->render();
+	_blockSelector->render();
+	render();
+	drawPanelBorder();
+}
+
+void LevelEditor::resetLevel() {
+	_level->clear();
+
+	for (s32 i = 0; i < LEVEL_WIDTH * LEVEL_HEIGHT; ++i) {
+		_levelData[i] = BLOCK_TYPE_NULL;
+	}
 }
