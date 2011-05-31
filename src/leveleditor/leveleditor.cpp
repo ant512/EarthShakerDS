@@ -56,27 +56,18 @@ LevelEditor::LevelEditor() {
 	_animationTimer = 0;
 	_movementTimer = 0;
 
-	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
-	_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
-
 	_buttons = new ButtonBank(this, _bottomGfx);
 	_buttons->addButton(new TextButton(2, 174, 80, 16, PANEL_MAP, "Map"));
 	_buttons->addButton(new TextButton(88, 174, 80, 16, PANEL_PALETTE, "Palette"));
 	_buttons->addButton(new TextButton(174, 174, 80, 16, PANEL_FILE, "File"));
-
-	_buttons->render();
-
-	_blockSelector->render();
-
-	render();
-
-	drawPanelBorder();
 
 	_palettePanel = new LevelEditorPalettePanel(_bottomGfx);
 	_mapPanel = new LevelEditorMapPanel(_bottomGfx, _level);
 	_filePanel = new LevelEditorFilePanel(_bottomGfx, this);
 
 	_activePanel = _mapPanel;
+
+	redrawAll();
 
 	// Wait for A to be released
 	const PadState& pad = Hardware::getPadState();
@@ -270,10 +261,19 @@ void LevelEditor::testLevel() {
 	session->main();
 	delete session;
 
+	redrawAll();
+}
+
+void LevelEditor::redrawAll() {
+	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
+	_bottomGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, COLOUR_BLACK);
+
 	_buttons->render();
 	_blockSelector->render();
 	render();
 	drawPanelBorder();
+
+	_activePanel->render();
 }
 
 void LevelEditor::resetLevel() {

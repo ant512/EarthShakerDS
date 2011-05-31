@@ -73,6 +73,9 @@ public:
 			case 1:
 				break;
 			case 2:
+				// Have to reset this manually as we'll miss the event
+				source->release();
+
 				_editor->testLevel();
 				break;
 			case 3:

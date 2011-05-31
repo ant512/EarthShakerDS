@@ -75,6 +75,8 @@ private:
 	u8* _levelData;
 
 	void drawPanelBorder();
+
+	void redrawAll();
 };
 
 #endif
