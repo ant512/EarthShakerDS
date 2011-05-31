@@ -97,7 +97,11 @@ The "Palette" button allows you to change the colour of the boulders and doors
 and the type of soil and walls in the current level.
 
 Lastly, the "File" button provides a menu with the ability to load and save
-files (not implemented yet), erase the current level, and exit the editor.
+files (not implemented yet), erase the current level, and exit the editor.  It
+also allows you to test the current level.  You can switch back to the level
+editor from the test mode by either finishing the level, losing all of your
+lives, or by switching to pause mode (press Start) and then pressing the X
+button.
 
 
 Requirements
