@@ -3,6 +3,8 @@
 
 #include <graphics.h>
 
+#include "soundplayer.h"
+
 class ButtonBase {
 public:
 	ButtonBase(s32 x, s32 y, s32 width, s32 height, s32 id) {
@@ -28,6 +30,7 @@ public:
 	s32 getId() const { return _id; };
 
 	void click() {
+		SoundPlayer::playSoilDig();
 		_clicked = true;
 	};
 
