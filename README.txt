@@ -114,6 +114,7 @@ Credits and Acknowledgements
   - Coding                                          - Antony Dzeryn
   - Original graphics, sounds, levels and design    - Michael Batty
   - Beta testing                                    - Another World
+  - M3i Zero compatibility testing                  - Polomint
 
 
 Links
