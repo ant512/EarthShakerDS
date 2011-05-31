@@ -6,7 +6,7 @@
 
 #include "blockbase.h"
 #include "bitmapserver.h"
-#include "game.h"
+#include "gamesession.h"
 #include "soundplayer.h"
 #include "soilmapbmp.h"
 
@@ -26,7 +26,7 @@ public:
 	 * @param bitmap The bitmap to use as the visual representation of the
 	 * block.
 	 */
-	SoilBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	SoilBlock(s32 x, s32 y, GameSession* game) : BlockBase(x, y, game) {
 		_isSlippy = false;
 		_animation->addFrame(BitmapServer::getSoilBmp(), 0);
 

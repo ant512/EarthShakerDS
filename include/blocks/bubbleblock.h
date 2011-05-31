@@ -4,7 +4,7 @@
 #include <graphics.h>
 #include <bitmap.h>
 
-#include "game.h"
+#include "gamesession.h"
 #include "blockbase.h"
 #include "bubblebmp1.h"
 #include "bubblebmp2.h"
@@ -27,7 +27,7 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	BubbleBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	BubbleBlock(s32 x, s32 y, GameSession* game) : BlockBase(x, y, game) {
 		_animation->addFrame(&_bmp1, 0);
 		_animation->addFrame(&_bmp2, 0);
 		_animation->addFrame(&_bmp3, 0);

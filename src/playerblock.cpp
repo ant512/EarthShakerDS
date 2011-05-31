@@ -2,13 +2,13 @@
 #include <graphics.h>
 
 #include "blockbase.h"
-#include "game.h"
+#include "gamesession.h"
 #include "hardware.h"
 #include "playerblock.h"
 #include "playermapbmp.h"
 #include "soundplayer.h"
 
-PlayerBlock::PlayerBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+PlayerBlock::PlayerBlock(s32 x, s32 y, GameSession* game) : BlockBase(x, y, game) {
 	_isSlippy = false;
 	
 	_animation->addFrame(&_bmp1, 0);

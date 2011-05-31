@@ -8,7 +8,7 @@
 #include "bitmapserver.h"
 #include "blockbase.h"
 #include "doormapbmp.h"
-#include "game.h"
+#include "gamesession.h"
 #include "soundplayer.h"
 
 /**
@@ -25,7 +25,7 @@ public:
 	 * @param game Pointer to the game that contains the block.
 	 * @param bitmap The bitmap to use.
 	 */
-	DoorBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	DoorBlock(s32 x, s32 y, GameSession* game) : BlockBase(x, y, game) {
 		_animation->addFrame(BitmapServer::getDoorBmp(), 0);
 
 		_explodingAnimation->addFrame(BitmapServer::getRedDoorBmp(), 0);

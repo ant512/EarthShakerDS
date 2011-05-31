@@ -4,7 +4,7 @@
 #include <graphics.h>
 #include <bitmap.h>
 
-#include "game.h"
+#include "gamesession.h"
 #include "blockbase.h"
 #include "firebmp1.h"
 #include "firebmp2.h"
@@ -29,7 +29,7 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	FireBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	FireBlock(s32 x, s32 y, GameSession* game) : BlockBase(x, y, game) {
 		_isHot = true;
 		_isHeavy = true;
 		_isHeavyEnoughToKill = true;

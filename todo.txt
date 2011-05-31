@@ -10,3 +10,5 @@ Todo
      - "Save":
        - Saves the current map.
        - Need a directory list and a keyboard.
+ - Split Game class so that game code can be run separately and form the test in
+   the level editor.

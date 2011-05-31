@@ -1,9 +1,9 @@
 #include "blockbase.h"
-#include "game.h"
+#include "gamesession.h"
 #include "level.h"
 #include "soundplayer.h"
 
-BlockBase::BlockBase(s32 x, s32 y, Game* game) {
+BlockBase::BlockBase(s32 x, s32 y, GameSession* game) {
 	_x = x;
 	_y = y;
 	_game = game;

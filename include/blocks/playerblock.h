@@ -3,6 +3,7 @@
 
 #include <graphics.h>
 
+#include "gamesession.h"
 #include "blockbase.h"
 #include "playerbmp1.h"
 #include "playerbmp2.h"
@@ -24,7 +25,7 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	PlayerBlock(s32 x, s32 y, Game* game);
+	PlayerBlock(s32 x, s32 y, GameSession* game);
 
 	/**
 	 * Destructor.

@@ -6,7 +6,7 @@
 
 #include "blockbase.h"
 #include "constants.h"
-#include "game.h"
+#include "gamesession.h"
 #include "soundplayer.h"
 
 #include "wetsoilbmp1.h"
@@ -28,7 +28,7 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	WetSoilBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	WetSoilBlock(s32 x, s32 y, GameSession* game) : BlockBase(x, y, game) {
 		_isHeavy = true;
 
 		_animation->addFrame(&_bmp1, 0);

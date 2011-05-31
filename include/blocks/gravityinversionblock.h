@@ -4,7 +4,7 @@
 #include <graphics.h>
 #include <bitmap.h>
 
-#include "game.h"
+#include "gamesession.h"
 #include "blockbase.h"
 #include "constants.h"
 #include "gravityinversionbmp1.h"
@@ -25,7 +25,7 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	GravityInversionBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	GravityInversionBlock(s32 x, s32 y, GameSession* game) : BlockBase(x, y, game) {
 		_isHeavy = true;
 		_isHeavyEnoughToKill = true;
 

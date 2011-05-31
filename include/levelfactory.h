@@ -16,7 +16,7 @@
 #include "extralifeblock.h"
 #include "fireblock.h"
 #include "gravityinversionblock.h"
-#include "game.h"
+#include "gamesession.h"
 #include "level.h"
 #include "leveldefinition.h"
 #include "playerblock.h"
@@ -35,23 +35,23 @@ public:
 	 * Creates a new Level object and populates it with data drawn from the
 	 * supplied definition.
 	 * @param data The level definition to use as a data source for the level.
-	 * @param game The containing game object.
+	 * @param session The containing game session object.
 	 * @return The new Level object.
 	 */
-	static Level* createLevel(LevelDefinition* data, Game* game) {
+	static Level* createLevel(LevelDefinition* data, GameSession* session) {
 
 		Level* level = new Level(data->getWidth(), data->getHeight(), data->getNumber(), data->getName());
 
 		for (s32 y = 0; y < data->getHeight(); ++y) {
 			for (s32 x = 0; x < data->getWidth(); ++x) {
-				placeBlock(level, (BlockType)data->getLayout()[(y * data->getWidth()) + x], x, y, game);
+				placeBlock(level, (BlockType)data->getLayout()[(y * data->getWidth()) + x], x, y, session);
 			}
 		}
 
 		return level;
 	};
 
-	static void placeBlock(Level* level, BlockType blockType, s32 x, s32 y, Game* game) {
+	static void placeBlock(Level* level, BlockType blockType, s32 x, s32 y, GameSession* session) {
 		
 		BlockBase* block = NULL;
 
@@ -76,7 +76,7 @@ public:
 				block = NULL;
 				break;
 			case BLOCK_TYPE_PLAYER:
-				block = new PlayerBlock(x, y, game);
+				block = new PlayerBlock(x, y, session);
 
 				// Ensure player block is unique
 				if (level->getPlayerBlock() != NULL) {
@@ -86,36 +86,36 @@ public:
 				level->setPlayerBlock((PlayerBlock*)block);
 				break;
 			case BLOCK_TYPE_DIAMOND:
-				block = new DiamondBlock(x, y, game);
+				block = new DiamondBlock(x, y, session);
 				level->increaseDiamondCount();
 				break;
 			case BLOCK_TYPE_BUBBLE:
-				block = new BubbleBlock(x, y, game);
+				block = new BubbleBlock(x, y, session);
 				break;
 			case BLOCK_TYPE_FIRE:
-				block = new FireBlock(x, y, game);
+				block = new FireBlock(x, y, session);
 				break;
 			case BLOCK_TYPE_BEAN:
-				block = new BeanBlock(x, y, game);
+				block = new BeanBlock(x, y, session);
 				break;
 			case BLOCK_TYPE_GRAVITY:
-				block = new GravityInversionBlock(x, y, game);
+				block = new GravityInversionBlock(x, y, session);
 				break;
 			case BLOCK_TYPE_EXTRA_LIFE:
-				block = new ExtraLifeBlock(x, y, game);
+				block = new ExtraLifeBlock(x, y, session);
 				break;
 			case BLOCK_TYPE_BARRIER:
-				block = new BarrierBlock(x, y, game);
+				block = new BarrierBlock(x, y, session);
 				break;
 			case BLOCK_TYPE_BARRIER_CONTROL:
-				block = new BarrierControlBlock(x, y, game);
+				block = new BarrierControlBlock(x, y, session);
 				break;
 			case BLOCK_TYPE_TELEPORT:
-				block = new TeleportBlock(x, y, game);
+				block = new TeleportBlock(x, y, session);
 				break;
 
 			case BLOCK_TYPE_DOOR:
-				block = new DoorBlock(x, y, game);
+				block = new DoorBlock(x, y, session);
 				
 				// Ensure door block is unique
 				if (level->getDoorBlock() != NULL) {
@@ -126,16 +126,16 @@ public:
 
 				break;
 			case BLOCK_TYPE_BOULDER:
-				block = new BoulderBlock(x, y, game);
+				block = new BoulderBlock(x, y, session);
 				break;
 			case BLOCK_TYPE_WALL:
-				block = new WallBlock(x, y, game);
+				block = new WallBlock(x, y, session);
 				break;
 			case BLOCK_TYPE_SOIL:
-				block = new SoilBlock(x, y, game);
+				block = new SoilBlock(x, y, session);
 				break;
 			case BLOCK_TYPE_SOIL_WET:
-				block = new WetSoilBlock(x, y, game);
+				block = new WetSoilBlock(x, y, session);
 				break;
 		}
 

@@ -5,7 +5,7 @@
 #include <bitmap.h>
 
 #include "blockbase.h"
-#include "game.h"
+#include "gamesession.h"
 #include "soundplayer.h"
 
 #include "barrierbmp1.h"
@@ -27,7 +27,7 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	BarrierBlock(s32 x, s32 y, Game* game) : BlockBase(x, y, game) {
+	BarrierBlock(s32 x, s32 y, GameSession* game) : BlockBase(x, y, game) {
 
 		_animation->setLoopType(WoopsiGfx::Animation::ANIMATION_LOOPTYPE_PINGPONG);
 		_animation->addFrame(&_bmp1, 0);

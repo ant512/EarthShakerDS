@@ -6,7 +6,7 @@
 #include <animation.h>
 
 class Level;
-class Game;
+class GameSession;
 
 /**
  * Base class for all blocks that appear in the game.
@@ -23,7 +23,7 @@ public:
 	 * @param y The y co-ordinate within tne level map of the block.
 	 * @param game Pointer to the game that contains the block.
 	 */
-	BlockBase(s32 x, s32 y, Game* game);
+	BlockBase(s32 x, s32 y, GameSession* game);
 
 	/**
 	 * Destructor.
@@ -234,7 +234,7 @@ protected:
 	WoopsiGfx::BitmapWrapper* _mapBitmap;		/**< Bitmap shown on map screen. */
 	s32 _x;										/**< The x co-ordinate of the block within the level. */
 	s32 _y;										/**< The y co-ordinate of the block within the level. */
-	Game* _game;								/**< Pointer to the game that contains this block. */
+	GameSession* _game;							/**< Pointer to the game that contains this block. */
 	bool _isSlippy;								/**< If true, blocks sitting on this will slip to
 													 the left or right if this block has empty space
 													 next to it. */
