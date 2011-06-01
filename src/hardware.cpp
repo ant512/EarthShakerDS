@@ -3,8 +3,8 @@
 PadState Hardware::_pad;
 StylusState Hardware::_stylus;
 
-WoopsiGfx::FrameBuffer* Hardware::_topBuffer = NULL;
-WoopsiGfx::FrameBuffer* Hardware::_bottomBuffer = NULL;
+SDLFrameBuffer* Hardware::_topBuffer = NULL;
+SDLFrameBuffer* Hardware::_bottomBuffer = NULL;
 
 WoopsiGfx::Graphics* Hardware::_topGfx = NULL;
 WoopsiGfx::Graphics* Hardware::_bottomGfx = NULL;
@@ -24,8 +24,8 @@ void Hardware::init() {
 	bgInit(3, BgType_Bmp16, BgSize_B16_256x256, 0, 0);
 	bgInitSub(3, BgType_Bmp16, BgSize_B16_256x256, 0, 0);
 
-	_topBuffer = new WoopsiGfx::FrameBuffer((u16*)BG_BMP_RAM(0), SCREEN_WIDTH, SCREEN_HEIGHT);
-	_bottomBuffer = new WoopsiGfx::FrameBuffer((u16*)BG_BMP_RAM_SUB(0), SCREEN_WIDTH, SCREEN_HEIGHT);
+	_topBuffer = new SDLFrameBuffer((u16*)BG_BMP_RAM(0), SCREEN_WIDTH, SCREEN_HEIGHT);
+	_bottomBuffer = new SDLFrameBuffer((u16*)BG_BMP_RAM_SUB(0), SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	_topGfx = _topBuffer->newGraphics();
 	_bottomGfx = _bottomBuffer->newGraphics();

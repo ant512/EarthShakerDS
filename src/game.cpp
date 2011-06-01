@@ -90,8 +90,8 @@ bool Game::isRunning() const {
 
 LevelDefinition* Game::runTitleScreen() {
 	SoundPlayer::stopAll();
-	
-	TitleScreen titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
+
+	TitleScreen* titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
 
 	while (titleScreen->isRunning()) {
 		titleScreen->iterate();
