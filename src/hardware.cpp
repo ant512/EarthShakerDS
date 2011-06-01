@@ -43,7 +43,7 @@ void Hardware::init() {
 	}
 
 	// Set video mode
-	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT * SCREEN_COUNT, video_bpp, videoflags);
+	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT * 2, video_bpp, videoflags);
 	if (screen == NULL) {
 		fprintf(stderr, "Couldn't set %dx%dx%d video mode: %s\n", SCREEN_WIDTH, SCREEN_HEIGHT, video_bpp, SDL_GetError());
 		SDL_Quit();
