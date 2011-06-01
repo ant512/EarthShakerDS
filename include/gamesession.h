@@ -244,6 +244,11 @@ private:
 	void showMap();
 
 	/**
+	 * Draw the border around the map.
+	 */
+	void drawMapBorder();
+
+	/**
 	 * Runs the transition between different sections of the game.
 	 */
 	void runTransition();
@@ -252,6 +257,11 @@ private:
 	 * Commits suicide.
 	 */
 	void commitSuicide();
+
+	/**
+	 * Decreases the gravity inversion timer if it is currently running.
+	 */
+	void decreaseGravityTime();
 };
 
 #endif

@@ -97,9 +97,7 @@ void GameSession::render() {
 	_level->render(centreX, centreY, _topGfx);
 }
 
-void GameSession::showMap() {
-	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 16, COLOUR_BLACK);
-	
+void GameSession::drawMapBorder() {
 	// Top border
 	_topGfx->drawLine(5, 4, 250, 4, COLOUR_MAGENTA);
 	_topGfx->drawLine(4, 5, 251, 5, COLOUR_MAGENTA);
@@ -115,11 +113,16 @@ void GameSession::showMap() {
 	// Bottom border
 	_topGfx->drawLine(5, 171, 250, 171, COLOUR_MAGENTA);
 	_topGfx->drawLine(4, 170, 250, 170, COLOUR_MAGENTA);
+}
+
+void GameSession::showMap() {
+	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 16, COLOUR_BLACK);
+	
+	drawMapBorder();
 
 	_level->renderMap(_topGfx);
 
-	// Abuse movement timer to work as map timer
-	_movementTimer = 0;
+	s32 timer = 0;
 
 	// Map is only visible once per level per life
 	_isMapAvailable = false;
@@ -132,8 +135,8 @@ void GameSession::showMap() {
 	bool selectHeld = pad.select;
 
 	// Show the map until the timer expires or X is pressed
-	while (_movementTimer < MAP_TIME) {
-		++_movementTimer;
+	while (timer < MAP_TIME) {
+		++timer;
 		Hardware::waitForVBlank();
 
 		if (!pad.select && selectHeld) {
@@ -148,8 +151,6 @@ void GameSession::showMap() {
 			break;
 		}
 	}
-
-	_movementTimer = 0;
 
 	SoundPlayer::stopMapTheme();
 
@@ -199,9 +200,6 @@ void GameSession::pause() {
 
 		// End the session
 		_isRunning = false;
-
-		delete _level;
-		_level = NULL;
 	}
 }
 
@@ -273,32 +271,25 @@ void GameSession::move() {
 
 	_movementTimer++;
 
-	if (_movementTimer == MOVEMENT_TIME) {
-		_movementTimer = 0;
+	if (_movementTimer != MOVEMENT_TIME) return;
 
-		movePlayer();
+	_movementTimer = 0;
 
-		_level->iterate(isGravityInverted());
-		_isOddIteration = !_isOddIteration;
+	movePlayer();
 
-		if (_remainingGravityTime > 0) {
-			--_remainingGravityTime;
-			_hud->drawGravityCounter(_remainingGravityTime);
+	_level->iterate(isGravityInverted());
+	_isOddIteration = !_isOddIteration;
 
-			if (_remainingGravityTime == 0) {
-				_hud->drawGravityIndicator(false);
-			}
-		}
+	decreaseGravityTime();
 
-		// If the last iteration of the game caused the player to die, we either
-		// need to reset the level to its default state or end the game
-		if (_level->getPlayerBlock()->isDestroyed()) {
-			if (_lives > 0) {
-				resetLevel();
-			} else {
-				_isRunning = false;
-				_isGameOver = true;
-			}
+	// If the last iteration of the game caused the player to die, we either
+	// need to reset the level to its default state or end the game
+	if (_level->getPlayerBlock()->isDestroyed()) {
+		if (_lives > 0) {
+			resetLevel();
+		} else {
+			_isRunning = false;
+			_isGameOver = true;
 		}
 	}
 }
@@ -370,6 +361,17 @@ void GameSession::movePlayer() {
 
 bool GameSession::isGravityInverted() const {
 	return _remainingGravityTime > 0;
+}
+
+void GameSession::decreaseGravityTime() {
+	if (!isGravityInverted()) return;
+
+	--_remainingGravityTime;
+	_hud->drawGravityCounter(_remainingGravityTime);
+
+	if (_remainingGravityTime == 0) {
+		_hud->drawGravityIndicator(false);
+	}
 }
 
 void GameSession::increaseTime(s32 time) {
