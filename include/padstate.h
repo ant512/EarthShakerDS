@@ -19,6 +19,9 @@ typedef struct {
 	bool select : 1;	/**< Is select pressed? */
 } PadState;
 
+/**
+ * Abstraction of the DS' stylus state to aid porting.
+ */
 typedef struct {
 	u8 held:1;					/**< Stylus is held down */
 	u8 released:1;				/**< Inverse of held */

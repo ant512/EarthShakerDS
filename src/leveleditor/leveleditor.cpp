@@ -227,7 +227,7 @@ void LevelEditor::handleButtonAction(ButtonBase* source) {
 			_activePanel = _palettePanel;
 			break;
 		case PANEL_FILE:
-		_activePanel = _filePanel;
+			_activePanel = _filePanel;
 			break;
 	}
 

@@ -166,6 +166,9 @@ public:
 	 */
 	void startLevel(LevelDefinition* levelDefinition);
 
+	/**
+	 * Resets the session.
+	 */
 	void reset();
 
 private:
@@ -188,9 +191,9 @@ private:
 	WoopsiArray<LevelDefinition*>* _levelDefinitions;	/**< List of all level definitions. */
 	bool _isMapAvailable;					/**< True if the map is available to view. */
 
-	bool _isRunning;
-	bool _isGameComplete;
-	bool _isGameOver;
+	bool _isRunning;						/**< True if the session is running. */
+	bool _isGameComplete;					/**< True if the player beat all levels. */
+	bool _isGameOver;						/**< True if the player lost the game. */
 
 	/**
 	 * Redraws the level.  Uses a timer system, so calling the method will not
