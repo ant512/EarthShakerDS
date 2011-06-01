@@ -14,11 +14,6 @@ class Hardware {
 public:
 
 	/**
-	 * Number of key presses stored in the pad history queue.
-	 */
-	static const s32 PAD_HISTORY_SIZE = 10;
-
-	/**
 	 * Initialise the hardware.
 	 */
 	static void init();
