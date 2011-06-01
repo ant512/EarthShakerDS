@@ -28,9 +28,8 @@ public:
 	/**
 	 * Constructor.
 	 * @param levelDefinitions The list of levels to play in this session.
-	 * @param startingLevel Pointer to the level in the list to play first.
 	 */
-	GameSession(WoopsiArray<LevelDefinition*>* levelDefinitions, LevelDefinition* startingLevel);
+	GameSession(WoopsiArray<LevelDefinition*>* levelDefinitions);
 
 	/**
 	 * Destructor.
@@ -102,7 +101,7 @@ public:
 	/**
 	 * Runs all game logic.  Takes control of the system until the game ends.
 	 */
-	void run();
+	void run(LevelDefinition* start);
 
 	/**
 	 * Increase the number of diamonds collected in the level by one.
@@ -186,7 +185,7 @@ private:
 	s32 _movementTimer;						/**< Timer used to moderate movement speed. */
 	s32 _levelTimer;						/**< Timer used to decrease remaining level time. */
 	bool _isOddIteration;					/**< Indicates whether the game is in an odd or an even iteration. */
-	GameHUD* _hud;							/**< Stats, and other graphics that surround the game. */
+	GameHUD _hud;							/**< Stats, and other graphics that surround the game. */
 
 	WoopsiArray<LevelDefinition*>* _levelDefinitions;	/**< List of all level definitions. */
 	bool _isMapAvailable;					/**< True if the map is available to view. */

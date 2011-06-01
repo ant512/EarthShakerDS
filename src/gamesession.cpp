@@ -7,22 +7,16 @@
 
 #include "levelfactory.h"
 
-GameSession::GameSession(WoopsiArray<LevelDefinition*>* levelDefinitions, LevelDefinition* startingLevel) {
+GameSession::GameSession(WoopsiArray<LevelDefinition*>* levelDefinitions) {
 	reset();
-
-	_hud = new GameHUD();
 
 	_topGfx = Hardware::getTopGfx();
 	_bottomGfx = Hardware::getBottomGfx();
 
 	_levelDefinitions = levelDefinitions;
-
-	startLevel(startingLevel);
 }
 
 GameSession::~GameSession() {
-	delete _hud;
-
 	if (_level != NULL) {
 		delete _level;
 		_level = NULL;
@@ -78,7 +72,7 @@ bool GameSession::isOddIteration() const {
 
 void GameSession::addScore(s32 score) {
 	_score += score;
-	_hud->drawScore(_score);
+	_hud.drawScore(_score);
 }
 
 PlayerBlock* GameSession::getPlayerBlock() const {
@@ -203,7 +197,9 @@ void GameSession::pause() {
 	}
 }
 
-void GameSession::run() {
+void GameSession::run(LevelDefinition* level) {
+
+	startLevel(level);
 
 	const PadState& pad = Hardware::getPadState();
 
@@ -252,7 +248,7 @@ void GameSession::commitSuicide() {
 
 	while (_remainingTime > 0) {
 		_remainingTime -= 4;
-		_hud->drawTimerBar(_remainingTime);
+		_hud.drawTimerBar(_remainingTime);
 		Hardware::waitForVBlank();
 	}
 
@@ -367,10 +363,10 @@ void GameSession::decreaseGravityTime() {
 	if (!isGravityInverted()) return;
 
 	--_remainingGravityTime;
-	_hud->drawGravityCounter(_remainingGravityTime);
+	_hud.drawGravityCounter(_remainingGravityTime);
 
 	if (_remainingGravityTime == 0) {
-		_hud->drawGravityIndicator(false);
+		_hud.drawGravityIndicator(false);
 	}
 }
 
@@ -381,29 +377,29 @@ void GameSession::increaseTime(s32 time) {
 
 	// We have to redraw the background and then redraw the black overlay to
 	// correctly show the state of the timer bar
-	_hud->drawTimerBarBackground();
-	_hud->drawTimerBar(_remainingTime);
+	_hud.drawTimerBarBackground();
+	_hud.drawTimerBar(_remainingTime);
 }
 
 void GameSession::increaseCollectedDiamonds() {
 	++_collectedDiamonds;
-	_hud->drawDiamondCounters(_level->getDiamondCount(), _collectedDiamonds);
+	_hud.drawDiamondCounters(_level->getDiamondCount(), _collectedDiamonds);
 }
 
 void GameSession::increaseLives() {
 	++_lives;
-	_hud->drawLifeCounter(_lives);
+	_hud.drawLifeCounter(_lives);
 }
 
 void GameSession::decreaseLives() {
 	--_lives;
-	_hud->drawLifeCounter(_lives);
+	_hud.drawLifeCounter(_lives);
 }
 
 void GameSession::decreaseTime() {
 	--_remainingTime;
 
-	_hud->drawTimerBar(_remainingTime);
+	_hud.drawTimerBar(_remainingTime);
 
 	if (_remainingTime == 0) {
 		getPlayerBlock()->explode();
@@ -415,8 +411,8 @@ void GameSession::invertGravity() {
 
 	SoundPlayer::playGravityInversion();
 
-	_hud->drawGravityCounter(_remainingGravityTime);
-	_hud->drawGravityIndicator(true);
+	_hud.drawGravityCounter(_remainingGravityTime);
+	_hud.drawGravityIndicator(true);
 }
 
 void GameSession::resetLevelVariables() {
@@ -459,7 +455,7 @@ void GameSession::startLevel(LevelDefinition* levelDefinition) {
 	BitmapServer::changeSoilBmp(levelDefinition->getSoilType());
 	BitmapServer::changeDoorBmp(levelDefinition->getDoorType());
 
-	_hud->drawBackground(_level->getDiamondCount(),
+	_hud.drawBackground(_level->getDiamondCount(),
 						 _collectedDiamonds,
 						 _remainingGravityTime,
 						 isGravityInverted(),
@@ -478,7 +474,7 @@ void GameSession::endLevel() {
 		_remainingTime -= _remainingTime >= 4 ? 4 : _remainingTime;
 		addScore(_remainingTime >= 4 ? 4 : _remainingTime);		// One point per second
 
-		_hud->drawTimerBar(_remainingTime);
+		_hud.drawTimerBar(_remainingTime);
 
 		Hardware::waitForVBlank();
 	}

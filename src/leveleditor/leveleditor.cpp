@@ -257,8 +257,9 @@ void LevelEditor::testLevel() {
 	LevelDefinition def(30, 20, 1, "test", _levelData, BOULDER_TYPE_YELLOW,
 						WALL_TYPE_BRICK_RED, SOIL_TYPE_BLUE, DOOR_TYPE_GREEN);
 	levels.push_back(&def);
-	GameSession* session = new GameSession(&levels, &def);
-	session->run();
+	
+	GameSession* session = new GameSession(&levels);
+	session->run(&def);
 	delete session;
 
 	redrawAll();

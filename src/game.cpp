@@ -43,8 +43,6 @@ Game::Game() {
 	_topGfx = Hardware::getTopGfx();
 	_bottomGfx = Hardware::getBottomGfx();
 
-	_session = NULL;
-
 	_levelDefinitions.push_back(new Level1());
 	_levelDefinitions.push_back(new Level2());
 	_levelDefinitions.push_back(new Level3());
@@ -90,9 +88,10 @@ bool Game::isRunning() const {
 	return true;
 }
 
-void Game::runTitleScreen() {
+LevelDefinition* Game::runTitleScreen() {
 	SoundPlayer::stopAll();
-	TitleScreen* titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
+	
+	TitleScreen titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
 
 	while (titleScreen->isRunning()) {
 		titleScreen->iterate();
@@ -105,7 +104,7 @@ void Game::runTitleScreen() {
 
 	delete titleScreen;
 
-	_session = new GameSession(&_levelDefinitions, chosenLevel);
+	return chosenLevel;
 }
 
 void Game::runTransition() {
@@ -118,12 +117,12 @@ void Game::runTransition() {
 	}
 }
 
-void Game::runGameOver() {
+void Game::runGameOver(s32 score, s32 levelNumber) {
 
 	runTransition();
 
 	// Game has ended; set up a new game over screen and kill the level
-	GameOverScreen* gameOverScreen = new GameOverScreen(_topGfx, _bottomGfx, _session->getScore(), _session->getLevel()->getNumber());
+	GameOverScreen* gameOverScreen = new GameOverScreen(_topGfx, _bottomGfx, score, levelNumber);
 
 	while (gameOverScreen->isRunning()) {
 		gameOverScreen->iterate();
@@ -131,17 +130,14 @@ void Game::runGameOver() {
 	}
 
 	delete gameOverScreen;
-
-	delete _session;
-	_session = NULL;
 }
 
-void Game::runGameComplete() {
+void Game::runGameComplete(s32 score) {
 	
 	runTransition();
 
 	// Game is complete; set up a new game complete screen and kill the level
-	GameCompleteScreen* gameCompleteScreen = new GameCompleteScreen(_topGfx, _bottomGfx, _session->getScore());
+	GameCompleteScreen* gameCompleteScreen = new GameCompleteScreen(_topGfx, _bottomGfx, score);
 
 	while (gameCompleteScreen->isRunning()) {
 		gameCompleteScreen->iterate();
@@ -149,22 +145,26 @@ void Game::runGameComplete() {
 	}
 
 	delete gameCompleteScreen;
-
-	delete _session;
-	_session = NULL;
 }
 
 void Game::main() {
 
+	GameSession* session = new GameSession(&_levelDefinitions);
+
 	while (isRunning()) {
-		runTitleScreen();
 
-		_session->run();
+		LevelDefinition* startLevel = runTitleScreen();
 
-		if (_session->isGameOver()) {
-			runGameOver();
-		} else if (_session->isGameComplete()) {
-			runGameComplete();
+		session->run(startLevel);
+
+		if (session->isGameOver()) {
+			runGameOver(session->getScore(), session->getLevel()->getNumber());
+		} else if (session->isGameComplete()) {
+			runGameComplete(session->getScore());
 		}
+
+		session->reset();
 	}
+
+	delete session;
 }

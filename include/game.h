@@ -49,19 +49,17 @@ private:
 	WoopsiGfx::Graphics* _topGfx;			/**< Pointer to the graphics object for the top display. */
 	WoopsiGfx::Graphics* _bottomGfx;		/**< Pointer to the graphics object for the bottom display. */
 
-	GameSession* _session;					/**< Active game session. */
-
 	WoopsiArray<LevelDefinition*> _levelDefinitions;	/**< List of all level definitions. */
 
 	/**
 	 * Runs the title screen.
 	 */
-	void runTitleScreen();
+	LevelDefinition* runTitleScreen();
 
 	/**
 	 * Runs the game over screen.
 	 */
-	void runGameOver();
+	void runGameOver(s32 score, s32 levelNumber);
 
 	/**
 	 * Runs the transition between different sections of the game.
@@ -71,7 +69,7 @@ private:
 	/**
 	 * Runs the game complete screen.
 	 */
-	void runGameComplete();
+	void runGameComplete(s32 score);
 };
 
 #endif
