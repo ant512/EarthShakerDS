@@ -159,7 +159,7 @@ void Game::main() {
 	while (isRunning()) {
 		runTitleScreen();
 
-		_session->main();
+		_session->run();
 
 		if (_session->isGameOver()) {
 			runGameOver();

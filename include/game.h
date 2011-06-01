@@ -49,7 +49,7 @@ private:
 	WoopsiGfx::Graphics* _topGfx;			/**< Pointer to the graphics object for the top display. */
 	WoopsiGfx::Graphics* _bottomGfx;		/**< Pointer to the graphics object for the bottom display. */
 
-	GameSession* _session;
+	GameSession* _session;					/**< Active game session. */
 
 	WoopsiArray<LevelDefinition*> _levelDefinitions;	/**< List of all level definitions. */
 

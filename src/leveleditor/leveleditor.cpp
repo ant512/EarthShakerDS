@@ -258,7 +258,7 @@ void LevelEditor::testLevel() {
 						WALL_TYPE_BRICK_RED, SOIL_TYPE_BLUE, DOOR_TYPE_GREEN);
 	levels.push_back(&def);
 	GameSession* session = new GameSession(&levels, &def);
-	session->main();
+	session->run();
 	delete session;
 
 	redrawAll();

@@ -18,11 +18,17 @@
 #include "scroller.h"
 #include "titlescreen.h"
 
+/**
+ * Represents an active game session.  Contains the running level, the score,
+ * lives remaining, and all game logic.
+ */
 class GameSession {
 public:
 
 	/**
 	 * Constructor.
+	 * @param levelDefinitions The list of levels to play in this session.
+	 * @param startingLevel Pointer to the level in the list to play first.
 	 */
 	GameSession(WoopsiArray<LevelDefinition*>* levelDefinitions, LevelDefinition* startingLevel);
 
@@ -94,9 +100,9 @@ public:
 	void addScore(s32 score);
 
 	/**
-	 * Main game entry point.  Runs all game logic.
+	 * Runs all game logic.  Takes control of the system until the game ends.
 	 */
-	void main();
+	void run();
 
 	/**
 	 * Increase the number of diamonds collected in the level by one.

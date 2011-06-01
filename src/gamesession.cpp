@@ -200,7 +200,7 @@ void GameSession::pause() {
 	}
 }
 
-void GameSession::main() {
+void GameSession::run() {
 
 	const PadState& pad = Hardware::getPadState();
 
