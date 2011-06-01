@@ -149,10 +149,9 @@ void Game::runGameComplete(s32 score) {
 
 void Game::main() {
 
-	GameSession* session = new GameSession(&_levelDefinitions);
-
 	while (isRunning()) {
 
+		GameSession* session = new GameSession(&_levelDefinitions);
 		LevelDefinition* startLevel = runTitleScreen();
 
 		session->run(startLevel);
@@ -164,7 +163,8 @@ void Game::main() {
 		}
 
 		session->reset();
+		delete session;
 	}
 
-	delete session;
+	
 }

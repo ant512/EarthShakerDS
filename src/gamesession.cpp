@@ -8,6 +8,9 @@
 #include "levelfactory.h"
 
 GameSession::GameSession(WoopsiArray<LevelDefinition*>* levelDefinitions) {
+	
+	_level = NULL;
+	
 	reset();
 
 	_topGfx = Hardware::getTopGfx();

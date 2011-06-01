@@ -11,6 +11,10 @@ WoopsiGfx::Graphics* Hardware::_bottomGfx = NULL;
 
 bool Hardware::_isMostRecentDirectionVertical = false;
 
+#ifdef USING_SDL
+SDL_Surface* Hardware::_surface = NULL;
+#endif
+
 void Hardware::init() {
 
 	#ifndef USING_SDL
@@ -32,9 +36,9 @@ void Hardware::init() {
 
 	#else
 
-	initflags = SDL_INIT_VIDEO;
-	video_bpp = 0;
-	videoflags = SDL_SWSURFACE;
+	Uint32 initflags = SDL_INIT_VIDEO;
+	Uint8 video_bpp = 0;
+	Uint32 videoflags = SDL_SWSURFACE;
 
 	// Initialize the SDL library
 	if (SDL_Init(initflags) < 0) {
@@ -43,20 +47,33 @@ void Hardware::init() {
 	}
 
 	// Set video mode
-	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT * 2, video_bpp, videoflags);
-	if (screen == NULL) {
+	_surface = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT * 2, video_bpp, videoflags);
+	if (_surface == NULL) {
 		fprintf(stderr, "Couldn't set %dx%dx%d video mode: %s\n", SCREEN_WIDTH, SCREEN_HEIGHT, video_bpp, SDL_GetError());
 		SDL_Quit();
 		exit(2);
 	}
 
-	_topBuffer = new WoopsiUI::SDLFrameBuffer(screen, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
-	_bottomBuffer = new WoopsiUI::SDLFrameBuffer(screen, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_HEIGHT);
+	_topBuffer = new SDLFrameBuffer(_surface, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+	_bottomBuffer = new SDLFrameBuffer(_surface, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_HEIGHT);
 
 	#endif
 
 	_topGfx = _topBuffer->newGraphics();
 	_bottomGfx = _bottomBuffer->newGraphics();
+	
+	_pad.up = false;
+	_pad.down = false;
+	_pad.left = false;
+	_pad.right = false;
+	_pad.l = false;
+	_pad.r = false;
+	_pad.a = false;
+	_pad.b = false;
+	_pad.x = false;
+	_pad.y = false;
+	_pad.start = false;
+	_pad.select = false;
 
 	updatePadState();
 }
@@ -66,6 +83,10 @@ void Hardware::shutdown() {
 	delete _bottomGfx;
 	delete _topBuffer;
 	delete _bottomBuffer;
+	
+#ifdef USING_SDL
+	delete _surface;
+#endif
 }
 
 void Hardware::updatePadState() {
@@ -95,7 +116,7 @@ void Hardware::updatePadState() {
 
 	#else
 
-	 Uint8* keyState = SDL_GetKeyState(NULL);
+	Uint8* keyState = SDL_GetKeyState(NULL);
 
 	_pad.up = keyState[SDLK_UP];
 	_pad.down = keyState[SDLK_DOWN];
@@ -150,11 +171,10 @@ void Hardware::updatePadState() {
 	#else
 
 	// Read mouse state
-	int mouseState;
 	int mouseX;
 	int mouseY;
 	
-	mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+	int mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 	
 	// Check buttons
 	if ((mouseState & SDL_BUTTON_LEFT) && (!_stylus.held)) {
@@ -169,6 +189,28 @@ void Hardware::updatePadState() {
 		_stylus.released = true;
 		_stylus.newPress = false;
 		_stylus.held = false;
+	}
+	
+	_stylus.x = mouseX;
+	_stylus.y = mouseY - SCREEN_HEIGHT;
+	
+	// SDL event pump
+	SDL_Event event;
+	
+	// Check for SDL quit
+	while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                exit(0);
+				return;
+            case SDL_KEYDOWN:
+                if (event.key.keysym.scancode == 53) {
+                    // Escape pressed
+					exit(0);
+					return;
+                }
+                break;
+        }
 	}
 
 	#endif
@@ -187,7 +229,7 @@ void Hardware::waitForVBlank() {
 	#else
 
 	SDL_Delay(10);
-	SDL_Flip(screen);
+	SDL_Flip(_surface);
 
 	#endif
 
