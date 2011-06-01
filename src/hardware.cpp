@@ -163,7 +163,7 @@ void Hardware::updatePadState() {
 		_stylus.newPress = true;
 		_stylus.released = false;
 
-	} else if ((!(mState & SDL_BUTTON_LEFT)) && (_stylus.held)) {
+	} else if ((!(mouseState & SDL_BUTTON_LEFT)) && (_stylus.held)) {
 		
 		// Release
 		_stylus.released = true;
