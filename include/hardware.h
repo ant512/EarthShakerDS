@@ -2,9 +2,9 @@
 #define _HARDWARE_H_
 
 #include <nds.h>
+#include <graphics.h>
 
-#include "framebuffer.h"
-#include "graphics.h"
+#include "sdlframebuffer.h"
 #include "padstate.h"
 
 /**
@@ -72,11 +72,17 @@ public:
 private:
 	static PadState _pad;							/**< State of the DS' pad. */
 	static StylusState _stylus;						/**< State of the DS' stylus. */
-	static WoopsiGfx::FrameBuffer* _topBuffer;		/**< Top frame buffer. */
-	static WoopsiGfx::FrameBuffer* _bottomBuffer;	/**< Bottom frame buffer. */
+	static SDLFrameBuffer* _topBuffer;				/**< Top frame buffer. */
+	static SDLFrameBuffer* _bottomBuffer;			/**< Bottom frame buffer. */
 	static WoopsiGfx::Graphics* _topGfx;			/**< Top display graphics object. */
 	static WoopsiGfx::Graphics* _bottomGfx;			/**< Bottom display graphics object. */
 	static bool _isMostRecentDirectionVertical;		/**< Remembers the last direction pressed. */
+    
+#ifdef USING_SDL
+    
+    static SDL_Surface* _surface;
+	
+#endif
 
 	/**
 	 * Constructor.
