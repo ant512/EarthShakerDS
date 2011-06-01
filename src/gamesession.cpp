@@ -31,6 +31,9 @@ GameSession::~GameSession() {
 
 void GameSession::reset() {
 	_isOddIteration = true;
+
+	if (_level != NULL) delete _level;
+
 	_level = NULL;
 	_isRunning = true;
 
@@ -87,10 +90,7 @@ void GameSession::render() {
 	_level->animate();
 
 	// The centre of the display should be the player, unless the player is too
-	// close to an edge for the display to scroll.  In that situation, we keep
-	// the edge of the map at the edge of the display and move the player
-	// around instead.  Assume for the moment that the player is at the centre
-	// of the screen
+	// close to an edge for the display to scroll.
 	s32 centreX = getPlayerBlock()->getX();
 	s32 centreY = getPlayerBlock()->getY();
 
@@ -177,22 +177,27 @@ void GameSession::pause() {
 	SoundPlayer::stopAll();
 	SoundPlayer::playPause();
 
+	// Wait for start to be released
 	while (pad.start) {
 		Hardware::waitForVBlank();
 	}
 
+	// Wait for another button press
 	while (!pad.start && !pad.x) {
 		Hardware::waitForVBlank();
 	}
 
 	if (pad.start) {
 
+		// Wait for start to be released
 		while (pad.start) {
 			Hardware::waitForVBlank();
 		}
 
 		render();
 	} else if (pad.x) {
+
+		// End the session
 		_isRunning = false;
 
 		delete _level;
@@ -424,35 +429,15 @@ void GameSession::resetLevelVariables() {
 }
 
 void GameSession::resetLevel() {
-	resetLevelVariables();
-
-	SoundPlayer::stopAll();
-
-	s32 levelNumber = 0;
+	s32 levelNumber = 1;
 
 	if (_level != NULL) {
 		levelNumber = _level->getNumber();
-		delete _level;
-		_level = NULL;
 	}
 
 	LevelDefinition* levelDefinition = _levelDefinitions->at(levelNumber - 1);
 
-	_level = LevelFactory::createLevel(levelDefinition, this);
-
-	BitmapServer::changeBoulderBmp(levelDefinition->getBoulderType());
-	BitmapServer::changeWallBmp(levelDefinition->getWallType());
-	BitmapServer::changeSoilBmp(levelDefinition->getSoilType());
-	BitmapServer::changeDoorBmp(levelDefinition->getDoorType());
-
-	_hud->drawBackground(_level->getDiamondCount(),
-						 _collectedDiamonds,
-						 _remainingGravityTime,
-						 isGravityInverted(),
-						 _lives,
-						 _score,
-						 _level->getName(),
-						 _level->getNumber());
+	startLevel(levelDefinition);
 }
 
 void GameSession::startLevel(LevelDefinition* levelDefinition) {

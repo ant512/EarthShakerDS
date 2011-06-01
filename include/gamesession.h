@@ -147,7 +147,17 @@ public:
 	 */
 	void decreaseLives();
 
+	/**
+	 * Check if the session is over because the player lost all lives.
+	 * @return True if the session is over due to the player losing all lives.
+	 */
 	bool isGameOver() const;
+
+	/**
+	 * Check if the session is over because the player completed all levels.
+	 * @return True if the session is over due to the player completing all
+	 * levels.
+	 */
 	bool isGameComplete() const;
 
 	/**
