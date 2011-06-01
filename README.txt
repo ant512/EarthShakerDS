@@ -67,7 +67,7 @@ The following blocks can be found at various points in the game:
  - Jumping jelly beans give a time bonus.
  - Teleporters transport the player from one location to another.
  - Elixirs give an extra life.
- - Soil is removed when the player walks over it,
+ - Soil is removed when the player walks over it.
  - Wet soil behaves like normal soil, except it falls like boulders.  Wet soil
    landing on the player will not harm the player.
  - Gravity inverters switch the direction of gravity.  Boulders and other blocks
