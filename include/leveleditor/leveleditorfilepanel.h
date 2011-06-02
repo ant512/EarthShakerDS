@@ -26,6 +26,7 @@ public:
 	/**
 	 * Constructor.
 	 * @param gfx Graphics object to draw with.
+	 * @param editor Pointer to the editor that owns the panel.
 	 */
 	LevelEditorFilePanel(WoopsiGfx::Graphics* gfx, LevelEditor* editor) : LevelEditorPanelBase(gfx) {
 		_isRunning = true;
@@ -87,14 +88,18 @@ public:
 		}
 	};
 
+	/**
+	 * Check if the panel is still running.
+	 * @return True if the panel is still running.
+	 */
 	bool isRunning() const {
 		return _isRunning;
 	};
 
 private:
 	ButtonBank* _buttons;		/**< Collection of buttons in the panel. */
-	LevelEditor* _editor;
-	bool _isRunning;
+	LevelEditor* _editor;		/**< Pointer to the owning level editor. */
+	bool _isRunning;			/**< True if the panel is still running. */
 };
 
 #endif

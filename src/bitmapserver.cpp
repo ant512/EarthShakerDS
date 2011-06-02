@@ -191,3 +191,227 @@ WoopsiGfx::Bitmap* BitmapServer::createMutableBitmap(WoopsiGfx::BitmapBase* sour
 
 	return dest;
 }
+
+void BitmapServer::changeWallBmp(WallType type) {
+
+	WoopsiGfx::Graphics* gfx = _wallBmp->newGraphics();
+	WoopsiGfx::BitmapBase* source = NULL;
+
+	switch (type) {
+		case WALL_TYPE_BRICK_WHITE:
+			source = new BrickWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_BRICK_RED:
+			source = new BrickWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_RED, _wallBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _wallBmp);
+			break;
+		case WALL_TYPE_BRICK_GREEN:
+			source = new BrickWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_GREEN, _wallBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _wallBmp);
+			break;
+		case WALL_TYPE_BRICK_BLUE:
+			source = new BrickWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_BLUE, _wallBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _wallBmp);
+			break;
+		case WALL_TYPE_BRICK_CYAN:
+			source = new BrickWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_CYAN, _wallBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _wallBmp);
+			break;
+		case WALL_TYPE_BRICK_MAGENTA:
+			source = new BrickWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _wallBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _wallBmp);
+			break;
+		case WALL_TYPE_BRICK_YELLOW:
+			source = new BrickWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_YELLOW, _wallBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_YELLOW_DARK, _wallBmp);
+			break;
+		case WALL_TYPE_ROCK:
+			source = new RockWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_ICE:
+			source = new IceWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_METAL:
+			source = new MetalWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_BRAIN:
+			source = new BrainWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_GIRDER:
+			source = new GirderWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_HEART:
+			source = new HeartWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_HONEYCOMB:
+			source = new HoneycombWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_LEAFY:
+			source = new LeafyWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_NUCLEAR:
+			source = new NuclearWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_PIPE:
+			source = new PipeWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_QUESTION:
+			source = new QuestionWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_SAND:
+			source = new SandWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case WALL_TYPE_SQUARE:
+			source = new SquareWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+	}
+	
+	delete source;
+	delete gfx;
+}
+
+void BitmapServer::changeDoorBmp(DoorType type) {
+
+	WoopsiGfx::Graphics* gfx = _doorBmp->newGraphics();
+	WoopsiGfx::BitmapBase* source = NULL;
+
+	switch (type) {
+		case DOOR_TYPE_WHITE:
+			source = _whiteDoorBmp;
+			break;
+		case DOOR_TYPE_RED:
+			source = _redDoorBmp;
+			break;
+		case DOOR_TYPE_GREEN:
+			source = _greenDoorBmp;
+			break;
+		case DOOR_TYPE_BLUE:
+			source = _blueDoorBmp;
+			break;
+		case DOOR_TYPE_CYAN:
+			source = _cyanDoorBmp;
+			break;
+		case DOOR_TYPE_MAGENTA:
+			source = _magentaDoorBmp;
+			break;
+		case DOOR_TYPE_YELLOW:
+			source = _yellowDoorBmp;
+			break;
+	}
+
+	gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+	delete gfx;
+}
+
+void BitmapServer::changeBoulderBmp(BoulderType type) {
+	switch (type) {
+		case BOULDER_TYPE_WHITE:
+			makeBouldersWhite();
+			break;
+		case BOULDER_TYPE_RED:
+			makeBouldersRed();
+			break;
+		case BOULDER_TYPE_GREEN:
+			makeBouldersGreen();
+			break;
+		case BOULDER_TYPE_BLUE:
+			makeBouldersBlue();
+			break;
+		case BOULDER_TYPE_CYAN:
+			makeBouldersCyan();
+			break;
+		case BOULDER_TYPE_MAGENTA:
+			makeBouldersMagenta();
+			break;
+		case BOULDER_TYPE_YELLOW:
+			makeBouldersYellow();
+			break;
+	}
+}
+
+void BitmapServer::changeSoilBmp(SoilType type) {
+
+	WoopsiGfx::Graphics* gfx = _soilBmp->newGraphics();
+	WoopsiGfx::BitmapBase* source = NULL;
+
+	switch (type) {
+		case SOIL_TYPE_WHITE:
+			source = new SoilBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case SOIL_TYPE_RED:
+			source = new SoilBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_RED, _soilBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _soilBmp);
+			break;
+		case SOIL_TYPE_GREEN:
+			source = new SoilBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_GREEN, _soilBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _soilBmp);
+			break;
+		case SOIL_TYPE_BLUE:
+			source = new SoilBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_BLUE, _soilBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _soilBmp);
+			break;
+		case SOIL_TYPE_CYAN:
+			source = new SoilBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_CYAN, _soilBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _soilBmp);
+			break;
+		case SOIL_TYPE_MAGENTA:
+			source = new SoilBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _soilBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _soilBmp);
+			break;
+		case SOIL_TYPE_YELLOW:
+			source = new SoilBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			swapColours(COLOUR_WHITE, COLOUR_YELLOW, _soilBmp);
+			swapColours(COLOUR_WHITE_DARK, COLOUR_YELLOW_DARK, _soilBmp);
+			break;
+		case SOIL_TYPE_HONEYCOMB:
+			source = new HoneycombSoilBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case SOIL_TYPE_QUESTION:
+			source = new QuestionWallBmp();
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+		case SOIL_TYPE_BOULDER:
+			source = _boulderBmp;
+			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			break;
+	}
+}

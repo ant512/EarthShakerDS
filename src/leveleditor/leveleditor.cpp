@@ -144,6 +144,11 @@ void LevelEditor::moveCursorTo(s32 x, s32 y) {
 	} else if (_cursorX >= _level->getWidth()) {
 		_cursorX = _level->getWidth() - 1;
 	}
+
+	// Move the map panel cursor
+	if (_activePanel == _mapPanel) {
+		((LevelEditorMapPanel*)_activePanel)->moveCursorTo(_cursorX, _cursorY);
+	}
 }
 
 void LevelEditor::removeBlock() {

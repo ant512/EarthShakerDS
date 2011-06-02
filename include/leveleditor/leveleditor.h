@@ -18,29 +18,42 @@ class LevelEditorPalettePanel;
 class LevelEditorPanelBase;
 class LevelEditorBlockSelector;
 
+/**
+ * The level editor.
+ */
 class LevelEditor : public ButtonListener {
 public:
+
+	/**
+	 * Constructor.
+	 */
 	LevelEditor();
 
+	/**
+	 * Destructor.
+	 */
 	~LevelEditor();
 
+	/**
+	 * Runs all level editor logic.
+	 */
 	void main();
 
-	void moveCursorTo(s32 x, s32 y);
-
-	void removeBlock();
-
-	void placeBlock();
-
-	void render();
-
-	void drawCursor();
-
-	void handleButtonAction(ButtonBase* source);
-
+	/**
+	 * Tests the current level.
+	 */
 	void testLevel();
 
+	/**
+	 * Blanks the current level.
+	 */
 	void resetLevel();
+	
+	/**
+	 * Listens for button presses on lower screen and responds appropriately.
+	 * @param source The button that raised the event.
+	 */
+	void handleButtonAction(ButtonBase* source);
 
 private:
 
@@ -77,6 +90,16 @@ private:
 	void drawPanelBorder();
 
 	void redrawAll();
+
+	void moveCursorTo(s32 x, s32 y);
+
+	void removeBlock();
+
+	void placeBlock();
+
+	void render();
+
+	void drawCursor();
 };
 
 #endif

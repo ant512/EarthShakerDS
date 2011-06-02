@@ -25,6 +25,9 @@ public:
 		for (s32 i = 0; i < _level->getWidth() * _level->getHeight(); ++i) {
 			_data[i] = NULL;
 		}
+
+		_cursorX = 0;
+		_cursorY = 0;
 	};
 
 	/**
@@ -52,10 +55,11 @@ public:
 				if (_data[index] != block) {
 					_data[index] = block;
 
-					if (block != NULL) {
-						block->renderMap(BlockBase::BLOCK_MAP_SIZE + (x * BlockBase::BLOCK_MAP_SIZE), BlockBase::BLOCK_MAP_SIZE + (y * BlockBase::BLOCK_MAP_SIZE), _gfx);
-					} else {
-						_gfx->drawFilledRect(BlockBase::BLOCK_MAP_SIZE + (x * BlockBase::BLOCK_MAP_SIZE), BlockBase::BLOCK_MAP_SIZE + (y * BlockBase::BLOCK_MAP_SIZE), BlockBase::BLOCK_MAP_SIZE, BlockBase::BLOCK_MAP_SIZE, woopsiRGB(0, 0, 0));
+					drawBlock(x, y, block);
+
+					// Redraw the cursor if necessary
+					if (_cursorX == x && _cursorY == y) {
+						drawCursor();
 					}
 				}
 			}
@@ -68,11 +72,58 @@ public:
 	 */
 	void render() {
 		_level->renderMap(_gfx);
+		drawCursor();
+	};
+
+	/**
+	 * Moves the cursor to the supplied co-ordinates.
+	 * @param x The x co-ordinate to move to.
+	 * @param y The y co-ordinate to move to.
+	 */
+	void moveCursorTo(s32 x, s32 y) {
+
+		eraseCursor();
+
+		_cursorX = x;
+		_cursorY = y;
+
+		drawCursor();
 	};
 
 private:
 	Level* _level;			/**< The level being edited. */
 	BlockBase** _data;		/**< Local cache of block data. */
+	s32 _cursorX;			/**< Cursor x co-ordinate. */
+	s32 _cursorY;			/**< Cursor y co-ordinate. */
+
+	/**
+	 * Erase the cursor from its current location.
+	 */
+	void eraseCursor() {
+		drawBlock(_cursorX, _cursorY, _level->getBlockAt(_cursorX, _cursorY));
+	}
+
+	/**
+	 * Draw the cursor.
+	 */
+	void drawCursor() {
+		_gfx->drawRect(BlockBase::BLOCK_MAP_SIZE + (_cursorX * BlockBase::BLOCK_MAP_SIZE), BlockBase::BLOCK_MAP_SIZE + (_cursorY * BlockBase::BLOCK_MAP_SIZE), BlockBase::BLOCK_MAP_SIZE, BlockBase::BLOCK_MAP_SIZE, COLOUR_WHITE);
+	};
+
+	/**
+	 * Draw the specified block at the specified co-ordinates.
+	 * @param x The x co-ordinate of the block.
+	 * @param y The y co-ordinate of the block.
+	 * @param block Pointer to the block to draw.  If NULL, a black rect is
+	 * drawn.
+	 */
+	void drawBlock(s32 x, s32 y, BlockBase* block) {
+		if (block != NULL) {
+			block->renderMap(BlockBase::BLOCK_MAP_SIZE + (x * BlockBase::BLOCK_MAP_SIZE), BlockBase::BLOCK_MAP_SIZE + (y * BlockBase::BLOCK_MAP_SIZE), _gfx);
+		} else {
+			_gfx->drawFilledRect(BlockBase::BLOCK_MAP_SIZE + (x * BlockBase::BLOCK_MAP_SIZE), BlockBase::BLOCK_MAP_SIZE + (y * BlockBase::BLOCK_MAP_SIZE), BlockBase::BLOCK_MAP_SIZE, BlockBase::BLOCK_MAP_SIZE, COLOUR_BLACK);
+		}
+	};
 };
 
 #endif

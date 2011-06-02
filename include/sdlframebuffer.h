@@ -47,7 +47,7 @@ public:
 	 * Destructor.
 	 */
 	virtual inline ~SDLFrameBuffer() {
-		delete[] _data;
+		delete[] _dataBuffer;
 	};
 	
 	/**

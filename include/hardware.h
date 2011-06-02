@@ -48,6 +48,10 @@ public:
 		return _pad;
 	};
 
+	/**
+	 * Get a reference to a struct representing the state of the DS' stylus.
+	  *@return A reference to the current stylus state.
+	 */
 	static inline const StylusState& getStylusState() {
 		return _stylus;
 	};
@@ -72,6 +76,12 @@ private:
 	static WoopsiGfx::Graphics* _topGfx;			/**< Top display graphics object. */
 	static WoopsiGfx::Graphics* _bottomGfx;			/**< Bottom display graphics object. */
 	static bool _isMostRecentDirectionVertical;		/**< Remembers the last direction pressed. */
+    
+#ifdef USING_SDL
+    
+    static SDL_Surface* _surface;					/**< SDL surface for visual output. */
+	
+#endif
 
 	/**
 	 * Constructor.

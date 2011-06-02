@@ -30,8 +30,17 @@
 
 #include "hardware.h"
 
+/**
+ * Displays a horizontal list of blocks.  A XORed rect is drawn over the current
+ * block selection.  The cursor can be moved using the L and R buttons.
+ */
 class LevelEditorBlockSelector {
 public:
+
+	/**
+	 * Constructor.
+	 * @param gfx Graphics object to draw with.
+	 */
 	LevelEditorBlockSelector(WoopsiGfx::Graphics* gfx) {
 		_selectedIndex = 0;
 
@@ -57,13 +66,19 @@ public:
 		
 	};
 
+	/**
+	 * Destructor.
+	 */
 	~LevelEditorBlockSelector() {
 		delete[] _bitmaps;
 	};
 
+	/**
+	 * Runs the selector's logic.  Watches the L and R buttons and responds
+	 * appropriately.
+	 */
 	void iterate() {
 		const PadState& pad = Hardware::getPadState();
-
 
 		if (pad.l) {
 			drawCursor();
@@ -86,12 +101,19 @@ public:
 		}
 	};
 
+	/**
+	 * Draws the cursor at the current co-ordinates.  As the cursor is a XOR
+	 * rect, it can be drawn over itself to erase itself.
+	 */
 	void drawCursor() {
 		s32 y = SCREEN_HEIGHT - BlockBase::BLOCK_SIZE;
 		s32 x = (SCREEN_WIDTH - (BlockBase::BLOCK_SIZE * (BLOCK_TYPE_COUNT - 1))) / 2;
 		_gfx->drawFilledXORRect(x + (_selectedIndex * BlockBase::BLOCK_SIZE), y, _bitmaps[_selectedIndex]->getWidth(), _bitmaps[_selectedIndex]->getHeight());
 	};
 
+	/**
+	 * Draw the entire selector.
+	 */
 	void render() {
 		s32 y = SCREEN_HEIGHT - BlockBase::BLOCK_SIZE;
 		s32 x = (SCREEN_WIDTH - (BlockBase::BLOCK_SIZE * (BLOCK_TYPE_COUNT - 1))) / 2;
@@ -106,27 +128,31 @@ public:
 		drawCursor();
 	};
 
+	/**
+	 * Get the selected block type.
+	 * @return The selected block type.
+	 */
 	BlockType getSelectedBlockType() const {
 		return (BlockType)(_selectedIndex + 1);
 	};
 
 private:
-	s32 _selectedIndex;
-	WoopsiGfx::Graphics* _gfx;
+	s32 _selectedIndex;						/**< Index within the block list of the selected block. */
+	WoopsiGfx::Graphics* _gfx;				/**< Graphics object to draw with. */
 
-	BarrierBmp3 _barrierBmp;
-	BarrierControlBmp _barrierControlBmp;
-	BeanBmp2 _beanBmp;
-	BubbleBmp1 _bubbleBmp;
-	PlayerBmp1 _playerBmp;
-	FireBmp1 _fireBmp;
-	DiamondBmp1 _diamondBmp;
-	TeleportBmp3 _teleportBmp;
-	ExtraLifeBmp1 _extraLifeBmp;
-	WetSoilBmp1 _wetSoilBmp;
-	GravityInversionBmp2 _gravityBmp;
+	BarrierBmp3 _barrierBmp;				/**< Barrier block bitmap. */
+	BarrierControlBmp _barrierControlBmp;	/**< Barrier control block bitmap. */
+	BeanBmp2 _beanBmp;						/**< Bean block bitmap. */
+	BubbleBmp1 _bubbleBmp;					/**< Bubble block bitmap. */
+	PlayerBmp1 _playerBmp;					/**< Player block bitmap. */
+	FireBmp1 _fireBmp;						/**< Fire block bitmap. */
+	DiamondBmp1 _diamondBmp;				/**< Diamond block bitmap. */
+	TeleportBmp3 _teleportBmp;				/**< Teleport block bitmap. */
+	ExtraLifeBmp1 _extraLifeBmp;			/**< Extra life block bitmap. */
+	WetSoilBmp1 _wetSoilBmp;				/**< Wet soil block bitmap. */
+	GravityInversionBmp2 _gravityBmp;		/**< Gravity block bitmap. */
 
-	WoopsiGfx::BitmapBase** _bitmaps;
+	WoopsiGfx::BitmapBase** _bitmaps;		/**< List of block bitmaps. */
 };
 
 #endif

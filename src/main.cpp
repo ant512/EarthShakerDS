@@ -1,5 +1,4 @@
 #include <nds.h>
-#include "framebuffer.h"
 #include "graphics.h"
 #include "game.h"
 #include "constants.h"
