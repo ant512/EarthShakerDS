@@ -51,6 +51,15 @@ public:
 		return level;
 	};
 
+	/**
+	 * Places a block of the specified type into the level at the specified
+	 * co-ordinates.
+	 * @param level The level into which to insert the block.
+	 * @param blockType Type of block to insert.
+	 * @param x The X co-ordinate of the block.
+	 * @param y The y co-ordinate of the block.
+	 * @param session The game session that owns the level.
+	 */
 	static void placeBlock(Level* level, BlockType blockType, s32 x, s32 y, GameSession* session) {
 		
 		BlockBase* block = NULL;

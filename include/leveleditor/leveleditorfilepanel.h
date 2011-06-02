@@ -26,6 +26,7 @@ public:
 	/**
 	 * Constructor.
 	 * @param gfx Graphics object to draw with.
+	 * @param editor Pointer to the editor that owns the panel.
 	 */
 	LevelEditorFilePanel(WoopsiGfx::Graphics* gfx, LevelEditor* editor) : LevelEditorPanelBase(gfx) {
 		_isRunning = true;
