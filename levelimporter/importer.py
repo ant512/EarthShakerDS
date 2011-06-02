@@ -65,12 +65,14 @@ def saveLevel(level, width, height, number, name):
 
 		f.write("#include \"level{0}.h\"\n".format(number))
 		f.write("#include \"bitmapserver.h\"\n")
+		f.write("#include \"blocktype.h\"\n")
+		f.write("\n");
 
 		f.write("const static u8 level{0}Data[600] = ".format(number))
 		f.write("{\n")
 
 		for y in range(0, height):
-			f.write("\t\t\t")
+			f.write("\t")
 
 			for x in range(0, width):
 				f.write("{0}".format(level[(y * width) + x]).ljust(2))
@@ -78,14 +80,21 @@ def saveLevel(level, width, height, number, name):
 				if (y * width) + x < ((height - 1) * width) + (width - 1):
 					f.write(",")
 				else:
-					f.write("};")
+					f.write("\n};")
 
 			f.write("\n")
 
 		f.write("\n")
 
-		f.write("\tLevel{0}::Level{0}() : LevelDefinition(30, 20, {0}, \"{1}\", level{0}Data, COLOUR_YELLOW, COLOUR_RED, COLOUR_BLUE) ".format(number, name))
-		f.write("{\n")
+		f.write("Level{0}::Level{0}() : LevelDefinition(30,\n".format(number))
+		f.write("\t\t\t\t\t\t\t\t   20,\n")
+		f.write("\t\t\t\t\t\t\t\t   {0},\n".format(number))
+		f.write("\t\t\t\t\t\t\t\t   \"{0}\",\n".format(name))
+		f.write("\t\t\t\t\t\t\t\t   level{0}Data,\n".format(number))
+		f.write("\t\t\t\t\t\t\t\t   BOULDER_TYPE_YELLOW,\n")
+		f.write("\t\t\t\t\t\t\t\t   WALL_TYPE_BRICK_RED,\n")
+		f.write("\t\t\t\t\t\t\t\t   SOIL_TYPE_BLUE,\n")
+		f.write("\t\t\t\t\t\t\t\t   DOOR_TYPE_GREEN) {\n")
 		f.write("}\n")
 
 		f.write("\n")
