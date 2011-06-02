@@ -25,7 +25,7 @@ const static u8 level16Data[600] = {
 	13,4 ,4 ,13,4 ,13,4 ,13,4 ,13,4 ,4 ,13,1 ,13,11,13,4 ,13,4 ,13,4 ,13,4 ,13,4 ,13,4 ,4 ,13
 };
 
-Level16::Level16() : LevelDefinition(30,
+Level16::Level16() : ImmutableLevelDefinition(30,
 								   20,
 								   16,
 								   "Hair Brained Surgery",

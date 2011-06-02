@@ -5,9 +5,10 @@
 #include "bitmapserver.h"
 #include "soundplayer.h"
 
+#include "leveldefinitionbase.h"
 #include "levelfactory.h"
 
-GameSession::GameSession(WoopsiArray<LevelDefinition*>* levelDefinitions) {
+GameSession::GameSession(WoopsiArray<LevelDefinitionBase*>* levelDefinitions) {
 	
 	_level = NULL;
 	
@@ -200,7 +201,7 @@ void GameSession::pause() {
 	}
 }
 
-void GameSession::run(LevelDefinition* level) {
+void GameSession::run(LevelDefinitionBase* level) {
 
 	startLevel(level);
 
@@ -436,12 +437,12 @@ void GameSession::resetLevel() {
 		levelNumber = _level->getNumber();
 	}
 
-	LevelDefinition* levelDefinition = _levelDefinitions->at(levelNumber - 1);
+	LevelDefinitionBase* levelDefinition = _levelDefinitions->at(levelNumber - 1);
 
 	startLevel(levelDefinition);
 }
 
-void GameSession::startLevel(LevelDefinition* levelDefinition) {
+void GameSession::startLevel(LevelDefinitionBase* levelDefinition) {
 	resetLevelVariables();
 
 	SoundPlayer::stopAll();

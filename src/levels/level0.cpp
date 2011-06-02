@@ -25,7 +25,7 @@ const static u8 level0Data[600] = {
 	13,13,13,13,13,4, 13,13,13,4, 13,13,13,4, 13,13,13,4, 13,13,13,4, 13,13,13,13,13,13,13,13
 };
 
-Level0::Level0() : LevelDefinition(30,
+Level0::Level0() : ImmutableLevelDefinition(30,
 								   20,
 								   0,
 								   "Testing Ground",

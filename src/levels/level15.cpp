@@ -25,7 +25,7 @@ const static u8 level15Data[600] = {
 	2 ,2 ,2 ,13,0 ,14,2 ,14,14,14,14,14,14,14,14,14,14,5 ,14,14,14,14,14,14,14,14,14,14,12,0
 };
 
-Level15::Level15() : LevelDefinition(30,
+Level15::Level15() : ImmutableLevelDefinition(30,
 								   20,
 								   15,
 								   "Honeycombs",

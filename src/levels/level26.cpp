@@ -25,7 +25,7 @@ const static u8 level26Data[600] = {
 	4 ,10,13,13,13,13,8 ,5 ,5 ,5 ,8 ,8 ,8 ,8 ,8 ,8 ,2 ,8 ,8 ,8 ,8 ,15,15,15,15,15,15,15,15,15
 };
 
-Level26::Level26() : LevelDefinition(30,
+Level26::Level26() : ImmutableLevelDefinition(30,
 								   20,
 								   26,
 								   "China Canal",

@@ -25,7 +25,7 @@ const static u8 level10Data[600] = {
 	13,13,12,12,12,13,13,13,2 ,12,12,2 ,2 ,2 ,2 ,2 ,2 ,13,12,12,13,13,13,13,2 ,13,13,12,12,12
 };
 
-Level10::Level10() : LevelDefinition(30,
+Level10::Level10() : ImmutableLevelDefinition(30,
 									 20,
 									 10,
 									 "Nuclear Ore Caverns",

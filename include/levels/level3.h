@@ -1,13 +1,13 @@
 #ifndef _LEVEL_3_H_
 #define _LEVEL_3_H_
 
-#include "leveldefinition.h"
+#include "immutableleveldefinition.h"
 #include "bitmapserver.h"
 
 /**
  * Level 3.
  */
-class Level3 : public LevelDefinition {
+class Level3 : public ImmutableLevelDefinition {
 public:
 
 	/**

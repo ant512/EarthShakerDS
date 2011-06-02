@@ -25,7 +25,7 @@ const static u8 level29Data[600] = {
 	10,5 ,14,14,14,14,14,3 ,13,4 ,13,14,14,3 ,14,14,14,3 ,14,14,13,4 ,13,14,3 ,14,5 ,5 ,5 ,2
 };
 
-Level29::Level29() : LevelDefinition(30,
+Level29::Level29() : ImmutableLevelDefinition(30,
 								   20,
 								   29,
 								   "Ye Fit Warm House",

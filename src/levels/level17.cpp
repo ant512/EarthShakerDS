@@ -25,7 +25,7 @@ const static u8 level17Data[600] = {
 	13,12,13,13,13,13,13,13,13,15,15,15,15,13,13,13,13,13,12,12,12,13,2 ,13,13,13,13,13,13,13
 };
 
-Level17::Level17() : LevelDefinition(30,
+Level17::Level17() : ImmutableLevelDefinition(30,
 								   20,
 								   17,
 								   "Bury Drainage Hirers",

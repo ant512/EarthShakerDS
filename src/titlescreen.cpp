@@ -4,7 +4,7 @@
 #include "soundplayer.h"
 #include "titlescreen.h"
 
-TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinition*>* levelDefinitions) : ScreenBase(topGfx, bottomGfx) {
+TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinitionBase*>* levelDefinitions) : ScreenBase(topGfx, bottomGfx) {
 
 	_timer = 0;
 	_chosenLevel = NULL;
@@ -218,6 +218,6 @@ bool TitleScreen::isRunning() const {
 	return _chosenLevel == NULL;
 }
 
-LevelDefinition* TitleScreen::getChosenLevel() const {
+LevelDefinitionBase* TitleScreen::getChosenLevel() const {
 	return _chosenLevel;
 }

@@ -25,7 +25,7 @@ const static u8 level9Data[600] = {
 	13,13,13,13,13,13,10,2 ,9 ,2 ,2 ,13,13,13,13,14,2 ,14,14,14,14,13,14,14,2 ,14,14,14,14,14
 };
 
-Level9::Level9() : LevelDefinition(30,
+Level9::Level9() : ImmutableLevelDefinition(30,
 								   20,
 								   9,
 								   "Internal Reactor Inc",

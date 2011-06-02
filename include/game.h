@@ -12,7 +12,7 @@
 #include "gatetransition.h"
 #include "hardware.h"
 #include "level.h"
-#include "leveldefinition.h"
+#include "leveldefinitionbase.h"
 #include "padstate.h"
 #include "playerblock.h"
 #include "scroller.h"
@@ -49,12 +49,12 @@ private:
 	WoopsiGfx::Graphics* _topGfx;			/**< Pointer to the graphics object for the top display. */
 	WoopsiGfx::Graphics* _bottomGfx;		/**< Pointer to the graphics object for the bottom display. */
 
-	WoopsiArray<LevelDefinition*> _levelDefinitions;	/**< List of all level definitions. */
+	WoopsiArray<LevelDefinitionBase*> _levelDefinitions;	/**< List of all level definitions. */
 
 	/**
 	 * Runs the title screen.
 	 */
-	LevelDefinition* runTitleScreen();
+	LevelDefinitionBase* runTitleScreen();
 
 	/**
 	 * Runs the game over screen.

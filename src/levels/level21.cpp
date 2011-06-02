@@ -25,7 +25,7 @@ const static u8 level21Data[600] = {
 	12,14,12,12,12,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13
 };
 
-Level21::Level21() : LevelDefinition(30,
+Level21::Level21() : ImmutableLevelDefinition(30,
 								   20,
 								   21,
 								   "Outer Bounds",

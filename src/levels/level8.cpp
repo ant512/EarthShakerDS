@@ -25,7 +25,7 @@ const static u8 level8Data[600] = {
 	13,13,12,14,14,14,13,13,13,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,4 ,13,13,13,13,3 ,13,13,10
 };
 
-Level8::Level8() : LevelDefinition(30,
+Level8::Level8() : ImmutableLevelDefinition(30,
 								   20,
 								   8,
 								   "Central Incinerator",

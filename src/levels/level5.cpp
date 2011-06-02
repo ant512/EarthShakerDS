@@ -25,7 +25,7 @@ const static u8 level5Data[600] = {
 	12,2 ,12,2 ,13,2 ,13,2 ,12,2 ,12,14,14,2 ,11,2 ,12,2 ,13,2 ,12,2 ,13,2 ,12,12,2 ,13,13,12
 };
 
-Level5::Level5() : LevelDefinition(30,
+Level5::Level5() : ImmutableLevelDefinition(30,
 								   20,
 								   5,
 								   "Hush Toed Iceland",

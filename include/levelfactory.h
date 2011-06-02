@@ -18,7 +18,7 @@
 #include "gravityinversionblock.h"
 #include "gamesession.h"
 #include "level.h"
-#include "leveldefinition.h"
+#include "leveldefinitionbase.h"
 #include "playerblock.h"
 #include "soilblock.h"
 #include "teleportblock.h"
@@ -38,7 +38,7 @@ public:
 	 * @param session The containing game session object.
 	 * @return The new Level object.
 	 */
-	static Level* createLevel(LevelDefinition* data, GameSession* session) {
+	static Level* createLevel(LevelDefinitionBase* data, GameSession* session) {
 
 		Level* level = new Level(data->getWidth(), data->getHeight(), data->getNumber(), data->getName());
 

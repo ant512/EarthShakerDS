@@ -25,7 +25,7 @@ const static u8 level30Data[600] = {
 	13,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,9 ,13
 };
 
-Level30::Level30() : LevelDefinition(30,
+Level30::Level30() : ImmutableLevelDefinition(30,
 								   20,
 								   30,
 								   "The Keep",

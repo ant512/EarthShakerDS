@@ -25,7 +25,7 @@ const static u8 level4Data[600] = {
 	4 ,14,4 ,1 ,10,13,13,13,4 ,2 ,14,14,14,2 ,14,14,14,10,13,14,12,14,12,14,13,10,14,4 ,4 ,4
 };
 
-Level4::Level4() : LevelDefinition(30,
+Level4::Level4() : ImmutableLevelDefinition(30,
 								   20,
 								   4,
 								   "Head in the Clouds",

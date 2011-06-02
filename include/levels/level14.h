@@ -1,13 +1,13 @@
 #ifndef _LEVEL14_H_
 #define _LEVEL14_H_
 
-#include "leveldefinition.h"
+#include "immutableleveldefinition.h"
 #include "bitmapserver.h"
 
 /**
  * Level 14.
  */
-class Level14 : public LevelDefinition {
+class Level14 : public ImmutableLevelDefinition {
 public:
 
 	/**

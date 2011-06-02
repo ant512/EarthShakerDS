@@ -12,7 +12,7 @@
 #include "gatetransition.h"
 #include "hardware.h"
 #include "level.h"
-#include "leveldefinition.h"
+#include "leveldefinitionbase.h"
 #include "padstate.h"
 #include "playerblock.h"
 #include "scroller.h"
@@ -29,7 +29,7 @@ public:
 	 * Constructor.
 	 * @param levelDefinitions The list of levels to play in this session.
 	 */
-	GameSession(WoopsiArray<LevelDefinition*>* levelDefinitions);
+	GameSession(WoopsiArray<LevelDefinitionBase*>* levelDefinitions);
 
 	/**
 	 * Destructor.
@@ -101,7 +101,7 @@ public:
 	/**
 	 * Runs all game logic.  Takes control of the system until the game ends.
 	 */
-	void run(LevelDefinition* start);
+	void run(LevelDefinitionBase* start);
 
 	/**
 	 * Increase the number of diamonds collected in the level by one.
@@ -163,7 +163,7 @@ public:
 	 * Starts the specified level.
 	 * @param levelDefinition The level to start.
 	 */
-	void startLevel(LevelDefinition* levelDefinition);
+	void startLevel(LevelDefinitionBase* levelDefinition);
 
 	/**
 	 * Resets the session.
@@ -187,7 +187,7 @@ private:
 	bool _isOddIteration;					/**< Indicates whether the game is in an odd or an even iteration. */
 	GameHUD _hud;							/**< Stats, and other graphics that surround the game. */
 
-	WoopsiArray<LevelDefinition*>* _levelDefinitions;	/**< List of all level definitions. */
+	WoopsiArray<LevelDefinitionBase*>* _levelDefinitions;	/**< List of all level definitions. */
 	bool _isMapAvailable;					/**< True if the map is available to view. */
 
 	bool _isRunning;						/**< True if the session is running. */

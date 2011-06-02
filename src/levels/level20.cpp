@@ -25,7 +25,7 @@ const static u8 level20Data[600] = {
 	2 ,14,2 ,14,14,14,14,14,14,14,14,2 ,14,14,14,2 ,13,14,14,14,2 ,13,14,13,13,13,14,13,13,13
 };
 
-Level20::Level20() : LevelDefinition(30,
+Level20::Level20() : ImmutableLevelDefinition(30,
 									 20,
 									 20,
 									 "Ruse No Doubt",

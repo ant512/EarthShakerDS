@@ -25,7 +25,7 @@ const static u8 level19Data[600] = {
 	2 ,14,14,14,2 ,14,14,13,2 ,2 ,14,13,14,2 ,14,14,14,13,14,14,14,13,2 ,14,12,2 ,14,13,4 ,2
 };
 
-Level19::Level19() : LevelDefinition(30,
+Level19::Level19() : ImmutableLevelDefinition(30,
 									 20,
 									 19,
 									 "The Snare",

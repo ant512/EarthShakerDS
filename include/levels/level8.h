@@ -1,13 +1,13 @@
 #ifndef _LEVEL_8_H_
 #define _LEVEL_8_H_
 
-#include "leveldefinition.h"
+#include "immutableleveldefinition.h"
 #include "bitmapserver.h"
 
 /**
  * Level 8.
  */
-class Level8 : public LevelDefinition {
+class Level8 : public ImmutableLevelDefinition {
 public:
 
 	/**

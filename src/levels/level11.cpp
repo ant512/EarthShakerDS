@@ -25,7 +25,7 @@ const static u8 level11Data[600] = {
 	13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,10,13,13,3 ,12,12
 };
 
-Level11::Level11() : LevelDefinition(30,
+Level11::Level11() : ImmutableLevelDefinition(30,
 								   20,
 								   11,
 								   "Graviton Shells",

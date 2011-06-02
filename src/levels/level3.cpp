@@ -25,7 +25,7 @@ const static u8 level3Data[600] = {
 	13,13,13,13,13,13,13,13,14,14,14,14,2 ,2 ,14,14,14,2 ,2 ,14,14,14,14,14,2 ,2 ,14,6 ,2 ,12
 };
 
-Level3::Level3() : LevelDefinition(30,
+Level3::Level3() : ImmutableLevelDefinition(30,
 								   20,
 								   3,
 								   "The Gravity Chamber",

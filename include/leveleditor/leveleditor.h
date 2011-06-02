@@ -6,7 +6,7 @@
 #include "constants.h"
 #include "hardware.h"
 #include "level.h"
-#include "leveldefinition.h"
+#include "leveldefinitionbase.h"
 
 #include "textbutton.h"
 #include "buttonbank.h"

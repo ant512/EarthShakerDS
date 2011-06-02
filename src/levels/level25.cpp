@@ -25,7 +25,7 @@ const static u8 level25Data[600] = {
 	2 ,2 ,13,13,13,14,14,14,14,14,0 ,12,13,13,2 ,2 ,2 ,13,13,10,14,10,13,13,2 ,14,12,13,11,0
 };
 
-Level25::Level25() : LevelDefinition(30,
+Level25::Level25() : ImmutableLevelDefinition(30,
 								   20,
 								   25,
 								   "Great Walls of Fire",

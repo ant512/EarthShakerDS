@@ -7,7 +7,7 @@
 
 #include "blockslideshowscreen.h"
 #include "gamefont.h"
-#include "leveldefinition.h"
+#include "leveldefinitionbase.h"
 #include "logobmp.h"
 #include "menu.h"
 #include "menulistener.h"
@@ -28,7 +28,7 @@ public:
 	 * @param bottomGfx Pointer to the bottom display graphics object.
 	 * @param levelDefinitions List of all level definitions in the game.
 	 */
-	TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinition*>* levelDefinitions);
+	TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinitionBase*>* levelDefinitions);
 
 	/**
 	 * Destructor.
@@ -52,7 +52,7 @@ public:
 	 * Get the start level for the game chosen by the player.
 	 * @return The start level for the game.
 	 */
-	LevelDefinition* getChosenLevel() const;
+	LevelDefinitionBase* getChosenLevel() const;
 
 	/**
 	 * Handles any menu selections.
@@ -66,19 +66,19 @@ private:
 	 * List of all menus in the menu system.
 	 */
 	enum MenuId {
-		MENU_MAIN = 1,									/**< The main menu. */
-		MENU_LEVEL_SELECT = 2,							/**< The level select menu. */
-		MENU_SOUND_TEST = 3								/**< The sound test menu. */
+		MENU_MAIN = 1,										/**< The main menu. */
+		MENU_LEVEL_SELECT = 2,								/**< The level select menu. */
+		MENU_SOUND_TEST = 3									/**< The sound test menu. */
 	};
 
-	s32 _timer;											/**< Timer to control speed of user input. */
-	GameFont _font;										/**< Font used to draw text. */
-	Scroller* _scroller;								/**< Scrolling text message. */
-	LogoBmp _logoBmp;									/**< Logo drawn on top display. */
-	WoopsiArray<LevelDefinition*>* _levelDefinitions;	/**< List of all level definitions. */
-	LevelDefinition* _chosenLevel;						/**< Level selected by the player. */
-	BlockSlideshowScreen* _blockSlideshowScreen;		/**< Block slideshow on bottom display. */
-	MenuSystem* _menuSystem;							/**< The menu system on the top display. */
+	s32 _timer;												/**< Timer to control speed of user input. */
+	GameFont _font;											/**< Font used to draw text. */
+	Scroller* _scroller;									/**< Scrolling text message. */
+	LogoBmp _logoBmp;										/**< Logo drawn on top display. */
+	WoopsiArray<LevelDefinitionBase*>* _levelDefinitions;	/**< List of all level definitions. */
+	LevelDefinitionBase* _chosenLevel;						/**< Level selected by the player. */
+	BlockSlideshowScreen* _blockSlideshowScreen;			/**< Block slideshow on bottom display. */
+	MenuSystem* _menuSystem;								/**< The menu system on the top display. */
 
 	/**
 	 * Plays the specified sound.

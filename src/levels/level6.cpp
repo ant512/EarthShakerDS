@@ -25,7 +25,7 @@ const static u8 level6Data[600] = {
 	12,12,12,4 ,12,12,13,13,13,4 ,4 ,4 ,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,4
 };
 
-Level6::Level6() : LevelDefinition(30,
+Level6::Level6() : ImmutableLevelDefinition(30,
 								   20,
 								   6,
 								   "Diamonds of Mine",

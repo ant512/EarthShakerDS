@@ -25,7 +25,7 @@ const static u8 level12Data[600] = {
 	2 ,13,13,13,10,4 ,13,13,4 ,12,13,4 ,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,14,14,14
 };
 
-Level12::Level12() : LevelDefinition(30,
+Level12::Level12() : ImmutableLevelDefinition(30,
 									 20,
 									 12,
 									 "The Oil Wells",

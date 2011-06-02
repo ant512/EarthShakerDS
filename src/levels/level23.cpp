@@ -25,7 +25,7 @@ const static u8 level23Data[600] = {
 	2 ,4 ,14,2 ,4 ,4 ,4 ,4 ,4 ,13,2 ,2 ,13,4 ,14,14,14,14,14,14,3 ,14,13,14,2 ,14,2 ,14,14,10
 };
 
-Level23::Level23() : LevelDefinition(30,
+Level23::Level23() : ImmutableLevelDefinition(30,
 								   20,
 								   23,
 								   "Alarm Clock Works",

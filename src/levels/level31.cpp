@@ -25,7 +25,7 @@ const static u8 level31Data[600] = {
 	4 ,4 ,11,4 ,0 ,0 ,0 ,3 ,0 ,0 ,2 ,3 ,0 ,3 ,13,0 ,0 ,5 ,0 ,0 ,0 ,4 ,4 ,4 ,4 ,4 ,4 ,2 ,4 ,4
 };
 
-Level31::Level31() : LevelDefinition(30,
+Level31::Level31() : ImmutableLevelDefinition(30,
 								   20,
 								   31,
 								   "For Goodness Sake",

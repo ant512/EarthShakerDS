@@ -25,7 +25,7 @@ const static u8 level28Data[600] = {
 	11,12,0 ,0 ,14,2 ,13,4 ,14,10,2 ,14,2 ,2 ,14,14,2 ,14,2 ,2 ,3 ,10,13,5 ,5 ,0 ,0 ,12,12,12
 };
 
-Level28::Level28() : LevelDefinition(30,
+Level28::Level28() : ImmutableLevelDefinition(30,
 								   20,
 								   28,
 								   "Your Safe With Me",

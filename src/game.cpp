@@ -5,6 +5,8 @@
 #include "bitmapserver.h"
 #include "soundplayer.h"
 
+#include "leveldefinitionbase.h"
+
 #include "levelfactory.h"
 #include "level1.h"
 #include "level2.h"
@@ -88,7 +90,7 @@ bool Game::isRunning() const {
 	return true;
 }
 
-LevelDefinition* Game::runTitleScreen() {
+LevelDefinitionBase* Game::runTitleScreen() {
 	SoundPlayer::stopAll();
 
 	TitleScreen* titleScreen = new TitleScreen(_topGfx, _bottomGfx, &_levelDefinitions);
@@ -100,7 +102,7 @@ LevelDefinition* Game::runTitleScreen() {
 
 	runTransition();
 
-	LevelDefinition* chosenLevel = titleScreen->getChosenLevel();
+	LevelDefinitionBase* chosenLevel = titleScreen->getChosenLevel();
 
 	delete titleScreen;
 
@@ -152,7 +154,7 @@ void Game::main() {
 	while (isRunning()) {
 
 		GameSession* session = new GameSession(&_levelDefinitions);
-		LevelDefinition* startLevel = runTitleScreen();
+		LevelDefinitionBase* startLevel = runTitleScreen();
 
 		session->run(startLevel);
 

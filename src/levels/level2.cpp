@@ -25,7 +25,7 @@ const static u8 level2Data[600] = {
 	5 ,5 ,5 ,14,14,14,14,14,14,14,14,14,13,13,13,4 ,13,13,13,13,13,13,13,13,13,2 ,13,13,13,13
 };
 
-Level2::Level2() : LevelDefinition(30,
+Level2::Level2() : ImmutableLevelDefinition(30,
 								   20,
 								   2,
 								   "The Bubble Bath",

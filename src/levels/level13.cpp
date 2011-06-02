@@ -25,7 +25,7 @@ const static u8 level13Data[600] = {
 	13,13,13,13,13,13,12,12,13,4 ,4 ,13,4 ,4 ,13,4 ,4 ,13,4 ,4 ,13,12,13,13,13,13,13,13,13,13
 };
 
-Level13::Level13() : LevelDefinition(30,
+Level13::Level13() : ImmutableLevelDefinition(30,
 								   20,
 								   13,
 								   "Wet Hell Soil",

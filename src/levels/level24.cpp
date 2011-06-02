@@ -25,7 +25,7 @@ const static u8 level24Data[600] = {
 	4 ,3 ,4 ,15,2 ,4 ,3 ,15,15,10,2 ,2 ,13,10,15,15,1 ,10,3 ,3 ,13,13,13,3 ,3 ,3 ,3 ,3 ,3 ,3
 };
 
-Level24::Level24() : LevelDefinition(30,
+Level24::Level24() : ImmutableLevelDefinition(30,
 								   20,
 								   24,
 								   "Fog Rise Waterfall",

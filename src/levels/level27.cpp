@@ -25,7 +25,7 @@ const static u8 level27Data[600] = {
 	0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,12,0 ,0 ,13,13,2 ,13,14,13,13,13,12,12,0 ,12,13,0 ,13,13,13,12,12
 };
 
-Level27::Level27() : LevelDefinition(30,
+Level27::Level27() : ImmutableLevelDefinition(30,
 								   20,
 								   27,
 								   "The Combination Lock",

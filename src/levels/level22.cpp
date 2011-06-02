@@ -25,7 +25,7 @@ const static u8 level22Data[600] = {
 	13,13,2 ,2 ,2 ,12,15,15,13,15,15,15,15,15,15,15,15,13,13,13,13,2 ,13,13,6 ,13,6 ,13,6 ,13
 };
 
-Level22::Level22() : LevelDefinition(30,
+Level22::Level22() : ImmutableLevelDefinition(30,
 								   20,
 								   22,
 								   "Spring Loded",

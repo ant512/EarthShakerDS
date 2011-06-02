@@ -25,7 +25,7 @@ const static u8 level14Data[600] = {
 	3 ,14,14,14,14,14,5 ,14,14,14,4 ,14,14,14,14,14,14,14,14,5 ,3 ,14,14,14,12,12,12,12,12,3
 };
 
-Level14::Level14() : LevelDefinition(30,
+Level14::Level14() : ImmutableLevelDefinition(30,
 								   20,
 								   14,
 								   "The Gravlock Cell",

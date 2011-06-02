@@ -25,7 +25,7 @@ const static u8 level1Data[600] = {
 	13,13,13,13,13,4, 13,13,13,4, 13,13,13,4, 13,13,13,4, 13,13,13,4, 13,13,13,13,13,13,13,13
 };
 
-Level1::Level1() : LevelDefinition(30,
+Level1::Level1() : ImmutableLevelDefinition(30,
 								   20,
 								   1,
 								   "Room for Improvement",

@@ -25,7 +25,7 @@ const static u8 level32Data[600] = {
 	11,4 ,14,14,14,14,13,5 ,5 ,9 ,13,10,5 ,10,13,13,10,13,13,13,4 ,13,13,14,13,13,13,13,13,13
 };
 
-Level32::Level32() : LevelDefinition(30,
+Level32::Level32() : ImmutableLevelDefinition(30,
 								   20,
 								   32,
 								   "No Devil Lived On",

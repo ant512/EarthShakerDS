@@ -25,7 +25,7 @@ const static u8 level7Data[600] = {
 	12,3 ,12,12,13,13,12,3 ,12,13,13,12,3 ,3 ,13,13,13,12,12,12,13,13,13,4 ,13,13,13,13,12,12
 };
 
-Level7::Level7() : LevelDefinition(30,
+Level7::Level7() : ImmutableLevelDefinition(30,
 								   20,
 								   7,
 								   "The Two of Hearts",

@@ -25,7 +25,7 @@ const static u8 level18Data[600] = {
 	12,4 ,4 ,13,2 ,4 ,4 ,4 ,4 ,13,12,12,13,14,13,2 ,14,2 ,14,4 ,4 ,4 ,4 ,14,2 ,12,2 ,4 ,4 ,2
 };
 
-Level18::Level18() : LevelDefinition(30,
+Level18::Level18() : ImmutableLevelDefinition(30,
 								   20,
 								   18,
 								   "Spacebase Wastepipes",
