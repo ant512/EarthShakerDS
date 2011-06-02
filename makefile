@@ -169,6 +169,9 @@ _DEFS		= $(DEFINES)
 _INCS		+= -I$(DEVKITPRO)/libwoopsigfx/include
 _LIBS		+= -L$(DEVKITPRO)/libwoopsigfx/lib -lwoopsigfx
 
+_INCS		+= -I$(DEVKITPRO)/libfat/include
+_LIBS		+= -L$(DEVKITPRO)/libfat/lib -lfat 
+
 # and of course we need libnds
 _LIBS		+= -lnds9 -lmm9
 

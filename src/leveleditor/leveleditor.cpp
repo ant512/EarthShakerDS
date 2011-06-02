@@ -260,8 +260,10 @@ void LevelEditor::drawPanelBorder() {
 
 void LevelEditor::testLevel() {
 	WoopsiArray<LevelDefinitionBase*> levels;
-	ImmutableLevelDefinition def(30, 20, 1, "test", _levelData, BOULDER_TYPE_YELLOW,
-						WALL_TYPE_BRICK_RED, SOIL_TYPE_BLUE, DOOR_TYPE_GREEN);
+	ImmutableLevelDefinition def(LEVEL_WIDTH, LEVEL_HEIGHT, 1, "test",
+								 _levelData, BOULDER_TYPE_YELLOW,
+								 WALL_TYPE_BRICK_RED, SOIL_TYPE_BLUE,
+								 DOOR_TYPE_GREEN);
 	levels.push_back(&def);
 	
 	GameSession* session = new GameSession(&levels);
@@ -290,3 +292,30 @@ void LevelEditor::resetLevel() {
 		_levelData[i] = BLOCK_TYPE_NULL;
 	}
 }
+
+void LevelEditor::saveLevel() {
+	ImmutableLevelDefinition def(LEVEL_WIDTH, LEVEL_HEIGHT, 1, "test",
+								 _levelData, BOULDER_TYPE_YELLOW,
+								 WALL_TYPE_BRICK_RED, SOIL_TYPE_BLUE,
+								 DOOR_TYPE_GREEN);
+
+	LevelIO::save(&def);
+}
+
+void LevelEditor::loadLevel() {
+	resetLevel();
+
+	LevelDefinitionBase* def = LevelIO::load("test");
+
+	for (s32 i = 0; i < LEVEL_WIDTH * LEVEL_HEIGHT; ++i) {
+		LevelFactory::placeBlock(_level, (BlockType)_levelData[i], i % LEVEL_WIDTH, i / LEVEL_WIDTH, NULL);
+		_levelData[i] = def->getLayout()[i];
+	}
+
+	// TODO: Set block types
+
+	delete def;
+
+	redrawAll();
+}
+

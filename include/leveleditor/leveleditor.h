@@ -12,6 +12,8 @@
 #include "buttonbank.h"
 #include "buttonlistener.h"
 
+#include "levelio.h"
+
 class LevelEditorFilePanel;
 class LevelEditorMapPanel;
 class LevelEditorPalettePanel;
@@ -54,6 +56,9 @@ public:
 	 * @param source The button that raised the event.
 	 */
 	void handleButtonAction(ButtonBase* source);
+
+	void saveLevel();
+	void loadLevel();
 
 private:
 

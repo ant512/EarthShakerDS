@@ -70,8 +70,10 @@ public:
 	void handleButtonAction(ButtonBase* source) {
 		switch (source->getId()) {
 			case 0:
+				_editor->loadLevel();
 				break;
 			case 1:
+				_editor->saveLevel();
 				break;
 			case 2:
 				// Have to reset this manually as we'll miss the event
