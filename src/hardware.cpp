@@ -17,7 +17,7 @@ SDL_Surface* Hardware::_surface = NULL;
 
 void Hardware::init() {
 
-	#ifndef USING_SDL
+#ifndef USING_SDL
 
 	powerOn(POWER_ALL_2D);
 
@@ -34,7 +34,7 @@ void Hardware::init() {
 	_topBuffer = new SDLFrameBuffer((u16*)BG_BMP_RAM(0), SCREEN_WIDTH, SCREEN_HEIGHT);
 	_bottomBuffer = new SDLFrameBuffer((u16*)BG_BMP_RAM_SUB(0), SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	#else
+#else
 
 	Uint32 initflags = SDL_INIT_VIDEO;
 	Uint8 video_bpp = 0;
@@ -57,7 +57,7 @@ void Hardware::init() {
 	_topBuffer = new SDLFrameBuffer(_surface, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 	_bottomBuffer = new SDLFrameBuffer(_surface, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_HEIGHT);
 
-	#endif
+#endif
 
 	_topGfx = _topBuffer->newGraphics();
 	_bottomGfx = _bottomBuffer->newGraphics();
@@ -93,7 +93,7 @@ void Hardware::updatePadState() {
 
 	PadState oldPad = _pad;
 
-	#ifndef USING_SDL
+#ifndef USING_SDL
 
 	scanKeys();
 
@@ -114,7 +114,7 @@ void Hardware::updatePadState() {
 	_pad.start = allKeys & KEY_START;
 	_pad.select = allKeys & KEY_SELECT;
 
-	#else
+#else
 
 	Uint8* keyState = SDL_GetKeyState(NULL);
 
@@ -131,7 +131,7 @@ void Hardware::updatePadState() {
 	_pad.start = keyState[SDLK_d];
 	_pad.select = keyState[SDLK_f];
 
-	#endif
+#endif
 
 	if ((_pad.up && !oldPad.up) || (_pad.down && !oldPad.down)) {
 		_isMostRecentDirectionVertical = true;
@@ -146,7 +146,7 @@ void Hardware::updatePadState() {
 
 	_stylus.released = false;
 
-	#ifndef USING_SDL
+#ifndef USING_SDL
 
 	if ((allKeys & KEY_TOUCH) && (!_stylus.held)) {
 		
@@ -168,7 +168,7 @@ void Hardware::updatePadState() {
 	_stylus.x = touch.px;
 	_stylus.y = touch.py;
 
-	#else
+#else
 
 	// Read mouse state
 	int mouseX;
@@ -213,7 +213,7 @@ void Hardware::updatePadState() {
         }
 	}
 
-	#endif
+#endif
 }
 
 bool Hardware::isMostRecentDirectionVertical() {
@@ -222,16 +222,16 @@ bool Hardware::isMostRecentDirectionVertical() {
 
 void Hardware::waitForVBlank() {
 
-	#ifndef USING_SDL
+#ifndef USING_SDL
 
 	swiWaitForVBlank();
 
-	#else
+#else
 
 	SDL_Delay(10);
 	SDL_Flip(_surface);
 
-	#endif
+#endif
 
 	updatePadState();
 }
