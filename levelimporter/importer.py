@@ -38,14 +38,14 @@ def saveLevel(level, width, height, number, name):
 		f.write("#define _LEVEL{0}_H_\n".format(number))
 		f.write("\n")
 
-		f.write("#include \"leveldefinition.h\"\n")
+		f.write("#include \"immutableleveldefinition.h\"\n")
 		f.write("#include \"bitmapserver.h\"\n")
 		f.write("\n")
 
 		f.write("/**\n")
 		f.write(" * Level {0}.\n".format(number))
 		f.write(" */\n")
-		f.write("class Level{0} : public LevelDefinition ".format(number))
+		f.write("class Level{0} : public ImmutableLevelDefinition ".format(number))
 		f.write("{\n")
 		f.write("public:\n")
 		f.write("\n")
@@ -86,8 +86,8 @@ def saveLevel(level, width, height, number, name):
 
 		f.write("\n")
 
-		f.write("Level{0}::Level{0}() : LevelDefinition(30,\n".format(number))
-		f.write("\t\t\t\t\t\t\t\t   20,\n")
+		f.write("Level{0}::Level{0}() : ImmutableLevelDefinition({1},\n".format(number, levelWidth))
+		f.write("\t\t\t\t\t\t\t\t   {0},\n".format(levelHeight))
 		f.write("\t\t\t\t\t\t\t\t   {0},\n".format(number))
 		f.write("\t\t\t\t\t\t\t\t   \"{0}\",\n".format(name))
 		f.write("\t\t\t\t\t\t\t\t   level{0}Data,\n".format(number))
