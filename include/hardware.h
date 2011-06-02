@@ -53,6 +53,10 @@ public:
 		return _pad;
 	};
 
+	/**
+	 * Get a reference to a struct representing the state of the DS' stylus.
+	  *@return A reference to the current stylus state.
+	 */
 	static inline const StylusState& getStylusState() {
 		return _stylus;
 	};
@@ -80,7 +84,7 @@ private:
     
 #ifdef USING_SDL
     
-    static SDL_Surface* _surface;
+    static SDL_Surface* _surface;					/**< SDL surface for visual output. */
 	
 #endif
 

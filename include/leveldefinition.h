@@ -22,9 +22,10 @@ public:
 	 * @param number The number of the level.
 	 * @param name The name of the level.
 	 * @param data The level layout.
-	 * @param boulderColour The colour of boulders in this level.
-	 * @param brickWallColour The colour of brick walls in this level.
-	 * @param soilColour The colour of soil in this level.
+	 * @param boulderType The type of boulders in this level.
+	 * @param wallType The type of walls in this level.
+	 * @param soilType The type of soil in this level.
+	 * @param doorType The type of doors in this level.
 	 */
 	LevelDefinition(s32 width,
 					s32 height,
@@ -82,9 +83,31 @@ public:
 	 */
 	inline const WoopsiGfx::WoopsiString& getName() const { return _name; };
 
+	/**
+	 * Gets the current boulder type.
+	 * @return The current boulder type.
+	 */
 	inline BoulderType getBoulderType() const { return _boulderType; };
+
+
+	/**
+	 * Gets the current wall type.
+	 * @return The current wall type.
+	 */
 	inline WallType getWallType() const { return _wallType; };
+
+
+	/**
+	 * Gets the current soil type.
+	 * @return The current soil type.
+	 */
 	inline SoilType getSoilType() const { return _soilType; };
+
+
+	/**
+	 * Gets the current door type.
+	 * @return The current door type.
+	 */
 	inline DoorType getDoorType() const { return _doorType; };
 
 protected:
@@ -96,7 +119,7 @@ protected:
 	BoulderType _boulderType;					/**< Colour of boulders in this level. */
 	WallType _wallType;							/**< Colour of brick walls in this level. */
 	SoilType _soilType;							/**< Colour of soil in this level. */
-	DoorType _doorType;
+	DoorType _doorType;							/**< Colour of doors in this level. */
 };
 
 #endif
