@@ -1,18 +1,27 @@
+#include <nds.h>
+
 #include "binaryfile.h"
 
-BinaryFile::BinaryFile(const char* filename, BinaryFile::FileMode fileMode, BinaryFile::EndianMode endianMode) {
+BinaryFile::BinaryFile(const WoopsiGfx::WoopsiString& fileName, BinaryFile::FileMode fileMode, BinaryFile::EndianMode endianMode) {
+
+	_fileName = fileName;
+
+	char* buffer = new char[fileName.getByteCount() + 1];
+	fileName.copyToCharArray(buffer);
 
 	switch(fileMode) {
 		case FILE_MODE_APPEND:
-			_file = fopen(filename, "ab");
+			_file = fopen(buffer, "ab");
 			break;
 		case FILE_MODE_READ:
-			_file = fopen(filename, "rb");
+			_file = fopen(buffer, "rb");
 			break;
 		case FILE_MODE_WRITE:
-			_file = fopen(filename, "wb");
+			_file = fopen(buffer, "wb");
 			break;
 	}
+
+	delete[] buffer;
 
 	_fileMode = fileMode;
 	_endianMode = endianMode;

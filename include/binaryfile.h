@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <nds.h>
+#include <woopsistring.h>
 
 /**
  * C++ wrapper around the basic C stdio functions.  Intended for
@@ -31,11 +32,11 @@ public:
 
 	/**
 	 * Constructor.  Automatically opens the file.
-	 * @param filename Name of the file to open.
+	 * @param fileName Name of the file to open.
 	 * @param fileMode Mode in which to open the file.
 	 * @param endianMode Endian format of the file.
 	 */
-	BinaryFile(const char* filename, BinaryFile::FileMode fileMode, BinaryFile::EndianMode endianMode);
+	BinaryFile(const WoopsiGfx::WoopsiString& fileName, BinaryFile::FileMode fileMode, BinaryFile::EndianMode endianMode);
 
 	/**
 	 * Destructor.  Automatically closes the file.
@@ -127,10 +128,10 @@ public:
 	void seek(u32 position);
 
 private:
-	const char* _filename;			/**< The name of the file */
-	FileMode _fileMode;				/**< The mode that the file has been opened with */
-	EndianMode _endianMode;			/**< The endianness of the data in the file */
-	FILE* _file;					/**< Pointer to the open file */
+	WoopsiGfx::WoopsiString _fileName;	/**< The name of the file */
+	FileMode _fileMode;					/**< The mode that the file has been opened with */
+	EndianMode _endianMode;				/**< The endianness of the data in the file */
+	FILE* _file;						/**< Pointer to the open file */
 
 	/**
 	 * Read an arbitrary number of bytes from the file with the correct endianness.
