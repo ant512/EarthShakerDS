@@ -47,16 +47,16 @@ void LevelIO::save(LevelDefinitionBase* level) {
 	// Height
 	file.writeS32(level->getHeight());
 
-	// Layout
-	for (s32 i = 0; i < level->getWidth() * level->getHeight(); ++i) {
-		file.writeU8(level->getLayout()[i]);
-	}
-
 	// Block types
 	file.writeU8(level->getBoulderType());
 	file.writeU8(level->getWallType());
 	file.writeU8(level->getSoilType());
 	file.writeU8(level->getDoorType());
+
+	// Layout
+	for (s32 i = 0; i < level->getWidth() * level->getHeight(); ++i) {
+		file.writeU8(level->getLayout()[i]);
+	}
 }
 
 MutableLevelDefinition* LevelIO::load(const WoopsiGfx::WoopsiString& fileName) {
@@ -94,12 +94,6 @@ MutableLevelDefinition* LevelIO::load(const WoopsiGfx::WoopsiString& fileName) {
 	s32 width = file.readS32();
 	s32 height = file.readS32();
 
-	u8* layout = new u8[width * height];
-
-	for (s32 i = 0; i < width * height; ++i) {
-		layout[i] = file.readU8();
-	}
-
 	BoulderType boulderType = (BoulderType)file.readU8();
 	WallType wallType = (WallType)file.readU8();
 	SoilType soilType = (SoilType)file.readU8();
@@ -109,12 +103,10 @@ MutableLevelDefinition* LevelIO::load(const WoopsiGfx::WoopsiString& fileName) {
 														levelNumber, levelName,
 														boulderType, wallType,
 														soilType, doorType);
-	
-	for (s32 i = 0; i < width * height; ++i) {
-		level->setLayoutValueAt(i, layout[i]);
-	}
 
-	delete[] layout;
+	for (s32 i = 0; i < width * height; ++i) {
+		level->setLayoutValueAt(i, file.readU8());
+	}
 
 	return level;
 }
