@@ -19,6 +19,4 @@
 #define SCREEN_WIDTH 256
 #define SCREEN_HEIGHT 192
 
-int fatInitDefault();
-
 #endif
