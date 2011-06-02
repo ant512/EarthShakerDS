@@ -16,6 +16,8 @@ void LevelIO::save(LevelDefinitionBase* level) {
 	fileName.append(level->getName());
 
 	BinaryFile file(fileName, BinaryFile::FILE_MODE_WRITE, BinaryFile::ENDIAN_MODE_BIG_ENDIAN);
+
+	if (!file.isReadyForIO()) return;
 	
 	// Header
 	file.writeU8('E');
@@ -68,6 +70,8 @@ MutableLevelDefinition* LevelIO::load(const WoopsiGfx::WoopsiString& fileName) {
 #endif
 
 	BinaryFile file(fileName, BinaryFile::FILE_MODE_READ, BinaryFile::ENDIAN_MODE_BIG_ENDIAN);
+
+	if (!file.isReadyForIO()) return NULL;
 
 	// Validate header
 	u8 header[4];

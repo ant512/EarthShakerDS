@@ -31,6 +31,10 @@ BinaryFile::~BinaryFile() {
 	fclose(_file);
 }
 
+bool BinaryFile::isReadyForIO() {
+	return _file != NULL;
+}
+
 u8 BinaryFile::readU8() {
 	return (u8)readData(1);
 }

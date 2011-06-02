@@ -305,11 +305,14 @@ void LevelEditor::saveLevel() {
 void LevelEditor::loadLevel() {
 	resetLevel();
 
-	LevelDefinitionBase* def = LevelIO::load("test");
+	LevelDefinitionBase* def = LevelIO::load("/data/earthshakerds/test");
+
+	if (def == NULL) return;
 
 	for (s32 i = 0; i < LEVEL_WIDTH * LEVEL_HEIGHT; ++i) {
-		LevelFactory::placeBlock(_level, (BlockType)_levelData[i], i % LEVEL_WIDTH, i / LEVEL_WIDTH, NULL);
 		_levelData[i] = def->getLayout()[i];
+		LevelFactory::placeBlock(_level, (BlockType)_levelData[i], i % LEVEL_WIDTH, i / LEVEL_WIDTH, NULL);
+		
 	}
 
 	// TODO: Set block types

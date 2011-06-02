@@ -44,6 +44,13 @@ public:
 	~BinaryFile();
 
 	/**
+	 * Check if the file is ready for I/O.  If not, an error occurred when
+	 * trying to open the file on the disk.
+	 * @return True if the file is ready for I/O.
+	 */
+	bool isReadyForIO();
+
+	/**
 	 * Read a single unsigned byte.
 	 * @return The value.
 	 */
