@@ -1,6 +1,7 @@
 #ifndef _LEVEL_IO_H_
 #define _LEVEL_IO_H_
 
+#include <nds.h>
 #include <woopsistring.h>
 
 #include "binaryfile.h"
@@ -10,7 +11,12 @@ class LevelIO {
 public:
 
 	static void save(LevelDefinition* level) {
+
+#ifndef USING_SDL
+
 		if (!fatInitDefault()) return;
+
+#endif
 
 		WoopsiString fileName("/data/earthshakerds/");
 		fileName.append(level->getName());
@@ -54,6 +60,12 @@ public:
 	};
 
 	static LevelDefinition* load(const WoopsiString& fileName) {
+
+#ifndef USING_SDL
+
+		if (!fatInitDefault()) return;
+
+#endif
 
 		BinaryFile file(fileName, BinaryFile::FILE_MODE_READ, BinaryFile::ENDIAN_MODE_BIG_ENDIAN);
 
