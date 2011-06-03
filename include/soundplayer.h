@@ -261,8 +261,9 @@ public:
 	 */
 	static void stopMapTheme() {
 #ifndef USING_SDL
-		Mix_HaltChannel(CHANNEL_MUSIC);
 		mmEffectCancel(_mapHandle);
+#else
+		Mix_HaltChannel(CHANNEL_MUSIC);
 #endif
 	};
 

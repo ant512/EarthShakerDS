@@ -14,7 +14,7 @@ GAME_SUBTITLE1	:= Using WoopsiGfx
 GAME_SUBTITLE2	:= ant.simianzombie.com
 
 # 4-bit-deep bitmap file to use as icon in loader menus
-GAME_ICON 		:= $(DEVKITPRO)/libwoopsigfx/icon/logo.bmp
+GAME_ICON 		:= $(CURDIR)/../icon.bmp
 
 #-------------------------------------------------------------------------------
 # TARGET is the name of the output file
