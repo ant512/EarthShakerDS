@@ -10,6 +10,13 @@
 #include "soundbank.h"
 #include "soundbank_bin.h"
 
+#else
+
+#include <SDL_mixer/SDL_mixer.h>
+#include <unistd.h>
+#include <mach-o/dyld.h>
+#include <woopsistring.h>
+
 #endif
 
 /**
@@ -48,7 +55,35 @@ public:
 		mmLoadEffect(SFX_TELEPORTCOLLECT);
 		mmLoadEffect(SFX_TIME);
 		mmLoadEffect(SFX_TITLETHEME);
-
+		
+#else
+		
+		Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, AUDIO_S8, MIX_DEFAULT_CHANNELS, 512);		
+		Mix_Volume(-1, 60);
+		
+		// Load sfx from resources folder
+		loadWav(SFX_BARRIEREXPLODE, "../Resources/barrierexplode.wav");
+		loadWav(SFX_BARRIERPUSH, "../Resources/barrierpush.wav");
+		loadWav(SFX_BEANCOLLECT, "../Resources/beancollect.wav");
+		loadWav(SFX_BLOCKFALL, "../Resources/blockfall.wav");
+		loadWav(SFX_BLOCKLAND, "../Resources/blockland.wav");
+		loadWav(SFX_BOULDEREXPLODE, "../Resources/boulderexplode.wav");
+		loadWav(SFX_BUBBLEEXPLODE, "../Resources/bubbleexplode.wav");
+		loadWav(SFX_DIAMONDCOLLECT, "../Resources/diamondcollect.wav");
+		loadWav(SFX_DOOROPEN, "../Resources/dooropen.wav");
+		loadWav(SFX_EXTRALIFECOLLECT, "../Resources/extralifecollect.wav");
+		loadWav(SFX_GAMEOVERTHEME, "../Resources/gameovertheme.wav");
+		loadWav(SFX_GRAVITYINVERSION, "../Resources/gravityinversion.wav");
+		loadWav(SFX_LEVELCOMPLETE, "../Resources/levelcomplete.wav");
+		loadWav(SFX_PAUSE, "../Resources/pause.wav");
+		loadWav(SFX_PLAYEREXPLODE, "../Resources/playerexplode.wav");
+		loadWav(SFX_MAPTHEME, "../Resources/maptheme.wav");
+		loadWav(SFX_SOILDIG, "../Resources/soildig.wav");
+		loadWav(SFX_SOILPOKE, "../Resources/soilpoke.wav");
+		loadWav(SFX_SUICIDE, "../Resources/suicide.wav");
+		loadWav(SFX_TELEPORTCOLLECT, "../Resources/teleportcollect.wav");
+		loadWav(SFX_TIME, "../Resources/time.wav");
+		loadWav(SFX_TITLETHEME, "../Resources/titletheme.wav");
 #endif
 	};
 
@@ -58,6 +93,8 @@ public:
 	static void playBarrierExplode() {
 #ifndef USING_SDL
 		mmEffect(SFX_BARRIEREXPLODE);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_BARRIEREXPLODE], 0);
 #endif
 	};
 
@@ -67,6 +104,8 @@ public:
 	static void playBarrierPush() {
 #ifndef USING_SDL
 		mmEffect(SFX_BARRIERPUSH);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_BARRIERPUSH], 0);
 #endif
 	};
 
@@ -76,6 +115,8 @@ public:
 	static void playBeanCollect() {
 #ifndef USING_SDL
 		mmEffect(SFX_BEANCOLLECT);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_BEANCOLLECT], 0);
 #endif
 	};
 
@@ -85,6 +126,8 @@ public:
 	static void playBlockFall() {
 #ifndef USING_SDL
 		mmEffect(SFX_BLOCKFALL);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_BLOCKFALL], 0);
 #endif
 	};
 
@@ -94,6 +137,8 @@ public:
 	static void playBlockLand() {
 #ifndef USING_SDL
 		mmEffect(SFX_BLOCKLAND);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_BLOCKLAND], 0);
 #endif
 	};
 
@@ -103,6 +148,8 @@ public:
 	static void playBoulderExplode() {
 #ifndef USING_SDL
 		mmEffect(SFX_BOULDEREXPLODE);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_BOULDEREXPLODE], 0);
 #endif
 	};
 
@@ -112,6 +159,8 @@ public:
 	static void playBubbleExplode() {
 #ifndef USING_SDL
 		mmEffect(SFX_BUBBLEEXPLODE);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_BUBBLEEXPLODE], 0);
 #endif
 	};
 
@@ -121,6 +170,8 @@ public:
 	static void playDiamondCollect() {
 #ifndef USING_SDL
 		mmEffect(SFX_DIAMONDCOLLECT);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_DIAMONDCOLLECT], 0);
 #endif
 	};
 
@@ -130,6 +181,8 @@ public:
 	static void playDoorOpen() {
 #ifndef USING_SDL
 		mmEffect(SFX_DOOROPEN);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_DOOROPEN], 0);
 #endif
 	};
 
@@ -139,6 +192,8 @@ public:
 	static void playExtraLifeCollect() {
 #ifndef USING_SDL
 		mmEffect(SFX_EXTRALIFECOLLECT);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_EXTRALIFECOLLECT], 0);
 #endif
 	};
 
@@ -148,6 +203,8 @@ public:
 	static void playGameOverTheme() {
 #ifndef USING_SDL
 		_gameOverHandle = mmEffect(SFX_GAMEOVERTHEME);
+#else
+		Mix_PlayChannel(CHANNEL_MUSIC, _sounds[SFX_GAMEOVERTHEME], 0);
 #endif
 	};
 
@@ -157,6 +214,8 @@ public:
 	static void stopGameOverTheme() {
 #ifndef USING_SDL
 		mmEffectCancel(_gameOverHandle);
+#else
+		Mix_HaltChannel(CHANNEL_MUSIC);
 #endif
 	};
 
@@ -167,6 +226,9 @@ public:
 #ifndef USING_SDL
 		mmEffectCancel(_gravityHandle);
 		_gravityHandle = mmEffect(SFX_GRAVITYINVERSION);
+#else
+		Mix_HaltChannel(CHANNEL_GRAVITY);
+		Mix_PlayChannel(CHANNEL_GRAVITY, _sounds[SFX_GRAVITYINVERSION], 0);
 #endif
 	};
 
@@ -176,6 +238,8 @@ public:
 	static void playLevelComplete() {
 #ifndef USING_SDL
 		mmEffect(SFX_LEVELCOMPLETE);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_LEVELCOMPLETE], 0);
 #endif
 	};
 
@@ -186,6 +250,9 @@ public:
 #ifndef USING_SDL
 		mmEffectCancel(_mapHandle);
 		_mapHandle = mmEffect(SFX_MAPTHEME);
+#else
+		Mix_HaltChannel(CHANNEL_MUSIC);
+		Mix_PlayChannel(CHANNEL_MUSIC, _sounds[SFX_MAPTHEME], 0);
 #endif
 	};
 
@@ -194,6 +261,7 @@ public:
 	 */
 	static void stopMapTheme() {
 #ifndef USING_SDL
+		Mix_HaltChannel(CHANNEL_MUSIC);
 		mmEffectCancel(_mapHandle);
 #endif
 	};
@@ -204,6 +272,8 @@ public:
 	static void playPause() {
 #ifndef USING_SDL
 		mmEffect(SFX_PAUSE);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_PAUSE], 0);
 #endif
 	};
 
@@ -213,6 +283,8 @@ public:
 	static void playPlayerExplode() {
 #ifndef USING_SDL
 		mmEffect(SFX_PLAYEREXPLODE);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_PLAYEREXPLODE], 0);
 #endif
 	};
 
@@ -222,6 +294,8 @@ public:
 	static void playSoilDig() {
 #ifndef USING_SDL
 		mmEffect(SFX_SOILDIG);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_SOILDIG], 0);
 #endif
 	};
 
@@ -231,6 +305,8 @@ public:
 	static void playSoilPoke() {
 #ifndef USING_SDL
 		mmEffect(SFX_SOILPOKE);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_SOILPOKE], 0);
 #endif
 	};
 
@@ -240,6 +316,8 @@ public:
 	static void playSuicide() {
 #ifndef USING_SDL
 		mmEffect(SFX_SUICIDE);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_SUICIDE], 0);
 #endif
 	};
 
@@ -249,6 +327,8 @@ public:
 	static void playTeleportCollect() {
 #ifndef USING_SDL
 		mmEffect(SFX_TELEPORTCOLLECT);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_TELEPORTCOLLECT], 0);
 #endif
 	};
 
@@ -258,6 +338,8 @@ public:
 	static void playTime() {
 #ifndef USING_SDL
 		mmEffect(SFX_TIME);
+#else
+		Mix_PlayChannel(CHANNEL_SFX, _sounds[SFX_TIME], 0);
 #endif
 	};
 
@@ -266,7 +348,11 @@ public:
 	 */
 	static void playTitleTheme() {
 #ifndef USING_SDL
+		mmEffectCancel(_titleHandle);
 		_titleHandle = mmEffect(SFX_TITLETHEME);
+#else
+		Mix_HaltChannel(CHANNEL_MUSIC);
+		Mix_PlayChannel(CHANNEL_MUSIC, _sounds[SFX_TITLETHEME], 0);
 #endif
 	};
 
@@ -276,6 +362,8 @@ public:
 	static void stopTitleTheme() {
 #ifndef USING_SDL
 		mmEffectCancel(_titleHandle);
+#else
+		Mix_HaltChannel(CHANNEL_MUSIC);
 #endif
 	};
 
@@ -288,6 +376,10 @@ public:
 		mmEffectCancel(_gravityHandle);
 		mmEffectCancel(_gameOverHandle);
 		mmEffectCancel(_mapHandle);
+#else
+		Mix_HaltChannel(CHANNEL_MUSIC);
+		Mix_HaltChannel(CHANNEL_SFX);
+		Mix_HaltChannel(CHANNEL_GRAVITY);
 #endif
 	};
 
@@ -295,7 +387,9 @@ public:
 	 * Shuts down all game sounds.
 	 */
 	static void shutdown() {
+		
 #ifndef USING_SDL
+		
 		mmUnloadEffect(SFX_BARRIEREXPLODE);
 		mmUnloadEffect(SFX_BARRIERPUSH);
 		mmUnloadEffect(SFX_BEANCOLLECT);
@@ -318,7 +412,17 @@ public:
 		mmUnloadEffect(SFX_TELEPORTCOLLECT);
 		mmUnloadEffect(SFX_TIME);
 		mmUnloadEffect(SFX_TITLETHEME);
+		
+#else
+		
+		for (u32 i = 0; i < SOUND_TYPE_COUNT; i++) {
+			Mix_FreeChunk(_sounds[i]);
+		}
+		
+		Mix_CloseAudio();
+		
 #endif
+		
 	};
 
 private:
@@ -328,6 +432,68 @@ private:
 	static mm_sfxhand _gravityHandle;	/**< Handle for the gravity inversion sound. */
 	static mm_sfxhand _gameOverHandle;	/**< Handle for the game over music. */
 	static mm_sfxhand _mapHandle;		/**< Handle for the map music. */
+	
+#else
+	
+	static const u32 SOUND_TYPE_COUNT = 22;
+	
+	enum SFXType {
+		SFX_BARRIEREXPLODE = 0,
+		SFX_BARRIERPUSH = 1,
+		SFX_BEANCOLLECT = 2,
+		SFX_BLOCKFALL = 3,
+		SFX_BLOCKLAND = 4,
+		SFX_BOULDEREXPLODE = 5,
+		SFX_BUBBLEEXPLODE = 6,
+		SFX_DIAMONDCOLLECT = 7,
+		SFX_DOOROPEN = 8,
+		SFX_EXTRALIFECOLLECT = 9,
+		SFX_GAMEOVERTHEME = 10,
+		SFX_GRAVITYINVERSION = 11,
+		SFX_LEVELCOMPLETE = 12,
+		SFX_MAPTHEME = 13,
+		SFX_PAUSE = 14,
+		SFX_PLAYEREXPLODE = 15,
+		SFX_SOILDIG = 16,
+		SFX_SOILPOKE = 17,
+		SFX_SUICIDE = 18,
+		SFX_TELEPORTCOLLECT = 19,
+		SFX_TIME = 20,
+		SFX_TITLETHEME = 21
+	};
+	
+	enum ChannelType {
+		CHANNEL_SFX = -1,
+		CHANNEL_MUSIC = 0,
+		CHANNEL_GRAVITY = 1,
+	};
+	
+	static Mix_Chunk* _sounds[SOUND_TYPE_COUNT];
+
+	static void loadWav(SFXType type, const char* fileName) {
+		
+		// Get path of executable
+		char path[1024];
+		uint32_t size = sizeof(path);
+		_NSGetExecutablePath(path, &size);
+		
+		WoopsiGfx::WoopsiString str(path);
+		
+		// Strip the name of the executable
+		s32 lastIndex = str.lastIndexOf('/');
+		str = str.subString(0, lastIndex);
+		
+		// Add the name of the wav
+		str.append("/");
+		str.append(fileName);
+		
+		char* buffer = new char[str.getByteCount() + 1];
+		str.copyToCharArray(buffer);
+		
+		_sounds[type] = Mix_LoadWAV(buffer);
+		
+		delete[] buffer;
+	};
 
 #endif
 

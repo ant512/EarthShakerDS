@@ -208,7 +208,8 @@ void GameSession::run(LevelDefinitionBase* level) {
 	const PadState& pad = Hardware::getPadState();
 
 	while (isRunning()) {
-
+		
+		checkLevelComplete();
 		animate();
 		timer();
 		move();
@@ -222,6 +223,33 @@ void GameSession::run(LevelDefinitionBase* level) {
 		}
 
 		Hardware::waitForVBlank();
+	}
+}
+
+void GameSession::checkLevelComplete() {
+	
+	if (_isLevelComplete) {
+		
+		SoundPlayer::stopAll();
+		SoundPlayer::playLevelComplete();
+		
+		while (_remainingTime > 0) {
+			_remainingTime -= _remainingTime >= 4 ? 4 : _remainingTime;
+			addScore(_remainingTime >= 4 ? 4 : _remainingTime);		// One point per second
+			
+			_hud.drawTimerBar(_remainingTime);
+			
+			Hardware::waitForVBlank();
+		}
+		
+		runTransition();
+		
+		if (_level->getNumber() < _levelDefinitions->size() - 1) {
+			startLevel(_levelDefinitions->at(_level->getNumber()));
+		} else {
+			_isRunning = false;
+			_isGameComplete = true;
+		}
 	}
 }
 
@@ -424,6 +452,7 @@ void GameSession::resetLevelVariables() {
 	_remainingTime = STARTING_TIME;
 	_remainingGravityTime = 0;
 	_isMapAvailable = true;
+	_isLevelComplete = false;
 
 	_animationTimer = 0;
 	_movementTimer = 0;
@@ -470,25 +499,5 @@ void GameSession::startLevel(LevelDefinitionBase* levelDefinition) {
 }
 
 void GameSession::endLevel() {
-
-	SoundPlayer::stopAll();
-	SoundPlayer::playLevelComplete();
-
-	while (_remainingTime > 0) {
-		_remainingTime -= _remainingTime >= 4 ? 4 : _remainingTime;
-		addScore(_remainingTime >= 4 ? 4 : _remainingTime);		// One point per second
-
-		_hud.drawTimerBar(_remainingTime);
-
-		Hardware::waitForVBlank();
-	}
-
-	runTransition();
-
-	if (_level->getNumber() < _levelDefinitions->size() - 1) {
-		startLevel(_levelDefinitions->at(_level->getNumber()));
-	} else {
-		_isRunning = false;
-		_isGameComplete = true;
-	}
+	_isLevelComplete = true;
 }

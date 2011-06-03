@@ -193,6 +193,7 @@ private:
 	bool _isRunning;						/**< True if the session is running. */
 	bool _isGameComplete;					/**< True if the player beat all levels. */
 	bool _isGameOver;						/**< True if the player lost the game. */
+	bool _isLevelComplete;					/**< True if the player has beaten the current level. */
 
 	/**
 	 * Redraws the level.  Uses a timer system, so calling the method will not
@@ -261,6 +262,8 @@ private:
 	 * Decreases the gravity inversion timer if it is currently running.
 	 */
 	void decreaseGravityTime();
+	
+	void checkLevelComplete();
 };
 
 #endif

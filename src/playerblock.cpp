@@ -38,7 +38,14 @@ bool PlayerBlock::pushLeft() {
 
 		// Attempt to apply a force to the block or, if that fails, attempt to
 		// dig the block
-		if (!block->pushLeft()) block->digFromRight();
+		if (!block->pushLeft()) {
+			
+			// Re-fetch the block in case it has moved or no longer exists
+			block = _game->getLevel()->getBlockAt(_x - 1, _y);
+
+			if (block != NULL) block->digFromRight();
+		}
+		
 	}
 
 	// Ensure that pushing the block hasn't put us in a situation where we can't
@@ -69,7 +76,13 @@ bool PlayerBlock::pushRight() {
 
 		// Attempt to apply a force to the block or, if that fails, attempt to
 		// dig the block
-		if (!block->pushRight()) block->digFromLeft();
+		if (!block->pushRight()) {
+			
+			// Re-fetch the block in case it has moved or no longer exists
+			block = _game->getLevel()->getBlockAt(_x + 1, _y);
+			
+			if (block != NULL) block->digFromLeft();
+		}
 	}
 
 	// Ensure that pushing the block hasn't put us in a situation where we can't
@@ -100,7 +113,13 @@ bool PlayerBlock::pushUp() {
 
 		// Attempt to apply a force to the block or, if that fails, attempt to
 		// dig the block
-		if (!block->pushUp()) block->digFromBelow();
+		if (!block->pushUp()) {
+			
+			// Re-fetch the block in case it has moved or no longer exists
+			block = _game->getLevel()->getBlockAt(_x, _y - 1);
+			
+			if (block != NULL) block->digFromBelow();
+		}
 	}
 
 	// Ensure that pushing the block hasn't put us in a situation where we can't
@@ -131,7 +150,13 @@ bool PlayerBlock::pushDown() {
 
 		// Attempt to apply a force to the block or, if that fails, attempt to
 		// dig the block
-		if (!block->pushDown()) block->digFromAbove();
+		if (!block->pushDown()) {
+			
+			// Re-fetch the block in case it has moved or no longer exists
+			block = _game->getLevel()->getBlockAt(_x, _y + 1);
+			
+			if (block != NULL) block->digFromAbove();
+		}
 	}
 
 	// Ensure that pushing the block hasn't put us in a situation where we can't
@@ -149,7 +174,6 @@ bool PlayerBlock::pushDown() {
 
 	return false;
 }
-
 
 void PlayerBlock::pokeLeft() {
 
