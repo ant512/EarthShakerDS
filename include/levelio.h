@@ -11,6 +11,8 @@
 
 class LevelIO {
 public:
+	
+	static WoopsiGfx::WoopsiString getTargetDirectoryName();
 
 	/**
 	 * Save the supplied level definition to disk.  Files will be saved in

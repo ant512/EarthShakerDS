@@ -305,7 +305,11 @@ void LevelEditor::saveLevel() {
 void LevelEditor::loadLevel() {
 	resetLevel();
 
-	LevelDefinitionBase* def = LevelIO::load("/data/earthshakerds/test");
+#ifndef USING_SDL
+	LevelDefinitionBase* def = LevelIO::load("test");
+#else
+	LevelDefinitionBase* def = LevelIO::load("test");
+#endif
 
 	if (def == NULL) return;
 

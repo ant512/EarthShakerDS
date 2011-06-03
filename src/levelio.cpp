@@ -1,8 +1,53 @@
+#include <nds.h>
+
 #ifndef USING_SDL
 #include <fat.h>
+#else
+#include <stdlib.h>
+#include <stdio.h>    
+#include <pwd.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #endif
 
 #include "levelio.h"
+
+WoopsiGfx::WoopsiString LevelIO::getTargetDirectoryName() {
+	
+#ifndef USING_SDL
+	
+	WoopsiGfx::WoopsiString dirName("/data/earthshakerds/");
+
+#else
+	
+	// Get user's home directory
+	const char *homeDir = getenv("HOME");
+	
+	if (!homeDir) {
+		struct passwd* pwd = getpwuid(getuid());
+		
+		if (pwd) {
+			homeDir = pwd->pw_dir;
+		}
+	}
+	
+	WoopsiGfx::WoopsiString dirName(homeDir);
+	dirName.append("/EarthShakerDS");
+	
+	char* buffer = new char[dirName.getByteCount() + 1];
+	dirName.copyToCharArray(buffer);
+	
+	mkdir(buffer, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	
+	delete buffer;
+	
+	dirName.append("/");
+	
+#endif
+	
+	return dirName;
+}
 
 void LevelIO::save(LevelDefinitionBase* level) {
 
@@ -11,8 +56,9 @@ void LevelIO::save(LevelDefinitionBase* level) {
 	if (!fatInitDefault()) return;
 
 #endif
+	
+	WoopsiGfx::WoopsiString fileName = getTargetDirectoryName();
 
-	WoopsiGfx::WoopsiString fileName("/data/earthshakerds/");
 	fileName.append(level->getName());
 
 	BinaryFile file(fileName, BinaryFile::FILE_MODE_WRITE, BinaryFile::ENDIAN_MODE_BIG_ENDIAN);
@@ -68,8 +114,11 @@ MutableLevelDefinition* LevelIO::load(const WoopsiGfx::WoopsiString& fileName) {
 	if (!fatInitDefault()) return NULL;
 
 #endif
+	
+	WoopsiGfx::WoopsiString fileAndPathName = getTargetDirectoryName();
+	fileAndPathName.append(fileName);
 
-	BinaryFile file(fileName, BinaryFile::FILE_MODE_READ, BinaryFile::ENDIAN_MODE_BIG_ENDIAN);
+	BinaryFile file(fileAndPathName, BinaryFile::FILE_MODE_READ, BinaryFile::ENDIAN_MODE_BIG_ENDIAN);
 
 	if (!file.isReadyForIO()) return NULL;
 
