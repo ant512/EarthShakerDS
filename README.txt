@@ -103,6 +103,10 @@ editor from the test mode by either finishing the level, losing all of your
 lives, or by switching to pause mode (press Start) and then pressing the X
 button.
 
+Level data is saved in "/data/EarthShakerDS/".  The "EarthShakerDS" directory is
+created automatically if it does not exist, but the "data" folder needs to be
+created manually.
+
 
 Requirements
 ------------
