@@ -11,6 +11,8 @@
 
 class LevelIO {
 public:
+
+	static void makeDir(const WoopsiGfx::WoopsiString& name);
 	
 	static WoopsiGfx::WoopsiString getTargetDirectoryName();
 

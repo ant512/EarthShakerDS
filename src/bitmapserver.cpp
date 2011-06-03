@@ -364,54 +364,65 @@ void BitmapServer::changeSoilBmp(SoilType type) {
 		case SOIL_TYPE_WHITE:
 			source = new SoilBmp();
 			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			delete source;
 			break;
 		case SOIL_TYPE_RED:
 			source = new SoilBmp();
 			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
 			swapColours(COLOUR_WHITE, COLOUR_RED, _soilBmp);
 			swapColours(COLOUR_WHITE_DARK, COLOUR_RED_DARK, _soilBmp);
+			delete source;
 			break;
 		case SOIL_TYPE_GREEN:
 			source = new SoilBmp();
 			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
 			swapColours(COLOUR_WHITE, COLOUR_GREEN, _soilBmp);
 			swapColours(COLOUR_WHITE_DARK, COLOUR_GREEN_DARK, _soilBmp);
+			delete source;
 			break;
 		case SOIL_TYPE_BLUE:
 			source = new SoilBmp();
 			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
 			swapColours(COLOUR_WHITE, COLOUR_BLUE, _soilBmp);
 			swapColours(COLOUR_WHITE_DARK, COLOUR_BLUE_DARK, _soilBmp);
+			delete source;
 			break;
 		case SOIL_TYPE_CYAN:
 			source = new SoilBmp();
 			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
 			swapColours(COLOUR_WHITE, COLOUR_CYAN, _soilBmp);
 			swapColours(COLOUR_WHITE_DARK, COLOUR_CYAN_DARK, _soilBmp);
+			delete source;
 			break;
 		case SOIL_TYPE_MAGENTA:
 			source = new SoilBmp();
 			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
 			swapColours(COLOUR_WHITE, COLOUR_MAGENTA, _soilBmp);
 			swapColours(COLOUR_WHITE_DARK, COLOUR_MAGENTA_DARK, _soilBmp);
+			delete source;
 			break;
 		case SOIL_TYPE_YELLOW:
 			source = new SoilBmp();
 			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
 			swapColours(COLOUR_WHITE, COLOUR_YELLOW, _soilBmp);
 			swapColours(COLOUR_WHITE_DARK, COLOUR_YELLOW_DARK, _soilBmp);
+			delete source;
 			break;
 		case SOIL_TYPE_HONEYCOMB:
 			source = new HoneycombSoilBmp();
 			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			delete source;
 			break;
 		case SOIL_TYPE_QUESTION:
 			source = new QuestionWallBmp();
 			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
+			delete source;
 			break;
 		case SOIL_TYPE_BOULDER:
 			source = _boulderBmp;
 			gfx->drawBitmap(0, 0, source->getWidth(), source->getHeight(), source, 0, 0);
 			break;
 	}
+
+	delete gfx;
 }

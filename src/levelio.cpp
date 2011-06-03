@@ -19,11 +19,21 @@
 
 #include "levelio.h"
 
+void LevelIO::makeDir(const WoopsiGfx::WoopsiString& name) {
+	char* buffer = new char[name.getByteCount() + 1];
+	name.copyToCharArray(buffer);
+	
+	mkdir(buffer, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	
+	delete[] buffer;
+}
+
 WoopsiGfx::WoopsiString LevelIO::getTargetDirectoryName() {
 	
 #ifndef USING_SDL
 	
-	WoopsiGfx::WoopsiString dirName("/data/EarthShakerDS");
+	WoopsiGfx::WoopsiString dirName("/data");
+	makeDir(dirName);
 
 #else
 	
@@ -39,17 +49,12 @@ WoopsiGfx::WoopsiString LevelIO::getTargetDirectoryName() {
 	}
 	
 	WoopsiGfx::WoopsiString dirName(homeDir);
-	dirName.append("/EarthShakerDS");
 
 #endif
-	
-	char* buffer = new char[dirName.getByteCount() + 1];
-	dirName.copyToCharArray(buffer);
-	
-	mkdir(buffer, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-	
-	delete[] buffer;
-	
+
+	dirName.append("/EarthShakerDS");
+	makeDir(dirName);
+		
 	dirName.append("/");
 	
 	return dirName;
