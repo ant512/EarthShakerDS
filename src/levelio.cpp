@@ -1,14 +1,20 @@
 #include <nds.h>
 
-#ifndef USING_SDL
-#include <fat.h>
-#else
 #include <stdlib.h>
-#include <stdio.h>    
+#include <stdio.h>   
+
+#ifndef USING_SDL
+
+#include <fat.h>
+#include <dirent.h>
+
+#else
+ 
 #include <pwd.h>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+
 #endif
 
 #include "levelio.h"
@@ -17,7 +23,7 @@ WoopsiGfx::WoopsiString LevelIO::getTargetDirectoryName() {
 	
 #ifndef USING_SDL
 	
-	WoopsiGfx::WoopsiString dirName("/data/earthshakerds/");
+	WoopsiGfx::WoopsiString dirName("/data/EarthShakerDS");
 
 #else
 	
@@ -34,17 +40,17 @@ WoopsiGfx::WoopsiString LevelIO::getTargetDirectoryName() {
 	
 	WoopsiGfx::WoopsiString dirName(homeDir);
 	dirName.append("/EarthShakerDS");
+
+#endif
 	
 	char* buffer = new char[dirName.getByteCount() + 1];
 	dirName.copyToCharArray(buffer);
 	
 	mkdir(buffer, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 	
-	delete buffer;
+	delete[] buffer;
 	
 	dirName.append("/");
-	
-#endif
 	
 	return dirName;
 }
