@@ -180,12 +180,12 @@ void LevelEditor::placeBlock() {
 
 	s32 dataIndex = (_cursorY * LEVEL_WIDTH) + _cursorX;
 
-	if (type != _levelData[dataIndex]) {
-		LevelFactory::placeBlock(_level, type, _cursorX, _cursorY, NULL);
-		_levelData[dataIndex] = type;
+	if (type == _levelData[dataIndex]) return;
 
-		SoundPlayer::playBlockLand();
-	}
+	LevelFactory::placeBlock(_level, type, _cursorX, _cursorY, NULL);
+	_levelData[dataIndex] = type;
+
+	SoundPlayer::playBlockLand();
 }
 
 void LevelEditor::render() {
