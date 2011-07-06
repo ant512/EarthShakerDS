@@ -69,13 +69,6 @@ LevelEditor::LevelEditor() {
 	_activePanel = _mapPanel;
 
 	redrawAll();
-
-	// Wait for A to be released
-	const PadState& pad = Hardware::getPadState();
-
-	while(pad.a) {
-		Hardware::waitForVBlank();
-	}
 }
 
 LevelEditor::~LevelEditor() {
@@ -106,25 +99,25 @@ void LevelEditor::main() {
 
 		_blockSelector->iterate();
 
-		const PadState& pad = Hardware::getPadState();
+		const Pad& pad = Hardware::getPad();
 
-		if (pad.a) {
+		if (pad.isAHeld()) {
 			placeBlock();
 		}
 
-		if (pad.b) {
+		if (pad.isBHeld()) {
 			removeBlock();
 		}
 
-		if (pad.up) {
+		if (pad.isUpHeld()) {
 			moveCursorTo(_cursorX, _cursorY - 1);
-		} else if (pad.down) {
+		} else if (pad.isDownHeld()) {
 			moveCursorTo(_cursorX, _cursorY + 1);
 		}
 
-		if (pad.left) {
+		if (pad.isLeftHeld()) {
 			moveCursorTo(_cursorX - 1, _cursorY);
-		} else if (pad.right) {
+		} else if (pad.isRightHeld()) {
 			moveCursorTo(_cursorX + 1, _cursorY);
 		}
 	}

@@ -78,9 +78,9 @@ public:
 	 * appropriately.
 	 */
 	void iterate() {
-		const PadState& pad = Hardware::getPadState();
+		const Pad& pad = Hardware::getPad();
 
-		if (pad.l) {
+		if (pad.isLHeld()) {
 			drawCursor();
 			--_selectedIndex;
 
@@ -90,7 +90,7 @@ public:
 			drawCursor();
 		}
 
-		if (pad.r) {
+		if (pad.isRHeld()) {
 			drawCursor();
 			++_selectedIndex;
 

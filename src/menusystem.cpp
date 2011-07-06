@@ -73,7 +73,7 @@ void MenuSystem::renderOptions() {
 
 void MenuSystem::iterate() {
 
-	const PadState& pad = Hardware::getPadState();
+	const Pad& pad = Hardware::getPad();
 
 	switch (_state) {
 		case STATE_NORMAL:
@@ -84,7 +84,7 @@ void MenuSystem::iterate() {
 
 			// Wait for buttons to be released so we don't immediately choose an
 			// option on the next menu
-			if (!pad.a && !pad.start && !pad.b) {
+			if (!pad.isAHeld() && !pad.isStartHeld() && !pad.isBHeld()) {
 				_state = STATE_NORMAL;
 			}
 			break;
@@ -99,9 +99,9 @@ void MenuSystem::iterateMenu() {
 
 	_timer = 0;
 
-	const PadState& pad = Hardware::getPadState();
+	const Pad& pad = Hardware::getPad();
 
-	if (pad.a || pad.start) {
+	if (pad.isAHeld() || pad.isStartHeld()) {
 		if (_activeMenu->isSubMenuSelected()) {
 
 			// Switch to sub menu
@@ -118,7 +118,7 @@ void MenuSystem::iterateMenu() {
 
 		_state = STATE_SWITCHING_MENU;
 
-	} else if (pad.b) {
+	} else if (pad.isBHeld()) {
 		if (_activeMenu->getParent() != NULL) {
 
 			// Switch to parent menu
@@ -130,19 +130,19 @@ void MenuSystem::iterateMenu() {
 			SoundPlayer::playBlockLand();
 			_state = STATE_SWITCHING_MENU;
 		}
-	} else if (pad.up) {
+	} else if (pad.isUpHeld()) {
 		_activeMenu->moveToPreviousOption();
 		SoundPlayer::playBlockFall();
 		render();
-	} else if (pad.down || pad.select) {
+	} else if (pad.isDownHeld() || pad.isSelectHeld()) {
 		_activeMenu->moveToNextOption();
 		SoundPlayer::playBlockFall();
 		render();
-	} else if (pad.right) {
+	} else if (pad.isRightHeld()) {
 		_activeMenu->moveToNextPage();
 		SoundPlayer::playBlockFall();
 		render();
-	} else if (pad.left) {
+	} else if (pad.isLeftHeld()) {
 		_activeMenu->moveToPreviousPage();
 		SoundPlayer::playBlockFall();
 		render();

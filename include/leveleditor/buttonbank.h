@@ -7,7 +7,8 @@
 #include "buttonbase.h"
 #include "buttonlistener.h"
 #include "hardware.h"
-#include "padstate.h"
+#include "pad.h"
+#include "stylus.h"
 
 /**
  * Contains a list of buttons and raises events when one is clicked.
@@ -56,11 +57,11 @@ public:
 	 * Runs all button bank logic.  Reacts to stylus presses.
 	 */
 	void iterate() {
-		const StylusState& stylus = Hardware::getStylusState();
+		const Stylus& stylus = Hardware::getStylus();
 
-		if (stylus.newPress) {
-			click(stylus.x, stylus.y);
-		} else if (stylus.released) {
+		if (stylus.isNewPress()) {
+			click(stylus.getX(), stylus.getY());
+		} else if (stylus.isReleased()) {
 			release();
 		}
 	};

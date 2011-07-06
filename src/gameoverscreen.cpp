@@ -28,12 +28,12 @@ GameOverScreen::GameOverScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics*
 void GameOverScreen::iterate() {
 	--_timer;
 
-	const PadState& pad = Hardware::getPadState();
+	const Pad& pad = Hardware::getPad();
 
-	if (pad.a) {
+	if (pad.isANewPress()) {
 
 		// Wait for A to be released so that it doesn't start a new game
-		while (pad.a) {
+		while (pad.isAHeld()) {
 			Hardware::waitForVBlank();
 		}
 

@@ -13,7 +13,7 @@
 #include "hardware.h"
 #include "level.h"
 #include "leveldefinitionbase.h"
-#include "padstate.h"
+#include "pad.h"
 #include "playerblock.h"
 #include "scroller.h"
 #include "titlescreen.h"
