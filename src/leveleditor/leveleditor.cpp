@@ -175,6 +175,18 @@ void LevelEditor::placeBlock() {
 
 	if (type == _levelData[dataIndex]) return;
 
+	if (type == BLOCK_TYPE_PLAYER || type == BLOCK_TYPE_DOOR) {
+
+		// Erase the existing player/door block from the level data.  The
+		// LevelFactory class will handle removing it from the level itself.
+		for (s32 i = 0; i < LEVEL_WIDTH * LEVEL_HEIGHT; ++i) {
+			if (_levelData[i] == type) {
+				_levelData[i] = BLOCK_TYPE_NULL;
+				break;
+			}
+		}
+	}
+
 	LevelFactory::placeBlock(_level, type, _cursorX, _cursorY, NULL);
 	_levelData[dataIndex] = type;
 
