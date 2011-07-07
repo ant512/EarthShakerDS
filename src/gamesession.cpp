@@ -128,24 +128,14 @@ void GameSession::showMap() {
 	SoundPlayer::stopAll();
 	SoundPlayer::playMapTheme();
 
-	const PadState& pad = Hardware::getPadState();
+	const Pad& pad = Hardware::getPad();
 
-	bool selectHeld = pad.select;
-
-	// Show the map until the timer expires or X is pressed
+	// Show the map until the timer expires or Select is pressed
 	while (timer < MAP_TIME) {
 		++timer;
 		Hardware::waitForVBlank();
 
-		if (!pad.select && selectHeld) {
-
-			// Select has been released; we can now listen for Select as a way
-			// of exiting the map early
-			selectHeld = false;
-
-		} else if (pad.select && !selectHeld) {
-
-			// Select has been pressed again; we can exit the map early
+		if (!pad.isSelectNewPress()) {
 			break;
 		}
 	}
@@ -167,7 +157,7 @@ void GameSession::runTransition() {
 
 void GameSession::pause() {
 
-	const PadState& pad = Hardware::getPadState();
+	const Pad& pad = Hardware::getPad();
 
 	_topGfx->drawFilledRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 16, COLOUR_BLACK);
 	_topGfx->drawText(104, 84, &_font, "Paused", 0, 6, COLOUR_YELLOW);
@@ -176,36 +166,29 @@ void GameSession::pause() {
 	SoundPlayer::stopAll();
 	SoundPlayer::playPause();
 
-	// Wait for start to be released
-	while (pad.start) {
+	Hardware::waitForVBlank();
+
+	// Wait for Start or X
+	while (!pad.isStartNewPress() && !pad.isXNewPress()) {
 		Hardware::waitForVBlank();
 	}
 
-	// Wait for another button press
-	while (!pad.start && !pad.x) {
-		Hardware::waitForVBlank();
-	}
-
-	if (pad.start) {
-
-		// Wait for start to be released
-		while (pad.start) {
-			Hardware::waitForVBlank();
-		}
-
+	if (pad.isStartNewPress()) {
 		render();
-	} else if (pad.x) {
+	} else if (pad.isXNewPress()) {
 
 		// End the session
 		_isRunning = false;
 	}
+
+	Hardware::waitForVBlank();
 }
 
 void GameSession::run(LevelDefinitionBase* level) {
 
 	startLevel(level);
 
-	const PadState& pad = Hardware::getPadState();
+	const Pad& pad = Hardware::getPad();
 
 	while (isRunning()) {
 		
@@ -214,11 +197,11 @@ void GameSession::run(LevelDefinitionBase* level) {
 		timer();
 		move();
 
-		if (pad.start) {
+		if (pad.isStartNewPress()) {
 			pause();
-		} else if (pad.select && _isMapAvailable) {
+		} else if (pad.isSelectNewPress() && _isMapAvailable) {
 			showMap();
-		} else if (pad.r && pad.l) {
+		} else if (pad.isLHeld() && pad.isLHeld()) {
 			commitSuicide();
 		}
 
@@ -325,16 +308,16 @@ void GameSession::move() {
 void GameSession::movePlayer() {
 	bool moved = false;
 
-	const PadState& pad = Hardware::getPadState();
+	const Pad& pad = Hardware::getPad();
 	PlayerBlock* player = _level->getPlayerBlock();
 
-	if (Hardware::isMostRecentDirectionVertical()) {
+	if (pad.isMostRecentDirectionVertical()) {
 
 		// Attempt to move vertically before horizontally, as the most
 		// recent button pushed was a vertical direction
-		if (pad.up) {
+		if (pad.isUpHeld()) {
 			moved = player->pushUp();
-		} else if (pad.down) {
+		} else if (pad.isDownHeld()) {
 			moved = player->pushDown();
 		}
 
@@ -344,9 +327,9 @@ void GameSession::movePlayer() {
 		// let go of one direction and then press the next within a couple
 		// of VBLs.
 		if (!moved) {
-			if (pad.left) {
+			if (pad.isLeftHeld()) {
 				moved = player->pushLeft();
-			} else if (pad.right) {
+			} else if (pad.isRightHeld()) {
 				moved = player->pushRight();
 			}
 		}
@@ -354,9 +337,9 @@ void GameSession::movePlayer() {
 
 		// Attempt to move horizontally before vertically, as the most
 		// recent button pushed was a horizontal direction
-		if (pad.left) {
+		if (pad.isLeftHeld()) {
 			moved = player->pushLeft();
-		} else if (pad.right) {
+		} else if (pad.isRightHeld()) {
 			moved = player->pushRight();
 		}
 
@@ -366,22 +349,22 @@ void GameSession::movePlayer() {
 		// let go of one direction and then press the next within a couple
 		// of VBLs.
 		if (!moved) {
-			if (pad.up) {
+			if (pad.isUpHeld()) {
 				moved = player->pushUp();
-			} else if (pad.down) {
+			} else if (pad.isDownHeld()) {
 				moved = player->pushDown();
 			}
 		}
 	}
 
 	if (!moved) {
-		if (pad.b) {
+		if (pad.isBHeld()) {
 			player->pokeDown();
-		} else if (pad.a) {
+		} else if (pad.isAHeld()) {
 			player->pokeRight();
-		} else if (pad.x) {
+		} else if (pad.isXHeld()) {
 			player->pokeUp();
-		} else if (pad.y) {
+		} else if (pad.isYHeld()) {
 			player->pokeLeft();
 		}
 	}

@@ -5,7 +5,8 @@
 #include <graphics.h>
 
 #include "sdlframebuffer.h"
-#include "padstate.h"
+#include "pad.h"
+#include "stylus.h"
 
 /**
  * Provides an interface to the DS' hardware.
@@ -41,46 +42,54 @@ public:
 	};
 
 	/**
-	 * Get a reference to a struct representing the state of the DS' buttons.
+	 * Get a reference to an object representing the state of the DS' buttons.
 	  *@return A reference to the current pad state.
 	 */
-	static inline const PadState& getPadState() {
+	static inline const Pad& getPad() {
 		return _pad;
 	};
 
 	/**
-	 * Get a reference to a struct representing the state of the DS' stylus.
+	 * Get a reference to an object representing the state of the DS' stylus.
 	  *@return A reference to the current stylus state.
 	 */
-	static inline const StylusState& getStylusState() {
+	static inline const Stylus& getStylus() {
 		return _stylus;
 	};
 
 	/**
-	 * Waits for the next VBlank.  Also updates the pad state.
+	 * Waits for the next VBlank.  Also updates the pad/stylus states.
 	 */
 	static void waitForVBlank();
 
 	/**
-	 * Check if the most recently-pressed direction was vertical or horizontal.
-	 * @return True if the most recently-pressed direction was vertical; false
-	 * if it was horizontal.
+	 * Get a pointer to the SDLFrameBuffer object that wraps around the top
+	 * frame buffer VRAM.
+	 * @return A pointer to a SDLFrameBuffer object that wraps around the top
+	 * frame buffer VRAM.
 	 */
-	static bool isMostRecentDirectionVertical();
+	static inline SDLFrameBuffer* getTopBuffer() { return _topBuffer; };
+
+	/**
+	 * Get a pointer to the SDLFrameBuffer object that wraps around the bottom
+	 * frame buffer VRAM.
+	 * @return A pointer to a SDLFrameBuffer object that wraps around the bottom
+	 * frame buffer VRAM.
+	 */
+	static inline SDLFrameBuffer* getBottomBuffer() { return _bottomBuffer; };
 
 private:
-	static PadState _pad;							/**< State of the DS' pad. */
-	static StylusState _stylus;						/**< State of the DS' stylus. */
-	static SDLFrameBuffer* _topBuffer;				/**< Top frame buffer. */
-	static SDLFrameBuffer* _bottomBuffer;			/**< Bottom frame buffer. */
-	static WoopsiGfx::Graphics* _topGfx;			/**< Top display graphics object. */
-	static WoopsiGfx::Graphics* _bottomGfx;			/**< Bottom display graphics object. */
-	static bool _isMostRecentDirectionVertical;		/**< Remembers the last direction pressed. */
+	static Pad _pad;						/**< State of the DS' pad. */
+	static Stylus _stylus;					/**< State of the DS' stylus. */
+	static SDLFrameBuffer* _topBuffer;		/**< Top frame buffer. */
+	static SDLFrameBuffer* _bottomBuffer;	/**< Bottom frame buffer. */
+	static WoopsiGfx::Graphics* _topGfx;	/**< Top display graphics object. */
+	static WoopsiGfx::Graphics* _bottomGfx;	/**< Bottom display graphics object. */
     
 #ifdef USING_SDL
     
-    static SDL_Surface* _surface;					/**< SDL surface for visual output. */
-	
+	static SDL_Surface* _surface;			/**< SDL surface for visual output. */
+
 #endif
 
 	/**
@@ -92,11 +101,6 @@ private:
 	 * Destructor.
 	 */
 	~Hardware() { };
-
-	/**
-	 * Update the cached pad state to match the current DS pad state.
-	 */ 
-	static void updatePadState();
 };
 
 #endif

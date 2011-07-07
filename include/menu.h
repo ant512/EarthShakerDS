@@ -9,7 +9,7 @@
 #include "gamefont.h"
 #include "hardware.h"
 #include "menuoption.h"
-#include "padstate.h"
+#include "pad.h"
 #include "spectrumcolours.h"
 
 /**

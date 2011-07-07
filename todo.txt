@@ -10,5 +10,3 @@ Todo
      - "Save":
        - Saves the current map.
        - Need a directory list and a keyboard.
-   - When placing a player block or door block in the level editor, any existing
-     players/doors get removed from the level but not the data cache!
