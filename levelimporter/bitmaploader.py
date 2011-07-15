@@ -25,7 +25,7 @@ class Bitmap:
 		8 - Supported
 		16 - Supported (untested)
 		24 - Supported
-		32 - Unsupported
+		32 - Supported
 	
 	"""
 	
