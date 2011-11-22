@@ -28,7 +28,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 "to distribute his original graphics and other "
 							 "assets with this remake .... Thanks to another "
 							 "world and polomint for their testing and feedback "
-							 ".... See ant.simianzombie.com for other projects "
+							 ".... See simianzombie.com for other projects "
 							 ".... Earth Shaker DS was written using WoopsiGfx, "
 							 "a 2D graphics library that includes features such "
 							 "as DMA acceleration, a set of 2D drawing routines, "
