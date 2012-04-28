@@ -18,7 +18,7 @@ public:
 	/**
 	 * Destructor.
 	 */
-	inline ~LevelDefinitionBase() { };
+	virtual inline ~LevelDefinitionBase() { };
 
 	/**
 	 * Gets the width of the level.
