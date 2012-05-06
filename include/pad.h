@@ -437,73 +437,73 @@ public:
 
 		Uint8* keyState = SDL_GetKeyState(NULL);
 
-		if (keyState[SDLK_UP] & KEY_UP) {
+		if (keyState[SDLK_UP]) {
 			++_up;
 		} else if (_up > 0) {
 			_up = -1;
 		}
 
-		if (keyState[SDLK_DOWN] & KEY_DOWN) {
+		if (keyState[SDLK_DOWN]) {
 			++_down;
 		} else if (_down > 0) {
 			_down = -1;
 		}
 
-		if (keyState[SDLK_LEFT] & KEY_LEFT) {
+		if (keyState[SDLK_LEFT]) {
 			++_left;
 		} else if (_left > 0) {
 			_left = -1;
 		}
 
-		if (keyState[SDLK_RIGHT] & KEY_RIGHT) {
+		if (keyState[SDLK_RIGHT]) {
 			++_right;
 		} else if (_right > 0) {
 			_right = -1;
 		}
 
-		if (keyState[SDLK_a] & KEY_L) {
+		if (keyState[SDLK_a]) {
 			++_l;
 		} else if (_l > 0) {
 			_l = -1;
 		}
 
-		if (keyState[SDLK_s] & KEY_R) {
+		if (keyState[SDLK_s]) {
 			++_r;
 		} else if (_r > 0) {
 			_r = -1;
 		}
 
-		if (keyState[SDLK_z] & KEY_A) {
+		if (keyState[SDLK_z]) {
 			++_a;
 		} else if (_a > 0) {
 			_a = -1;
 		}
 
-		if (keyState[SDLK_x] & KEY_B) {
+		if (keyState[SDLK_x]) {
 			++_b;
 		} else if (_b > 0) {
 			_b = -1;
 		}
 
-		if (keyState[SDLK_c] & KEY_X) {
+		if (keyState[SDLK_c]) {
 			++_x;
 		} else if (_x > 0) {
 			_x = -1;
 		}
 
-		if (keyState[SDLK_v] & KEY_Y) {
+		if (keyState[SDLK_v]) {
 			++_y;
 		} else if (_y > 0) {
 			_y = -1;
 		}
 
-		if (keyState[SDLK_d] & KEY_START) {
+		if (keyState[SDLK_d]) {
 			++_start;
 		} else if (_start > 0) {
 			_start = -1;
 		}
 
-		if (keyState[SDLK_f] & KEY_SELECT) {
+		if (keyState[SDLK_f]) {
 			++_select;
 		} else if (_select > 0) {
 			_select = -1;
