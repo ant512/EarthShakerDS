@@ -103,10 +103,13 @@ void MenuSystem::iterateMenu() {
 
 	if (pad.isAHeld() || pad.isStartHeld()) {
 		if (_activeMenu->isSubMenuSelected()) {
+			
+			// Abort if there's nothing to select
+			if (_activeMenu->getSelectedSubMenu() == NULL) return;
 
 			// Switch to sub menu
 			_activeMenu = _activeMenu->getSelectedSubMenu();
-
+			
 			_activeMenu->setSelectedIndex(0);
 			render();
 

@@ -27,7 +27,7 @@
 #include "buttonlistener.h"
 #include "leveleditorpanelbase.h"
 #include "leveleditorfilepanel.h"
-#include "leveleditorpalettepanel.h"
+#include "leveleditoroptionspanel.h"
 #include "leveleditormappanel.h"
 #include "levelfactory.h"
 
@@ -59,10 +59,10 @@ LevelEditor::LevelEditor() {
 
 	_buttons = new ButtonBank(this, _bottomGfx);
 	_buttons->addButton(new TextButton(2, 174, 80, 16, PANEL_MAP, "Map"));
-	_buttons->addButton(new TextButton(88, 174, 80, 16, PANEL_PALETTE, "Palette"));
+	_buttons->addButton(new TextButton(88, 174, 80, 16, PANEL_PALETTE, "Options"));
 	_buttons->addButton(new TextButton(174, 174, 80, 16, PANEL_FILE, "File"));
 
-	_palettePanel = new LevelEditorPalettePanel(_bottomGfx);
+	_optionsPanel = new LevelEditorOptionsPanel(_bottomGfx, this);
 	_mapPanel = new LevelEditorMapPanel(_bottomGfx, _level);
 	_filePanel = new LevelEditorFilePanel(_bottomGfx, this);
 
@@ -73,7 +73,7 @@ LevelEditor::LevelEditor() {
 
 LevelEditor::~LevelEditor() {
 	delete _buttons;
-	delete _palettePanel;
+	delete _optionsPanel;
 	delete _mapPanel;
 	delete _filePanel;
 	delete _level;
@@ -82,7 +82,7 @@ LevelEditor::~LevelEditor() {
 }
 
 void LevelEditor::main() {
-	while (_filePanel->isRunning()) {
+	while (_optionsPanel->isRunning()) {
 
 		Hardware::waitForVBlank();
 
@@ -90,7 +90,31 @@ void LevelEditor::main() {
 		_activePanel->iterate();
 
 		render();
-
+		
+		const Pad& pad = Hardware::getPad();
+		
+		if (pad.isStartNewPress()) {
+			while (pad.isStartHeld()) {
+				Hardware::waitForVBlank();
+			}
+			
+			testLevel();
+		}
+		
+		if (pad.isSelectNewPress()) {
+			_activePanel->erase();
+			
+			if (_activePanel == _mapPanel) {
+				_activePanel = _optionsPanel;
+			} else if (_activePanel == _optionsPanel) {
+				_activePanel = _filePanel;
+			} else if (_activePanel == _filePanel) {
+				_activePanel = _mapPanel;
+			}
+			
+			_activePanel->render();
+		}
+		
 		++_movementTimer;
 
 		if (_movementTimer < MOVEMENT_TIME) continue;
@@ -98,8 +122,6 @@ void LevelEditor::main() {
 		_movementTimer = 0;
 
 		_blockSelector->iterate();
-
-		const Pad& pad = Hardware::getPad();
 
 		if (pad.isAHeld()) {
 			placeBlock();
@@ -151,13 +173,19 @@ void LevelEditor::removeBlock() {
 	
 	if (_levelData[dataIndex] == BLOCK_TYPE_NULL) return;
 
-	if ((_level->getPlayerBlock()->getX() == _cursorX) && (_level->getPlayerBlock()->getY() == _cursorY)) {
-		// If we're removing the player block we need to forget it
-		_level->setPlayerBlock(NULL);
-	} else if ((_level->getDoorBlock()->getX() == _cursorX) && (_level->getDoorBlock()->getY() == _cursorY)) {
+	if (_level->getPlayerBlock() != NULL) {
+		if ((_level->getPlayerBlock()->getX() == _cursorX) && (_level->getPlayerBlock()->getY() == _cursorY)) {
+			// If we're removing the player block we need to forget it
+			_level->setPlayerBlock(NULL);
+		}
+	}
+	
+	if (_level->getDoorBlock() != NULL) {
+		if ((_level->getDoorBlock()->getX() == _cursorX) && (_level->getDoorBlock()->getY() == _cursorY)) {
 
-		// If we're overwriting the door block we need to forget it
-		_level->setDoorBlock(NULL);
+			// If we're removing the door block we need to forget it
+			_level->setDoorBlock(NULL);
+		}
 	}
 
 	_level->removeBlockAt(_cursorX, _cursorY);
@@ -169,28 +197,31 @@ void LevelEditor::removeBlock() {
 }
 
 void LevelEditor::placeBlock() {
+	
 	BlockType type = _blockSelector->getSelectedBlockType();
-
 	s32 dataIndex = (_cursorY * LEVEL_WIDTH) + _cursorX;
-
-	if (type == _levelData[dataIndex]) return;
-
-	if (type == BLOCK_TYPE_PLAYER || type == BLOCK_TYPE_DOOR) {
-
-		// Erase the existing player/door block from the level data.  The
-		// LevelFactory class will handle removing it from the level itself.
-		for (s32 i = 0; i < LEVEL_WIDTH * LEVEL_HEIGHT; ++i) {
-			if (_levelData[i] == type) {
-				_levelData[i] = BLOCK_TYPE_NULL;
-				break;
-			}
-		}
+	
+	// Don't place the block if the existing block at these co-ords is the same
+	if (_levelData[dataIndex] == type) return;
+	
+	// We need to wipe out the existing player block in the local data cache if
+	// we're placing it in a new location, or we'll end up with a discrepancy
+	// between the level and the cache.
+	if (type == BLOCK_TYPE_PLAYER && _level->getPlayerBlock() != NULL) {
+		_levelData[(_level->getPlayerBlock()->getY() * LEVEL_WIDTH) + _level->getPlayerBlock()->getX()] = BLOCK_TYPE_NULL;
+	}
+	
+	// Ditto for doors
+	if (type == BLOCK_TYPE_DOOR && _level->getDoorBlock() != NULL) {
+		_levelData[(_level->getDoorBlock()->getY() * LEVEL_WIDTH) + _level->getDoorBlock()->getX()] = BLOCK_TYPE_NULL;
 	}
 
-	LevelFactory::placeBlock(_level, type, _cursorX, _cursorY, NULL);
-	_levelData[dataIndex] = type;
+	if (type != _levelData[dataIndex]) {
+		LevelFactory::placeBlock(_level, type, _cursorX, _cursorY, NULL);
+		_levelData[dataIndex] = type;
 
-	SoundPlayer::playBlockLand();
+		SoundPlayer::playBlockLand();
+	}
 }
 
 void LevelEditor::render() {
@@ -235,7 +266,7 @@ void LevelEditor::handleButtonAction(ButtonBase* source) {
 			_activePanel = _mapPanel;
 			break;
 		case PANEL_PALETTE:
-			_activePanel = _palettePanel;
+			_activePanel = _optionsPanel;
 			break;
 		case PANEL_FILE:
 			_activePanel = _filePanel;
@@ -264,6 +295,13 @@ void LevelEditor::drawPanelBorder() {
 }
 
 void LevelEditor::testLevel() {
+	
+	// Prevent the level running if we don't have a start and an exit
+	if (_level->getPlayerBlock() == NULL || _level->getDoorBlock() == NULL) {
+		SoundPlayer::playPlayerExplode();
+		return;
+	}
+	
 	WoopsiArray<LevelDefinitionBase*> levels;
 	ImmutableLevelDefinition def(LEVEL_WIDTH, LEVEL_HEIGHT, 1, "test",
 								 _levelData, BOULDER_TYPE_YELLOW,
@@ -298,8 +336,8 @@ void LevelEditor::resetLevel() {
 	}
 }
 
-void LevelEditor::saveLevel() {
-	ImmutableLevelDefinition def(LEVEL_WIDTH, LEVEL_HEIGHT, 1, "test",
+void LevelEditor::saveLevel(const WoopsiGfx::WoopsiString& filename) {
+	ImmutableLevelDefinition def(LEVEL_WIDTH, LEVEL_HEIGHT, 1, filename,
 								 _levelData, BOULDER_TYPE_YELLOW,
 								 WALL_TYPE_BRICK_RED, SOIL_TYPE_BLUE,
 								 DOOR_TYPE_GREEN);
@@ -307,14 +345,10 @@ void LevelEditor::saveLevel() {
 	LevelIO::save(&def);
 }
 
-void LevelEditor::loadLevel() {
+void LevelEditor::loadLevel(const WoopsiGfx::WoopsiString& filename) {
 	resetLevel();
 
-#ifndef USING_SDL
-	LevelDefinitionBase* def = LevelIO::load("test");
-#else
-	LevelDefinitionBase* def = LevelIO::load("test");
-#endif
+	LevelDefinitionBase* def = LevelIO::load(filename);
 
 	if (def == NULL) return;
 

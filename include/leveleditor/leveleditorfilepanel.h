@@ -29,16 +29,43 @@ public:
 	 * @param editor Pointer to the editor that owns the panel.
 	 */
 	LevelEditorFilePanel(WoopsiGfx::Graphics* gfx, LevelEditor* editor) : LevelEditorPanelBase(gfx) {
-		_isRunning = true;
 		_editor = editor;
 
 		_buttons = new ButtonBank(this, gfx);
 
-		_buttons->addButton(new TextButton(8, 8, 100, 20, 0, "Load"));
-		_buttons->addButton(new TextButton(8, 32, 100, 20, 1, "Save"));
-		_buttons->addButton(new TextButton(8, 56, 100, 20, 2, "Test"));
-		_buttons->addButton(new TextButton(8, 80, 100, 20, 3, "New"));
-		_buttons->addButton(new TextButton(8, 104, 100, 20, 4, "Exit"));
+		_buttons->addButton(new TextButton(188, 100, 60, 20, 0, "Load"));
+		_buttons->addButton(new TextButton(188, 124, 60, 20, 1, "Save"));
+		
+		_buttons->addButton(new TextButton(8, 100, 16, 20, 2, "Q"));
+		_buttons->addButton(new TextButton(26, 100, 16, 20, 3, "W"));
+		_buttons->addButton(new TextButton(44, 100, 16, 20, 4, "E"));
+		_buttons->addButton(new TextButton(62, 100, 16, 20, 5, "R"));
+		_buttons->addButton(new TextButton(80, 100, 16, 20, 6, "T"));
+		_buttons->addButton(new TextButton(98, 100, 16, 20, 7, "Y"));
+		_buttons->addButton(new TextButton(116, 100, 16, 20, 8, "U"));
+		_buttons->addButton(new TextButton(134, 100, 16, 20, 9, "I"));
+		_buttons->addButton(new TextButton(152, 100, 16, 20, 10, "O"));
+		_buttons->addButton(new TextButton(170, 100, 16, 20, 11, "P"));
+		
+		_buttons->addButton(new TextButton(16, 124, 16, 20, 12, "A"));
+		_buttons->addButton(new TextButton(34, 124, 16, 20, 13, "S"));
+		_buttons->addButton(new TextButton(52, 124, 16, 20, 14, "D"));
+		_buttons->addButton(new TextButton(70, 124, 16, 20, 15, "F"));
+		_buttons->addButton(new TextButton(88, 124, 16, 20, 16, "G"));
+		_buttons->addButton(new TextButton(106, 124, 16, 20, 17, "H"));
+		_buttons->addButton(new TextButton(124, 124, 16, 20, 18, "J"));
+		_buttons->addButton(new TextButton(142, 124, 16, 20, 19, "K"));
+		_buttons->addButton(new TextButton(160, 124, 16, 20, 20, "L"));
+		
+		_buttons->addButton(new TextButton(24, 148, 16, 20, 21, "Z"));
+		_buttons->addButton(new TextButton(42, 148, 16, 20, 22, "X"));
+		_buttons->addButton(new TextButton(60, 148, 16, 20, 23, "C"));
+		_buttons->addButton(new TextButton(78, 148, 16, 20, 24, "V"));
+		_buttons->addButton(new TextButton(96, 148, 16, 20, 25, "B"));
+		_buttons->addButton(new TextButton(114, 148, 16, 20, 26, "N"));
+		_buttons->addButton(new TextButton(132, 148, 16, 20, 27, "M"));
+		_buttons->addButton(new TextButton(150, 148, 32, 20, 28, "SPC"));
+		_buttons->addButton(new TextButton(184, 148, 32, 20, 29, "DEL"));
 	};
 
 	/**
@@ -61,6 +88,7 @@ public:
 	 */
 	void render() {
 		_buttons->render();
+		drawFilename();
 	};
 
 	/**
@@ -70,38 +98,47 @@ public:
 	void handleButtonAction(ButtonBase* source) {
 		switch (source->getId()) {
 			case 0:
-				_editor->loadLevel();
+				if (_filename.getLength() > 0) {
+					_editor->loadLevel(_filename);
+				}
 				break;
 			case 1:
-				_editor->saveLevel();
+				if (_filename.getLength() > 0) {
+					_editor->saveLevel(_filename);
+				}
 				break;
-			case 2:
-				// Have to reset this manually as we'll miss the event
-				source->release();
-
-				_editor->testLevel();
+			case 28:
+				if (_filename.getLength() < 28) {
+					_filename.append(" ");
+					drawFilename();
+				}
 				break;
-			case 3:
-				_editor->resetLevel();
+			case 29:
+				_filename.remove(_filename.getLength() - 1);
+				drawFilename();
 				break;
-			case 4:
-				_isRunning = false;
+			default:
+				if (_filename.getLength() < 28) {
+					_filename.append(((TextButton*)source)->getText());
+					drawFilename();
+				}
 				break;
 		}
 	};
-
-	/**
-	 * Check if the panel is still running.
-	 * @return True if the panel is still running.
-	 */
-	bool isRunning() const {
-		return _isRunning;
+	
+	void drawFilename() {
+		_gfx->drawRect(10, 80, 236, 16, COLOUR_WHITE);
+		_gfx->drawFilledRect(11, 81, 234, 14, COLOUR_BLACK);
+		
+		GameFont* font = new GameFont();
+		_gfx->drawText(14, 84, font, _filename, 0, _filename.getLength(), COLOUR_WHITE);
+		delete font;
 	};
 
 private:
 	ButtonBank* _buttons;		/**< Collection of buttons in the panel. */
 	LevelEditor* _editor;		/**< Pointer to the owning level editor. */
-	bool _isRunning;			/**< True if the panel is still running. */
+	WoopsiGfx::WoopsiString _filename;	/**< The filename to load/save. */
 };
 
 #endif

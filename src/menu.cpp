@@ -22,6 +22,9 @@ Menu::~Menu() {
 }
 
 void Menu::moveToNextOption() {
+	
+	if (_options.size() == 0) return;
+	
 	if (_selectedIndex < getOptionCount() - 1) {
 
 		// Options without text are treated as spaces
@@ -39,6 +42,9 @@ void Menu::moveToNextOption() {
 }
 
 void Menu::moveToPreviousOption() {
+	
+	if (_options.size() == 0) return;
+	
 	if (_selectedIndex > 0) {
 
 		// Options without text are treated as spaces
@@ -56,6 +62,9 @@ void Menu::moveToPreviousOption() {
 }
 
 void Menu::moveToNextPage() {
+	
+	if (_options.size() == 0) return;
+	
 	if (_selectedIndex < getOptionCount() - 4) {
 		_selectedIndex += 3;
 
@@ -74,6 +83,9 @@ void Menu::moveToNextPage() {
 }
 
 void Menu::moveToPreviousPage() {
+	
+	if (_options.size() == 0) return;
+	
 	if (_selectedIndex > 3) {
 		_selectedIndex -= 3;
 
@@ -93,12 +105,14 @@ void Menu::moveToPreviousPage() {
 }
 
 void Menu::setSelectedIndex(s32 index) {
+	
+	if (_options.size() == 0) return;
 
 	if (index < 0) index = 0;
 	if (index > _options.size() - 1) index = _options.size() - 1;
 
 	_selectedIndex = index;
-
+	
 	// Options without text are treated as spaces
 	while (getSelectedText().getLength() == 0) {
 		++_selectedIndex;
@@ -127,6 +141,8 @@ Menu* Menu::getSubMenu(s32 index) const {
 }
 
 bool Menu::isSubMenuSelected() const {
+	if (_options.size() == 0) return false;
+	
 	return _options[_selectedIndex]->isSubMenu();
 }
 

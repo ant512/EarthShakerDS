@@ -50,6 +50,13 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	for (s32 i = 0; i < _levelDefinitions->size(); ++i) {
 		levelSelect->addOption(_levelDefinitions->at(i)->getName(), i);
 	}
+	
+	// Set up custom level select
+	Menu *customLevelSelect = new Menu("Custom Level", MENU_CUSTOM_LEVEL);
+	rootMenu->addSubMenu(customLevelSelect);
+	
+	// TODO: Read data folder, extract names, and add to select
+	
 
 	// Set up sound test
 

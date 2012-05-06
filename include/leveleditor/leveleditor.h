@@ -16,7 +16,7 @@
 
 class LevelEditorFilePanel;
 class LevelEditorMapPanel;
-class LevelEditorPalettePanel;
+class LevelEditorOptionsPanel;
 class LevelEditorPanelBase;
 class LevelEditorBlockSelector;
 
@@ -57,8 +57,8 @@ public:
 	 */
 	void handleButtonAction(ButtonBase* source);
 
-	void saveLevel();
-	void loadLevel();
+	void saveLevel(const WoopsiGfx::WoopsiString& filename);
+	void loadLevel(const WoopsiGfx::WoopsiString& filename);
 
 private:
 
@@ -84,7 +84,7 @@ private:
 	ButtonBank* _buttons;
 
 	LevelEditorFilePanel* _filePanel;
-	LevelEditorPalettePanel* _palettePanel;
+	LevelEditorOptionsPanel* _optionsPanel;
 	LevelEditorPanelBase* _activePanel;
 	LevelEditorMapPanel* _mapPanel;
 

@@ -15,29 +15,37 @@
 #include "rightarrowbmp.h"
 
 /**
- * Panel that allows block colours to be chosen.
+ * Panel that allows block colours and other options to be chosen.
  */
-class LevelEditorPalettePanel : public LevelEditorPanelBase, public ButtonListener {
+class LevelEditorOptionsPanel : public LevelEditorPanelBase, public ButtonListener {
 public:
 
 	/**
 	 * Constructor.
 	 * @param gfx Graphics object to draw with.
+	 * @param editor Pointer to the editor that owns the panel.
 	 */
-	LevelEditorPalettePanel(WoopsiGfx::Graphics* gfx) : LevelEditorPanelBase(gfx) {
+	LevelEditorOptionsPanel(WoopsiGfx::Graphics* gfx, LevelEditor* editor) : LevelEditorPanelBase(gfx) {
+		_isRunning = true;
+		_editor = editor;
+		
 		_buttons = new ButtonBank(this, gfx);
 
-		_buttons->addButton(new BitmapButton(8, 8, 16, 16, 0, &_leftArrowBmp));
-		_buttons->addButton(new BitmapButton(56, 8, 16, 16, 1, &_rightArrowBmp));
+		_buttons->addButton(new BitmapButton(8, 24, 16, 16, 0, &_leftArrowBmp));
+		_buttons->addButton(new BitmapButton(56, 24, 16, 16, 1, &_rightArrowBmp));
 
-		_buttons->addButton(new BitmapButton(8, 32, 16, 16, 2, &_leftArrowBmp));
-		_buttons->addButton(new BitmapButton(56, 32, 16, 16, 3, &_rightArrowBmp));
+		_buttons->addButton(new BitmapButton(8, 48, 16, 16, 2, &_leftArrowBmp));
+		_buttons->addButton(new BitmapButton(56, 48, 16, 16, 3, &_rightArrowBmp));
 
-		_buttons->addButton(new BitmapButton(8, 56, 16, 16, 4, &_leftArrowBmp));
-		_buttons->addButton(new BitmapButton(56, 56, 16, 16, 5, &_rightArrowBmp));
+		_buttons->addButton(new BitmapButton(8, 72, 16, 16, 4, &_leftArrowBmp));
+		_buttons->addButton(new BitmapButton(56, 72, 16, 16, 5, &_rightArrowBmp));
 	
-		_buttons->addButton(new BitmapButton(8, 80, 16, 16, 6, &_leftArrowBmp));
-		_buttons->addButton(new BitmapButton(56, 80, 16, 16, 7, &_rightArrowBmp));
+		_buttons->addButton(new BitmapButton(8, 96, 16, 16, 6, &_leftArrowBmp));
+		_buttons->addButton(new BitmapButton(56, 96, 16, 16, 7, &_rightArrowBmp));
+		
+		_buttons->addButton(new TextButton(92, 24, 84, 20, 8, "Test"));
+		_buttons->addButton(new TextButton(92, 48, 84, 20, 9, "New"));
+		_buttons->addButton(new TextButton(92, 72, 84, 20, 10, "Exit"));
 
 		_doorType = DOOR_TYPE_GREEN;
 		_wallType = WALL_TYPE_BRICK_RED;
@@ -48,7 +56,7 @@ public:
 	/**
 	 * Destructor.
 	 */
-	~LevelEditorPalettePanel() {
+	~LevelEditorOptionsPanel() {
 		delete _buttons;
 	};
 
@@ -126,13 +134,38 @@ public:
 				BitmapServer::changeDoorBmp((DoorType)_doorType);
 				renderBitmaps();
 				break;	
+				
+			case 8:
+				// Have to reset this manually as we'll miss the event
+				source->release();
+				
+				_editor->testLevel();
+				break;
+			case 9:
+				_editor->resetLevel();
+				break;
+			case 10:
+				_isRunning = false;
+				break;
 		}
+	};
+	
+	/**
+	 * Check if the panel is still running.
+	 * @return True if the panel is still running.
+	 */
+	bool isRunning() const {
+		return _isRunning;
 	};
 
 private:
 	ButtonBank* _buttons;			/**< Collection of buttons in the panel. */
 	LeftArrowBmp _leftArrowBmp;
 	RightArrowBmp _rightArrowBmp;
+	
+	LevelEditor* _editor;			/**< Pointer to the owning level editor. */
+	bool _isRunning;				/**< True if the panel is still running. */
+
 
 	s32 _boulderType;
 	s32 _wallType;
@@ -143,17 +176,29 @@ private:
 	 * Renders the bitmaps for each block that can be recoloured.
 	 */
 	void renderBitmaps() {
+		GameFont *font = new GameFont();
+		
+		WoopsiGfx::WoopsiString *paletteTitle = new WoopsiGfx::WoopsiString("Palette");
+		WoopsiGfx::WoopsiString *levelTitle = new WoopsiGfx::WoopsiString("Level");
+		
+		_gfx->drawText(13, 10, font, *paletteTitle, 0, paletteTitle->getLength(), COLOUR_MAGENTA);
+		_gfx->drawText(115, 10, font, *levelTitle, 0, levelTitle->getLength(), COLOUR_MAGENTA);
+		
 		WoopsiGfx::BitmapBase* bmp = BitmapServer::getBoulderBmp();
-		_gfx->drawBitmap(32, 8, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
+		_gfx->drawBitmap(32, 24, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
 
 		bmp = BitmapServer::getSoilBmp();
-		_gfx->drawBitmap(32, 32, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
+		_gfx->drawBitmap(32, 48, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
 
 		bmp = BitmapServer::getWallBmp();
-		_gfx->drawBitmap(32, 56, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
+		_gfx->drawBitmap(32, 72, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
 
 		bmp = BitmapServer::getDoorBmp();
-		_gfx->drawBitmap(32, 80, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
+		_gfx->drawBitmap(32, 96, bmp->getWidth(), bmp->getHeight(), bmp, 0, 0);
+		
+		delete font;
+		delete paletteTitle;
+		delete levelTitle;
 	};
 };
 

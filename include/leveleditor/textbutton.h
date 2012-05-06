@@ -50,6 +50,14 @@ public:
 
 		gfx->drawText(textX, textY, &_font, _text, 0, _text.getLength(), COLOUR_WHITE);
 	};
+	
+	/**
+	 * Gets the button text.
+	 * @return The button text.
+	 */
+	const WoopsiGfx::WoopsiString& getText() {
+		return _text;
+	};
 
 private:
 	WoopsiGfx::WoopsiString _text;		/**< Button text. */

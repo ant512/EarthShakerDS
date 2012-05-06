@@ -68,7 +68,8 @@ private:
 	enum MenuId {
 		MENU_MAIN = 1,										/**< The main menu. */
 		MENU_LEVEL_SELECT = 2,								/**< The level select menu. */
-		MENU_SOUND_TEST = 3									/**< The sound test menu. */
+		MENU_CUSTOM_LEVEL = 3,								/**< The custom level select menu. */
+		MENU_SOUND_TEST = 4									/**< The sound test menu. */
 	};
 
 	s32 _timer;												/**< Timer to control speed of user input. */
