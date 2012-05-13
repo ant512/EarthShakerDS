@@ -82,54 +82,73 @@ public:
 	 * @param source The button that raised the event.
 	 */
 	void handleButtonAction(ButtonBase* source) {
+
+		s32 tmp;
+
 		switch (source->getId()) {
 			case 0:
-				_boulderType--;
+				tmp = _boulderType;
+				--tmp;
+				_boulderType = (BoulderType)tmp;
 				if (_boulderType < 0) _boulderType = (BoulderType)(BOULDER_TYPE_COUNT - 1);
 				BitmapServer::changeBoulderBmp(_boulderType);
 				renderBitmaps();
 				break;
 			case 1:
-				_boulderType++;
+				tmp = _boulderType;
+				++tmp;
+				_boulderType = (BoulderType)tmp;
 				if (_boulderType > BOULDER_TYPE_COUNT - 1) _boulderType = BOULDER_TYPE_WHITE;
 				BitmapServer::changeBoulderBmp(_boulderType);
 				renderBitmaps();
 				break;
 
 			case 2:
-				_soilType--;
+				tmp = _soilType;
+				--tmp;
+				_soilType = (SoilType)tmp;
 				if (_soilType < 0) _soilType = (SoilType)(SOIL_TYPE_COUNT - 1);
 				BitmapServer::changeSoilBmp(_soilType);
 				renderBitmaps();
 				break;
 			case 3:
-				_soilType++;
+				tmp = _soilType;
+				++tmp;
+				_soilType = (SoilType)tmp;
 				if (_soilType > SOIL_TYPE_COUNT - 1) _soilType = SOIL_TYPE_WHITE;
 				BitmapServer::changeSoilBmp(_soilType);
 				renderBitmaps();
 				break;
 
 			case 4:
-				_wallType--;
+				tmp = _wallType;
+				--tmp;
+				_wallType = (WallType)tmp;
 				if (_wallType < 0) _wallType = (WallType)(WALL_TYPE_COUNT - 1);
 				BitmapServer::changeWallBmp(_wallType);
 				renderBitmaps();
 				break;
 			case 5:
-				_wallType++;
+				tmp = _wallType;
+				++tmp;
+				_wallType = (WallType)tmp;
 				if (_wallType > WALL_TYPE_COUNT - 1) _wallType = WALL_TYPE_BRICK_WHITE;
 				BitmapServer::changeWallBmp(_wallType);
 				renderBitmaps();
 				break;
 
 			case 6:
-				_doorType--;
+				tmp = _doorType;
+				--tmp;
+				_doorType = (DoorType)tmp;
 				if (_doorType < 0) _doorType = (DoorType)(DOOR_TYPE_COUNT - 1);
 				BitmapServer::changeDoorBmp(_doorType);
 				renderBitmaps();
 				break;
 			case 7:
-				_doorType++;
+				tmp = _doorType;
+				++tmp;
+				_doorType = (DoorType)tmp;
 				if (_doorType > DOOR_TYPE_COUNT - 1) _doorType = DOOR_TYPE_WHITE;
 				BitmapServer::changeDoorBmp(_doorType);
 				renderBitmaps();
@@ -181,7 +200,6 @@ private:
 	
 	LevelEditor* _editor;			/**< Pointer to the owning level editor. */
 	bool _isRunning;				/**< True if the panel is still running. */
-
 
 	BoulderType _boulderType;
 	WallType _wallType;
