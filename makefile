@@ -57,7 +57,7 @@ CFLAGS		:=	$(MINUSG) $(ARCH) \
 
 CFLAGS		+=	-DARM9
 ASFLAGS		:=	$(MINUSG) $(ARCH)
-LDFLAGS		:=	$(MINUSG) $(ARCH) -mno-fpu
+LDFLAGS		:=	$(MINUSG) $(ARCH)
 
 # enable dead-code stripping
 CFLAGS		+=	-ffunction-sections -fdata-sections
