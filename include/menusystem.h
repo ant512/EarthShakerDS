@@ -24,7 +24,7 @@ public:
 	 * @param title Title of the root menu.
 	 * @param rootMenuId ID of the root menu.
 	 */
-	MenuSystem(MenuListener* listener, WoopsiGfx::Graphics* gfx, WoopsiGfx::WoopsiString title, s32 rootMenuId);
+	MenuSystem(MenuListener* listener, WoopsiGfx::Graphics* gfx, WoopsiGfx::WoopsiString title, s32 rootMenuId, s32 y, s32 width, s32 titleGap);
 
 	/**
 	 * Destructor.
@@ -59,9 +59,6 @@ private:
 		STATE_SWITCHING_MENU = 2						/**< Switching to the next menu. */
 	};
 
-	static const s32 MENU_Y = 72;						/**< Y co-ordinate of menu. */
-	static const s32 MENU_TITLE_LIST_GAP = 16;			/**< Distance between menu title and options. */
-
 	s32 _timer;											/**< Timer to control speed of user input. */
 	GameFont _font;										/**< Font used to draw text. */
 	WoopsiGfx::Graphics* _gfx;							/**< Graphics object used for drawing. */
@@ -69,7 +66,10 @@ private:
 	Menu* _rootMenu;									/**< The top of the menu tree. */
 	Menu* _activeMenu;									/**< The currently active menu. */
 	MenuListener* _listener;							/**< Listener that processes selections. */
-
+	s32 _y;
+	s32 _width;
+	s32 _titleGap;
+	
 	/**
 	 * Runs the active menu.
 	 */

@@ -27,9 +27,8 @@ public:
 
 	/**
 	 * Constructor.
-	 * @param levelDefinitions The list of levels to play in this session.
 	 */
-	GameSession(WoopsiArray<LevelDefinitionBase*>* levelDefinitions);
+	GameSession();
 
 	/**
 	 * Destructor.
@@ -161,9 +160,8 @@ public:
 
 	/**
 	 * Starts the specified level.
-	 * @param levelDefinition The level to start.
 	 */
-	void startLevel(LevelDefinitionBase* levelDefinition);
+	void startLevel();
 
 	/**
 	 * Resets the session.
@@ -187,7 +185,7 @@ private:
 	bool _isOddIteration;					/**< Indicates whether the game is in an odd or an even iteration. */
 	GameHUD _hud;							/**< Stats, and other graphics that surround the game. */
 
-	WoopsiArray<LevelDefinitionBase*>* _levelDefinitions;	/**< List of all level definitions. */
+	LevelDefinitionBase* _levelDefinition;	/**< List of all level definitions. */
 	bool _isMapAvailable;					/**< True if the map is available to view. */
 
 	bool _isRunning;						/**< True if the session is running. */

@@ -14,6 +14,8 @@
  */
 class LevelDefinitionBase {
 public:
+	
+	LevelDefinitionBase() { _nextLevel = NULL; };
 
 	/**
 	 * Destructor.
@@ -73,6 +75,10 @@ public:
 	 * @return The current door type.
 	 */
 	inline DoorType getDoorType() const { return _doorType; };
+	
+	inline LevelDefinitionBase* getNextLevel() const { return _nextLevel; };
+	
+	inline void setNextLevel(LevelDefinitionBase* nextLevel) { _nextLevel = nextLevel; };
 
 protected:
 	s32 _width;									/**< Width of the level in blocks. */
@@ -83,6 +89,7 @@ protected:
 	WallType _wallType;							/**< Colour of brick walls in this level. */
 	SoilType _soilType;							/**< Colour of soil in this level. */
 	DoorType _doorType;							/**< Colour of doors in this level. */
+	LevelDefinitionBase* _nextLevel;			/**< The level after this. */
 };
 
 #endif

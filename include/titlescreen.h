@@ -26,9 +26,8 @@ public:
 	 * Constructor.
 	 * @param topGfx Pointer to the top display graphics object.
 	 * @param bottomGfx Pointer to the bottom display graphics object.
-	 * @param levelDefinitions List of all level definitions in the game.
 	 */
-	TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinitionBase*>* levelDefinitions);
+	TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx);
 
 	/**
 	 * Destructor.
@@ -76,7 +75,6 @@ private:
 	GameFont _font;											/**< Font used to draw text. */
 	Scroller* _scroller;									/**< Scrolling text message. */
 	LogoBmp _logoBmp;										/**< Logo drawn on top display. */
-	WoopsiArray<LevelDefinitionBase*>* _levelDefinitions;	/**< List of all level definitions. */
 	LevelDefinitionBase* _chosenLevel;						/**< Level selected by the player. */
 	BlockSlideshowScreen* _blockSlideshowScreen;			/**< Block slideshow on bottom display. */
 	MenuSystem* _menuSystem;								/**< The menu system on the top display. */
@@ -95,6 +93,8 @@ private:
 	 * Draws the logo and copyright messages.
 	 */
 	void renderBackground();
+	
+	void prepareMenu();
 };
 
 #endif

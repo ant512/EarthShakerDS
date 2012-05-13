@@ -29,6 +29,8 @@ public:
 	 * @return The loaded level, or NULL if an error occurred.
 	 */
 	static MutableLevelDefinition* load(const WoopsiGfx::WoopsiString& fileName);
+	
+	static WoopsiArray<WoopsiGfx::WoopsiString>* getLevelNames();
 
 private:
 

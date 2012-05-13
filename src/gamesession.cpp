@@ -8,7 +8,7 @@
 #include "leveldefinitionbase.h"
 #include "levelfactory.h"
 
-GameSession::GameSession(WoopsiArray<LevelDefinitionBase*>* levelDefinitions) {
+GameSession::GameSession() {
 	
 	_level = NULL;
 	
@@ -17,7 +17,7 @@ GameSession::GameSession(WoopsiArray<LevelDefinitionBase*>* levelDefinitions) {
 	_topGfx = Hardware::getTopGfx();
 	_bottomGfx = Hardware::getBottomGfx();
 
-	_levelDefinitions = levelDefinitions;
+	_levelDefinition = NULL;
 }
 
 GameSession::~GameSession() {
@@ -135,7 +135,7 @@ void GameSession::showMap() {
 		++timer;
 		Hardware::waitForVBlank();
 
-		if (!pad.isSelectNewPress()) {
+		if (pad.isSelectNewPress()) {
 			break;
 		}
 	}
@@ -185,8 +185,10 @@ void GameSession::pause() {
 }
 
 void GameSession::run(LevelDefinitionBase* level) {
+	
+	_levelDefinition = level;
 
-	startLevel(level);
+	startLevel();
 
 	const Pad& pad = Hardware::getPad();
 
@@ -227,8 +229,9 @@ void GameSession::checkLevelComplete() {
 		
 		runTransition();
 		
-		if (_level->getNumber() < _levelDefinitions->size() - 1) {
-			startLevel(_levelDefinitions->at(_level->getNumber()));
+		if (_levelDefinition->getNextLevel() != NULL) {
+			_levelDefinition = _levelDefinition->getNextLevel();
+			startLevel();
 		} else {
 			_isRunning = false;
 			_isGameComplete = true;
@@ -449,12 +452,10 @@ void GameSession::resetLevel() {
 		levelNumber = _level->getNumber();
 	}
 
-	LevelDefinitionBase* levelDefinition = _levelDefinitions->at(levelNumber - 1);
-
-	startLevel(levelDefinition);
+	startLevel();
 }
 
-void GameSession::startLevel(LevelDefinitionBase* levelDefinition) {
+void GameSession::startLevel() {
 	resetLevelVariables();
 
 	SoundPlayer::stopAll();
@@ -464,12 +465,12 @@ void GameSession::startLevel(LevelDefinitionBase* levelDefinition) {
 		_level = NULL;
 	}
 
-	_level = LevelFactory::createLevel(levelDefinition, this);
+	_level = LevelFactory::createLevel(_levelDefinition, this);
 
-	BitmapServer::changeBoulderBmp(levelDefinition->getBoulderType());
-	BitmapServer::changeWallBmp(levelDefinition->getWallType());
-	BitmapServer::changeSoilBmp(levelDefinition->getSoilType());
-	BitmapServer::changeDoorBmp(levelDefinition->getDoorType());
+	BitmapServer::changeBoulderBmp(_levelDefinition->getBoulderType());
+	BitmapServer::changeWallBmp(_levelDefinition->getWallType());
+	BitmapServer::changeSoilBmp(_levelDefinition->getSoilType());
+	BitmapServer::changeDoorBmp(_levelDefinition->getDoorType());
 
 	_hud.drawBackground(_level->getDiamondCount(),
 						 _collectedDiamonds,

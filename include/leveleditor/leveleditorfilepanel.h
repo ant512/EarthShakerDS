@@ -15,12 +15,15 @@
 #include "textbutton.h"
 
 #include "gamesession.h"
+#include "menusystem.h"
+#include "menu.h"
+#include "menulistener.h"
 
 /**
  * Panel with options for loading and saving the current level, reseting the
  * current level, and exiting the editor.
  */
-class LevelEditorFilePanel : public LevelEditorPanelBase, public ButtonListener {
+class LevelEditorFilePanel : public LevelEditorPanelBase, public ButtonListener, public MenuListener  {
 public:
 
 	/**
@@ -66,6 +69,22 @@ public:
 		_buttons->addButton(new TextButton(132, 148, 16, 20, 27, "M"));
 		_buttons->addButton(new TextButton(150, 148, 32, 20, 28, "SPC"));
 		_buttons->addButton(new TextButton(184, 148, 32, 20, 29, "DEL"));
+		
+		WoopsiGfx::Graphics* bottomGfx = Hardware::getBottomGfx();
+		
+		_menuSystem = new MenuSystem(this, bottomGfx, "Levels", 0, 10, SCREEN_WIDTH - 20, 8);
+		
+		Menu* rootMenu = _menuSystem->getRootMenu();
+
+		WoopsiArray<WoopsiGfx::WoopsiString>* customLevelNames = LevelIO::getLevelNames();
+		
+		for (int i = 0; i < customLevelNames->size(); ++i) {
+			rootMenu->addOption(customLevelNames->at(i), i);
+		}
+		
+		delete customLevelNames;
+		
+		_menuSystem->render();
 	};
 
 	/**
@@ -87,6 +106,7 @@ public:
 	 * after that, the iterate() method redraws when needed.
 	 */
 	void render() {
+		_menuSystem->render();
 		_buttons->render();
 		drawFilename();
 	};
@@ -134,11 +154,17 @@ public:
 		_gfx->drawText(14, 84, font, _filename, 0, _filename.getLength(), COLOUR_WHITE);
 		delete font;
 	};
+	
+	void handleMenuAction(Menu* source) {
+		//switch (source->getId()) {
+	};
 
 private:
 	ButtonBank* _buttons;		/**< Collection of buttons in the panel. */
 	LevelEditor* _editor;		/**< Pointer to the owning level editor. */
 	WoopsiGfx::WoopsiString _filename;	/**< The filename to load/save. */
+	
+	MenuSystem* _menuSystem;
 };
 
 #endif

@@ -3,13 +3,13 @@
 #include "leveleditor.h"
 #include "soundplayer.h"
 #include "titlescreen.h"
+#include "leveldefinitions.h"
 
-TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx, WoopsiArray<LevelDefinitionBase*>* levelDefinitions) : ScreenBase(topGfx, bottomGfx) {
+TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* bottomGfx) : ScreenBase(topGfx, bottomGfx) {
 
 	_timer = 0;
 	_chosenLevel = NULL;
-
-	_levelDefinitions = levelDefinitions;
+	_menuSystem = NULL;
 
 	renderBackground();
 
@@ -36,33 +36,51 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 "text .... "
 							 );
 
+	prepareMenu();
+
+	SoundPlayer::playTitleTheme();
+}
+
+TitleScreen::~TitleScreen() {
+	delete _scroller;
+	delete _blockSlideshowScreen;
+	delete _menuSystem;
+}
+
+void TitleScreen::prepareMenu() {
+	
+	if (_menuSystem != NULL) {
+		delete _menuSystem;
+	}
+	
 	// Set up the menu system
-	_menuSystem = new MenuSystem(this, _topGfx, "Menu", MENU_MAIN);
+	_menuSystem = new MenuSystem(this, _topGfx, "Menu", MENU_MAIN, 72, SCREEN_WIDTH, 16);
 	
 	// Set up root menu
 	Menu* rootMenu = _menuSystem->getRootMenu();
 	rootMenu->addOption("Start Game", 0);
-
+	
 	// Set up level select
 	Menu* levelSelect = new Menu("Level Select", MENU_LEVEL_SELECT);
 	rootMenu->addSubMenu(levelSelect);
-
-	for (s32 i = 0; i < _levelDefinitions->size(); ++i) {
-		levelSelect->addOption(_levelDefinitions->at(i)->getName(), i);
+	
+	for (s32 i = 0; i < STANDARD_LEVEL_COUNT; ++i) {
+		levelSelect->addOption(LevelDefinitions::getDefinitions().at(i)->getName(), i);
 	}
 	
 	// Set up custom level select
 	Menu *customLevelSelect = new Menu("Custom Level", MENU_CUSTOM_LEVEL);
 	rootMenu->addSubMenu(customLevelSelect);
 	
-	// TODO: Read data folder, extract names, and add to select
+	for (s32 i = STANDARD_LEVEL_COUNT; i < LevelDefinitions::getDefinitions().size(); ++i) {
+		customLevelSelect->addOption(LevelDefinitions::getDefinitions().at(i)->getName(), i);
+	}
 	
-
 	// Set up sound test
-
+	
 	Menu* soundTest = new Menu("Sound Test", MENU_SOUND_TEST);
 	rootMenu->addSubMenu(soundTest);
-
+	
 	soundTest->addOption("Barrier Explode", 0);
 	soundTest->addOption("Barrier Push", 1);
 	soundTest->addOption("Bean Collect", 2);
@@ -82,19 +100,10 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 	soundTest->addOption("Suicide", 16);
 	soundTest->addOption("Teleport Collect", 17);
 	soundTest->addOption("Time", 18);
-
-	//
+	
 	rootMenu->addOption("Level Editor", 1);
-
+	
 	_menuSystem->render();
-
-	SoundPlayer::playTitleTheme();
-}
-
-TitleScreen::~TitleScreen() {
-	delete _scroller;
-	delete _blockSlideshowScreen;
-	delete _menuSystem;
 }
 
 void TitleScreen::renderBackground() {
@@ -124,11 +133,17 @@ void TitleScreen::handleMenuAction(Menu* source) {
 			break;
 
 		case MENU_LEVEL_SELECT:
-			_chosenLevel = _levelDefinitions->at(source->getSelectedValue());
+			_chosenLevel = LevelDefinitions::getDefinitions().at(source->getSelectedValue());
 			SoundPlayer::stopTitleTheme();
 			SoundPlayer::playBubbleExplode();
 			break;
 
+		case MENU_CUSTOM_LEVEL:
+			_chosenLevel = LevelIO::load(source->getSelectedText());
+			SoundPlayer::stopTitleTheme();
+			SoundPlayer::playBubbleExplode();
+			break;
+			
 		case MENU_SOUND_TEST:
 			soundTest(source->getSelectedValue());
 	}
@@ -138,7 +153,7 @@ void TitleScreen::mainMenu(s32 option) {
 	switch (option) {
 		case 0:
 			// Start at beginning of game
-			_chosenLevel = _levelDefinitions->at(0);
+			_chosenLevel = LevelDefinitions::getDefinitions().at(0);
 			SoundPlayer::stopTitleTheme();
 			SoundPlayer::playBubbleExplode();
 			break;
@@ -152,7 +167,7 @@ void TitleScreen::mainMenu(s32 option) {
 			delete editor;
 
 			renderBackground();
-			_menuSystem->render();
+			prepareMenu();
 
 			SoundPlayer::playTitleTheme();
 			break;

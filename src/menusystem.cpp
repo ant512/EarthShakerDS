@@ -3,11 +3,14 @@
 #include "menusystem.h"
 #include "soundplayer.h"
 
-MenuSystem::MenuSystem(MenuListener* listener, WoopsiGfx::Graphics* gfx, WoopsiGfx::WoopsiString title, s32 rootMenuId) {
+MenuSystem::MenuSystem(MenuListener* listener, WoopsiGfx::Graphics* gfx, WoopsiGfx::WoopsiString title, s32 rootMenuId, s32 y, s32 width, s32 titleGap) {
 	_timer = 0;
 	_listener = listener;
 	_gfx = gfx;
 	_state = STATE_NORMAL;
+	_y = y;
+	_width = width;
+	_titleGap = titleGap;
 
 	_rootMenu = new Menu(title, rootMenuId);
 
@@ -28,14 +31,17 @@ void MenuSystem::render() {
 }
 
 void MenuSystem::renderTitle() {
-	_gfx->drawFilledRect(0, MENU_Y, SCREEN_WIDTH, _font.getHeight() * 7, COLOUR_BLACK);
-	_gfx->drawText((SCREEN_WIDTH - _font.getStringWidth(_activeMenu->getTitle())) / 2, MENU_Y, &_font, _activeMenu->getTitle(), 0, _activeMenu->getTitle().getLength(), COLOUR_WHITE);
+	s32 x = (SCREEN_WIDTH - _width) / 2;
+	
+	_gfx->drawFilledRect(x, _y, _width, _font.getHeight() * 7, COLOUR_BLACK);
+	_gfx->drawText((x + _width - _font.getStringWidth(_activeMenu->getTitle())) / 2, _y, &_font, _activeMenu->getTitle(), 0, _activeMenu->getTitle().getLength(), COLOUR_WHITE);
 }
 
 void MenuSystem::renderOptions() {
 
 	WoopsiGfx::WoopsiString str;
-	s32 y = MENU_Y + MENU_TITLE_LIST_GAP;
+	s32 y = _y + _titleGap;
+	s32 x = (SCREEN_WIDTH - _width) / 2;
 	SpectrumColour colour = COLOUR_WHITE;
 
 	s32 firstOption = _activeMenu->getSelectedIndex() - 3;
@@ -46,7 +52,7 @@ void MenuSystem::renderOptions() {
 	}
 
 	// Wipe area under options and redraw visible option subset
-	_gfx->drawFilledRect(0, y, SCREEN_WIDTH, _font.getHeight() * 7, COLOUR_BLACK);
+	_gfx->drawFilledRect(x, y, _width, _font.getHeight() * 7, COLOUR_BLACK);
 
 	for (s32 i = firstOption; i <= lastOption; ++i) {
 
@@ -65,7 +71,7 @@ void MenuSystem::renderOptions() {
 		// of those is available
 		str = _activeMenu->getOptionText(i);
 
-		_gfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, y, &_font, str, 0, str.getLength(), colour);
+		_gfx->drawText((x + _width - _font.getStringWidth(str)) / 2, y, &_font, str, 0, str.getLength(), colour);
 		y += _font.getHeight();
 	}
 }

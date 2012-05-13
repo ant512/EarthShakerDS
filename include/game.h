@@ -49,8 +49,6 @@ private:
 	WoopsiGfx::Graphics* _topGfx;			/**< Pointer to the graphics object for the top display. */
 	WoopsiGfx::Graphics* _bottomGfx;		/**< Pointer to the graphics object for the bottom display. */
 
-	WoopsiArray<LevelDefinitionBase*> _levelDefinitions;	/**< List of all level definitions. */
-
 	/**
 	 * Runs the title screen.
 	 */

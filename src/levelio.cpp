@@ -1,12 +1,12 @@
 #include <nds.h>
 
 #include <stdlib.h>
-#include <stdio.h>   
+#include <stdio.h> 
+#include <dirent.h>
 
 #ifndef USING_SDL
 
 #include <fat.h>
-#include <dirent.h>
 
 #else
  
@@ -173,4 +173,53 @@ MutableLevelDefinition* LevelIO::load(const WoopsiGfx::WoopsiString& fileName) {
 	}
 
 	return level;
+}
+
+WoopsiArray<WoopsiGfx::WoopsiString>* LevelIO::getLevelNames() {
+	
+	WoopsiArray<WoopsiGfx::WoopsiString>* levelNames = new WoopsiArray<WoopsiGfx::WoopsiString>();
+	
+	WoopsiGfx::WoopsiString directoryName = getTargetDirectoryName();
+	
+	char* buffer = new char[directoryName.getByteCount() + 1];
+	directoryName.copyToCharArray(buffer);
+
+	struct stat st;
+	
+	// Get a copy of the path char array so that it can be used with libfat
+	DIR* dir = opendir(buffer);
+	
+	// Did we get the dir successfully?
+	if (dir == NULL) {
+		delete [] buffer;
+		return NULL;
+	}
+	
+	// Read data into options list
+	struct dirent* ent;
+	
+	while ((ent = readdir(dir)) != 0) {
+		
+		char* newPath = new char[strlen(ent->d_name) + directoryName.getByteCount() + 2];
+		directoryName.copyToCharArray(newPath);
+		strcat(newPath, "/");
+		strcat(newPath, ent->d_name);
+		int result = stat(newPath, &st);
+		delete [] newPath;
+		if (result) {
+			continue;
+		}
+		
+		// st.st_mode & S_IFDIR indicates a directory
+		if (!(st.st_mode & S_IFDIR)) {
+			levelNames->push_back(ent->d_name);
+		}
+	}
+	
+	// Close the directory
+	closedir(dir);
+	
+	delete[] buffer;
+	
+	return levelNames;
 }

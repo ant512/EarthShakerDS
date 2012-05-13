@@ -35,6 +35,8 @@
 
 #include "soundplayer.h"
 
+#include "leveldefinitions.h"
+
 LevelEditor::LevelEditor() {
 	_topGfx = Hardware::getTopGfx();
 	_bottomGfx = Hardware::getBottomGfx();
@@ -143,6 +145,10 @@ void LevelEditor::main() {
 			moveCursorTo(_cursorX + 1, _cursorY);
 		}
 	}
+	
+	// Reload custom level definitions so that the main menu shows the correct
+	// data
+	LevelDefinitions::loadCustomLevels();
 }
 
 void LevelEditor::moveCursorTo(s32 x, s32 y) {
@@ -309,7 +315,7 @@ void LevelEditor::testLevel() {
 								 DOOR_TYPE_GREEN);
 	levels.push_back(&def);
 	
-	GameSession* session = new GameSession(&levels);
+	GameSession* session = new GameSession();
 	session->run(&def);
 	delete session;
 
@@ -338,9 +344,9 @@ void LevelEditor::resetLevel() {
 
 void LevelEditor::saveLevel(const WoopsiGfx::WoopsiString& filename) {
 	ImmutableLevelDefinition def(LEVEL_WIDTH, LEVEL_HEIGHT, 1, filename,
-								 _levelData, BOULDER_TYPE_YELLOW,
-								 WALL_TYPE_BRICK_RED, SOIL_TYPE_BLUE,
-								 DOOR_TYPE_GREEN);
+								 _levelData, _optionsPanel->getBoulderType(),
+								 _optionsPanel->getWallType(), _optionsPanel->getSoilType(),
+								 _optionsPanel->getDoorType());
 
 	LevelIO::save(&def);
 }
@@ -355,10 +361,14 @@ void LevelEditor::loadLevel(const WoopsiGfx::WoopsiString& filename) {
 	for (s32 i = 0; i < LEVEL_WIDTH * LEVEL_HEIGHT; ++i) {
 		_levelData[i] = def->getLayout()[i];
 		LevelFactory::placeBlock(_level, (BlockType)_levelData[i], i % LEVEL_WIDTH, i / LEVEL_WIDTH, NULL);
-		
-	}
 
-	// TODO: Set block types
+	}
+	
+	// Set up level options
+	BitmapServer::changeBoulderBmp(def->getBoulderType());
+	BitmapServer::changeSoilBmp(def->getSoilType());
+	BitmapServer::changeWallBmp(def->getWallType());
+	BitmapServer::changeDoorBmp(def->getDoorType());
 
 	delete def;
 

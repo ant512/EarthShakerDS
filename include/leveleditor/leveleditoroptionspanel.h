@@ -85,53 +85,53 @@ public:
 		switch (source->getId()) {
 			case 0:
 				_boulderType--;
-				if (_boulderType < 0) _boulderType = BOULDER_TYPE_COUNT - 1;
-				BitmapServer::changeBoulderBmp((BoulderType)_boulderType);
+				if (_boulderType < 0) _boulderType = (BoulderType)(BOULDER_TYPE_COUNT - 1);
+				BitmapServer::changeBoulderBmp(_boulderType);
 				renderBitmaps();
 				break;
 			case 1:
 				_boulderType++;
-				if (_boulderType > BOULDER_TYPE_COUNT - 1) _boulderType = 0;
-				BitmapServer::changeBoulderBmp((BoulderType)_boulderType);
+				if (_boulderType > BOULDER_TYPE_COUNT - 1) _boulderType = BOULDER_TYPE_WHITE;
+				BitmapServer::changeBoulderBmp(_boulderType);
 				renderBitmaps();
 				break;
 
 			case 2:
 				_soilType--;
-				if (_soilType < 0) _soilType = SOIL_TYPE_COUNT - 1;
-				BitmapServer::changeSoilBmp((SoilType)_soilType);
+				if (_soilType < 0) _soilType = (SoilType)(SOIL_TYPE_COUNT - 1);
+				BitmapServer::changeSoilBmp(_soilType);
 				renderBitmaps();
 				break;
 			case 3:
 				_soilType++;
-				if (_soilType > SOIL_TYPE_COUNT - 1) _soilType = 0;
-				BitmapServer::changeSoilBmp((SoilType)_soilType);
+				if (_soilType > SOIL_TYPE_COUNT - 1) _soilType = SOIL_TYPE_WHITE;
+				BitmapServer::changeSoilBmp(_soilType);
 				renderBitmaps();
 				break;
 
 			case 4:
 				_wallType--;
-				if (_wallType < 0) _wallType = WALL_TYPE_COUNT - 1;
-				BitmapServer::changeWallBmp((WallType)_wallType);
+				if (_wallType < 0) _wallType = (WallType)(WALL_TYPE_COUNT - 1);
+				BitmapServer::changeWallBmp(_wallType);
 				renderBitmaps();
 				break;
 			case 5:
 				_wallType++;
-				if (_wallType > WALL_TYPE_COUNT - 1) _wallType = 0;
-				BitmapServer::changeWallBmp((WallType)_wallType);
+				if (_wallType > WALL_TYPE_COUNT - 1) _wallType = WALL_TYPE_BRICK_WHITE;
+				BitmapServer::changeWallBmp(_wallType);
 				renderBitmaps();
 				break;
 
 			case 6:
 				_doorType--;
-				if (_doorType < 0) _doorType = DOOR_TYPE_COUNT - 1;
-				BitmapServer::changeDoorBmp((DoorType)_doorType);
+				if (_doorType < 0) _doorType = (DoorType)(DOOR_TYPE_COUNT - 1);
+				BitmapServer::changeDoorBmp(_doorType);
 				renderBitmaps();
 				break;
 			case 7:
 				_doorType++;
-				if (_doorType > DOOR_TYPE_COUNT - 1) _doorType = 0;
-				BitmapServer::changeDoorBmp((DoorType)_doorType);
+				if (_doorType > DOOR_TYPE_COUNT - 1) _doorType = DOOR_TYPE_WHITE;
+				BitmapServer::changeDoorBmp(_doorType);
 				renderBitmaps();
 				break;	
 				
@@ -158,6 +158,22 @@ public:
 		return _isRunning;
 	};
 
+	SoilType getSoilType() {
+		return _soilType;
+	};
+	
+	BoulderType getBoulderType() {
+		return _boulderType;
+	};
+	
+	WallType getWallType() {
+		return _wallType;
+	};
+	
+	DoorType getDoorType() {
+		return _doorType;
+	};
+	
 private:
 	ButtonBank* _buttons;			/**< Collection of buttons in the panel. */
 	LeftArrowBmp _leftArrowBmp;
@@ -167,10 +183,10 @@ private:
 	bool _isRunning;				/**< True if the panel is still running. */
 
 
-	s32 _boulderType;
-	s32 _wallType;
-	s32 _soilType;
-	s32 _doorType;
+	BoulderType _boulderType;
+	WallType _wallType;
+	SoilType _soilType;
+	DoorType _doorType;
 
 	/**
 	 * Renders the bitmaps for each block that can be recoloured.
