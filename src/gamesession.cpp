@@ -273,7 +273,7 @@ void GameSession::commitSuicide() {
 	decreaseLives();
 
 	if (_lives > 0) {
-		resetLevel();
+		startLevel();
 		render();
 	} else {
 		_isRunning = false;
@@ -300,7 +300,7 @@ void GameSession::move() {
 	// need to reset the level to its default state or end the game
 	if (_level->getPlayerBlock()->isDestroyed()) {
 		if (_lives > 0) {
-			resetLevel();
+			startLevel();
 		} else {
 			_isRunning = false;
 			_isGameOver = true;
@@ -443,16 +443,6 @@ void GameSession::resetLevelVariables() {
 	_animationTimer = 0;
 	_movementTimer = 0;
 	_levelTimer = 0;
-}
-
-void GameSession::resetLevel() {
-	s32 levelNumber = 1;
-
-	if (_level != NULL) {
-		levelNumber = _level->getNumber();
-	}
-
-	startLevel();
 }
 
 void GameSession::startLevel() {

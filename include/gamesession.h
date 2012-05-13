@@ -218,12 +218,7 @@ private:
 	 * _levelTimer value.
 	 */
 	void timer();
-
-	/**
-	 * Resets the current level to its default state.
-	 */
-	void resetLevel();
-
+	
 	/**
 	 * Resets all members associated with level state (diamonds collected, time
 	 * remaining, etc) to their default state.  Called before starting or
