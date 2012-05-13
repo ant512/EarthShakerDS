@@ -127,7 +127,7 @@ Credits and Acknowledgements
 Links
 -----
 
-  - http://simianzombie.com                         - Development blog
+  - http://ant.simianzombie.com                     - Development blog
   - http://bitbucket.org/ant512/earthshakerds       - BitBucket page
   - http://bitbucket.org/ant512/woopsigfx           - WoopsiGfx library
 
