@@ -3,10 +3,4 @@ Todo
 
  - Teleport effect
  - Level editor:
-   - "File" button has sub-options:
-     - "Load":
-       - Loads an existing map.
-       - Need a directory list.
-     - "Save":
-       - Saves the current map.
-       - Need a directory list and a keyboard.
+   - Finish file selector.
