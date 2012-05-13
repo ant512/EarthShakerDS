@@ -10,14 +10,19 @@ etc.
 Menu System
 -----------
 
-When the game starts, a menu system appears on the top screen.  You can choose
-to start from the beginning of the game ("Start"), select a level from the
-level select menu ("Level Select"), play with the game's sound effects
-("Sound Test") or try out the level editor ("Level Editor").  Navigate to the
-desired option using the up and down buttons or the Select button.  You can page
-through the options more quickly by using the left and right buttons.  When the
-correct option is highlighted, press A or Start to select it.  The B button
-returns to the previous menu if a submenu is currently active.
+When the game starts, a menu system appears on the top screen.  You can choose:
+
+ - Start: start from the beginning of the game
+ - Level Select: select a level from the level select menu
+ - Custom Level: play a level created with the level editor
+ - Sound Test: play with the game's sound effects
+ - Level Editor: create or edit custom levelsout the level editor
+
+Navigate to the desired option using the up and down buttons or the Select
+button.  You can page through the options more quickly by using the left and
+right buttons.  When the correct option is highlighted, press A or Start to
+select it.  The B button returns to the previous menu if a submenu is currently
+active.
 
 
 Gameplay
@@ -84,8 +89,8 @@ The following blocks can be found at various points in the game:
 Level Editor
 ------------
 
-The level editor is currently a work-in-progress feature.  In particular, the
-load and save functions are not yet implemented.
+The level editor is currently a work-in-progress feature.  The file requester is
+currently not fully functional.
 
 The cursor in the top display can be controlled using the d-pad.  Press A to
 place a block and B to erase a block.  By default, the map of the current level
@@ -93,18 +98,23 @@ is displayed in the bottom display.  Use the L and R buttons to change the block
 that is added to the level when A is pressed.  The possible blocks are displayed
 at the bottom of the upper screen, and the current block is highlighted.
 
-The "Palette" button allows you to change the colour of the boulders and doors
-and the type of soil and walls in the current level.
+The "Options" button allows you to change the colour of the boulders and doors
+and the type of soil and walls in the current level.  It also allows you to
+clear the current level ("New"), try out the level ("Test") or quit the editor
+("Exit").  You can switch back to the level editor from the test mode by either
+finishing the level, losing all of your lives, or by switching to pause mode
+(press Start) and then pressing the X button.
 
-Lastly, the "File" button provides a menu with the ability to load and save
-files (not implemented yet), erase the current level, and exit the editor.  It
-also allows you to test the current level.  You can switch back to the level
-editor from the test mode by either finishing the level, losing all of your
-lives, or by switching to pause mode (press Start) and then pressing the X
-button.
+Lastly, the "File" button provides a file requester with the ability to load and
+save files.  Though the requester itself is not yet working, you can load a file
+by entering its name using the on-screen keyboard and pressing "Load".  You can
+save a file by entering the desired filename and pressing "Save".  The filename
+is used as the name of the level and can be up to 28 characters long.
 
 Level data is saved in "/data/EarthShakerDS/".  The "EarthShakerDS" directory is
-created automatically if it does not exist.
+created automatically if it does not exist.  Levels can be played via the
+"Custom Level" option on the main menu.  They can also be shared by copying the
+level file from one flash cart to another.
 
 
 Requirements
