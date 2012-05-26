@@ -21,7 +21,7 @@ TitleScreen::TitleScreen(WoopsiGfx::Graphics* topGfx, WoopsiGfx::Graphics* botto
 							 "you survive 32 deadly diamond mines ? .... Well "
 							 "- it depends if you are sly enough. But watch out "
 							 "you don't bang your head, burn yourself or take "
-							 "too long .... Coding (c) 2011 Antony Dzeryn .... "
+							 "too long .... Coding (c) 2012 Antony Dzeryn .... "
 							 "Original game (c) 1990 Michael Batty .... Written "
 							 "for the 2011 GBATemp Homebrew Bounty competition "
 							 ".... Many thanks to Michael Batty for permission "
@@ -116,7 +116,7 @@ void TitleScreen::renderBackground() {
 	WoopsiGfx::WoopsiString str = "ZX (c) 1990 Michael Batty";
 	_topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 160, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 
-	str.setText("DS (c) 2011 Antony Dzeryn");
+	str.setText("DS (c) 2012 Antony Dzeryn");
 	_topGfx->drawText((SCREEN_WIDTH - _font.getStringWidth(str)) / 2, 168, &_font, str, 0, str.getLength(), COLOUR_WHITE);
 }
 
