@@ -16,7 +16,7 @@ When the game starts, a menu system appears on the top screen.  You can choose:
  - Level Select: select a level from the level select menu
  - Custom Level: play a level created with the level editor
  - Sound Test: play with the game's sound effects
- - Level Editor: create or edit custom levelsout the level editor
+ - Level Editor: create or edit custom levels in the level editor
 
 Navigate to the desired option using the up and down buttons or the Select
 button.  You can page through the options more quickly by using the left and
@@ -89,8 +89,11 @@ The following blocks can be found at various points in the game:
 Level Editor
 ------------
 
-The level editor is currently a work-in-progress feature.  The file requester is
-currently not fully functional.
+The level editor allows you to create custom levels using any of the blocks from
+the game.  You can test your levels in the editor and save them to your flash
+cart.  You can even share them with other people by sending them the level
+files.  Levels created in the editor will work in both the Nintendo DS and Mac
+OSX versions of EarthShaker.
 
 The cursor in the top display can be controlled using the d-pad.  Press A to
 place a block and B to erase a block.  By default, the map of the current level
@@ -105,11 +108,16 @@ clear the current level ("New"), try out the level ("Test") or quit the editor
 finishing the level, losing all of your lives, or by switching to pause mode
 (press Start) and then pressing the X button.
 
-Lastly, the "File" button provides a file requester with the ability to load and
-save files.  Though the requester itself is not yet working, you can load a file
-by entering its name using the on-screen keyboard and pressing "Load".  You can
-save a file by entering the desired filename and pressing "Save".  The filename
-is used as the name of the level and can be up to 28 characters long.
+Lastly, the "File" button provides a file requester with the ability to load,
+save and delete files.  You can load a file by entering its name using the
+keyboard or by choosing it in the file list and then pressing "Load".  You can
+save a file by entering a filename and pressing "Save".  The filename is used as
+the name of the level and can be up to 28 characters long.  To delete files,
+choose the file in the file list and press "Del".  Scroll the file list up and
+down using the buttons on the right of the list.
+
+Note that you will receive no warnings when saving or deleting that you are
+about to delete or overwrite a file.
 
 Level data is saved in "/data/EarthShakerDS/".  The "EarthShakerDS" directory is
 created automatically if it does not exist.  Levels can be played via the
@@ -137,8 +145,9 @@ Credits and Acknowledgements
 Links
 -----
 
-  - http://ant.simianzombie.com                     - Development blog
+  - http://simianzombie.com                         - Development blog
   - http://bitbucket.org/ant512/earthshakerds       - BitBucket page
+  - http://bitbucket.org/ant512/earthshakerosx      - Mac port
   - http://bitbucket.org/ant512/woopsigfx           - WoopsiGfx library
 
 
