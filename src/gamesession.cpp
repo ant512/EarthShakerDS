@@ -203,7 +203,7 @@ void GameSession::run(LevelDefinitionBase* level) {
 			pause();
 		} else if (pad.isSelectNewPress() && _isMapAvailable) {
 			showMap();
-		} else if (pad.isLHeld() && pad.isLHeld()) {
+		} else if (pad.isLHeld() && pad.isRHeld()) {
 			commitSuicide();
 		}
 
