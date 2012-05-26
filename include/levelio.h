@@ -31,6 +31,8 @@ public:
 	static MutableLevelDefinition* load(const WoopsiGfx::WoopsiString& fileName);
 	
 	static WoopsiArray<WoopsiGfx::WoopsiString>* getLevelNames();
+	
+	static void deleteFile(const WoopsiGfx::WoopsiString& name);
 
 private:
 

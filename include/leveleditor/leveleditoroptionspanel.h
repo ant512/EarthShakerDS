@@ -193,6 +193,22 @@ public:
 		return _doorType;
 	};
 	
+	void setSoilType(SoilType type) {
+		_soilType = type;
+	};
+	
+	void setBoulderType(BoulderType type) {
+		_boulderType = type;
+	};
+	
+	void setWallType(WallType type) {
+		_wallType = type;
+	};
+	
+	void setDoorType(DoorType type) {
+		_doorType = type;
+	};
+	
 private:
 	ButtonBank* _buttons;			/**< Collection of buttons in the panel. */
 	LeftArrowBmp _leftArrowBmp;

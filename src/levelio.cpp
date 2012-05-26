@@ -20,13 +20,6 @@
 #include "levelio.h"
 
 void LevelIO::makeDir(const WoopsiGfx::WoopsiString& name) {
-
-#ifndef USING_SDL
-
-	if (!fatInitDefault()) return;
-
-#endif
-
 	char* buffer = new char[name.getByteCount() + 1];
 	name.copyToCharArray(buffer);
 	
@@ -35,13 +28,42 @@ void LevelIO::makeDir(const WoopsiGfx::WoopsiString& name) {
 	delete[] buffer;
 }
 
-WoopsiGfx::WoopsiString LevelIO::getTargetDirectoryName() {
-
+void LevelIO::deleteFile(const WoopsiGfx::WoopsiString& name) {
+	
 #ifndef USING_SDL
+	
+	WoopsiGfx::WoopsiString path("/data");
+	
+#else
 
-	if (!fatInitDefault()) return "";
+	// Get user's home directory
+	const char *homeDir = getenv("HOME");
+	
+	if (!homeDir) {
+		struct passwd* pwd = getpwuid(getuid());
+		
+		if (pwd) {
+			homeDir = pwd->pw_dir;
+		}
+	}
+	
+	WoopsiGfx::WoopsiString path(homeDir);
 
 #endif
+	
+	path.append("/EarthShakerDS/");
+	path.append(name);
+	
+	char* buffer = new char[path.getLength() + 1];
+	
+	path.copyToCharArray(buffer);
+	
+	remove(buffer);
+	
+	delete[] buffer;
+}
+
+WoopsiGfx::WoopsiString LevelIO::getTargetDirectoryName() {
 	
 #ifndef USING_SDL
 	
@@ -192,12 +214,6 @@ WoopsiArray<WoopsiGfx::WoopsiString>* LevelIO::getLevelNames() {
 	
 	WoopsiArray<WoopsiGfx::WoopsiString>* levelNames = new WoopsiArray<WoopsiGfx::WoopsiString>();
 	
-#ifndef USING_SDL
-
-	if (!fatInitDefault()) return levelNames;
-
-#endif
-
 	WoopsiGfx::WoopsiString directoryName = getTargetDirectoryName();
 	
 	char* buffer = new char[directoryName.getByteCount() + 1];

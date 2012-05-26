@@ -13,17 +13,16 @@
 #include "leveleditorpanelbase.h"
 #include "spectrumcolours.h"
 #include "textbutton.h"
+#include "bitmapbutton.h"
 
 #include "gamesession.h"
-#include "menusystem.h"
-#include "menu.h"
-#include "menulistener.h"
+#include "stylus.h"
+#include "hardware.h"
 
 /**
- * Panel with options for loading and saving the current level, reseting the
- * current level, and exiting the editor.
+ * Panel with options for loading and saving the current level.
  */
-class LevelEditorFilePanel : public LevelEditorPanelBase, public ButtonListener, public MenuListener  {
+class LevelEditorFilePanel : public LevelEditorPanelBase, public ButtonListener  {
 public:
 
 	/**
@@ -36,8 +35,8 @@ public:
 
 		_buttons = new ButtonBank(this, gfx);
 
-		_buttons->addButton(new TextButton(188, 100, 60, 20, 0, "Load"));
-		_buttons->addButton(new TextButton(188, 124, 60, 20, 1, "Save"));
+		_buttons->addButton(new TextButton(208, 100, 40, 20, 0, "Load"));
+		_buttons->addButton(new TextButton(208, 124, 40, 20, 1, "Save"));
 		
 		_buttons->addButton(new TextButton(8, 100, 16, 20, 2, "Q"));
 		_buttons->addButton(new TextButton(26, 100, 16, 20, 3, "W"));
@@ -67,24 +66,18 @@ public:
 		_buttons->addButton(new TextButton(96, 148, 16, 20, 25, "B"));
 		_buttons->addButton(new TextButton(114, 148, 16, 20, 26, "N"));
 		_buttons->addButton(new TextButton(132, 148, 16, 20, 27, "M"));
-		_buttons->addButton(new TextButton(150, 148, 32, 20, 28, "SPC"));
-		_buttons->addButton(new TextButton(184, 148, 32, 20, 29, "DEL"));
+		_buttons->addButton(new TextButton(150, 148, 24, 20, 28, "SP"));
+		_buttons->addButton(new TextButton(176, 148, 24, 20, 29, "BK"));
 		
-		WoopsiGfx::Graphics* bottomGfx = Hardware::getBottomGfx();
+		_buttons->addButton(new TextButton(208, 148, 40, 20, 30, "DEL"));
 		
-		_menuSystem = new MenuSystem(this, bottomGfx, "Levels", 0, 10, SCREEN_WIDTH - 20, 8);
+		_buttons->addButton(new TextButton(238, 8, 10, 32, 31, ""));
+		_buttons->addButton(new TextButton(238, 44, 10, 32, 32, ""));
 		
-		Menu* rootMenu = _menuSystem->getRootMenu();
-
-		WoopsiArray<WoopsiGfx::WoopsiString>* customLevelNames = LevelIO::getLevelNames();
+		_filenames = LevelIO::getLevelNames();
 		
-		for (int i = 0; i < customLevelNames->size(); ++i) {
-			rootMenu->addOption(customLevelNames->at(i), i);
-		}
-		
-		delete customLevelNames;
-		
-		_menuSystem->render();
+		_selectedFilenameIndex = -1;
+		_topFilenameIndex = 0;
 	};
 
 	/**
@@ -92,6 +85,7 @@ public:
 	 */
 	~LevelEditorFilePanel() {
 		delete _buttons;
+		delete _filenames;
 	};
 
 	/**
@@ -99,6 +93,26 @@ public:
 	 */
 	void iterate() {
 		_buttons->iterate();
+		processFileListClick();
+	};
+	
+	void processFileListClick() {
+		Stylus stylus = Hardware::getStylus();
+		
+		if (!stylus.isHeld()) return;
+		if (stylus.getX() < 10 || stylus.getX() >= SCREEN_WIDTH - 20) return;
+		if (stylus.getY() < 10 || stylus.getY() >= 74) return;
+		
+		int clickedIndex = ((stylus.getY() - 10) / 8) + _topFilenameIndex;
+		if (clickedIndex == _selectedFilenameIndex) return;
+		
+		if (clickedIndex > _filenames->size() - 1) return;
+		
+		_selectedFilenameIndex = clickedIndex;
+		_filename = _filenames->at(clickedIndex);
+		
+		renderLevelFileNames();
+		renderFilenameTextBox();
 	};
 
 	/**
@@ -106,9 +120,28 @@ public:
 	 * after that, the iterate() method redraws when needed.
 	 */
 	void render() {
-		_menuSystem->render();
+		renderLevelFileNames();
 		_buttons->render();
-		drawFilename();
+		renderFilenameTextBox();
+	};
+	
+	void renderLevelFileNames() {
+		_gfx->drawFilledRect(10, 10, SCREEN_WIDTH - 30, 64, COLOUR_BLACK);
+		
+		if (_selectedFilenameIndex >= _topFilenameIndex && _selectedFilenameIndex < _topFilenameIndex + 8) {
+			_gfx->drawFilledRect(10, ((_selectedFilenameIndex - _topFilenameIndex) * 8) + 10, SCREEN_WIDTH - 30, 8, COLOUR_YELLOW);
+		}
+		
+		GameFont *font = new GameFont();
+		
+		int filenameCount = _filenames->size() < 8 ? _filenames->size() : 8;
+		
+		for (int i = _topFilenameIndex; i < _topFilenameIndex + filenameCount; ++i) {
+			
+			u16 colour = _selectedFilenameIndex == i ? COLOUR_BLACK : COLOUR_WHITE;
+			
+			_gfx->drawText(10, 10 + ((i - _topFilenameIndex) * 8), font, _filenames->at(i), 0, _filenames->at(i).getLength(), colour);
+		}
 	};
 
 	/**
@@ -125,28 +158,65 @@ public:
 			case 1:
 				if (_filename.getLength() > 0) {
 					_editor->saveLevel(_filename);
+					
+					// Reload the list of levels
+					delete _filenames;
+					
+					_filenames = LevelIO::getLevelNames();
+					
+					renderLevelFileNames();
+				}
+				break;
+			case 30:
+				if (_filename.getLength() > 0) {
+					_editor->deleteLevel(_filename);
+					
+					// Reload the list of levels
+					delete _filenames;
+					
+					_filenames = LevelIO::getLevelNames();
+					if (_selectedFilenameIndex > _filenames->size() - 1) {
+						_selectedFilenameIndex = -1;
+					} else if (_selectedFilenameIndex > -1) {
+						_filename = _filenames->at(_selectedFilenameIndex);
+						renderFilenameTextBox();
+					}
+					
+					renderLevelFileNames();
 				}
 				break;
 			case 28:
 				if (_filename.getLength() < 28) {
 					_filename.append(" ");
-					drawFilename();
+					renderFilenameTextBox();
 				}
 				break;
 			case 29:
 				_filename.remove(_filename.getLength() - 1);
-				drawFilename();
+				renderFilenameTextBox();
+				break;
+			case 32:
+				if (_topFilenameIndex + 8 < _filenames->size()) {
+					++_topFilenameIndex;
+					renderLevelFileNames();
+				}
+				break;
+			case 31:
+				if (_topFilenameIndex > 0) {
+					--_topFilenameIndex;
+					renderLevelFileNames();
+				}
 				break;
 			default:
 				if (_filename.getLength() < 28) {
 					_filename.append(((TextButton*)source)->getText());
-					drawFilename();
+					renderFilenameTextBox();
 				}
 				break;
 		}
 	};
 	
-	void drawFilename() {
+	void renderFilenameTextBox() {
 		_gfx->drawRect(10, 80, 236, 16, COLOUR_WHITE);
 		_gfx->drawFilledRect(11, 81, 234, 14, COLOUR_BLACK);
 		
@@ -155,16 +225,13 @@ public:
 		delete font;
 	};
 	
-	void handleMenuAction(Menu* source) {
-		//switch (source->getId()) {
-	};
-
 private:
 	ButtonBank* _buttons;		/**< Collection of buttons in the panel. */
 	LevelEditor* _editor;		/**< Pointer to the owning level editor. */
 	WoopsiGfx::WoopsiString _filename;	/**< The filename to load/save. */
-	
-	MenuSystem* _menuSystem;
+	WoopsiArray<WoopsiGfx::WoopsiString>* _filenames;
+	int _selectedFilenameIndex;
+	int _topFilenameIndex;
 };
 
 #endif

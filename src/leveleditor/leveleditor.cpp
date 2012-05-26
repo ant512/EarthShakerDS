@@ -310,9 +310,9 @@ void LevelEditor::testLevel() {
 	
 	WoopsiArray<LevelDefinitionBase*> levels;
 	ImmutableLevelDefinition def(LEVEL_WIDTH, LEVEL_HEIGHT, 1, "test",
-								 _levelData, BOULDER_TYPE_YELLOW,
-								 WALL_TYPE_BRICK_RED, SOIL_TYPE_BLUE,
-								 DOOR_TYPE_GREEN);
+								 _levelData, _optionsPanel->getBoulderType(),
+								 _optionsPanel->getWallType(), _optionsPanel->getSoilType(),
+								 _optionsPanel->getDoorType());
 	levels.push_back(&def);
 	
 	GameSession* session = new GameSession();
@@ -369,9 +369,17 @@ void LevelEditor::loadLevel(const WoopsiGfx::WoopsiString& filename) {
 	BitmapServer::changeSoilBmp(def->getSoilType());
 	BitmapServer::changeWallBmp(def->getWallType());
 	BitmapServer::changeDoorBmp(def->getDoorType());
+	
+	_optionsPanel->setBoulderType(def->getBoulderType());
+	_optionsPanel->setSoilType(def->getSoilType());
+	_optionsPanel->setWallType(def->getWallType());
+	_optionsPanel->setDoorType(def->getDoorType());
 
 	delete def;
 
 	redrawAll();
 }
 
+void LevelEditor::deleteLevel(const WoopsiGfx::WoopsiString& filename) {
+	LevelIO::deleteFile(filename);
+}

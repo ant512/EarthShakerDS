@@ -59,6 +59,7 @@ public:
 
 	void saveLevel(const WoopsiGfx::WoopsiString& filename);
 	void loadLevel(const WoopsiGfx::WoopsiString& filename);
+	void deleteLevel(const WoopsiGfx::WoopsiString& filename);
 
 private:
 
