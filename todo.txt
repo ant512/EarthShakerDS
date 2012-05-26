@@ -1,6 +1,0 @@
-Todo
-----
-
- - Teleport effect
- - Level editor:
-   - Finish file selector.
