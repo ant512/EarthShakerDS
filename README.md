@@ -2,8 +2,8 @@ EarthShakerDS
 -------------
 
 EarthShakerDS is a remake of a Sinclair ZX Spectrum game written in 1990 by
-Michael Batty.  It is similar to Boulderdash.  The objective of the game is to
-collect all of the diamonds in each level, avoiding falling boulders, fires,
+Michael Batty.  The objective of the game is to collect all of the diamonds in
+each level, avoiding falling boulders, fires,
 etc.
 
 
