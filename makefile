@@ -30,7 +30,6 @@ GAME_ICON 		:= $(CURDIR)/../icon.bmp
 #---------------------------------------------------------------------------------
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-RELEASE		:=	release
 SOURCES		:=	src src/bmp src/levels src/leveleditor
 INCLUDES	:=	include include/bmp include/blocks include/levels include/leveleditor build
 MUSIC       :=  sfx
@@ -131,8 +130,8 @@ else
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-$(OUTPUT).nds	:	$(OFILES)
-
+$(OUTPUT).nds   :       $(OUTPUT).elf
+$(OUTPUT).elf   :       $(OFILES)
 
 #---------------------------------------------------------------------------------
 # The bin2o rule should be copied and modified
