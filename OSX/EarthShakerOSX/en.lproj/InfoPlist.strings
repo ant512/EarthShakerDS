@@ -1,0 +1,6 @@
+﻿/* Localized versions of Info.plist keys */
+
+CFBundleName = "EarthShakerOSX";
+CFBundleShortVersionString = "EarthShakerOSX version 1.0";
+CFBundleGetInfoString = "EarthShakerOSX version 1.0, Copyright 2011 Antony Dzeryn.";
+NSHumanReadableCopyright = "Copyright 2011 Antony Dzeryn.";
