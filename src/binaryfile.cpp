@@ -129,12 +129,12 @@ u32 BinaryFile::readData(u8 numBytes) {
 u32 BinaryFile::getSize() {
 	
 	// Get current position so we can reset later
-	u32 currentPos = ftell(_file);
+	u32 currentPos = (u32)ftell(_file);
 
 	// Get size of file by seeking to the end
 	u32 size = 0;
 	fseek(_file, 0L, SEEK_END);
-	size = ftell(_file);
+	size = (u32)ftell(_file);
 
 	// Seek back to previous position
 	seek(currentPos);
