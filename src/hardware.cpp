@@ -52,7 +52,7 @@ void Hardware::init() {
 
 	// Set video mode
     _window = SDL_CreateWindow("EarthShaker", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT * 2, 0);
-    _renderer = SDL_CreateRenderer(_window, -1, 0);
+    _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
     SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
     SDL_RenderClear(_renderer);
     SDL_RenderPresent(_renderer);
@@ -95,8 +95,6 @@ void Hardware::waitForVBlank() {
 
 #else
 
-	SDL_Delay(15);
-
     SDL_Rect rect;
     rect.x = 0;
     rect.y = 0;
@@ -107,7 +105,6 @@ void Hardware::waitForVBlank() {
     rect.y = SCREEN_HEIGHT;
     SDL_UpdateTexture(_texture, &rect, _bottomBitmap, SCREEN_WIDTH * sizeof(u16));
 
-    SDL_RenderClear(_renderer);
     SDL_RenderCopy(_renderer, _texture, NULL, NULL);
     SDL_RenderPresent(_renderer);
 
